@@ -1,82 +1,82 @@
 # First Day Prototype
 
-Um **sandbox de design em React** que recria, com alta fidelidade, a loja [firstday.com](https://firstday.com) a partir do tema Shopify de produção.
+A **React design sandbox** that recreates the [firstday.com](https://firstday.com) storefront in high fidelity, built from the production Shopify theme.
 
-Serve para **explorar ideias visuais rápido**: mudar um hero, comparar três alternativas de um card, testar outro layout de PDP ou ajustar só o mobile, sem mexer no Shopify e sem risco para a loja.
+It exists for **fast visual exploration**: change a hero, compare three alternatives of a card, try another PDP layout or tweak only the mobile version, without touching Shopify and without any risk to the live store.
 
-> **Não é a loja.** Não existe backend, checkout, pagamento, conta de cliente nem integração com a Shopify. Carrinho, avaliações e assinaturas são dados de mentira. Marca, textos e imagens pertencem ao First Day.
+> **This is not the store.** There is no backend, checkout, payment, customer account or Shopify integration. The cart, reviews and subscriptions are mock data. Brand, copy and images belong to First Day.
 
 ---
 
-## A ideia
+## The idea
 
-O tema Shopify **é** o design system. Por isso o protótipo não reinventa nada:
+The Shopify theme **is** the design system, so the prototype does not reinvent anything:
 
-- **O CSS original do tema é reaproveitado**, sem Tailwind e sem reescrita.
-- **As classes e a estrutura HTML originais são mantidas** no JSX, então cada seção do protótipo corresponde a uma seção do tema.
-- **Fidelidade vence elegância de código.** Quando houve dúvida entre um React mais limpo e ficar igual ao site, ficou igual ao site.
-- **Desktop e mobile têm o mesmo peso**, com as interações reais: menus, carrinho, galerias, acordeões, seletores.
+- **The original theme CSS is reused**, with no Tailwind and no rewrite.
+- **Original class names and HTML structure are kept** in the JSX, so every section in the prototype maps to a section in the theme.
+- **Fidelity beats code elegance.** When in doubt between cleaner React and matching the site, it matches the site.
+- **Desktop and mobile carry equal weight**, with the real interactions: menus, cart, galleries, accordions, selectors.
 
-## Páginas
+## Pages
 
-| Rota | Template Shopify | O que é |
+| Route | Shopify template | What it is |
 |---|---|---|
 | `/` | `index.hp01-v2` | Home |
-| `/products/kids-calming-magnesium` | `unified-default` | PDP legado |
-| `/products/kids-enrichment-vitamin` | `uniified-default-v2` | PDP novo (implementação separada) |
-| `/pages/tdk-behind-the-science-lp` e `/pages/kde-behind-the-science-lp` | `lp-BTS-master` | Landing "Behind the Science" (teens e kids) |
-| `/pages/sale` | `bfcm-categories` | Página de promoção |
-| `/pages/bundle-builder-v2` | `lp-bundle-v2` | Montador de pack com quiz, todos os estados |
-| `/pages/bundle-quiz` | `lp-bundle-v3` | Buy box de bundle com popup e gaveta |
-| `/__prototype` | | Índice privado de todas as páginas |
+| `/products/kids-calming-magnesium` | `unified-default` | Legacy PDP |
+| `/products/kids-enrichment-vitamin` | `uniified-default-v2` | New PDP (separate implementation) |
+| `/pages/tdk-behind-the-science-lp` and `/pages/kde-behind-the-science-lp` | `lp-BTS-master` | "Behind the Science" landing page (teens and kids) |
+| `/pages/sale` | `bfcm-categories` | Sale page |
+| `/pages/bundle-builder-v2` | `lp-bundle-v2` | Bundle builder with quiz, all states |
+| `/pages/bundle-quiz` | `lp-bundle-v3` | Bundle buy box with popup and summary drawer |
+| `/__prototype` | | Private index of all pages |
 
-O **carrinho** abre como gaveta pelo ícone do header, com itens fixos, barra de progresso do brinde e um seletor discreto (só do protótipo) para alternar os estados. **Todo produto multivitamínico** leva ao PDP novo e **os demais produtos** levam ao PDP legado.
+The **cart** opens as a drawer from the header cart icon, with fixed items, a gift progress bar and a small prototype-only switch to toggle its states. **Every multivitamin product** links to the new PDP and **all other products** link to the legacy PDP.
 
-## Como rodar
+## Running it
 
-Precisa de [Node.js](https://nodejs.org) 18 ou mais novo.
+Requires [Node.js](https://nodejs.org) 18 or newer.
 
 ```bash
 npm install
 npm run dev
 ```
 
-Abra http://localhost:5173 (a lista de páginas está em `/__prototype`).
+Open http://localhost:5173 (the list of pages is at `/__prototype`).
 
-As imagens e vídeos vêm da CDN pública do First Day e são **baixados sozinhos na primeira vez** que cada página abre, ficando guardados em `public/assets/`. A primeira visita a uma página pode ser mais lenta. Se uma imagem não carregar, aparece um espaço "Missing asset - upload image" onde você escolhe um arquivo local (vale só para a sessão do navegador).
+Images and videos come from First Day's public CDN and are **downloaded automatically the first time** each page opens, then stored in `public/assets/`. The first visit to a page can be slower. If an image fails to load, a "Missing asset - upload image" placeholder appears where you can pick a local file (it lasts for the browser session only).
 
-Para gerar a versão de produção do protótipo: `npm run build`.
+To produce a production build of the prototype: `npm run build`.
 
-## Como o projeto é organizado
+## Project structure
 
 ```
 src/
-  pages/       uma página por rota, só lista as seções na ordem do template
-  sections/    uma seção por arquivo, com o nome da seção Shopify
-               (homepage-hero-new.liquid vira HomepageHeroNew.jsx)
-  layout/      header, footer, barra de anúncio e carrinho
-  components/  peças reutilizáveis (Img, acordeão, ondas...)
-  data/        todo o conteúdo mock: produtos, carrinho, navegação, páginas
-  styles/      tokens de design e o CSS do tema Shopify
-tools/         scripts para converter Liquid em CSS/JS
+  pages/       one page per route, only lists the sections in template order
+  sections/    one section per file, named after the Shopify section
+               (homepage-hero-new.liquid becomes HomepageHeroNew.jsx)
+  layout/      header, footer, announcement bar and cart
+  components/  reusable pieces (Img, accordion, waves...)
+  data/        all mock content: products, cart, navigation, pages
+  styles/      design tokens and the Shopify theme CSS
+tools/         scripts that convert Liquid into CSS/JS
 ```
 
-O guia completo para designers, com onde fica cada coisa e como adicionar outro template, está em [`PROTOTYPE_GUIDE.md`](PROTOTYPE_GUIDE.md).
+The full designer guide, covering where everything lives and how to add another template, is in [`PROTOTYPE_GUIDE.md`](PROTOTYPE_GUIDE.md).
 
-## Trabalhando com Claude Code
+## Working with Claude Code
 
-O projeto foi pensado para ser editado por pedidos em linguagem natural. Exemplos:
+The project is built to be edited with plain-language requests. Examples:
 
-- "Redesenha o hero da Home"
-- "Me dá três alternativas para este card de produto"
-- "Muda só a versão mobile do PDP legado"
+- "Redesign the Home hero"
+- "Give me three alternatives for this product card"
+- "Change only the mobile version of the legacy PDP"
 
-Como cada seção é um arquivo com nome claro, a mudança fica isolada e não afeta o resto do site. A skill `firstday-design`, em [`.claude/skills/firstday-design`](.claude/skills/firstday-design/SKILL.md), carrega as regras do design system (cores, tipografia, botões, espaçamentos) para que as ideias novas continuem com cara de First Day. Para alternativas, o original nunca é sobrescrito: cada variante vira um arquivo novo.
+Because every section is a clearly named file, a change stays isolated and does not affect the rest of the site. The `firstday-design` skill, in [`.claude/skills/firstday-design`](.claude/skills/firstday-design/SKILL.md), carries the design system rules (colors, typography, buttons, spacing) so new ideas still look like First Day. For alternatives, the original is never overwritten: each variant becomes a new file.
 
-## O que é simulado
+## What is mocked
 
-Carrinho e adicionar ao carrinho, avaliações do Judge.me, bloco da FrontRowMD, assinaturas, busca, checkout, tradução, testes A/B e o popup da promoção. O contador do bundle builder conta até a meia-noite local.
+Cart and add to cart, Judge.me reviews, the FrontRowMD block, subscriptions, search, checkout, translation, A/B tests and the sale popup. The bundle builder countdown runs to local midnight.
 
 ## Stack
 
-React 18, Vite 5 e React Router 6. Sem backend, sem banco de dados, sem Tailwind.
+React 18, Vite 5 and React Router 6. No backend, no database, no Tailwind.
