@@ -1,0 +1,12 @@
+/* footer-group.json (footer): colors_* settings -> section scoped variables (footer.liquid {% style %}) */
+.shopify-section-footer {
+  --gradient-background: #2c3d50;
+  --color-background: 44, 61, 80;
+  --color-foreground: 255, 255, 255;
+  --color-link: 255, 255, 255;
+  --color-border: 210, 213, 217;
+  --color-heading: 255, 255, 255;
+}
+/* footer-group.json custom_css */
+.footer__content-bottom-wrapper { display: block; margin: 0 auto; }
+.copyright__content { display: inline; }

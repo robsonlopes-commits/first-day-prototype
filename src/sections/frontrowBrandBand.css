@@ -1,0 +1,26 @@
+/* Front Row Health "brand" widget (iframe presentation_type=brand&product_id=4210) as embedded by the custom-liquid block of page.lp-BTS-master:
+   the iframe document's stylesheet, scoped under .general-frontrow-brand-badge. */
+#frontrow-badge.general-frontrow-brand-badge { position: relative; display: flex; justify-content: center; padding: 50px 0; background: #2C3E50; }
+.general-frontrow-brand-badge, .general-frontrow-brand-badge * { letter-spacing: normal; text-transform: none; font-family: 'Open Sans', 'Open sans', sans-serif; }
+.general-frontrow-brand-badge p { margin: 0; font-size: 15px; font-style: normal; font-weight: 400; line-height: 22px; }
+.general-frontrow-brand-badge #embedded p { color: #FFF !important; }
+.general-frontrow-brand-badge button { padding: 0; border: none; background-color: transparent; cursor: pointer; }
+.general-frontrow-brand-badge .bold { display: inline; font-weight: 600; }
+.general-frontrow-brand-badge .italics { display: inline; font-style: italic; }
+.general-frontrow-brand-badge #embedded .heading svg path { stroke: #FFF !important; }
+.general-frontrow-brand-badge #embedded .heading .caduceus-icon svg path { fill: #FFF !important; stroke: none !important; }
+.general-frontrow-brand-badge #embedded { display: flex; flex-direction: column; gap: 8px; max-width: unset; padding: 0 16px; }
+.general-frontrow-brand-badge #embedded > .heading { display: flex; flex-direction: row; gap: 4px; align-items: center; text-align: center; justify-content: center; }
+.general-frontrow-brand-badge #embedded > .heading > p { font-size: 18px; font-weight: 500; line-height: normal; font-family: 'Lora', serif; letter-spacing: 0.3px; }
+.general-frontrow-brand-badge #embedded .main-copy { display: block; line-height: 22px; text-align: center; }
+.general-frontrow-brand-badge #embedded .images { display: inline-flex; align-items: center; vertical-align: middle; margin-right: 6px; }
+.general-frontrow-brand-badge #embedded .images img { width: 20px; height: 20px; display: inline-block; vertical-align: middle; margin-top: 0; border-radius: 100px; object-fit: cover; background-color: #EEE; border: 2px #FFF solid; }
+.general-frontrow-brand-badge #embedded .images img:nth-of-type(2), .general-frontrow-brand-badge #embedded .images img:nth-of-type(3) { margin-left: -8px; }
+.general-frontrow-brand-badge #embedded .provider-inline-group { display: inline-flex; align-items: center; white-space: nowrap; vertical-align: middle; margin-top: -3px; }
+.general-frontrow-brand-badge .left-laurels, .general-frontrow-brand-badge .right-laurels { height: 18px; }
+.general-frontrow-brand-badge .right-laurels { margin-left: 1px; }
+.general-frontrow-brand-badge .caduceus-icon { display: flex; height: 15px; }
+.general-frontrow-brand-badge #embedded button.learn-more-thin { padding: 0 0 4px 0; }
+.general-frontrow-brand-badge #embedded button.learn-more-thin > p { color: #FFF !important; font-size: 15px; text-decoration: underline; text-underline-offset: 4px; text-decoration-thickness: 0.5px; }
+.general-frontrow-brand-badge .nowrap { white-space: nowrap; }
+@media (max-width: 402px) { .general-frontrow-brand-badge #embedded p.main-copy, .general-frontrow-brand-badge #embedded p.main-copy * { font-size: 14px !important; } }

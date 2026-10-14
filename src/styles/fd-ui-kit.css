@@ -1,0 +1,268 @@
+/* snippets/fd-ui-kit.liquid: design-system tokens + utility classes (converted, untouched otherwise) */
+
+  :root {
+    /* Border Radius */
+    --radius-none: 0px;
+    --radius-sm: 4px;
+    --radius-md: 8px;
+    --radius-lg: 12px;
+    --radius-xl: 16px;
+    --radius-2xl: 20px;
+    --radius-full: 50%;
+
+    /* Border Width */
+    --border-none: 0px;
+    --border-hairline: 1px;
+    --border-thin: 2px;
+    --border-thick: 4px;
+    --border-heavy: 8px;
+
+    /* Colors — Brand Primary */
+    --color-brand-noon-blue:      #476DED;
+    --color-brand-late-noon-blue: #5368C2;
+
+    /* Colors — Product */
+    --color-product-multi:      #64DAA1;
+    --color-product-tribiotic:  #DE4343;
+    --color-product-magnesium:  #776CB1;
+    --color-product-brain:      #008780;
+
+    /* Colors — Segment */
+    --color-segment-toddlers: #00847C;
+    --color-segment-kids:     #FFB511;
+    --color-segment-women:    #F78684;
+    --color-segment-teens:    #00B4E4;
+    --color-segment-men:      #5368C2;
+
+    /* Colors — Surface */
+    --color-surface-morning-blue:      #F2FBFF;
+    --color-surface-late-morning-blue: #E4F5FF;
+    --color-surface-white:             #FFFFFF;
+
+    /* Colors — Text */
+    --color-text-on-light-1: #2C3D50;
+    --color-text-on-light-2: #737373;
+    --color-text-on-dark:    #FFFFFF;
+
+    /* Colors — Feedback */
+    --color-feedback-error:   #D24343;
+    --color-feedback-info:    #71767E;
+    --color-feedback-success: #078942;
+    --color-feedback-warning: #F7B31A;
+
+    /* Colors — Helper */
+    --color-helper-outline:   #D7EFFA;
+    --color-helper-black-100: rgba(0, 0, 0, 1);
+    --color-helper-black-75:  rgba(0, 0, 0, 0.75);
+    --color-helper-black-30:  rgba(0, 0, 0, 0.30);
+    --color-helper-black-10:  rgba(0, 0, 0, 0.10);
+    --color-helper-black-5:   rgba(0, 0, 0, 0.05);
+    --color-helper-black-2:   rgba(0, 0, 0, 0.02);
+    --color-helper-white-100: rgba(255, 255, 255, 1);
+    --color-helper-white-75:  rgba(255, 255, 255, 0.75);
+    --color-helper-white-30:  rgba(255, 255, 255, 0.30);
+    --color-helper-white-10:  rgba(255, 255, 255, 0.10);
+    --color-helper-white-5:   rgba(255, 255, 255, 0.05);
+
+    /* Colors — Helper tints (product 10%) */
+    --color-helper-multi-10:      rgba(100, 218, 161, 0.10);
+    --color-helper-tribiotic-10:  rgba(222, 67, 67, 0.10);
+    --color-helper-magnesium-10:  rgba(119, 108, 177, 0.10);
+    --color-helper-brain-10:      rgba(0, 135, 128, 0.10);
+
+    /* Colors — Helper tints (segment 10%) */
+    --color-helper-toddlers-10: rgba(0, 132, 124, 0.10);
+    --color-helper-kids-10:     rgba(255, 181, 17, 0.10);
+    --color-helper-women-10:    rgba(247, 134, 132, 0.10);
+    --color-helper-teens-10:    rgba(0, 180, 228, 0.10);
+    --color-helper-men-10:      rgba(83, 104, 194, 0.10);
+
+    /* Breakpoints */
+    --breakpoint-sm: 0px;      /* Mobile:        0 – 767px,  4 cols,  margin 16px */
+    --breakpoint-md: 768px;    /* Tablet:       768 – 991px,  8 cols,  margin 32px */
+    --breakpoint-lg: 992px;    /* Small Desktop: 992 – 1279px, 12 cols, margin 32px */
+    --breakpoint-xl: 1280px;   /* Large Desktop: 1280 – 1920px, 12 cols, body 1280px */
+
+    /* Outline shadows (hard shadow: 5px 5px 0 0 + matching border) */
+    --shadow-outline-primary:  5px 5px 0 0 var(--color-text-on-light-1);
+    --shadow-outline-toddlers: 5px 5px 0 0 var(--color-segment-toddlers);
+    --shadow-outline-kids:     5px 5px 0 0 var(--color-segment-kids);
+    --shadow-outline-women:    5px 5px 0 0 var(--color-segment-women);
+    --shadow-outline-teens:    5px 5px 0 0 var(--color-segment-teens);
+    --shadow-outline-men:      5px 5px 0 0 var(--color-segment-men);
+
+    /* Outline shadows — hover state (translate 2px + reduced shadow) */
+    --shadow-outline-primary-hover:  3px 3px 0 0 var(--color-text-on-light-1);
+    --shadow-outline-toddlers-hover: 3px 3px 0 0 var(--color-segment-toddlers);
+    --shadow-outline-kids-hover:     3px 3px 0 0 var(--color-segment-kids);
+    --shadow-outline-women-hover:    3px 3px 0 0 var(--color-segment-women);
+    --shadow-outline-teens-hover:    3px 3px 0 0 var(--color-segment-teens);
+    --shadow-outline-men-hover:      3px 3px 0 0 var(--color-segment-men);
+
+    /* Typography — font families */
+    --font-title: 'Gelica', serif;
+    --font-body:  'sofia-pro', sans-serif;
+
+    /* Typography — line heights */
+    --lh-base:  1.4;
+    --lh-tight: 1.3;
+
+    /* Typography — font weights */
+    --fw-regular:  400;
+    --fw-semibold: 600;
+    --fw-bold:     700;
+
+    /* Title sizes — mobile */
+    --font-title-xs-mob:   14px;
+    --font-title-sm-mob:   16px;
+    --font-title-md-mob:   22px;
+    --font-title-lg-mob:   26px;
+    --font-title-xl-mob:   30px;
+    --font-title-xxl-mob:  36px;
+    --font-title-xxxl-mob: 40px;
+
+    /* Title sizes — desktop (≥992px) */
+    --font-title-xs-desk:   16px;
+    --font-title-sm-desk:   18px;
+    --font-title-md-desk:   24px;
+    --font-title-lg-desk:   26px;
+    --font-title-xl-desk:   32px;
+    --font-title-xxl-desk:  36px;
+    --font-title-xxxl-desk: 52px;
+
+    /* Paragraph sizes — mobile */
+    --font-para-xs-mob: 12px;
+    --font-para-sm-mob: 14px;
+    --font-para-md-mob: 16px;
+    --font-para-lg-mob: 18px;
+    --font-para-xl-mob: 20px;
+
+    /* Paragraph sizes — desktop (≥992px) */
+    --font-para-xs-desk: 14px;
+    --font-para-sm-desk: 16px;
+    --font-para-md-desk: 18px;
+    --font-para-lg-desk: 20px;
+    --font-para-xl-desk: 22px;
+
+    /* Responsive aliases — consumed by fd-* components; resolve mobile → desktop at 992px */
+    --font-title-xs:   var(--font-title-xs-mob);
+    --font-title-sm:   var(--font-title-sm-mob);
+    --font-title-md:   var(--font-title-md-mob);
+    --font-title-lg:   var(--font-title-lg-mob);
+    --font-title-xl:   var(--font-title-xl-mob);
+    --font-title-xxl:  var(--font-title-xxl-mob);
+    --font-title-xxxl: var(--font-title-xxxl-mob);
+
+    --font-para-xs: var(--font-para-xs-mob);
+    --font-para-sm: var(--font-para-sm-mob);
+    --font-para-md: var(--font-para-md-mob);
+    --font-para-lg: var(--font-para-lg-mob);
+    --font-para-xl: var(--font-para-xl-mob);
+
+    /* Spacing */
+    --spacing-tiny:  4px;
+    --spacing-nano:  8px;
+    --spacing-xxxs:  12px;
+    --spacing-xxs:   16px;
+    --spacing-xs:    20px;
+    --spacing-sm:    24px;
+    --spacing-md:    32px;
+    --spacing-lg:    40px;
+    --spacing-xl:    48px;
+    --spacing-xxl:   56px;
+    --spacing-xxxl:  64px;
+    --spacing-huge:  72px;
+    --spacing-giant: 80px;
+  }
+
+  /* Responsive aliases — flip to desktop values at ≥992px (for fd-* components) */
+  @media (min-width: 992px) {
+    :root {
+      --font-title-xs:   var(--font-title-xs-desk);
+      --font-title-sm:   var(--font-title-sm-desk);
+      --font-title-md:   var(--font-title-md-desk);
+      --font-title-lg:   var(--font-title-lg-desk);
+      --font-title-xl:   var(--font-title-xl-desk);
+      --font-title-xxl:  var(--font-title-xxl-desk);
+      --font-title-xxxl: var(--font-title-xxxl-desk);
+
+      --font-para-xs: var(--font-para-xs-desk);
+      --font-para-sm: var(--font-para-sm-desk);
+      --font-para-md: var(--font-para-md-desk);
+      --font-para-lg: var(--font-para-lg-desk);
+      --font-para-xl: var(--font-para-xl-desk);
+    }
+  }
+
+  /* Title utilities — mobile (Gelica Bold) */
+  .mob-title-xs   { font-family: var(--font-title); font-weight: var(--fw-bold); font-size: var(--font-title-xs-mob);   line-height: var(--lh-base); }
+  .mob-title-sm   { font-family: var(--font-title); font-weight: var(--fw-bold); font-size: var(--font-title-sm-mob);   line-height: var(--lh-base); }
+  .mob-title-md   { font-family: var(--font-title); font-weight: var(--fw-bold); font-size: var(--font-title-md-mob);   line-height: var(--lh-base); }
+  .mob-title-lg   { font-family: var(--font-title); font-weight: var(--fw-bold); font-size: var(--font-title-lg-mob);   line-height: var(--lh-base); }
+  .mob-title-xl   { font-family: var(--font-title); font-weight: var(--fw-bold); font-size: var(--font-title-xl-mob);   line-height: var(--lh-base); }
+  .mob-title-xxl  { font-family: var(--font-title); font-weight: var(--fw-bold); font-size: var(--font-title-xxl-mob);  line-height: var(--lh-base); }
+  .mob-title-xxxl { font-family: var(--font-title); font-weight: var(--fw-bold); font-size: var(--font-title-xxxl-mob); line-height: var(--lh-tight); }
+
+  /* Paragraph utilities — mobile (Sofia Pro VAR) */
+  .mob-para-xs { font-family: var(--font-body); font-size: var(--font-para-xs-mob); line-height: var(--lh-base); }
+  .mob-para-sm { font-family: var(--font-body); font-size: var(--font-para-sm-mob); line-height: var(--lh-base); }
+  .mob-para-md { font-family: var(--font-body); font-size: var(--font-para-md-mob); line-height: var(--lh-base); }
+  .mob-para-lg { font-family: var(--font-body); font-size: var(--font-para-lg-mob); line-height: var(--lh-base); }
+  .mob-para-xl { font-family: var(--font-body); font-size: var(--font-para-xl-mob); line-height: var(--lh-base); }
+
+  /* Title utilities — desktop (Gelica Bold, ≥992px) */
+  @media (min-width: 992px) {
+    .desk-title-xs   { font-family: var(--font-title); font-weight: var(--fw-bold); font-size: var(--font-title-xs-desk);   line-height: var(--lh-base); }
+    .desk-title-sm   { font-family: var(--font-title); font-weight: var(--fw-bold); font-size: var(--font-title-sm-desk);   line-height: var(--lh-base); }
+    .desk-title-md   { font-family: var(--font-title); font-weight: var(--fw-bold); font-size: var(--font-title-md-desk);   line-height: var(--lh-base); }
+    .desk-title-lg   { font-family: var(--font-title); font-weight: var(--fw-bold); font-size: var(--font-title-lg-desk);   line-height: var(--lh-base); }
+    .desk-title-xl   { font-family: var(--font-title); font-weight: var(--fw-bold); font-size: var(--font-title-xl-desk);   line-height: var(--lh-base); }
+    .desk-title-xxl  { font-family: var(--font-title); font-weight: var(--fw-bold); font-size: var(--font-title-xxl-desk);  line-height: var(--lh-base); }
+    .desk-title-xxxl { font-family: var(--font-title); font-weight: var(--fw-bold); font-size: var(--font-title-xxxl-desk); line-height: var(--lh-tight); }
+  }
+
+  /* Paragraph utilities — desktop (Sofia Pro VAR, ≥992px) */
+  @media (min-width: 992px) {
+    .desk-para-xs { font-family: var(--font-body); font-size: var(--font-para-xs-desk); line-height: var(--lh-base); }
+    .desk-para-sm { font-family: var(--font-body); font-size: var(--font-para-sm-desk); line-height: var(--lh-base); }
+    .desk-para-md { font-family: var(--font-body); font-size: var(--font-para-md-desk); line-height: var(--lh-base); }
+    .desk-para-lg { font-family: var(--font-body); font-size: var(--font-para-lg-desk); line-height: var(--lh-base); }
+    .desk-para-xl { font-family: var(--font-body); font-size: var(--font-para-xl-desk); line-height: var(--lh-base); }
+  }
+
+  /* Font weight modifiers */
+  .fw-regular  { font-weight: var(--fw-regular); }
+  .fw-semibold { font-weight: var(--fw-semibold); }
+  .fw-bold     { font-weight: var(--fw-bold); }
+
+  /* Border Radius utilities */
+  .rounded-none { border-radius: var(--radius-none); }
+  .rounded-sm   { border-radius: var(--radius-sm); }
+  .rounded-md   { border-radius: var(--radius-md); }
+  .rounded-lg   { border-radius: var(--radius-lg); }
+  .rounded-xl   { border-radius: var(--radius-xl); }
+  .rounded-2xl  { border-radius: var(--radius-2xl); }
+  .rounded-full { border-radius: var(--radius-full); }
+
+  /* Border Width utilities */
+  .border-none     { border-width: var(--border-none); }
+  .border-hairline { border-width: var(--border-hairline); }
+  .border-thin     { border-width: var(--border-thin); }
+  .border-thick    { border-width: var(--border-thick); }
+  .border-heavy    { border-width: var(--border-heavy); }
+
+  /* Outline utilities — border-color + hard shadow + hover shrink */
+  .outline-primary  { border-color: var(--color-text-on-light-1);    box-shadow: var(--shadow-outline-primary); }
+  .outline-toddlers { border-color: var(--color-segment-toddlers);   box-shadow: var(--shadow-outline-toddlers); }
+  .outline-kids     { border-color: var(--color-segment-kids);       box-shadow: var(--shadow-outline-kids); }
+  .outline-women    { border-color: var(--color-segment-women);      box-shadow: var(--shadow-outline-women); }
+  .outline-teens    { border-color: var(--color-segment-teens);      box-shadow: var(--shadow-outline-teens); }
+  .outline-men      { border-color: var(--color-segment-men);        box-shadow: var(--shadow-outline-men); }
+
+  .outline-primary:hover  { box-shadow: var(--shadow-outline-primary-hover); }
+  .outline-toddlers:hover { box-shadow: var(--shadow-outline-toddlers-hover); }
+  .outline-kids:hover     { box-shadow: var(--shadow-outline-kids-hover); }
+  .outline-women:hover    { box-shadow: var(--shadow-outline-women-hover); }
+  .outline-teens:hover    { box-shadow: var(--shadow-outline-teens-hover); }
+  .outline-men:hover      { box-shadow: var(--shadow-outline-men-hover); }
+

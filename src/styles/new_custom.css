@@ -1,0 +1,185 @@
+
+.page-width {
+    width: 100%;
+    max-width: 1320px;
+    padding: 0px 16px;
+}
+select {
+    font-family: poppins;
+}
+.rebuy-product-actions button.rebuy-button span {
+    font-family: poppins;
+}
+.accordion .summary__title {
+    align-items: center;
+}
+.rebuy-cart__flyout-announcement-bar-message {
+    padding: 5px 16px!important;
+}
+.rebuy-cart__flyout-item-subscription button.rebuy-button.outline {
+    font-family: 'Poppins';
+}
+.subscription-checkbox span.checkbox-label {
+    color: #2c3e50;
+}
+.rebuy-cart__flyout-actions button.rebuy-button.rebuy-cart__checkout-button.block b {
+    font-family: poppins;
+}
+
+.title {
+    margin: 0  0 40px;
+}
+
+.accordian h3.accordion__title.h4 {
+    color: rgba(44, 62, 80, 1);
+    text-align: left;
+    font-family: Chivo;
+    font-weight: normal;
+    font-style: normal;
+    font-size: 17px;
+}
+.accordian .collapsible-content summary{
+    background: rgba(234, 238, 238, 1);
+    padding: 10px;
+}
+.accordian .collapsible-content summary:hover{
+    background: rgba(234, 238, 238, 1);
+    text-decoration:none;
+}
+.image_blocks .image_expert img.image {
+    width: 100%;
+}
+.image_blocks {
+    padding-bottom: 40px;
+    background-color: #fcf4ea;
+}
+
+
+.jdgm-rev-widg__header h2.jdgm-rev-widg__title {
+    color: #2c3e50!important;
+    font-family: Poppins!important;
+    font-size: 20px;
+    font-weight: 600;
+}
+.jdgm-rev-widg .jdgm-rev-widg__summary-text {
+    font-size: 16px;
+    color: #2c3e50;
+    font-family: 'Poppins';
+    font-weight: 400;
+}
+.jdgm-rev-widg a.jdgm-write-rev-link {
+    color: rgb(44, 62, 80);
+    text-decoration: none;
+}
+.jdgm-rev-widg span.jdgm-rev__timestamp {
+    font-size: 16px;
+    color: #2c3e50;
+    line-height: 1.5;
+    font-family: 'Poppins';
+    font-weight: 400;
+}
+.jdgm-rev-widg span.jdgm-rev__author {
+    font-size: 16px;
+    color: #2c3e50;
+    line-height: 1.5;
+    font-family: 'Poppins';
+    font-weight: 800;
+}
+.jdgm-rev-widg b.jdgm-rev__title {
+    font-size: 16px;
+    color: #2c3e50;
+    line-height: 1.5;
+    font-family: 'Poppins';
+    font-weight: 800;
+}
+.jdgm-rev__body p {
+    color: #4e5f70!important;
+    font-family: Chivo!important;
+    font-weight: 400;
+}
+
+
+
+
+
+.rc_widget__option__selector label.rc-radio__label.rc_widget__option__label {
+    color: #2c3e50;
+    font-size: 16px;
+    font-weight: 600;
+}
+span.rc-option__price.rc_widget__price.rc_widget__price--onetime {
+    font-size: 15px;
+    margin-right: 10px;
+    color: #f3a33d;
+    font-weight: 600;
+    float: right;
+}
+ .rc-radio.rc-option__onetime.rc-option.rc_widget__option.rc_widget__option--onetime.rc-legacy-radio {
+    background: #fff;
+    border-radius: 4px;
+    border: 2px solid #c9cbcc;
+    margin: 14px 0;
+    padding: 6px 0;
+}
+.rc-container .rc-legacy-radio.rc_widget__option--active.rc-option--active{
+border: 2px solid #5495fc!important;
+}
+
+.rc-radio.rc-option__subsave.rc-option.rc_widget__option.rc_widget__option--subsave.rc-legacy-radio{
+    background: #fff;
+    border-radius: 4px;
+    border: 2px solid #c9cbcc;
+    margin: 14px 0;
+    padding: 6px 0;
+}
+.jdgm-revs-tab-btn.btn {
+    display: none;
+}
+a.jdgm-paginate__page.jdgm-paginate__first-page {
+    color: #4e5f70;
+}
+a.jdgm-paginate__page.jdgm-paginate__prev-page {
+    color: #4e5f70;
+}
+a.jdgm-paginate__page {
+    color: #4e5f70;
+}
+.accordian {
+    padding: 34px 0px 20px;
+}
+.jdgm-rev__content b.jdgm-rev__title {
+    font-size: 20px !important;
+}
+.jdgm-rev__icon::after, .jdgm-rev__buyer-badge {
+   background-color: rgb(44, 62, 80)!important;
+}
+
+.jdgm-histogram__percentage {
+    color: #2c3e50;
+    font-family: Poppins;
+    font-weight: 400;
+}
+
+.jdgm-histogram__frequency {
+    color: #2c3e50;
+    font-family: Poppins;
+    font-weight: 400;
+}
+
+
+
+select {
+appearance: none;
+}
+
+
+
+
+
+@media screen and (max-width: 680px) {
+  .image-with-text__content {
+    padding: 0!important;
+}
+
+
+}

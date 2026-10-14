@@ -1,0 +1,316 @@
+/* sections/temp-subnav.liquid {% stylesheet %} (persona pills) */
+.persona-pills {
+  --pp-touch: 44px;
+  --pp-transition: 220ms cubic-bezier(0.2, 0.8, 0.2, 1);
+
+  display: block;
+  position: relative;
+  background: var(--pp-bg);
+  padding-block: var(--pp-pad-top-d) var(--pp-pad-bottom-d);
+  padding-inline: var(--pp-pad-left-d) var(--pp-pad-right-d);
+  isolation: isolate;
+}
+
+@media screen and (max-width: 749px) {
+  .persona-pills {
+    padding-block: var(--pp-pad-top-m) var(--pp-pad-bottom-m);
+    padding-inline: var(--pp-pad-left-m) var(--pp-pad-right-m);
+  }
+}
+
+.persona-pills--divided {
+  border-block-end: var(--pp-divider-width) var(--pp-divider-style) var(--pp-divider-color);
+}
+
+.persona-pills--sticky {
+  transition: box-shadow var(--pp-transition);
+}
+
+.persona-pills--sticky.persona-pills--stuck {
+  box-shadow: 0 6px 18px -10px rgba(15, 23, 41, 0.18);
+}
+
+.persona-pills__sentinel {
+  position: absolute;
+  inset-block-start: -1px;
+  inset-inline: 0;
+  block-size: 1px;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.persona-pills__inner {
+  max-inline-size: 100%;
+  margin-inline: auto;
+}
+
+.persona-pills--container-page .persona-pills__inner {
+  max-inline-size: var(--page-width, 1440px);
+}
+
+.persona-pills--container-narrow .persona-pills__inner {
+  max-inline-size: 960px;
+}
+
+/* Nav layout */
+.persona-pills__nav {
+  display: flex;
+  align-items: center;
+  column-gap: var(--pp-gap-heading);
+  row-gap: 12px;
+  min-inline-size: 0;
+}
+
+.persona-pills--align-center .persona-pills__nav {
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.persona-pills--align-between .persona-pills__nav {
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.persona-pills--heading-above .persona-pills__nav,
+.persona-pills--heading-below .persona-pills__nav {
+  flex-direction: column;
+  align-items: flex-start;
+  row-gap: var(--pp-gap-heading);
+}
+
+.persona-pills--heading-above.persona-pills--align-center .persona-pills__nav,
+.persona-pills--heading-below.persona-pills--align-center .persona-pills__nav {
+  align-items: center;
+}
+
+.persona-pills--heading-below .persona-pills__heading {
+  order: 2;
+}
+
+/* Heading */
+.persona-pills__heading {
+  flex-shrink: 0;
+  margin: 0;
+  color: var(--pp-heading-color);
+  font-family: var(--pp-heading-font);
+  font-style: var(--pp-heading-font-style);
+  font-weight: var(--pp-heading-font-weight);
+  font-size: var(--pp-heading-size-d);
+  line-height: 1.3;
+}
+
+@media screen and (max-width: 749px) {
+  .persona-pills__heading {
+    font-size: var(--pp-heading-size-m);
+  }
+}
+
+/* List */
+.persona-pills__list {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--pp-gap);
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  min-inline-size: 0;
+}
+
+@media screen and (max-width: 749px) {
+  .persona-pills__list {
+    gap: var(--pp-gap-mobile);
+  }
+}
+
+.persona-pills__item {
+  display: inline-flex;
+  margin: 0;
+  padding: 0;
+}
+
+/* Pill */
+.persona-pills__pill {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--pp-icon-gap);
+  min-block-size: var(--pp-touch);
+  padding-block: var(--pp-pill-pad-y);
+  padding-inline: var(--pp-pill-pad-x);
+  border: var(--pp-pill-border-width) solid var(--pp-pill-border);
+  border-radius: var(--pp-pill-radius);
+  background: var(--pp-pill-bg);
+  color: var(--pp-pill-text);
+  font-family: var(--pp-pill-font);
+  font-size: var(--pp-pill-size-d);
+  font-weight: var(--pp-pill-font-weight);
+  letter-spacing: var(--pp-pill-letter-spacing);
+  line-height: 1.2;
+  text-decoration: none;
+  white-space: nowrap;
+  cursor: pointer;
+  transition:
+    background-color var(--pp-transition),
+    border-color var(--pp-transition),
+    color var(--pp-transition),
+    box-shadow var(--pp-transition),
+    transform var(--pp-transition);
+}
+
+@media screen and (max-width: 749px) {
+  .persona-pills__pill {
+    font-size: var(--pp-pill-size-m);
+  }
+}
+
+/* Pill style variants */
+.persona-pills--style-outline .persona-pills__pill { background: transparent; }
+.persona-pills--style-ghost .persona-pills__pill { background: transparent; border-color: transparent; }
+
+/* Pill size presets */
+.persona-pills--size-sm .persona-pills__pill { min-block-size: 36px; }
+.persona-pills--size-lg .persona-pills__pill { min-block-size: 52px; }
+.persona-pills--size-xl .persona-pills__pill {
+  min-block-size: 60px;
+  padding-inline: calc(var(--pp-pill-pad-x) * 1.4);
+}
+
+/* Hover */
+.persona-pills__pill:hover {
+  background: var(--pp-pill-hover-bg);
+  border-color: var(--pp-pill-hover-border);
+  color: var(--pp-pill-hover-text);
+  transform: translateY(-1px);
+  box-shadow: 0 6px 16px -8px rgba(15, 23, 41, 0.15);
+}
+
+.persona-pills--style-ghost .persona-pills__pill:hover {
+  border-color: transparent;
+  box-shadow: none;
+}
+
+/* Focus */
+.persona-pills__pill:focus-visible {
+  outline: 2px solid var(--pp-pill-active-bg);
+  outline-offset: 3px;
+}
+
+/* Active state — three variants */
+.persona-pills--active-filled .persona-pills__pill[aria-current="location"],
+.persona-pills--active-filled .persona-pills__pill--active {
+  background: var(--pp-pill-active-bg);
+  border-color: var(--pp-pill-active-border);
+  color: var(--pp-pill-active-text);
+  box-shadow: 0 6px 18px -6px var(--pp-pill-active-shadow);
+}
+
+.persona-pills--active-tinted .persona-pills__pill[aria-current="location"],
+.persona-pills--active-tinted .persona-pills__pill--active {
+  background: var(--pp-pill-active-tint);
+  border-color: var(--pp-pill-active-border);
+  color: var(--pp-pill-active-bg);
+  box-shadow: inset 0 0 0 1px var(--pp-pill-active-border);
+}
+
+.persona-pills--active-underline .persona-pills__pill[aria-current="location"],
+.persona-pills--active-underline .persona-pills__pill--active {
+  background: transparent;
+  border-color: transparent;
+  color: var(--pp-pill-active-bg);
+  border-radius: 0;
+  border-block-end: 2px solid var(--pp-pill-active-bg);
+}
+
+/* High-contrast mode */
+@media (forced-colors: active) {
+  .persona-pills__pill:focus-visible { outline: 3px solid LinkText; }
+  .persona-pills__pill[aria-current] { outline: 2px solid Highlight; }
+}
+
+/* Icon */
+.persona-pills__icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  inline-size: var(--pp-icon-size);
+  block-size: var(--pp-icon-size);
+  font-size: var(--pp-icon-size);
+  line-height: 1;
+}
+
+.persona-pills__label {
+  display: inline-block;
+  overflow-wrap: break-word;
+  min-inline-size: 0;
+}
+
+.persona-pills__empty {
+  color: var(--pp-heading-color);
+  opacity: 0.6;
+  font-size: 0.875rem;
+  font-style: italic;
+}
+
+/* Mobile horizontal scroll */
+@media screen and (max-width: 749px) {
+  .persona-pills--mobile-scroll .persona-pills__nav {
+    flex-direction: column;
+    align-items: stretch;
+    row-gap: var(--pp-gap-heading);
+  }
+  .persona-pills--mobile-scroll .persona-pills__list {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    scroll-snap-type: x proximity;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    /* Setting overflow-x: auto silently constrains overflow-y to non-visible,
+       which clips the pill borders + drop/inset shadows against the scroll
+       viewport. Adding vertical padding inside the scroll area gives those
+       decorations room to render without clipping. Equivalent negative
+       margin-block keeps the surrounding layout unchanged. */
+    padding-block: 8px 8px;
+    margin-block: -8px -4px;
+    /* Break the scroll viewport out of the section's horizontal padding
+       so the last pill can reach the edge of the screen. The padding is
+       re-applied INSIDE the scroll area so the first/last pills still have
+       breathing room from the viewport edge.
+       The start side gets an extra --pp-gap-mobile so the section-edge →
+       first-pill gap matches the inter-pill gap (consistent rhythm).
+       Matching scroll-padding-inline-start ensures the scroll-snap target
+       respects the padding instead of snapping the first pill flush against
+       the viewport edge. */
+    margin-inline: calc(var(--pp-pad-left-m) * -1) calc(var(--pp-pad-right-m) * -1);
+    padding-inline: calc(var(--pp-pad-left-m) + var(--pp-gap-mobile)) var(--pp-pad-right-m);
+    scroll-padding-inline-start: calc(var(--pp-gap-mobile));
+  }
+  /* Mobile-wrap mode: list has no internal padding, so the first pill sits
+     at the parent .persona-pills's padding-inline-start. Add --pp-gap-mobile
+     directly to the list's padding-inline-start so the first-pill rhythm
+     matches the inter-pill gap. */
+  .persona-pills--mobile-wrap .persona-pills__list {
+    padding-inline-start: var(--pp-gap-mobile);
+  }
+  .persona-pills--mobile-scroll .persona-pills__list::-webkit-scrollbar { display: none; }
+  .persona-pills--mobile-scroll .persona-pills__item {
+    flex-shrink: 0;
+    scroll-snap-align: start;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .persona-pills__pill { transition: none; }
+  .persona-pills__pill:hover { transform: none; }
+}
+
+/* section {% style %}: heading_font / pill_font = assistant_n4 (font_face) */
+@font-face {
+  font-family: Assistant;
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+  src: url("/assets/ext/firstday.com/cdn/fonts/assistant/assistant_n4.9120912a469cad1cc292572851508ca49d12e768.woff2") format("woff2"),
+       url("/assets/ext/firstday.com/cdn/fonts/assistant/assistant_n4.6e9875ce64e0fefcd3f4446b7ec9036b3ddd2985.woff") format("woff");
+}

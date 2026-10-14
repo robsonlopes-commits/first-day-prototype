@@ -1,0 +1,54 @@
+/* Inline <style> of snippets/fd-global-css.liquid (rendered in <head> on every page): helpers, box-sizing, text-block margin reset, media display:block. */
+  [x-cloak] {
+    display: none !important;
+  }
+  .hidden-overflow {
+    overflow: hidden !important;
+  }
+  .visually-hidden {
+    position: absolute !important;
+    overflow: hidden;
+    width: 0.1rem;
+    height: 0.1rem;
+    margin: -0.1rem;
+    padding: 0;
+    border: 0;
+    clip: rect(0 0 0 0);
+    word-wrap: normal !important;
+  }
+  /* Safe sensible defaults — subset of modern-normalize */
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
+
+  /* Remove default top/bottom margins on text blocks (modern-normalize approach).
+     Scoped to block elements — does NOT touch padding, so list/form spacing stays intact. */
+  body,
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  p,
+  figure,
+  blockquote,
+  dl,
+  dd {
+    margin: 0;
+    padding: 0;
+    padding-inline: 0;
+  }
+
+  img,
+  svg,
+  video {
+    display: block;
+    max-width: 100%;
+  }
+  button,
+  a {
+    cursor: pointer;
+  }

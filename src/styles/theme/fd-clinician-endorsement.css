@@ -1,0 +1,140 @@
+.fd-clinician-endorsement {
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 1440px;
+  margin-inline: auto;
+  padding: var(--padding-top-mobile) 16px var(--padding-bottom-mobile);
+  background-color: var(--bg-color);
+  color: #fff;
+  font-family: var(--font-body-family);
+}
+
+.fd-clinician-endorsement__inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  margin-inline: auto;
+}
+
+.fd-clinician-endorsement__badge img {
+  display: block;
+  width: 181px;
+  height: auto;
+}
+
+.fd-clinician-endorsement__copy {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  color: inherit;
+  font-size: 12px;
+  font-weight: 400;
+  letter-spacing: 0;
+  line-height: 1.333;
+  text-align: center;
+}
+
+.fd-clinician-endorsement__copy > * + * {
+  margin-left: 4px;
+}
+
+.fd-clinician-endorsement__avatars {
+  display: block;
+  width: auto;
+  height: 16px;
+}
+
+.fd-clinician-endorsement__copy strong {
+  font-weight: 400;
+}
+
+.fd-clinician-endorsement__copy em {
+  font-style: normal;
+}
+
+.fd-clinician-endorsement__copy a,
+.fd-clinician-endorsement__learn-more {
+  color: inherit;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+button.fd-clinician-endorsement__learn-more {
+  padding: 0;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+  font: inherit;
+}
+
+.fd-clinician-endorsement__frontrow-widget {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.fd-clinician-endorsement__frontrow-widget .iframe-frontrow {
+  width: 1px;
+  height: 1px;
+  border: 0;
+}
+
+.lp-back-to-school .iframe.frontrow[class*='iframe-modal-frontrow-'],
+.lp-back-to-school .iframe.frontrow.iframe-provider-profile-modal {
+  position: fixed;
+  z-index: 99999998;
+  inset: 0;
+  display: none;
+  width: 100%;
+  height: 100%;
+  border: 0;
+  overflow: hidden;
+}
+
+@media screen and (min-width: 750px) {
+  .fd-clinician-endorsement {
+    padding: var(--padding-top-tablet) 20px var(--padding-bottom-tablet);
+  }
+
+  .fd-clinician-endorsement__inner {
+    gap: 8px;
+  }
+
+  .fd-clinician-endorsement__badge img {
+    width: 209px;
+  }
+
+  .fd-clinician-endorsement__copy {
+    flex-wrap: nowrap;
+    width: auto;
+    min-height: 26px;
+    font-size: 15px;
+    line-height: 1.467;
+  }
+
+  .fd-clinician-endorsement__avatars {
+    width: 40px;
+    height: 24px;
+  }
+
+  .fd-clinician-endorsement__copy strong {
+    font-weight: 600;
+  }
+
+  .fd-clinician-endorsement__copy em {
+    font-style: italic;
+  }
+}
+
+@media screen and (min-width: 1200px) {
+  .fd-clinician-endorsement {
+    padding-top: var(--padding-top);
+    padding-bottom: var(--padding-bottom);
+  }
+}

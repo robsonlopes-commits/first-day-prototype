@@ -1,0 +1,10 @@
+/* header-group.json custom_css + header section settings (header.liquid <style> blocks) + snippets/header-drawer.liquid */
+.header__icon--account { display: none !important; }
+.shopify-section-header { --image-logo-height: 30px; }
+@media screen and (min-width: 990px) {
+  .shopify-section-header { --image-logo-height: 54px; --header-padding-block: 12px; }
+  .shopify-section-header .header__desktop-logo { height: 32px; }
+  .shopify-section-header .header__heading-link > .small-hide { display: flex; align-items: center; }
+}
+.variable { z-index: 999999; }
+.menu-drawer__navigation.variable { border-top: none !important; background: #ffffff; }

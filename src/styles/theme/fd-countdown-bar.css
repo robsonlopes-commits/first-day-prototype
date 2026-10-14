@@ -1,0 +1,145 @@
+/*
+  Countdown Bar.
+  Figma 3532:11765. Reuses snippets/temp-countdown-timer.liquid.
+  Every value reads var(--fd-cb-*, <design default>).
+*/
+
+.fd-countdown-bar {
+  background-color: var(--fd-cb-bg-color, #3952a0);
+  padding-top: var(--fd-cb-padding-top-mobile, 0px);
+  padding-right: var(--fd-cb-padding-right-mobile, 0px);
+  padding-bottom: var(--fd-cb-padding-bottom-mobile, 0px);
+  padding-left: var(--fd-cb-padding-left-mobile, 0px);
+}
+
+.fd-countdown-bar .countdown-bar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--fd-cb-gap, 32px);
+  width: 100%;
+  box-sizing: border-box;
+  padding: 12px var(--spacing-xs, 20px);
+  background: transparent;
+}
+
+.fd-countdown-bar .countdown-bar__text {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0;
+  color: var(--fd-cb-title-font-color, #ffffff);
+}
+
+.fd-countdown-bar .countdown-bar__title {
+  margin: 0;
+  color: var(--fd-cb-title-font-color, #ffffff);
+  font-family: var(--fd-cb-title-font-family, "sofia-pro", sans-serif);
+  font-size: var(--fd-cb-title-font-size-mobile, 14px);
+  font-weight: var(--fd-cb-title-font-weight, 700);
+  line-height: 1.4;
+  white-space: nowrap;
+  overflow: visible;
+  text-overflow: unset;
+}
+
+.fd-countdown-bar .countdown-bar__subtitle {
+  margin: 0;
+  color: var(--fd-cb-subtitle-font-color, #ffffff);
+  font-family: var(--fd-cb-subtitle-font-family, "sofia-pro", sans-serif);
+  font-size: var(--fd-cb-subtitle-font-size-mobile, 14px);
+  font-weight: var(--fd-cb-subtitle-font-weight, 400);
+  line-height: 1.4;
+  white-space: nowrap;
+}
+
+.fd-countdown-bar .countdown-bar__timer {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+.fd-countdown-bar .countdown-bar__unit {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  width: var(--fd-cb-unit-size, 44px);
+  height: var(--fd-cb-unit-size, 44px);
+  min-width: var(--fd-cb-unit-size, 44px);
+  padding: 10px;
+  gap: 0;
+  overflow: hidden;
+  border-radius: 8px;
+  background: var(--fd-cb-unit-bg-color, #2c3e50);
+}
+
+.fd-countdown-bar .countdown-bar__number {
+  color: var(--fd-cb-title-font-color, #ffffff);
+  font-family: var(--fd-cb-title-font-family, "sofia-pro", sans-serif);
+  font-size: var(--fd-cb-number-font-size, 14px);
+  font-weight: 400;
+  line-height: 1.4;
+}
+
+.fd-countdown-bar .countdown-bar__label {
+  color: var(--fd-cb-title-font-color, #ffffff);
+  font-family: var(--fd-cb-title-font-family, "sofia-pro", sans-serif);
+  font-size: var(--fd-cb-label-font-size, 12px);
+  font-weight: 400;
+  line-height: 1.4;
+  letter-spacing: 0;
+  text-transform: uppercase;
+}
+
+@media screen and (min-width: 992px) {
+  .fd-countdown-bar {
+    padding-top: var(--fd-cb-padding-top-desktop, 0px);
+    padding-right: var(--fd-cb-padding-right-desktop, 0px);
+    padding-bottom: var(--fd-cb-padding-bottom-desktop, 0px);
+    padding-left: var(--fd-cb-padding-left-desktop, 0px);
+  }
+
+  .fd-countdown-bar .countdown-bar__title {
+    font-size: var(--fd-cb-title-font-size-desktop, 14px);
+  }
+
+  .fd-countdown-bar .countdown-bar__subtitle {
+    font-size: var(--fd-cb-subtitle-font-size-desktop, 14px);
+  }
+}
+
+@media screen and (max-width: 749px) {
+  .fd-countdown-bar .countdown-bar {
+    gap: var(--fd-cb-gap-mobile, 16px);
+    padding: 12px 16px;
+    flex-wrap: nowrap;
+  }
+
+  .fd-countdown-bar .countdown-bar__title {
+    font-size: var(--fd-cb-title-font-size-mobile, 14px);
+  }
+
+  .fd-countdown-bar .countdown-bar__subtitle {
+    font-size: var(--fd-cb-subtitle-font-size-mobile, 14px);
+  }
+
+  .fd-countdown-bar .countdown-bar__number {
+    font-size: var(--fd-cb-number-font-size, 14px);
+  }
+
+  .fd-countdown-bar .countdown-bar__label {
+    font-size: var(--fd-cb-label-font-size, 12px);
+  }
+
+  .fd-countdown-bar .countdown-bar__unit {
+    width: var(--fd-cb-unit-size, 44px);
+    height: var(--fd-cb-unit-size, 44px);
+    min-width: var(--fd-cb-unit-size, 44px);
+    padding: 10px;
+    border-radius: 8px;
+  }
+}

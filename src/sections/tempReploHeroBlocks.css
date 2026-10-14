@@ -1,0 +1,149 @@
+/* blocks/temp-testimonial.liquid {% stylesheet %} */
+.tc-card {
+  background: var(--tc-bg);
+  border: var(--tc-border-width) solid var(--tc-border);
+  border-radius: var(--tc-radius);
+  padding: var(--tc-pad-d);
+  font-family: var(--tc-font, inherit);
+  color: var(--tc-text);
+  display: flex;
+  gap: var(--tc-gap);
+  max-width: var(--tc-max-width);
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.tc-card--horizontal {
+  flex-direction: row;
+  align-items: flex-start;
+}
+
+.tc-card--vertical {
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+/* ── Avatar ── */
+.tc-card__avatar-wrap {
+  flex-shrink: 0;
+}
+
+.tc-card__avatar {
+  width: var(--tc-avatar-d);
+  height: var(--tc-avatar-d);
+  border-radius: 50%;
+  object-fit: cover;
+  display: block;
+}
+
+/* ── Body ── */
+.tc-card__body {
+  display: flex;
+  flex-direction: column;
+  gap: calc(var(--tc-gap) * 0.6);
+  flex: 1;
+  min-width: 0;
+}
+
+/* ── Quote ── */
+.tc-card__quote {
+  margin: 0;
+  font-size: var(--tc-quote-size-d);
+  font-weight: var(--tc-quote-weight);
+  font-style: var(--tc-quote-style);
+  line-height: 1.5;
+  color: var(--tc-text);
+  display: -webkit-box;
+  -webkit-line-clamp: var(--tc-quote-lines);
+  line-clamp: var(--tc-quote-lines);
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  padding-inline-start: 0px !important;
+  border-inline-start: 0px solid transparent !important;
+}
+
+/* Rich text wraps content in <p>; keep it flush so the line-clamp above
+   still measures correctly and the quote isn't pushed by default margins. */
+.tc-card__quote > * {
+  margin: 0;
+}
+
+.tc-card__quote > * + * {
+  margin-top: 0.5em;
+}
+
+/* ── Footer (name + stars side by side) ── */
+.tc-card__footer {
+  display: flex;
+  align-items: center;
+  gap: var(--tc-gap);
+  flex-wrap: wrap;
+}
+
+.tc-card--vertical .tc-card__footer {
+  justify-content: center;
+}
+
+/* ── Author ── */
+.tc-card__author {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.tc-card__name {
+  font-size: var(--tc-name-size-d);
+  font-weight: 700;
+  color: var(--tc-name);
+  white-space: nowrap;
+}
+
+.tc-card__verified {
+  flex-shrink: 0;
+  width: 16px;
+  height: 16px;
+}
+
+/* ── Stars ── */
+.tc-card__stars {
+  display: flex;
+  align-items: center;
+  gap: 1px;
+  flex-shrink: 0;
+}
+
+.tc-card__star {
+  width: var(--tc-star-d);
+  height: var(--tc-star-d);
+  display: block;
+  flex-shrink: 0;
+}
+
+.tc-card__star--full { color: var(--tc-star); }
+.tc-card__star--empty { color: var(--tc-star-empty); }
+
+/* ── Mobile ── */
+@media screen and (max-width: 749px) {
+  .tc-card {
+    padding: var(--tc-pad-m);
+  }
+  .tc-card__avatar {
+    width: var(--tc-avatar-m);
+    height: var(--tc-avatar-m);
+  }
+  .tc-card__quote {
+    font-size: var(--tc-quote-size-m);
+    /* Wrap fully on mobile — no line clamp / truncation */
+    display: block;
+    -webkit-line-clamp: none;
+    overflow: visible;
+  }
+  .tc-card__name {
+    font-size: var(--tc-name-size-m);
+  }
+  .tc-card__star {
+    width: var(--tc-star-m);
+    height: var(--tc-star-m);
+  }
+}

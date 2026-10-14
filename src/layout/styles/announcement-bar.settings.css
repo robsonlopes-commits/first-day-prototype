@@ -1,0 +1,18 @@
+/* header-group.json (announcement_bar_v2_cHwhUB) section settings + the section's own <style> blocks (announcement-bar-v2.liquid) */
+.shopify-section-announcement-bar {
+  --section-padding-top: 0px;
+  --section-padding-bottom: 0px;
+  --color-background: 63, 90, 115;
+  --color-foreground: 255, 255, 255;
+}
+.sale-announcement-badge { margin-top: 1px; }
+.sale-announcement-text--mobile { display: none !important; }
+@media screen and (max-width: 749px) {
+  .sale-announcement-text--desktop { display: none !important; }
+  .sale-announcement-text--mobile { display: flex !important; }
+}
+.shopify-section-announcement-bar .sale-announcement-text { display: flex; align-items: center; gap: 0.4em; flex-wrap: nowrap; line-height: 1; }
+.shopify-section-announcement-bar .sale-announcement-badge {
+  display: inline-flex; align-items: center; background: #ffb511; color: #2c3e50; font-size: 11px; font-weight: 700;
+  padding: 0.25em 0.6em; border-radius: 11px; line-height: 1; letter-spacing: 0.02em; white-space: nowrap; flex-shrink: 0;
+}

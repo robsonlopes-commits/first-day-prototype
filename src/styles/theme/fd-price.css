@@ -1,0 +1,29 @@
+.fd-price {
+  display: inline-flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0 8px;
+}
+
+.fd-price__compare {
+  color: var(--comp-price-color, var(--color-text-subdued, #737373));
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.4;
+  text-decoration: line-through;
+  text-decoration-skip-ink: none;
+  white-space: nowrap;
+}
+
+.fd-price__current {
+  color: var(--price-color, var(--color-text-primary, #2c3d50));
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 1.4;
+  white-space: nowrap;
+}
+
+.fd-price--subscription .fd-price__current,
+.fd-price--otp .fd-price__current {
+  color: var(--price-color, var(--color-feedback-success, #078942));
+}

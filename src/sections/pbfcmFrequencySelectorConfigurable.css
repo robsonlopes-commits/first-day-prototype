@@ -1,0 +1,274 @@
+/* snippets/PBFCM-PDP-frequency-selector-configurable.liquid <style> */
+  .PBFCM-PDP-frequency-selector--configurable .PBFCM-PDP-frequency-selector__label-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+    min-width: 0;
+  }
+
+  .PBFCM-PDP-frequency-selector--configurable .PBFCM-PDP-frequency-selector__label-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 7px 14px;
+    border-radius: 999px;
+    font-size: 13px;
+    font-weight: 800;
+    line-height: 1;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+
+  .PBFCM-PDP-frequency-selector--configurable .PBFCM-PDP-frequency-selector__option--underline .PBFCM-PDP-frequency-selector__underline-label {
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+
+  .PBFCM-PDP-frequency-selector--configurable .PBFCM-PDP-frequency-selector__option--alternate-layout {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .PBFCM-PDP-frequency-selector__corner-icon { flex: 0 0 auto; }
+  .PBFCM-PDP-frequency-selector--configurable .PBFCM-PDP-frequency-selector__alternate-corner-badge {
+    gap: 7px;
+    position: absolute;
+    top: 0;
+    right: 0;
+    z-index: 2;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 9px 18px;
+    border-radius: 0 0 0 16px;
+    font-size: 13px;
+    font-weight: 800;
+    line-height: 1;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+
+  .PBFCM-PDP-frequency-selector--configurable .PBFCM-PDP-frequency-selector__alternate-header {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    width: 100%;
+  }
+
+  .PBFCM-PDP-frequency-selector--configurable .PBFCM-PDP-frequency-selector__alternate-header--has-corner-badge {
+
+  }
+
+  .PBFCM-PDP-frequency-selector--configurable .PBFCM-PDP-frequency-selector__alternate-label-row {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    min-width: 0;
+  }
+
+  .PBFCM-PDP-frequency-selector--configurable .PBFCM-PDP-frequency-selector__alternate-header--has-corner-badge .PBFCM-PDP-frequency-selector__alternate-label-row {
+
+  }
+
+  .PBFCM-PDP-frequency-selector--configurable .PBFCM-PDP-frequency-selector__alternate-price-row {
+    display: flex;
+    align-items: baseline;
+    gap: 4px;
+    flex-wrap: wrap;
+  }
+
+  .PBFCM-PDP-frequency-selector--configurable .PBFCM-PDP-frequency-selector__alternate-price-row .PBFCM-PDP-frequency-selector__price-compare {
+    text-decoration: line-through;
+  }
+
+  .PBFCM-PDP-frequency-selector--configurable .PBFCM-PDP-frequency-selector__price-compare[hidden] {
+    display: none !important;
+  }
+
+  .PBFCM-PDP-frequency-selector--configurable .PBFCM-PDP-frequency-selector__alternate-price-after-mo {
+    font-size: 14px;
+    font-weight: 400;
+    margin-left: 4px;
+    opacity:.75;
+  }
+
+  .PBFCM-PDP-frequency-selector--configurable .PBFCM-PDP-frequency-selector__price-per-day-row {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 16px;
+    width: 100%;
+    box-sizing: border-box;
+    padding-left: 0;
+    color: #2c3e50;
+  }
+
+  .PBFCM-PDP-frequency-selector--configurable .PBFCM-PDP-frequency-selector__option--alternate-layout .PBFCM-PDP-frequency-selector__price-per-day-row {
+    padding-left: 0;
+    margin-top: 0;
+  }
+
+  .PBFCM-PDP-frequency-selector--configurable .PBFCM-PDP-frequency-selector__price-per-day-label,
+  .PBFCM-PDP-frequency-selector--configurable .PBFCM-PDP-frequency-selector__price-per-day-value {
+    font-size: 14px;
+    line-height: 1.35;
+  }
+
+  .PBFCM-PDP-frequency-selector--configurable .PBFCM-PDP-frequency-selector__price-per-day-label {
+    min-width: 0;
+  }
+
+  .PBFCM-PDP-frequency-selector--configurable .PBFCM-PDP-frequency-selector__price-per-day-value {
+    margin-left: auto;
+    font-weight: 700;
+    text-align: right;
+    white-space: nowrap;
+  }
+
+  .PBFCM-PDP-frequency-selector--configurable .PBFCM-PDP-frequency-selector__price-note--below-per-day {
+    display: block;
+    width: 100%;
+    margin-top: 2px;
+  }
+
+  .PBFCM-PDP-frequency-selector--configurable .PBFCM-PDP-frequency-selector__alternate-details-row {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 16px;
+    width: 100%;
+    
+  }
+
+  .PBFCM-PDP-frequency-selector--configurable .PBFCM-PDP-frequency-selector__alternate-delivery-details,
+  .PBFCM-PDP-frequency-selector--configurable .PBFCM-PDP-frequency-selector__alternate-price-per-day {
+    font-size: 14px;
+    line-height: 1.35;
+  }
+
+  .PBFCM-PDP-frequency-selector--configurable .PBFCM-PDP-frequency-selector__alternate-price-per-day {
+    margin-left: auto;
+    font-weight: 700;
+    text-align: right;
+    white-space: nowrap;
+  }
+
+  @media screen and (max-width: 480px) {
+    .PBFCM-PDP-frequency-selector--configurable .PBFCM-PDP-frequency-selector__label-row {
+      gap: 8px;
+    }
+
+    .PBFCM-PDP-frequency-selector--configurable .PBFCM-PDP-frequency-selector__label-badge {
+      padding: 6px 8px;
+      font-size: 10px;
+    }
+
+
+    .PBFCM-PDP-frequency-selector--configurable .PBFCM-PDP-frequency-selector__alternate-corner-badge {
+      padding: 8px 12px;
+      font-size: 10px;
+      border-radius: 0 0 0 12px;
+    }
+
+    .PBFCM-PDP-frequency-selector--configurable .PBFCM-PDP-frequency-selector__alternate-header--has-corner-badge .PBFCM-PDP-frequency-selector__alternate-label-row {
+
+    }
+
+    .PBFCM-PDP-frequency-selector--configurable .PBFCM-PDP-frequency-selector__alternate-details-row {
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .PBFCM-PDP-frequency-selector--configurable .PBFCM-PDP-frequency-selector__alternate-price-per-day {
+      margin-left: 0;
+    }
+  }
+
+  {% comment %}
+   new styling for purple 90 day
+   {% endcomment %}
+    .PBFCM-PDP-frequency-selector__option--alternate-layout
+  .PBFCM-PDP-frequency-selector__badge {
+  display: none;
+}
+
+  .PBFCM-PDP-frequency-selector__option--alternate-layout
+.PBFCM-PDP-frequency-selector__benefits--richtext li::before{
+background-color:#776cb1;
+}
+
+  .PBFCM-PDP-frequency-selector__option--alternate-layout
+.PBFCM-PDP-frequency-selector__expandable {
+border-top:1px solid #776CB130;
+padding-top:12px;
+}
+
+.PBFCM-PDP-frequency-selector__option--alternate-layout
+  .PBFCM-PDP-frequency-selector__price-final {
+  font-size: 24px;
+  color: #776cb1 !important;
+}
+
+.PBFCM-PDP-frequency-selector__option--alternate-layout.PBFCM-PDP-frequency-selector__option--selected {
+  background-color: #f6f6fa;
+  border: 1.5px solid #776cb1;
+}
+
+.PBFCM-PDP-frequency-selector__option--alternate-layout.PBFCM-PDP-frequency-selector__option--selected
+  .PBFCM-PDP-frequency-selector__radio {
+  border-color: #776cb1;
+}
+
+.PBFCM-PDP-frequency-selector__option--alternate-layout.PBFCM-PDP-frequency-selector__option--selected
+  .PBFCM-PDP-frequency-selector__radio-container::after {
+  background-color: #776cb1;
+}
+
+  /* Embedded CTA uses the exact same cart-summary button class/icon as the normal ATC. */
+  .PBFCM-PDP-frequency-selector--configurable .PBFCM-PDP-frequency-selector__embedded-atc {
+    margin-top: 18px;
+  }
+
+  .PBFCM-PDP-frequency-selector--configurable .PBFCM-PDP-frequency-selector__embedded-subtotal {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    width: 100%;
+    color: #2c3e50;
+  }
+
+  .PBFCM-PDP-frequency-selector--configurable .PBFCM-PDP-frequency-selector__embedded-subtotal-label {
+    font-size: 16px;
+    line-height: 1.2;
+    font-weight: 600;
+  }
+
+  .PBFCM-PDP-frequency-selector--configurable .PBFCM-PDP-frequency-selector__embedded-subtotal-prices {
+    display: flex;
+    align-items: baseline;
+    justify-content: flex-end;
+    gap: 14px;
+    white-space: nowrap;
+  }
+
+  .PBFCM-PDP-frequency-selector--configurable .PBFCM-PDP-frequency-selector__embedded-subtotal-compare {
+    color: rgba(44, 62, 80, 0.48);
+    font-size: 16px;
+    line-height: 1.2;
+    text-decoration: line-through;
+    text-decoration-thickness: 1px;
+  }
+
+  .PBFCM-PDP-frequency-selector--configurable .PBFCM-PDP-frequency-selector__embedded-subtotal-sale {
+    color: #776cb1;
+    font-size: 16px;
+    line-height: 1.2;
+    font-weight: 700;
+  }
+  .PBFCM-PDP-cart-summary__breakdown {
+  padding:0px !important;
+}

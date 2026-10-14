@@ -1,0 +1,655 @@
+/* ---- snippets/PBFCM-minicart-gift-progress.liquid ---- */
+
+    /* PBFCM Minicart Gift Progress Styles */
+    .PBFCM-minicart-gift-progress {
+      width: 100%;
+      padding: 20px;
+      background: var(--light-blue);
+    }
+
+    .PBFCM-minicart-gift-progress__card {
+      border: 1px solid #078942;
+      border-radius: 8px;
+    }
+
+    /* Top Section - White Background */
+    .PBFCM-minicart-gift-progress__top {
+      display: flex;
+      gap: 20px;
+      padding: 16px;
+      background: #FFFFFF;
+      align-items: flex-start;
+        border-radius: 8px 8px 0 0;
+    }
+
+    /* Hide the top section once the gift is unlocked to save vertical space */
+    .PBFCM-minicart-gift-progress__card.PBFCM-minicart-gift-progress__bottom--complete .PBFCM-minicart-gift-progress__top {
+      display: none;
+    }
+
+    .PBFCM-minicart-gift-progress__text-container {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .PBFCM-minicart-gift-progress__title {
+      font-family: 'sofia-pro', sans-serif;
+      font-size: 20px;
+      font-weight: 708; /* Bold */
+      line-height: 1.2;
+      color: #2C3D50;
+      margin: 0;
+    }
+
+    .PBFCM-minicart-gift-progress__title-highlight {
+      color: #078942;
+    }
+
+    .PBFCM-minicart-gift-progress__description {
+      font-family: 'sofia-pro', sans-serif;
+      font-size: 14px;
+      font-weight: 400; /* Regular */
+      line-height: 1.4;
+      color: #2C3D50;
+      margin: 0;
+    }
+
+    .PBFCM-minicart-gift-progress__image-container {
+      flex-shrink: 0;
+      width: 65px;
+      height: 75px;
+    }
+
+    .PBFCM-minicart-gift-progress__image {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+
+    /* Bottom Section - Green Background */
+    .PBFCM-minicart-gift-progress__bottom {
+      background: #476DED;
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+        border-radius: 0 0 8px 8px;
+      gap: 12px;
+      transition: background-color 0.3s ease-in-out;
+    }
+
+    .PBFCM-minicart-gift-progress__bottom--complete {
+      background: #078942;
+    }
+
+    /* Round all corners when the top section is hidden in the complete state */
+    .PBFCM-minicart-gift-progress__card.PBFCM-minicart-gift-progress__bottom--complete .PBFCM-minicart-gift-progress__bottom {
+      border-radius: 8px;
+    }
+
+    .PBFCM-minicart-gift-progress__status {
+      font-family: 'sofia-pro', sans-serif;
+      font-size: 16px;
+      font-weight: 400; /* Regular */
+      line-height: 1.4;
+      color: #FFFFFF;
+      text-align: center;
+      margin: 0;
+    }
+
+    /* Progress Bar */
+    .PBFCM-minicart-gift-progress__bar-container {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .PBFCM-minicart-gift-progress__bar-wrapper {
+      flex: 1;
+      position: relative;
+      height: 12px;
+    }
+
+    .PBFCM-minicart-gift-progress__bar-background {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(255, 255, 255, 0.3);
+      border-radius: 100px;
+    }
+
+    .PBFCM-minicart-gift-progress__bar-fill {
+      position: absolute;
+      top: 0;
+      left: 0;
+      height: 100%;
+      background: #F7B31A;
+      border-radius: 100px;
+      transition: width 0.3s ease-in-out, background-color 0.3s ease-in-out;
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      padding-right: 2px;
+    }
+
+    .PBFCM-minicart-gift-progress__bar-fill--complete {
+      background: #FFFFFF;
+    }
+
+    .PBFCM-minicart-gift-progress__bar-mark {
+      width: 8px;
+      height: 8px;
+      background: #FFFFFF;
+      border-radius: 50%;
+      flex-shrink: 0;
+      transition: background-color 0.3s ease-in-out;
+    }
+
+    .PBFCM-minicart-gift-progress__bar-mark--complete {
+      background: #078942;
+    }
+
+    /* Tooltip */
+    .PBFCM-minicart-gift-progress__tooltip {
+      position: absolute;
+      right: 12px;
+      top: 20px;
+      transform: translateX(50%);
+      background: #F7B31A;
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      justify-content: center;
+      padding: 4px 8px;
+      border-radius: 4px;
+      white-space: nowrap;
+      z-index: 10;
+    }
+
+    .PBFCM-minicart-gift-progress__tooltip-original {
+      font-family: 'sofia-pro', sans-serif;
+      font-size: 16px; /* Figma spec */
+      font-weight: 400; /* Regular */
+      line-height: 1.4;
+      color: rgba(255, 255, 255, 0.75); /* White 75% */
+      text-decoration: line-through;
+      text-decoration-skip-ink: none;
+      text-underline-position: from-font;
+    }
+
+    .PBFCM-minicart-gift-progress__tooltip-sale {
+      font-family: 'sofia-pro', sans-serif;
+      font-size: 16px; /* Figma spec */
+      font-weight: 591; /* Semi Bold */
+      line-height: 1.4;
+      color: #2C3D50;
+    }
+
+    .PBFCM-minicart-gift-progress__tooltip-arrow {
+      position: absolute;
+      width: 17px;
+      height: 14px;
+      left: calc(50% + 1px);
+      top: -7px;
+      transform: translateX(-50%);
+    }
+
+    .PBFCM-minicart-gift-progress__tooltip-arrow::after {
+      content: '';
+      position: absolute;
+      bottom: 25%;
+      left: 12.11%;
+      right: 12.11%;
+      top: 5.3%;
+      width: 0;
+      height: 0;
+      border-left: 6px solid transparent;
+      border-right: 6px solid transparent;
+      border-bottom: 10px solid #F7B31A;
+    }
+
+    .PBFCM-minicart-gift-progress__bar-goal {
+      font-family: 'sofia-pro', sans-serif;
+      font-size: 14px;
+      font-weight: 591; /* Semi Bold */
+      line-height: 1.4;
+      color: #FFFFFF;
+      flex-shrink: 0;
+    }
+
+    /* --- Tiered threshold module (rolled out globally) --- */
+    .PBFCM-minicart-gift-progress__ab {
+      display: none;
+    }
+
+    .PBFCM-minicart-gift-progress__legacy {
+      display: none !important;
+    }
+
+    .PBFCM-minicart-gift-progress__ab {
+      display: block;
+    }
+
+    .PBFCM-minicart-gift-progress {
+      padding: 0;
+      background: transparent;
+    }
+
+    .PBFCM-minicart-gift-progress__ab-wrap {
+      background: #e4f5ff;
+      border: 1px solid #e4f5ff;
+      border-radius: 8px;
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .firstday-cart__flyout-content  .PBFCM-minicart-gift-progress__ab-wrap {
+      background: #f2fbff;
+      border: 1px solid #f2fbff;
+    }
+
+    .PBFCM-minicart-gift-progress__ab-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .PBFCM-minicart-gift-progress__ab-headline {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      font-family: 'sofia-pro', sans-serif;
+      font-size: 14px;
+      font-weight: 400;
+      font-variation-settings: 'wght' 400;
+      line-height: 1.4;
+      color: #2c3d50;
+    }
+
+    .PBFCM-minicart-gift-progress__ab-headline strong {
+      font-weight: 591;
+      font-variation-settings: 'wght' 591;
+    }
+
+    .PBFCM-minicart-gift-progress.is-all-unlocked .PBFCM-minicart-gift-progress__ab-headline {
+      flex: 1;
+    }
+
+    .PBFCM-minicart-gift-progress.is-all-unlocked .PBFCM-minicart-gift-progress__ab-headline-icon {
+      display: none;
+    }
+
+    .PBFCM-minicart-gift-progress.is-all-unlocked.is-ab-expanded .PBFCM-minicart-gift-progress__ab-details {
+      display: block;
+    }
+
+    .PBFCM-minicart-gift-progress__ab-headline-icon {
+      width: 24px;
+      height: 24px;
+      flex: 0 0 auto;
+      display: block;
+    }
+
+    .PBFCM-minicart-gift-progress__ab-toggle {
+      appearance: none;
+      background: transparent;
+      border: 0;
+      padding: 0;
+      width: 20px;
+      height: 20px;
+      display: grid;
+      place-items: center;
+      cursor: pointer;
+      transform: rotate(180deg);
+      transition: transform 160ms ease;
+    }
+
+    .PBFCM-minicart-gift-progress__ab-toggle[aria-expanded="true"] {
+      transform: rotate(0deg);
+    }
+
+    .PBFCM-minicart-gift-progress__ab-details {
+      display: none;
+    }
+
+    .PBFCM-minicart-gift-progress.is-ab-expanded .PBFCM-minicart-gift-progress__ab-details {
+      display: block;
+    }
+
+    .PBFCM-minicart-gift-progress__ab-gifts-track {
+      display: flex;
+      gap: 12px;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+      margin: 0;
+      padding: 0;
+      cursor: grab;
+      touch-action: pan-y;
+    }
+
+    .PBFCM-minicart-gift-progress__ab-gifts-track.is-dragging {
+      cursor: grabbing;
+      scroll-snap-type: none;
+      user-select: none;
+    }
+
+    .PBFCM-minicart-gift-progress__ab-gifts-track.is-dragging * {
+      pointer-events: none;
+    }
+
+    .PBFCM-minicart-gift-progress__ab-gifts-track::-webkit-scrollbar {
+      display: none;
+    }
+
+    .PBFCM-minicart-gift-progress.is-single-tier .PBFCM-minicart-gift-progress__ab-gifts-track {
+      overflow-x: hidden;
+      cursor: default;
+      touch-action: auto;
+    }
+
+    .PBFCM-minicart-gift-progress__ab-gift-card {
+      position: relative;
+      flex: 0 0 280px;
+      width: 280px;
+      max-width: calc(100% - 48px);
+      scroll-snap-align: start;
+      background: rgba(0, 0, 0, 0.05);
+      border-radius: 8px;
+      padding: 12px;
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      appearance: none;
+      border: 0;
+      font: inherit;
+      color: inherit;
+      text-align: left;
+      cursor: pointer;
+    }
+
+    .PBFCM-minicart-gift-progress__ab-gift-card:not([data-info-modal-open]) {
+      cursor: default;
+    }
+
+    .PBFCM-minicart-gift-progress.is-single-tier .PBFCM-minicart-gift-progress__ab-gift-card,
+    .PBFCM-minicart-gift-progress:not(.is-all-unlocked) .PBFCM-minicart-gift-progress__ab-gift-card {
+      flex: 1 1 100%;
+      width: 100%;
+      max-width: 100%;
+    }
+
+    .PBFCM-minicart-gift-progress.is-all-unlocked:not(.is-single-tier) .PBFCM-minicart-gift-progress__ab-gifts-track {
+      cursor: grab;
+    }
+
+    .PBFCM-minicart-gift-progress__ab-gift-media {
+      width: 60px;
+      height: 60px;
+      flex: 0 0 auto;
+      border: 1px solid #d7effa;
+      border-radius: 8px;
+      overflow: hidden;
+    }
+
+    .PBFCM-minicart-gift-progress__ab-gift-media img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .PBFCM-minicart-gift-progress__ab-gift-text {
+      flex: 1 1 auto;
+      min-width: 0;
+      padding-right: 24px;
+      font-family: 'sofia-pro', sans-serif;
+      font-size: 14px;
+      line-height: 1.3;
+      color: #2c3d50;
+      overflow: hidden;
+      display: -webkit-box;
+      -webkit-box-orient: vertical;
+      -webkit-line-clamp: 3;
+    }
+
+    .PBFCM-minicart-gift-progress__ab-gift-text .title {
+      font-weight: 591;
+      font-variation-settings: 'wght' 591;
+    }
+
+    .PBFCM-minicart-gift-progress__ab-gift-text .light {
+      font-weight: 300;
+      font-variation-settings: 'wght' 268;
+      display: block;
+    }
+
+    .PBFCM-minicart-gift-progress__ab-gift-info {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      width: 20px;
+      height: 20px;
+      display: block;
+      padding: 0;
+      border: 0;
+      background: transparent;
+      pointer-events: none;
+    }
+
+    .PBFCM-minicart-gift-progress__ab-gift-info img {
+      display: block;
+      width: 20px;
+      height: 20px;
+    }
+
+    .PBFCM-minicart-gift-progress__ab-progress {
+      position: relative;
+      padding-bottom: 22px;
+      overflow: visible;
+    }
+
+    .PBFCM-minicart-gift-progress__ab-bar {
+      position: relative;
+      height: 12px;
+      border-radius: 100px;
+      background: rgba(0, 0, 0, 0.1);
+      overflow: hidden;
+    }
+
+    .PBFCM-minicart-gift-progress__ab-fill {
+      position: absolute;
+      left: 0;
+      top: 0;
+      height: 100%;
+      border-radius: 100px;
+      background: #2c3d50;
+      width: 0%;
+      transition: width 240ms ease;
+    }
+
+    .PBFCM-minicart-gift-progress__ab-tiers {
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: -2px;
+      height: 0;
+      pointer-events: none;
+    }
+
+    .PBFCM-minicart-gift-progress__ab-tier {
+      position: absolute;
+      top: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+      transform: translateX(-50%);
+      white-space: nowrap;
+    }
+
+    .PBFCM-minicart-gift-progress__ab-tier-dot {
+      width: 16px;
+      height: 16px;
+      border-radius: 16px;
+      display: grid;
+      place-items: center;
+      background: #fff;
+      border: 1px solid #2c3d50;
+      padding: 0;
+      box-sizing: border-box;
+      flex-shrink: 0;
+    }
+
+    .PBFCM-minicart-gift-progress__ab-tier-dot.is-reached {
+      background: #2c3d50;
+      border-color: #e4f5ff;
+    }
+
+    .PBFCM-minicart-gift-progress__ab-tier-dot svg {
+      width: 12px;
+      height: 12px;
+      display: block;
+    }
+
+    .PBFCM-minicart-gift-progress__ab-tier-label {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      font-family: 'sofia-pro', sans-serif;
+      font-size: 12px;
+      font-weight: 400;
+      font-variation-settings: 'wght' 400;
+      line-height: 1.4;
+      color: #2c3d50;
+      text-align: center;
+      white-space: nowrap;
+    }
+
+    .PBFCM-minicart-gift-progress__ab-tier-label-sep {
+      line-height: 1;
+      flex: 0 0 auto;
+    }
+
+    /* Tier labels become info-modal triggers once the gift product resolves.
+       The tiers layer is pointer-events: none, so re-enable it on the button. */
+    button.PBFCM-minicart-gift-progress__ab-tier-label {
+      -webkit-appearance: none;
+      appearance: none;
+      margin: 0;
+      padding: 0;
+      background: none;
+      border: 0;
+    }
+
+    .PBFCM-minicart-gift-progress__ab-tier-label.is-clickable {
+      pointer-events: auto;
+      cursor: pointer;
+    }
+
+    /* Underline only the first part of the label ("Free Gift"), not the amount.
+       text-decoration inherits and cannot be undone by a child, so it lives on
+       the child rather than the label itself. */
+    .PBFCM-minicart-gift-progress__ab-tier-label.is-clickable
+      .PBFCM-minicart-gift-progress__ab-tier-label-part:first-of-type {
+      text-decoration: underline;
+      text-decoration-thickness: 1px;
+      text-decoration-color: rgba(44, 61, 80, 0.35);
+      text-underline-offset: 3px;
+    }
+
+    .PBFCM-minicart-gift-progress__ab-tier-label.is-clickable:hover
+      .PBFCM-minicart-gift-progress__ab-tier-label-part:first-of-type,
+    .PBFCM-minicart-gift-progress__ab-tier-label.is-clickable:focus-visible
+      .PBFCM-minicart-gift-progress__ab-tier-label-part:first-of-type {
+      text-decoration-color: currentColor;
+    }
+
+    .PBFCM-minicart-gift-progress__ab-tier-label.is-clickable:focus-visible {
+      outline: 2px solid #2c3d50;
+      outline-offset: 2px;
+      border-radius: 2px;
+    }
+
+    .PBFCM-minicart-gift-progress.is-single-tier .PBFCM-minicart-gift-progress__ab-tier {
+      left: auto !important;
+      right: 10px !important;
+      transform: none !important;
+      align-items: center;
+    }
+
+    .PBFCM-minicart-gift-progress.is-single-tier .PBFCM-minicart-gift-progress__ab-progress {
+      padding-bottom: 24px;
+    }
+
+    .PBFCM-minicart-gift-progress.is-embedded {
+      width: 100%;
+      padding: 0;
+      background: transparent;
+    }
+
+    .PBFCM-minicart-gift-progress.is-embedded.is-all-unlocked:not(.is-single-tier) .PBFCM-minicart-gift-progress__ab-gifts-track {
+      cursor: grab;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+    }
+
+    .PBFCM-minicart-gift-progress.is-embedded.is-all-unlocked:not(.is-single-tier) .PBFCM-minicart-gift-progress__ab-gift-card {
+      flex: 0 0 calc(100% - 48px);
+      width: calc(100% - 48px);
+      max-width: calc(100% - 48px);
+    }
+
+    .PBFCM-minicart-gift-progress.is-embedded .PBFCM-minicart-gift-progress__ab-headline-icon {
+      width: 28px;
+      height: 28px;
+    }
+
+    .PBFCM-minicart-gift-progress.is-embedded .PBFCM-minicart-gift-progress__ab-headline {
+      font-size: 16px;
+    }
+
+    .PBFCM-minicart-gift-progress.is-embedded .PBFCM-minicart-gift-progress__ab-wrap {
+      gap: 20px;
+    }
+
+    .PBFCM-minicart-gift-progress.is-embedded .PBFCM-minicart-gift-progress__ab-tier-label {
+      font-size: 14px;
+    }
+
+    .PBFCM-minicart-gift-progress.is-embedded .PBFCM-minicart-gift-progress__ab-tier-dot {
+      width: 20px;
+      height: 20px;
+    }
+
+    .PBFCM-minicart-gift-progress.is-embedded .PBFCM-minicart-gift-progress__ab-tier-dot svg {
+      width: 15px;
+      height: 15px;
+    }
+
+    .PBFCM-minicart-gift-progress.is-embedded .PBFCM-minicart-gift-progress__legacy .PBFCM-minicart-gift-progress__top {
+      display: none;
+    }
+
+    .PBFCM-minicart-gift-progress.is-embedded .PBFCM-minicart-gift-progress__legacy .PBFCM-minicart-gift-progress__card {
+      border: 0;
+      background: transparent;
+    }
+
+    .PBFCM-minicart-gift-progress.is-embedded .PBFCM-minicart-gift-progress__legacy .PBFCM-minicart-gift-progress__bottom {
+      border-radius: 12px;
+    }
+
+    .PBFCM-minicart-gift-progress.is-embedded {
+      padding: 0;
+      background: transparent;
+    }
+  

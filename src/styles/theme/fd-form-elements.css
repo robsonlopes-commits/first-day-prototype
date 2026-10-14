@@ -1,0 +1,213 @@
+/* ── fd-form-elements.css ── Input Text & Radio ─────────────────────── */
+
+/* ─── Input Text ─────────────────────────────────────────────────────── */
+
+.fd-input {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-tiny);
+  width: 100%;
+}
+
+.fd-input__label {
+  font-family: var(--font-body);
+  font-weight: var(--fw-semibold);
+  font-size: var(--font-para-md);
+  line-height: var(--lh-base);
+  color: var(--color-text-on-light-1);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.fd-input--disabled .fd-input__label {
+  color: var(--color-text-on-light-2);
+}
+
+.fd-input__wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-nano);
+}
+
+.fd-input__field {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-xxs);
+  height: 48px;
+  padding: 0 var(--spacing-xxs);
+  background: var(--color-surface-white);
+  border: 1px solid var(--color-helper-outline);
+  border-radius: var(--radius-sm);
+  width: 100%;
+  transition: border-color 0.15s ease;
+}
+
+.fd-input__field:focus-within {
+  border-color: var(--color-brand-noon-blue);
+}
+
+.fd-input--error .fd-input__field {
+  border-color: var(--color-feedback-error);
+}
+
+.fd-input--disabled .fd-input__field {
+  background: var(--color-helper-black-5);
+  pointer-events: none;
+}
+
+/* Left group — leading icon + input share a tight 8px gap (Figma: spacing/nano) */
+.fd-input__left {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-nano);
+  flex: 1;
+  min-width: 0;
+}
+
+.fd-input__icon {
+  flex-shrink: 0;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  --fd-icon-color: var(--color-text-on-light-2);
+}
+
+.fd-input__field:focus-within .fd-input__icon {
+  --fd-icon-color: var(--color-brand-noon-blue);
+}
+
+/* Error wins over focus — both icons turn red (matches :focus-within specificity, placed later) */
+.fd-input--error .fd-input__field .fd-input__icon {
+  --fd-icon-color: var(--color-feedback-error);
+}
+
+.fd-input__native {
+  all: unset;
+  flex: 1;
+  min-width: 0;
+  font-family: var(--font-body);
+  font-weight: var(--fw-regular);
+  font-size: var(--font-para-sm);
+  line-height: var(--lh-base);
+  color: var(--color-text-on-light-1);
+  background: transparent;
+  border: none;
+  outline: none;
+  width: 100%;
+  height: 100%;
+}
+
+.fd-input__native::placeholder {
+  color: var(--color-text-on-light-2);
+}
+
+.fd-input__native:disabled {
+  color: var(--color-text-on-light-2);
+  cursor: not-allowed;
+}
+
+.fd-input__helper {
+  font-family: var(--font-body);
+  font-weight: var(--fw-regular);
+  font-size: var(--font-para-xs);
+  line-height: var(--lh-base);
+  color: var(--color-helper-black-75);
+  margin: 0;
+}
+
+.fd-input--error .fd-input__helper {
+  color: var(--color-feedback-error);
+}
+
+.fd-input__error {
+  display: none;
+  font-family: var(--font-body);
+  font-weight: var(--fw-regular);
+  font-size: var(--font-para-xs);
+  line-height: var(--lh-base);
+  color: var(--color-feedback-error);
+  margin: 0;
+}
+
+.fd-input--error .fd-input__error {
+  display: block;
+}
+
+/* ─── Radio ──────────────────────────────────────────────────────────── */
+
+.fd-radio {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  flex-shrink: 0;
+}
+
+.fd-radio__native {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  cursor: pointer;
+  margin: 0;
+}
+
+.fd-radio__native:disabled {
+  cursor: not-allowed;
+}
+
+.fd-radio__circle {
+  position: relative;
+  width: 32px;
+  height: 32px;
+  border-radius: var(--radius-full);
+  border: 1.5px solid var(--color-helper-outline);
+  background: var(--color-surface-white);
+  transition: border-color 0.15s ease, border-width 0.15s ease;
+  pointer-events: none;
+}
+
+/* Inner dot — fixed 14px (Figma), centered independent of ring width */
+.fd-radio__circle::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 14px;
+  height: 14px;
+  transform: translate(-50%, -50%);
+  border-radius: var(--radius-full);
+  background: transparent;
+  transition: background-color 0.15s ease;
+}
+
+.fd-radio__native:checked ~ .fd-radio__circle {
+  border-color: var(--color-brand-noon-blue);
+  border-width: 2px;
+}
+
+.fd-radio__native:checked ~ .fd-radio__circle::after {
+  background: var(--color-brand-noon-blue);
+}
+
+.fd-radio--success .fd-radio__native:checked ~ .fd-radio__circle {
+  border-color: var(--color-feedback-success);
+}
+
+.fd-radio--success .fd-radio__native:checked ~ .fd-radio__circle::after {
+  background: var(--color-feedback-success);
+}
+
+.fd-radio__native:disabled ~ .fd-radio__circle {
+  opacity: 0.5;
+}
+
+.fd-radio__native:focus-visible ~ .fd-radio__circle {
+  box-shadow: 0 0 0 3px var(--color-surface-late-morning-blue);
+}

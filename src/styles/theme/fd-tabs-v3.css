@@ -1,0 +1,60 @@
+/* ── fd-tabs-v3.css ── Pill tab / segmented switcher (Figma: v3 / Tabs) ── */
+
+.fd-tabs-v3 {
+  display: inline-flex;
+  align-items: center;
+  padding: var(--spacing-nano); /* 8px */
+  border: 1px solid var(--color-helper-black-5);
+  border-radius: 999px; /* pill — radius-full token is 50% (ellipse), not usable here */
+  background: var(--color-surface-white);
+  width: 100%;
+}
+
+[hidden].fd-tabs-v3 {
+  display: none;
+}
+
+.fd-tabs-v3__item {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  background: transparent;
+  border-radius: 999px;
+  font-family: var(--font-body);
+  font-weight: var(--fw-regular);
+  line-height: var(--lh-base);
+  color: var(--color-text-on-light-1);
+  white-space: nowrap;
+  cursor: pointer;
+  transition:
+    background-color 0.15s ease,
+    color 0.15s ease;
+  flex: 1 1 auto; /* fill container and distribute remaining space evenly */
+}
+
+/* size — medium */
+.fd-tabs-v3--medium .fd-tabs-v3__item {
+  padding: var(--spacing-xxxs) var(--spacing-xs); /* 12px 20px */
+  font-size: var(--font-para-sm); /* 16px desktop */
+}
+
+/* size — small */
+.fd-tabs-v3--small .fd-tabs-v3__item {
+  padding: var(--spacing-nano) var(--spacing-xxs); /* 8px 16px */
+  font-size: var(--font-para-xs); /* 14px desktop */
+}
+
+.fd-tabs-v3__item:not(.fd-tabs-v3__item--active):hover {
+  background: var(--color-helper-black-5);
+}
+
+.fd-tabs-v3__item:focus-visible {
+  outline: 2px solid var(--color-brand-noon-blue);
+  outline-offset: 2px;
+}
+
+.fd-tabs-v3__item--active {
+  background: var(--color-text-on-light-1);
+  color: var(--color-text-on-dark);
+}

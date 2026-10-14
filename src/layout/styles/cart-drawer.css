@@ -1,0 +1,68 @@
+/* Prototype glue for the cart drawer. Everything storefront-looking comes from cart-minicart.css / fd-ab-cart-drawer.css /
+   gift-progress.css (theme CSS). This file only adds: (1) React-friendly open/close animation, (2) things production
+   gets from third parties (Judge.me stars, SavedBy Checkout+ widget), (3) the prototype-only state switch. */
+
+/* production toggles display:none -> block (no animation); keep the overlay mounted so the CSS transitions
+   (opacity/visibility .5s on the overlay, transform .5s on the panel) actually run. */
+.js-menu__context { display: block; }
+.js-menu__context:not(.js-menu__expanded) { pointer-events: none; }
+.js-menu__context:not(.js-menu__expanded) .js-menu { visibility: hidden; transition: background 0.5s, transform 0.5s, visibility 0s 0.5s; }
+
+/* the minicart CSS sets .firstday-cart__flyout position:fixed; inside the sliding panel it must fill the panel */
+#main-nav .firstday-cart__flyout { position: relative; right: auto; top: auto; bottom: auto; height: 100%; border-radius: inherit; }
+#main-nav.ab-cart-drawer .firstday-cart__flyout { transition: none; }
+#main-nav .firstday-cart__flyout-close svg { pointer-events: none; }
+
+/* ---- Judge.me preview badge (stars + count) ---- */
+.jdgm-prev-badge { display: flex; align-items: center; gap: 6px; line-height: 1; margin-top: 6px; }
+.jdgm-prev-badge__stars { display: inline-flex; gap: 2px; }
+.jdgm-star { width: 16px; height: 16px; display: block; }
+.jdgm-prev-badge__text { font-family: 'sofia-pro', sans-serif; font-size: 14px; line-height: 18px; color: #2c3e50; }
+
+/* ---- Checkout+ (SavedBy) block ---- */
+.sb__checkout-container .fd-cplus__protection { display: flex; align-items: center; gap: 6px; width: 100%; font-family: 'sofia-pro', sans-serif; color: #111; }
+.fd-cplus__mark { flex: 0 0 auto; width: 28px; height: 28px; }
+.fd-cplus__protection-text { flex: 1 1 auto; min-width: 0; font-size: 12px; line-height: 1.3; letter-spacing: 0; white-space: nowrap; }
+.fd-cplus__protection-title { font-size: 16px; }
+.fd-cplus__help { flex: 0 0 auto; border: 0; background: none; padding: 0; color: #737373; cursor: pointer; display: flex; }
+.fd-cplus__button {
+  width: 100%; height: 48px; display: flex; align-items: center; justify-content: center; gap: 8px; cursor: pointer;
+  border: 1px solid #2c3d50; border-radius: 2000px; background: #476ded; color: #fff;
+  box-shadow: 5px 5px 0 0 #2c3d50; font-family: 'sofia-pro', sans-serif; font-size: 18px; font-weight: 600; line-height: 20px;
+  text-transform: uppercase; box-sizing: border-box; transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+.fd-cplus__button:hover:not(:disabled) { transform: translate(2px, 2px); box-shadow: 3px 3px 0 0 #2c3d50; }
+.fd-cplus__button:disabled { opacity: 0.5; cursor: not-allowed; box-shadow: none; }
+.fd-cplus__button b { font-weight: 700; }
+.fd-cplus__lock { width: 0.875em; height: 1em; flex: 0 0 auto; }
+.fd-cplus__skip {
+  border: 0; background: none; padding: 0; cursor: pointer; color: #2c3d50; text-decoration: underline; text-underline-offset: 2px;
+  font-family: 'sofia-pro', sans-serif; font-size: 16px; line-height: 1.3;
+}
+
+/* ---- prototype-only cart state switch (NOT storefront UI) ---- */
+.proto-cart-toggle {
+  position: fixed; left: 8px; bottom: 8px; z-index: 2147483647; display: flex; flex-direction: column; align-items: flex-start; gap: 4px;
+  font: 11px/1.2 system-ui, sans-serif; color: #fff;
+}
+.proto-cart-toggle__chip, .proto-cart-toggle__options button {
+  font: inherit; color: inherit; border: 1px dashed rgba(255, 255, 255, 0.6); background: rgba(20, 20, 20, 0.9); border-radius: 4px;
+  padding: 3px 6px; cursor: pointer; opacity: 0.7;
+}
+.proto-cart-toggle__chip:hover, .proto-cart-toggle__options button:hover { opacity: 1; }
+.proto-cart-toggle__options { display: flex; flex-direction: column; gap: 3px; }
+.proto-cart-toggle__options button { text-align: left; }
+.proto-cart-toggle__options button.is-on { background: #fff; color: #111; opacity: 1; }
+@media (max-width: 767px) {
+  /* mobile drawer is full width: park the chip in the strip above the drawer */
+  .proto-cart-toggle { left: 8px; top: 0; bottom: auto; }
+  .proto-cart-toggle__chip { font-size: 8px; line-height: 10px; padding: 0 4px; border-radius: 0 0 4px 4px; border-top: 0; }
+}
+
+/* ---- section-scoped colour overrides from sections/cart-drawer.liquid (cart-drawer-group.json values) ---- */
+.shopify-section--cart-drawer .firstday-cart__flyout-header { background-color: #ffffff; color: #2c3e50; }
+.shopify-section--cart-drawer .firstday-cart__flyout-title { color: #2c3e50; text-align: left; }
+.shopify-section--cart-drawer .firstday-cart__flyout-close svg { fill: #2c3e50; }
+.shopify-section--cart-drawer .new-mini-cart-checkout-button { background-color: #486ced; color: #ffffff; }
+.shopify-section--cart-drawer .firstday_secundary_minicart_button { background-color: #ffffff; color: #152e3c; border: 1px solid #152e3c; }
+.shopify-section--cart-drawer .firstday-cart__flyout-header .upsell-ui-container { margin: 0; padding: 0; }

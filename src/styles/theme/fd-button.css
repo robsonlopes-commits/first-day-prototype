@@ -1,0 +1,203 @@
+.fd-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  font-family: var(--font-body);
+  font-weight: var(--fw-semibold);
+  line-height: var(--lh-base);
+  text-decoration: none;
+  white-space: nowrap;
+  cursor: pointer;
+  position: relative;
+  /* Transparent border by default — reserves the 1px slot (border-box keeps size
+     identical) so variants only set border-color where a visible border is needed */
+  border: var(--border-hairline) solid transparent;
+  transition:
+    background 0.2s ease,
+    color 0.2s ease;
+}
+
+.fd-btn-reset {
+  background: none;
+  border: none;
+  padding: 0;
+  margin: 0;
+  display: inline-flex;
+}
+
+/* Outline base moved here from fd-ui-kit — scoped to buttons only.
+   Border style/width come from .fd-btn; outline classes only add color + hard shadow */
+.fd-btn[class*="outline-"] {
+  transition:
+    background 0.2s ease,
+    color 0.2s ease,
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+.fd-btn[class*="outline-"]:hover {
+  transform: translate(2px, 2px);
+}
+.fd-btn[class*="outline-"]:active {
+  transform: translate(5px, 5px);
+}
+
+.fd-btn:disabled,
+.fd-btn--disabled {
+  opacity: 0.4;
+  pointer-events: none;
+  cursor: not-allowed;
+}
+
+/* ─── Loading state ─── label fades (keeps button width — no jump), a centered fd-loader overlays ── */
+.fd-btn-text {
+  transition: opacity 0.15s ease;
+}
+
+.fd-btn.is-loading .fd-btn-text {
+  opacity: 0;
+}
+
+/* Sizes */
+.fd-btn--small {
+  height: 34px;
+  padding: 0 16px;
+  gap: 4px;
+  font-size: var(--font-para-sm);
+}
+.fd-btn--medium {
+  height: 40px;
+  padding: 0 28px;
+  font-size: var(--font-para-md);
+}
+.fd-btn--large {
+  height: 48px;
+  padding: 0 32px;
+  font-size: var(--font-para-lg);
+}
+
+/* Shapes */
+.fd-btn-shape--pill {
+  border-radius: 2000px;
+}
+.fd-btn-shape--box {
+  border-radius: 10px;
+}
+
+/* ─── V2: Primary ────────────────────────────────────────────── */
+.fd-btn--primary {
+  background: var(--color-brand-noon-blue);
+  color: var(--color-text-on-dark);
+  font-weight: var(--fw-regular);
+}
+.fd-btn--primary:hover {
+  background: var(--color-brand-late-noon-blue);
+}
+
+/* ─── V1: Noon Blue ──────────────────────────────────────────── */
+.fd-btn--noon-blue {
+  background: var(--color-brand-noon-blue);
+  color: var(--color-text-on-dark);
+}
+.fd-btn--noon-blue:hover {
+  background: var(--color-brand-late-noon-blue);
+}
+
+/* ─── V2: Secondary (white surface, hairline border) ─────────── */
+.fd-btn--secondary {
+  background: var(--color-surface-white);
+  border-color: var(--color-helper-black-10);
+  color: var(--color-text-on-light-1);
+  font-weight: var(--fw-regular);
+}
+/* Hover: surface tints to black-2; border unchanged, no shadow (Figma) */
+.fd-btn--secondary:hover {
+  background: var(--color-helper-black-2);
+}
+
+/* ─── V2: Reversed (white surface, no border — for colored/dark sections) ── */
+.fd-btn--reversed {
+  background: var(--color-surface-white);
+  color: var(--color-text-on-light-1);
+  font-weight: var(--fw-regular);
+}
+/* Hover: surface tints to black-2 (Figma) */
+.fd-btn--reversed:hover {
+  background: var(--color-helper-black-2);
+}
+
+/* ─── V1: Morning Blue ───────────────────────────────────────── */
+.fd-btn--morning-blue {
+  background: var(--color-surface-morning-blue);
+  color: var(--color-text-on-light-1);
+}
+.fd-btn--morning-blue:hover {
+  background: var(--color-surface-late-morning-blue);
+}
+
+/* ─── V1: White ──────────────────────────────────────────────── */
+.fd-btn--white {
+  background: var(--color-surface-white);
+  color: var(--color-text-on-light-1);
+}
+.fd-btn--white:hover {
+  background: var(--color-surface-white);
+}
+
+/* ─── Shared: Success ────────────────────────────────────────── */
+.fd-btn--success {
+  background: var(--color-feedback-success);
+  color: var(--color-text-on-dark);
+}
+.fd-btn--success:hover {
+  background: var(--color-feedback-success);
+}
+
+/* ─── Shared: Ghost (no surface; blue label darkens on hover) ── */
+.fd-btn--ghost {
+  background: transparent;
+  color: var(--color-brand-noon-blue);
+}
+.fd-btn--ghost:hover {
+  color: var(--color-text-on-light-1);
+}
+
+/* ─── Link ───────────────────────────────────────────────────── */
+.fd-btn--link {
+  background: none;
+  border: none;
+  border-radius: 0;
+  height: auto;
+  padding: 0;
+  gap: 0;
+  position: relative;
+  color: var(--color-brand-noon-blue);
+  font-weight: var(--fw-bold);
+  font-size: var(--font-para-sm);
+  transition: color 0.2s ease;
+}
+.fd-btn--link::after {
+  content: "";
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  right: 100%;
+  height: 1px;
+  background: var(--color-brand-noon-blue);
+  transition:
+    right 0.2s ease,
+    background 0.2s ease;
+}
+.fd-btn--link:hover {
+  color: var(--color-brand-late-noon-blue);
+}
+.fd-btn--link:hover::after {
+  right: 0;
+  background: var(--color-brand-late-noon-blue);
+}
+
+@media (min-width: 992px) {
+  .fd-btn--link {
+    font-size: var(--font-para-md);
+  }
+}

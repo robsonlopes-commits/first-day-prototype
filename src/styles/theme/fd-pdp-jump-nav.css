@@ -1,0 +1,170 @@
+/*
+  PDP Jump Nav.
+
+  Figma 5561:17843 (desktop) and 5561:17493 (mobile).
+  Sticky in-page tabs. Active state is a 4px noon-blue underline.
+  Every value reads var(--fd-jn-*, <design default>).
+*/
+
+.fd-pdp-jump-nav-section {
+  position: sticky;
+  /* Overlap the header by 1px so a subpixel seam cannot show page content through. */
+  inset-block-start: var(--header-height-1, var(--header-height, 0px));
+  z-index: 99;
+  overflow: visible;
+  background-color: var(--fd-jn-bg-color, var(--color-surface-white, #ffffff));
+  box-shadow: none;
+  transition: inset-block-start 0.2s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+/*
+  base.css sets content-visibility: auto on every shopify-section after the first.
+  Once this bar's original slot scrolls off-screen the browser skips painting it,
+  so sticky never kicks in and the nav just vanishes. Force it to stay in the tree.
+*/
+[data-page-rendering] .shopify-section.fd-pdp-jump-nav-section,
+.fd-pdp-jump-nav-section {
+  content-visibility: visible;
+}
+
+fd-pdp-jump-nav {
+  display: block;
+}
+
+body:has(.mobile-navbar.header-scroll--hidden) .fd-pdp-jump-nav-section {
+  inset-block-start: 0;
+  z-index: 101;
+}
+
+.fd-jump-anchor {
+  height: 0;
+  overflow: hidden;
+  scroll-margin-top: calc(var(--header-height, 0px) + var(--fd-jn-height, 70px));
+}
+
+body:has(.mobile-navbar.header-scroll--hidden) .fd-jump-anchor {
+  scroll-margin-top: var(--fd-jn-height, 70px);
+}
+
+.fd-jn {
+  position: relative;
+  background-color: var(--fd-jn-bg-color, var(--color-surface-white, #ffffff));
+  border-top: 0;
+  border-bottom: 1px solid var(--color-helper-outline, #d7effa);
+  box-shadow: none;
+  padding: var(--fd-jn-padding-top-mobile, 12px) var(--fd-jn-padding-right-mobile, 0px)
+    var(--fd-jn-padding-bottom-mobile, 0px) var(--fd-jn-padding-left-mobile, 0px);
+}
+
+.fd-jn__list {
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: stretch;
+  justify-content: flex-start;
+  gap: 0;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  overflow-x: auto;
+  overflow-y: hidden;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+
+.fd-jn__list::-webkit-scrollbar {
+  display: none;
+}
+
+.fd-jn__item {
+  flex: none;
+}
+
+.fd-jn__link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* Extra bottom padding mirrors desktop so the 4px active underline does not
+     optically pull the label down. */
+  padding: 12px 16px 14px;
+  border: 0;
+  background: transparent;
+  box-shadow: none;
+  font-family: var(--fd-jn-font-family, var(--font-body, 'sofia-pro', sans-serif));
+  font-size: var(--fd-jn-font-size-mobile, 14px);
+  font-weight: var(--fd-jn-font-weight, 600);
+  line-height: var(--fd-jn-line-height, 1.4);
+  letter-spacing: 0;
+  text-align: center;
+  text-decoration: none;
+  text-transform: capitalize;
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+.fd-jn__link,
+.fd-jn__link:link,
+.fd-jn__link:visited {
+  color: var(--fd-jn-inactive-color, var(--color-text-on-light-1, #2c3d50));
+}
+
+.fd-jn__link.is-active,
+.fd-jn__link.is-active:link,
+.fd-jn__link.is-active:visited,
+.fd-jn__link[aria-current='true'] {
+  color: var(--fd-jn-active-color, var(--color-brand-noon-blue, #476ded));
+  box-shadow: inset 0 -4px 0 var(--fd-jn-active-color, var(--color-brand-noon-blue, #476ded));
+}
+
+.fd-jn__link:focus-visible {
+  outline: 2px solid var(--fd-jn-active-color, var(--color-brand-noon-blue, #476ded));
+  outline-offset: 2px;
+}
+
+.fd-jn.is-stuck {
+  padding-top: 0;
+}
+
+/* Seal any remaining hairline between sticky header and jump nav. */
+.fd-jn.is-stuck::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: -1px;
+  height: 1px;
+  background-color: var(--fd-jn-bg-color, var(--color-surface-white, #ffffff));
+  pointer-events: none;
+}
+
+body:has(.fd-pdp-jump-nav-section)
+  .shopify-section-header-sticky:not(.shopify-section-header-hidden)
+  .header::after {
+  box-shadow: none;
+}
+
+@media (min-width: 992px) {
+  .fd-jn {
+    padding: var(--fd-jn-padding-top-desktop, 12px) var(--fd-jn-padding-right-desktop, 0px)
+      var(--fd-jn-padding-bottom-desktop, 0px) var(--fd-jn-padding-left-desktop, 0px);
+  }
+
+  .fd-jn.is-stuck {
+    padding-top: 0;
+  }
+
+  .fd-jn__list {
+    justify-content: center;
+    gap: var(--fd-jn-item-gap-desktop, 0px);
+  }
+
+  .fd-jn__link {
+    padding: 16px 24px 20px;
+    font-size: var(--fd-jn-font-size-desktop, 16px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}

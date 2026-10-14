@@ -1,0 +1,96 @@
+/* snippets/savings-display.liquid <style> */
+  .fd-savings-display {
+    margin: 16px 0;
+    font-family: inherit;
+    /* Base type size for the whole block. The label and every price derive from it,
+       so font_scale moves them together. */
+    --fd-savings-font-size: calc(14px * var(--fd-savings-scale, 1));
+    font-size: var(--fd-savings-font-size);
+  }
+
+  .fd-savings-display [hidden] {
+    display: none !important;
+  }
+
+  .fd-savings-display__row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+
+  .fd-savings-display__label {
+    font-weight: 700;
+    font-size: var(--fd-savings-font-size);
+    line-height: 1.2;
+    color: #4a4a4a;
+  }
+
+  .fd-savings-display__prices {
+    display: inline-flex;
+    align-items: center;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    gap: 10px;
+    /* Shared price size so the chip, compare and final all match the subtotal. */
+    --fd-savings-price-size: var(--fd-savings-font-size);
+  }
+
+  .fd-savings-display__compare {
+    color: #9b9b9b;
+    text-decoration: line-through;
+    font-size: var(--fd-savings-price-size);
+    line-height: 1.2;
+    font-weight: 500;
+    white-space: nowrap;
+  }
+
+  .fd-savings-display__savings {
+    background-color: var(--fd-savings-success, #078942);
+    color: #ffffff;
+    font-weight: 600;
+    padding: 6px 12px 8px;
+    border-radius: 999px;
+    font-size: var(--fd-savings-price-size);
+    line-height: 1.2;
+    white-space: nowrap;
+  }
+
+  .fd-savings-display__final {
+    color: var(--fd-savings-success, #078942);
+    font-weight: 700;
+    font-size: var(--fd-savings-price-size);
+    line-height: 1.2;
+    white-space: nowrap;
+  }
+
+  /* Mounts for the relocated cart summary. Collapse to nothing until the script moves
+     something in, so an empty mount never adds spacing. */
+  .fd-savings-display-attach {
+    display: block;
+  }
+
+  .fd-savings-display-attach--rows {
+    margin-top: var(--fd-attach-gap, 16px);
+  }
+
+  .fd-savings-display-attach:empty {
+    display: none;
+  }
+
+  /* The shell the pieces came out of keeps `padding: 16px 0`, which would leave a gap
+     in the purchase content once it is empty. */
+  .PBFCM-PDP-cart-summary__breakdown--relocated {
+    padding: 0;
+  }
+
+  /* Gift-line-only mode: hide every breakdown row except the free gift line — the
+     subtotal, the savings badge, the divider, the product quantity line, the upsell
+     lines and shipping all go.
+     The rows stay in the DOM — PBFCM-PDP-controller.js sums their prices and
+     PBFCM-PDP-gift-progress.liquid reads the subtotal to evaluate the threshold. */
+  .PBFCM-PDP-cart-summary_container_breakdown--gift-only
+    > *:not(#PBFCM-breakdown-gift-line) {
+    display: none;
+  }

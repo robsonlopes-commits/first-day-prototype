@@ -1,0 +1,252 @@
+/* Converted from snippets/pbfcm-product-card-item.liquid (per-card uid suffix dropped; settings via CSS vars) */
+
+    .pbfcm-product-card {
+        background: var(--pc-card-bg, #ffffff);
+        border: 1px solid #d7effa;
+        border-radius: var(--pc-card-radius, 12px);
+        padding: 16px;
+        padding-bottom: 21px;
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+        position: relative;
+        transition: border-color 0.2s ease;
+        height: 100%;
+    }
+
+    .pbfcm-product-card:hover {
+        border-color: var(--color-brand-primary-noon-blue, #476DED);
+    }
+
+    .pbfcm-card-image {
+        position: relative;
+        border-radius: 8px;
+        overflow: hidden;
+        background: #f5f5f5;
+    }
+
+    .pbfcm-card-image img {
+        width: 100%;
+        height: 160px;
+        object-fit: cover;
+        display: block;
+    }
+
+    [data-ratio="portrait"] .pbfcm-card-image img {
+        height: 200px;
+    }
+    [data-ratio="landscape"] .pbfcm-card-image img {
+        height: 120px;
+    }
+
+    .pbfcm-badge {
+        position: absolute;
+        top: 24px;
+        right: 24px;
+        background: var(--pc-badge-bg, #078942);
+        color: #ffffff;
+        padding: 4px 12px;
+        border-radius: 200px;
+        font-size: 16px;
+        font-weight: 400;
+        font-family: 'sofia-pro', sans-serif;
+        line-height: 1.4;
+        z-index: 2;
+    }
+
+    .pbfcm-card-info {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        flex: 1;
+    }
+
+    .pbfcm-card-title {
+        font-family: 'sofia-pro', sans-serif;
+        font-size: 18px;
+        font-weight: 708;
+        color: #2c3d50;
+        line-height: 1.4;
+        margin: 0;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        max-width: 295.5px;
+        transition: color 0.2s ease;
+    }
+
+    .pbfcm-product-card:hover .pbfcm-card-title {
+        color: #476DED;
+    }
+
+    .pbfcm-card-description {
+        font-family: 'sofia-pro', sans-serif;
+        font-size: 16px;
+        font-weight: 400;
+        color: #2c3d50;
+        line-height: 1.4;
+        margin: 0;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+    }
+
+    .pbfcm-card-footer {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        width: 100%;
+        margin-top: auto;
+    }
+
+    .pbfcm-card-actions {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        width: 100%;
+    }
+
+    .pbfcm-price-container {
+        display: flex;
+        flex-direction: row;
+        gap: 8px;
+        text-align: center;
+        align-items: center;
+    }
+
+    .pbfcm-compare-price {
+        font-family: 'sofia-pro', sans-serif;
+        font-size: 16px;
+        font-weight: 400;
+        color: #737373;
+        line-height: 1.4;
+        text-decoration: line-through;
+        margin: 0;
+    }
+
+    .pbfcm-price {
+        font-family: 'sofia-pro', sans-serif;
+        font-size: 18px;
+        font-weight: 708;
+        color: var(--pc-sale-color, #078942);
+        line-height: 1.4;
+        margin: 0;
+    }
+
+    .pbfcm-see-ingredients.fd-see-ingredients {
+        flex-shrink: 0;
+    }
+
+    .pbfcm-quick-add {
+        background: #ffffff;
+        border: 1px solid rgba(0, 0, 0, 0.1);
+        border-radius: 2000px;
+        width: auto;
+        height: 40px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        transition: background 0.2s ease, border-color 0.2s ease;
+        box-shadow: none;
+        padding: 0 28px;
+        flex-shrink: 0;
+        font-family: 'sofia-pro', sans-serif;
+        font-size: 16px;
+        font-weight: 400;
+        color: #2c3d50;
+        line-height: 1.4;
+        margin-left: auto;
+    }
+
+    .pbfcm-quick-add:hover {
+        transform: none;
+        box-shadow: none;
+        background: rgba(250, 250, 250, 0.9);
+    }
+
+    .pbfcm-quick-add:active {
+        transform: none;
+        box-shadow: none;
+    }
+
+    .pbfcm-quick-add:disabled {
+        opacity: 0.55;
+        cursor: not-allowed;
+    }
+
+    .pbfcm-target-cta {
+        background: #ffffff;
+        border: 1px solid #2c3d50;
+        border-radius: 2000px;
+        width: 100%;
+        height: 48px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 12px;
+        cursor: pointer;
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+        box-shadow: 5px 5px 0px 0px #2c3d50;
+        padding: 16px 32px;
+        flex-shrink: 0;
+        font-family: 'sofia-pro', sans-serif;
+        font-size: 18px;
+        font-weight: 591;
+        color: #2c3d50;
+        line-height: 1.4;
+        text-decoration: none;
+    }
+
+    .pbfcm-target-cta:hover {
+        transform: translate(2px, 2px);
+        box-shadow: 3px 3px 0px 0px #2c3d50;
+    }
+
+    .pbfcm-target-cta:active {
+        transform: translate(5px, 5px);
+        box-shadow: 0px 0px 0px 0px #2c3d50;
+    }
+
+    .pbfcm-target-icon {
+        flex-shrink: 0;
+        width: 24px;
+        height: 24px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    @media screen and (max-width: 749px) {
+        .pbfcm-product-card {
+            padding: 16px;
+            padding-bottom: 21px;
+            gap: 12px;
+        }
+        .pbfcm-card-title {
+            font-size: 16px;
+            max-width: 214px;
+        }
+        .pbfcm-card-description {
+            font-size: 14px;
+        }
+        .pbfcm-badge {
+            top: 12px;
+            right: 12px;
+            font-size: 14px;
+            padding: 3px 10px;
+        }
+        .pbfcm-quick-add {
+            width: auto;
+            height: 34px;
+            font-size: 14px;
+            padding: 0 16px;
+        }
+        .pbfcm-target-cta {
+            font-size: 16px;
+            padding: 16px 28px;
+            height: 40px;
+        }
+    }

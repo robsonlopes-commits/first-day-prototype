@@ -1,0 +1,102 @@
+/* fd-search-form — inline header search toggled inline among the header icons.
+   Clicking the magnifier shows/hides the input field instantly (no width animation).
+   Open state is driven by the <fd-header-search> custom element (assets/fd-header-search.js),
+   which toggles the .fd-header-search--open modifier. */
+
+.fd-header-search {
+  display: inline-flex;
+  align-items: center;
+}
+
+/* Input group collapsed to zero width; the open modifier expands it to its max width */
+.fd-header-search__form {
+  width: 0;
+  overflow: hidden;
+}
+
+.fd-header-search__inner {
+  display: flex;
+  align-items: center;
+}
+
+.fd-header-search--open .fd-header-search__form {
+  width: auto;
+  overflow: visible;
+}
+
+.fd-header-search--open .fd-header-search__inner {
+  gap: var(--spacing-xxxs);
+}
+
+.fd-header-search--open .fd-header-search__input {
+  width: 280px;
+  flex-shrink: 0;
+}
+
+.fd-header-search__close {
+  display: none;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  width: 56px;
+  height: 48px;
+  background: var(--color-surface-white);
+  border: 1px solid var(--color-helper-black-10);
+  border-radius: 2000px;
+  cursor: pointer;
+}
+
+.fd-header-search--open .fd-header-search__close {
+  display: flex;
+}
+
+/* JS hooks: the open button is hidden while the field is open */
+.fd-header-search--open .js-fd-header-search-open {
+  display: none;
+}
+
+.js-fd-header-search-open {
+  cursor: pointer;
+}
+
+.js-fd-header-search-close {
+  cursor: pointer;
+}
+
+.fd-header-search .fd-input__icon--right {
+  cursor: pointer;
+}
+
+.fd-search-form__submit {
+  all: unset;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+}
+
+@media (min-width: 990px) and (max-width: 1150px) {
+  .fd-header-search--open .fd-header-search__input {
+    width: 180px;
+  }
+  .fd-header-search__close {
+    width: 30px;
+    height: 30px;
+  }
+  body .desktop-nav-v3__menu-link {
+    font-size: 12px;
+  }
+  .fd-input__native {
+    font-size: 13px;
+  }
+  body .header-logo-menu-container {
+    display: flex;
+    gap: 20px;
+  }
+  .header-logo-menu-container svg {
+    max-width: 80px;
+  }
+}

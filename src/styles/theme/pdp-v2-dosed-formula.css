@@ -1,0 +1,952 @@
+/* PDP V2 Dosed Formula — scoped via .pdv-df on the section root */
+
+.pdv-df,
+.pdv-df *,
+.pdv-df *::before,
+.pdv-df *::after {
+  box-sizing: border-box;
+}
+
+.pdv-df {
+  position: relative;
+  overflow-x: clip;
+  overflow-y: visible;
+  width: 100%;
+  max-width: 100%;
+  color: #2c3d50;
+  background: transparent;
+}
+
+.pdv-df__wave {
+  display: block;
+  width: 100%;
+  line-height: 0;
+  overflow: hidden;
+}
+
+.pdv-df__wave svg {
+  display: block;
+  width: 100%;
+  height: var(--pdv-df-wave-height, 40px);
+}
+
+.pdv-df__wave--top {
+  margin-bottom: -1px;
+}
+
+.pdv-df__inner {
+  position: relative;
+  background-color: var(--pdv-df-bg, #ffffff);
+  /* Vertical padding only — side padding lives on __container so marquee can full-bleed + clip. */
+  padding-top: var(--pdv-df-pt-m, 32px);
+  padding-bottom: var(--pdv-df-pb-m, 24px);
+  overflow-x: clip;
+  max-width: 100%;
+}
+
+.pdv-df__container {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 32px;
+  width: 100%;
+  max-width: var(--pdv-df-max-width, 1280px);
+  min-width: 0;
+  margin: 0 auto;
+  padding-right: var(--pdv-df-pr-m, 16px);
+  padding-left: var(--pdv-df-pl-m, 16px);
+  overflow-x: clip;
+}
+
+/* —— Header —— */
+.pdv-df__header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 32px;
+  width: 100%;
+  text-align: center;
+  margin-bottom: 0;
+}
+
+.pdv-df__title {
+  margin: 0;
+  max-width: 920px;
+  font-family: var(--pdv-df-title-font, 'sofia-pro', sans-serif);
+  font-size: var(--pdv-df-title-size-m, 28px);
+  font-weight: var(--pdv-df-title-weight, 500);
+  line-height: var(--pdv-df-title-lh, 1.4);
+  color: var(--pdv-df-title-color, #2c3d50);
+  text-transform: capitalize;
+  letter-spacing: -0.01em;
+}
+
+.pdv-df__title-accent {
+  display: block;
+  font-weight: var(--pdv-df-title-accent-weight, 700);
+  color: var(--pdv-df-title-accent-color, #776cb1);
+}
+
+.pdv-df__subtext {
+  margin: 0;
+  max-width: 842px;
+  font-family: var(--pdv-df-sub-font, 'sofia-pro', sans-serif);
+  font-size: var(--pdv-df-sub-size-m, 16px);
+  font-weight: var(--pdv-df-sub-weight, 300);
+  line-height: 1.5;
+  color: var(--pdv-df-sub-color, #2c3d50);
+  letter-spacing: 0;
+}
+
+.pdv-df__subtext strong {
+  font-weight: 700;
+  line-height: 1;
+}
+
+/* —— Dosage scale —— */
+.pdv-df__dose {
+  width: 100%;
+  max-width: 359px;
+  padding: 24px 0 0;
+  overflow: visible;
+}
+
+.pdv-df__dose-stage {
+  position: relative;
+  /* Matches Figma Green frame height so mg labels sit inside the sliding block */
+  height: 121px;
+  overflow: visible;
+}
+
+/* Underdose / Overdose — top-aligned with the open box */
+.pdv-df__dose-cap {
+  position: absolute;
+  top: 16px;
+  z-index: 4;
+  font-family: 'sofia-pro', sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.5;
+  color: #2c3d50;
+  white-space: nowrap;
+}
+
+.pdv-df__dose-cap--left {
+  left: 0;
+}
+
+.pdv-df__dose-cap--right {
+  right: 0;
+  text-align: right;
+}
+
+/* Ideal range rail — scrubber fill stays behind the bar */
+.pdv-df__dose-ideal {
+  position: absolute;
+  top: -16px;
+  left: var(--pdv-df-zone-start, 28%);
+  width: var(--pdv-df-zone-width, 44%);
+  height: 100%;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.pdv-df__dose-zone {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 12px;
+  background: rgba(100, 218, 161, 0.1);
+  border: 1px solid rgba(100, 218, 161, 0.2);
+  box-sizing: border-box;
+  will-change: left, width;
+}
+
+/*
+  Label is a sibling of the bar (not inside the ideal rail) so it can
+  sit above the gradient. Forced 2-line break via Liquid replace.
+*/
+.pdv-df__dose-zone-label {
+  position: absolute;
+  top: 7px;
+  left: var(--pdv-df-zone-start, 28%);
+  width: var(--pdv-df-zone-width, 44%);
+  z-index: 4;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  height: calc(50% - 14px);
+  margin: 0;
+  padding: 10px 10px 10px;
+  box-sizing: border-box;
+  font-family: 'sofia-pro', sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  line-height: 1.25;
+  letter-spacing: 0;
+  text-align: center;
+  color: #2f9a6a;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.pdv-df__dose-bar {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 50%;
+  height: 16px;
+  margin-top: -8px;
+  border-radius: 4px;
+  overflow: hidden;
+  z-index: 2;
+  background-image: linear-gradient(
+    90deg,
+    var(--pdv-df-color-low, #00b4e4) var(--pdv-df-stop-1, 22%),
+    var(--pdv-df-color-mid, #64daa1) var(--pdv-df-stop-2, 34%),
+    var(--pdv-df-color-mid, #64daa1) var(--pdv-df-stop-3, 67%),
+    var(--pdv-df-color-high, #de4343) var(--pdv-df-stop-4, 79%)
+  );
+}
+
+/*
+  Figma tick overlay (360×6): 8 white lines @ opacity 0.3,
+  x = 23, 68, 113, 158, 203, 248, 293, 338 (45px pitch)
+*/
+.pdv-df__dose-ticks {
+  position: absolute;
+  inset: 0;
+  opacity: 0.3;
+  pointer-events: none;
+}
+
+.pdv-df__dose-ticks span {
+  position: absolute;
+  top: 50%;
+  width: 1px;
+  height: 6px;
+  margin-top: -3px;
+  background: #ffffff;
+  transform: translateX(-50%);
+}
+
+.pdv-df__dose-ticks span:nth-child(1) { left: calc(100% * 23 / 360); }
+.pdv-df__dose-ticks span:nth-child(2) { left: calc(100% * 68 / 360); }
+.pdv-df__dose-ticks span:nth-child(3) { left: calc(100% * 113 / 360); }
+.pdv-df__dose-ticks span:nth-child(4) { left: calc(100% * 158 / 360); }
+.pdv-df__dose-ticks span:nth-child(5) { left: calc(100% * 203 / 360); }
+.pdv-df__dose-ticks span:nth-child(6) { left: calc(100% * 248 / 360); }
+.pdv-df__dose-ticks span:nth-child(7) { left: calc(100% * 293 / 360); }
+.pdv-df__dose-ticks span:nth-child(8) { left: calc(100% * 338 / 360); }
+
+.pdv-df__dose-edge {
+  position: absolute;
+  top: 50%;
+  width: 1px;
+  height: 23px;
+  margin-top: -11.5px;
+  background: #979797;
+  z-index: 3;
+}
+
+.pdv-df__dose-edge--start {
+  left: 0;
+}
+
+.pdv-df__dose-edge--end {
+  right: 0;
+}
+
+/*
+  Figma mark offsets on a 359px rail:
+  0mg → 0, 10mg → 54, 15–25mg → 147 (≈ zone center),
+  30mg → 273, 40mg → 325
+*/
+.pdv-df__dose-bottom {
+  position: absolute;
+  left: 0;
+  right: 0;
+  /* Bar bottom is 50%+8px; keep ~8px gap before mg labels */
+  top: calc(50% + 16px);
+  z-index: 5;
+  height: 17px;
+  margin: 0;
+  pointer-events: none;
+}
+
+.pdv-df__dose-mark {
+  position: absolute;
+  top: 0;
+  font-family: 'sofia-pro', sans-serif;
+  font-size: 11px;
+  font-weight: 400;
+  line-height: 1.5;
+  color: #737373;
+  font-feature-settings: 'liga' off, 'clig' off;
+  white-space: nowrap;
+}
+
+.pdv-df__dose-mark--0 {
+  left: 0;
+  text-align: left;
+}
+
+.pdv-df__dose-mark--10 {
+  /* Figma: left 54 / 359 — label box left edge, text-center */
+  left: calc(100% * 54 / 359);
+  text-align: center;
+}
+
+.pdv-df__dose-mark--ideal {
+  left: calc(var(--pdv-df-zone-start, 28%) + var(--pdv-df-zone-width, 44%) / 2);
+  transform: translateX(-50%);
+  text-align: center;
+  color: #737373;
+  font-size: 11px;
+  font-weight: 400;
+}
+
+.pdv-df__dose-mark--ideal.is-optimal {
+  color: #737373;
+  font-weight: 400;
+}
+
+.pdv-df__dose-mark--30 {
+  /* Figma: left 273 / 359 */
+  left: calc(100% * 273 / 359);
+  text-align: center;
+}
+
+.pdv-df__dose-mark--40 {
+  /* Figma: left 325 / 359, text-right */
+  left: calc(100% * 325 / 359);
+  right: auto;
+  text-align: right;
+}
+
+/*
+  Cycle stays inside the ideal (green) range only:
+  thin scrub L↔R within rail → expand → hold (label fade) → close → repeat
+*/
+.pdv-df__dose[data-animate='true'] .pdv-df__dose-zone {
+  opacity: 0;
+}
+
+.pdv-df__dose[data-animate='true'].is-inview .pdv-df__dose-zone {
+  opacity: 1;
+  animation: pdv-df-zone-cycle 7.5s ease-in-out infinite;
+}
+
+.pdv-df__dose[data-animate='true'].is-inview .pdv-df__dose-zone-label {
+  animation: pdv-df-zone-label-fade 7.5s ease-in-out infinite;
+}
+
+.pdv-df__dose[data-animate='false'] .pdv-df__dose-zone {
+  left: 0;
+  width: 100%;
+  opacity: 1;
+}
+
+.pdv-df__dose[data-animate='false'] .pdv-df__dose-zone-label {
+  opacity: 1;
+}
+
+@keyframes pdv-df-zone-cycle {
+  0% {
+    left: 0;
+    width: 29.13%;
+  }
+  12% {
+    left: 84%;
+    width: 29.13%;
+  }
+  24% {
+    left: 0;
+    width: 29.13%;
+  }
+  36% {
+    left: 84%;
+    width: 29.13%;
+  }
+  46% {
+    left: 35%;
+    width: 29.13%;
+  }
+  56% {
+    left: 0;
+    width: 100%;
+  }
+  72% {
+    left: 0;
+    width: 100%;
+  }
+  82% {
+    left: 35%;
+    width: 29.13%;
+  }
+  88% {
+    left: 35%;
+    width: 29.13%;
+  }
+  100% {
+    left: 0;
+    width: 29.13%;
+  }
+}
+
+/* Opacity only — label width stays 100% of ideal rail */
+@keyframes pdv-df-zone-label-fade {
+  0%,
+  52% {
+    opacity: 0;
+  }
+  58%,
+  70% {
+    opacity: 1;
+  }
+  78%,
+  100% {
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pdv-df__dose[data-animate='true'] .pdv-df__dose-zone,
+  .pdv-df__dose[data-animate='true'].is-inview .pdv-df__dose-zone {
+    opacity: 1;
+    left: 0;
+    width: 100%;
+    animation: none;
+  }
+
+  .pdv-df__dose[data-animate='true'].is-inview .pdv-df__dose-zone-label {
+    opacity: 1;
+    animation: none;
+  }
+}
+
+/* —— Ingredient cards ——
+   Mirrors pbfcm:
+   cards-viewport ≈ .pbfcm-carousel__panels-viewport
+   cards-track    ≈ .pbfcm-carousel__track (scrolls on mobile; transform on desktop)
+*/
+.pdv-df__cards-wrap {
+  width: 100%;
+  min-width: 0;
+  max-width: 100%;
+  overflow-x: clip;
+}
+
+.pdv-df__cards-viewport {
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+}
+
+.pdv-df__cards-track {
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 16px;
+  /* 100% of viewport — required so card % widths resolve (not max-content) */
+  width: 100%;
+  transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: transform;
+}
+
+.pdv-df__cards-track::-webkit-scrollbar {
+  display: none;
+}
+
+.pdv-df__card {
+  /* 4-up: (track - 3×16px gaps) / 4 */
+  flex: 0 0 calc((100% - 48px) / 4);
+  width: calc((100% - 48px) / 4);
+  max-width: calc((100% - 48px) / 4);
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 23px;
+  background: #ffffff;
+  border: 1px solid #d7effa;
+  border-radius: 8px;
+  box-sizing: border-box;
+}
+
+.pdv-df__card-head {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.pdv-df__card-thumb {
+  flex-shrink: 0;
+  width: 48px;
+  height: 48px;
+  padding: 4px;
+  border: 0.7px solid #d7effa;
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.pdv-df__card-thumb img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 999px;
+}
+
+.pdv-df__card-title {
+  margin: 0;
+  font-family: 'sofia-pro', sans-serif;
+  font-size: 18px;
+  font-weight: 900;
+  line-height: 1.5;
+  color: #2c3d50;
+}
+
+.pdv-df__card-body {
+  margin: 0;
+  font-family: 'sofia-pro', sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.5;
+  color: #2c3d50;
+  letter-spacing: 0;
+}
+
+.pdv-df__card-body strong {
+  font-weight: 700;
+  line-height: 1;
+}
+
+.pdv-df__controls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 24px;
+  margin-top: 32px;
+}
+
+.pdv-df__nav {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 2000px;
+  background: #ffffff;
+  cursor: pointer;
+  color: #2c3d50;
+}
+
+.pdv-df__nav:disabled {
+  opacity: 0.4;
+  cursor: default;
+}
+
+.pdv-df__nav svg {
+  width: 20px;
+  height: 20px;
+}
+
+.pdv-df__dots {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.pdv-df__dot {
+  width: 8px;
+  height: 8px;
+  padding: 0;
+  border: 0;
+  border-radius: 999px;
+  background: rgba(44, 61, 80, 0.25);
+  cursor: pointer;
+}
+
+.pdv-df__dot.is-active {
+  background: #2c3d50;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pdv-df__cards-track {
+    transition: none;
+  }
+}
+
+.pdv-df__wave-zone {
+  position: relative;
+  z-index: 1;
+  margin-top: 0;
+  padding-top: 0;
+  padding-bottom: 70px;
+  max-width: 100%;
+  overflow: visible;
+}
+
+.pdv-df__wave-bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  color: var(--pdv-df-wave-color, #d7effa);
+  pointer-events: none;
+}
+
+.pdv-df__wave-bg .wave-svg {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+  min-height: 397px;
+}
+
+.pdv-df__marquee {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  margin-top: 0;
+  padding: 0;
+  overflow: hidden;
+}
+
+.pdv-df__marquee-wrap {
+  display: flex;
+  width: max-content;
+  gap: 64px;
+}
+
+.pdv-df__marquee-wrap.is-ready {
+  animation: pdv-df-marquee 72s linear infinite;
+}
+
+.pdv-df__marquee-track {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+  gap: 64px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  width: max-content;
+}
+
+.pdv-df__marquee-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-shrink: 0;
+  white-space: nowrap;
+  font-family: 'sofia-pro', sans-serif;
+  font-size: 18px;
+  font-weight: 300;
+  line-height: 1.5;
+  color: #2c3d50;
+  letter-spacing: 0;
+}
+
+.pdv-df__marquee-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 28px;
+  height: 28px;
+}
+
+.pdv-df__marquee-icon img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.pdv-df__marquee::before,
+.pdv-df__marquee::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 80px;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.pdv-df__marquee::before {
+  left: 0;
+  background: linear-gradient(to right, var(--pdv-df-wave-color, #d7effa), transparent);
+}
+
+.pdv-df__marquee::after {
+  right: 0;
+  background: linear-gradient(to left, var(--pdv-df-wave-color, #d7effa), transparent);
+}
+
+@keyframes pdv-df-marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translate3d(calc(var(--pdv-df-marquee-cycle) * -1), 0, 0);
+  }
+}
+
+.pdv-df__marquee:hover .pdv-df__marquee-wrap {
+  animation-play-state: paused;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pdv-df__marquee-wrap {
+    animation-play-state: paused;
+  }
+}
+
+/* —— Responsive —— */
+@media screen and (max-width: 989px) {
+  .pdv-df__card {
+    flex: 0 0 calc((100% - 16px) / 2);
+    width: calc((100% - 16px) / 2);
+    max-width: calc((100% - 16px) / 2);
+  }
+}
+
+@media screen and (max-width: 749px) {
+  .pdv-df,
+  .pdv-df__inner,
+  .pdv-df__container {
+    overflow-x: clip;
+    max-width: 100%;
+  }
+
+  .pdv-df__wave-zone {
+    overflow: visible;
+    max-width: 100%;
+  }
+
+  .pdv-df__inner {
+    padding-top: var(--pdv-df-pt-m, 40px);
+    padding-bottom: 0;
+    background-color: var(--pdv-df-bg, #ffffff);
+  }
+
+  .pdv-df__container {
+    align-items: stretch;
+    gap: 24px;
+    padding-right: var(--pdv-df-pr-m, 16px);
+    padding-left: var(--pdv-df-pl-m, 16px);
+    min-width: 0;
+    overflow-x: visible; /* allow cards-wrap to break out */
+  }
+
+  .pdv-df__header {
+    align-items: flex-start;
+    gap: 20px;
+    text-align: left;
+    margin-bottom: 0;
+  }
+
+  .pdv-df__title {
+    font-size: var(--pdv-df-title-size-m, 25px);
+    line-height: 1.3;
+    max-width: none;
+  }
+
+  .pdv-df__title-accent {
+    display: inline;
+  }
+
+  .pdv-df__subtext {
+    font-size: var(--pdv-df-sub-size-m, 16px);
+    max-width: none;
+  }
+
+  .pdv-df__dose {
+    max-width: 359px;
+    align-self: center;
+    width: 100%;
+  }
+
+  .pdv-df__dose-stage {
+    margin-bottom: -10px;
+  }
+
+  .pdv-df__controls {
+    display: none;
+  }
+
+  /*
+    Full viewport width of the section (undo container side padding).
+    Track scrolls inside — no page L/R overflow.
+  */
+  .pdv-df__cards-wrap {
+    position: relative;
+    z-index: 2;
+    width: calc(100% + var(--pdv-df-pl-m, 16px) + var(--pdv-df-pr-m, 16px));
+    max-width: none;
+    margin-left: calc(-1 * var(--pdv-df-pl-m, 16px));
+    margin-right: calc(-1 * var(--pdv-df-pr-m, 16px));
+    overflow-x: clip;
+  }
+
+  /* like .pbfcm-carousel__panels-viewport */
+  .pdv-df__cards-viewport {
+    position: relative;
+    overflow: visible;
+    width: 100%;
+  }
+
+  /* like .pbfcm-carousel__track */
+  .pdv-df__cards-track {
+    display: flex;
+    gap: 8px;
+    width: 100%;
+    overflow-x: auto;
+    overflow-y: visible;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    touch-action: pan-x;
+    cursor: grab;
+    transform: none !important;
+    transition: none !important;
+    will-change: auto;
+    padding: 8px var(--pdv-df-pl-m, 16px) 0;
+    margin: -8px 0 0;
+    scroll-padding-inline: var(--pdv-df-pl-m, 16px);
+    box-sizing: border-box;
+  }
+
+  .pdv-df__cards-track::-webkit-scrollbar {
+    display: none;
+  }
+
+  .pdv-df__card {
+    flex: 0 0 270px;
+    width: 240px;
+    max-width: 240px;
+    min-height: 214px;
+    gap: 8px;
+    padding: 15px 11px;
+    scroll-snap-align: start;
+  }
+
+  .pdv-df__card-body {
+    font-size: 14px;
+  }
+
+  .pdv-df__wave-zone {
+    margin-top: -96px;
+    padding-top: 126px;
+    padding-bottom: 38px;
+    min-height: 188px;
+  }
+
+  .pdv-df__wave-bg {
+    overflow: hidden;
+  }
+
+  .pdv-df__wave-bg .wave-svg {
+    left: 0;
+    width: max(100%, 393px);
+    min-width: 393px;
+    max-width: none;
+    height: 188px;
+    min-height: 188px;
+  }
+
+  .pdv-df__marquee {
+    margin-top: 0;
+    overflow: hidden;
+    max-width: 100%;
+  }
+
+  .pdv-df__marquee::before,
+  .pdv-df__marquee::after {
+    display: none;
+  }
+
+  .pdv-df__marquee-wrap,
+  .pdv-df__marquee-track {
+    gap: 24px;
+  }
+
+  .pdv-df__marquee-item {
+    font-size: 16px;
+    gap: 12px;
+  }
+
+  .pdv-df__marquee-icon {
+    width: 16px;
+    height: 16px;
+  }
+}
+
+@media screen and (max-width: 392px) {
+  .pdv-df__dose {
+    --pdv-df-dose-scale: calc((100vw - 32px) / 359px);
+
+    padding-top: calc(24px * var(--pdv-df-dose-scale));
+  }
+
+  .pdv-df__dose-stage {
+    width: calc(100% / var(--pdv-df-dose-scale));
+    margin-bottom: calc((121px * (1 - var(--pdv-df-dose-scale)) + 10px) * -1);
+    transform: scale(var(--pdv-df-dose-scale));
+    transform-origin: top left;
+  }
+}
+
+@media screen and (min-width: 750px) {
+  .pdv-df__inner {
+    padding-top: var(--pdv-df-pt-d, 64px);
+    padding-bottom: var(--pdv-df-pb-d, 44px);
+  }
+
+  .pdv-df__container {
+    padding-right: var(--pdv-df-pr-d, 32px);
+    padding-left: var(--pdv-df-pl-d, 32px);
+  }
+
+  .pdv-df__title {
+    font-size: var(--pdv-df-title-size-d, 38px);
+  }
+
+  .pdv-df__subtext {
+    font-size: var(--pdv-df-sub-size-d, 18px);
+  }
+
+  .pdv-df__wave-bg .wave-svg {
+    left: -116px;
+    width: 1512px;
+    min-width: 1512px;
+    max-width: none;
+  }
+}
+
+@media screen and (min-width: 1344px) {
+  .pdv-df__container {
+    padding-right: 0;
+    padding-left: 0;
+  }
+
+  .pdv-df__wave-bg .wave-svg {
+    left: 50%;
+    width: max(100%, 1512px);
+    transform: translateX(-50%);
+  }
+}

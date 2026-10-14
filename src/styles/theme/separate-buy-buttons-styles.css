@@ -1,0 +1,802 @@
+/* CSS Variables for Buy Buttons Component */
+:root {
+    --primary-color: #486ced;
+    --success-color: #5AC490;
+    --warning-color: #FF6F4C;
+    --border-color: black;
+    --text-color: #62717a;
+    --background-light: #f2f2f2;
+    --font-family: 'sofia-pro';
+}
+
+/* Base Styles */
+.v4selectors {
+    font-family: var(--font-family);
+}
+
+.ATCprice {
+    display: none !important;
+}
+
+/* Form Buy Option Container */
+.form-buy-option-container {
+    border: 1.5px solid var(--border-color);
+    border-radius: 10px;
+    background: #fff;
+}
+
+/* Form Containers */
+.form-container-sub,
+.form-container-otp {
+    display: block !important;
+    background-color: #fff;
+}
+
+.form-container-sub {
+    /* No border needed */
+}
+
+.form-container-otp {
+    /* No border needed */
+}
+
+/* Purchase Options */
+.monthly-option,
+.three-month-option {
+    display: flex;
+    justify-content: space-between;
+    padding: 20px 25px 15px 25px;
+    font-weight: 600;
+    font-size: 18px;
+}
+
+.monthly-option > *,
+.three-month-option > * {
+    pointer-events: none;
+}
+
+.monthly-option.subscription {
+    padding-top: 10px;
+    font-weight: 600;
+    font-size: 18px;
+}
+
+/* Layout Utilities */
+.flex-display {
+    display: flex;
+}
+
+.space-between {
+    justify-content: space-between;
+}
+
+.button-container {
+    background: none !important;
+}
+
+.label-container {
+    display: flex;
+    align-items: start;
+    pointer-events: none;
+}
+
+.subscription-selector-container {
+    display: flex;
+    align-items: center;
+}
+
+/* Pricing Display */
+.price-container {
+    display: flex;
+    flex-direction: column;
+    text-align: right;
+}
+
+label.javy.displayPrice,
+label.javy.displayPriceOtp {
+    font-size: 16px;
+    height: 24px;
+    line-height: 1;
+}
+#monthlyQtySelector {
+    border-bottom: 1px solid black;
+}
+label.javy.displayPriceOtp {
+    display: flex;
+}
+
+label.javy.displayUnit,
+label.javy.displayUnitOtp {
+    font-size: 12px;
+    line-height: 1;
+    font-weight: 400;
+}
+
+.label-info {
+    display: grid;
+}
+
+.label-subtext {
+    font-size: 11px;
+}
+
+/* Icons and Benefits */
+.icons {
+    display: flex;
+    column-gap: 5px;
+    padding-bottom: 5px;
+    align-items: center;
+}
+
+.icons svg {
+    height: 15px !important;
+    width: 15px !important;
+    min-width: 15px !important;
+    background-color: var(--success-color);
+    border-radius: 50%;
+    color: #fff;
+    margin-top: 2px;
+}
+
+.icons p {
+    font-weight: 100;
+    line-height: 1.4;
+    margin: 0;
+    font-size: 14px;
+    padding-right: 10px;
+}
+
+.frst_con.icons > p {
+    font-weight: 100;
+    line-height: 1.4;
+    padding-right: 10px;
+    margin: 0;
+    font-size: 14px;
+}
+
+/* Badge Styling */
+.es_discount_badge {
+    background: var(--success-color);
+    color: #ffffff;
+    padding: 4px 30px;
+    font-size: 13px;
+    border-radius: 100px;
+    text-align: center;
+    font-weight: bold;
+    margin-top: 3px !important;
+    margin-left: auto;
+    margin-right: auto;
+    max-height: 30px;
+    align-content: center;
+}
+
+.badge-container {
+    margin-top: -16px;
+    justify-self: center;
+    width: 100%;
+    text-align-last: center;
+}
+#purchaseTypeBadge{
+    transform: translateY(-15px);
+}
+
+/* Zero Now Badge Styling */
+#zeroNowBadgeSub,
+#zeroNowBadgeOtp {
+    display: none;
+    margin-right: 8px;
+    padding: 6px 12px;
+    background-color: #ffaa00;
+    color: black;
+    border-radius: 20px;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+/* Radio Button Styling */
+.frequency-select-radio {
+    width: 18px !important;
+    height: 18px;
+    position: relative;
+    vertical-align: bottom;
+    display: inline-block;
+    border: 1px solid var(--primary-color);
+    border-radius: 2px;
+}
+
+.checkmark {
+    font-size: 20px !important;
+    line-height: 0.8;
+}
+
+.pp_check.checkmark > svg {
+    position: absolute;
+    z-index: 2;
+    transform: translate(1px, 1px);
+}
+.checkbox_container{
+    cursor: pointer;
+}
+/* Quantity Selector Dropdown */
+.dropdown {
+    display: inline-block;
+    position: relative;
+    overflow: hidden;
+    height: 45px;
+    width: 100%;
+    background: var(--background-light);
+    border: 1px solid var(--border-color);
+    border-radius: 5px;
+}
+
+.dropdown:before,
+.dropdown:after {
+    content: '';
+    position: absolute;
+    z-index: 2;
+    top: 14.5px;
+    right: 10px;
+    width: 0px;
+    height: 0px;
+    border: 6.5px dashed;
+    border-color: #000000 transparent;
+    pointer-events: none;
+}
+
+.dropdown:before {
+    border-bottom-style: solid;
+    border-top: none;
+}
+
+.dropdown:after {
+    margin-top: 10px;
+    border-top-style: solid;
+    border-bottom: none;
+}
+
+.dropdown-select {
+    position: relative;
+    width: 100%;
+    margin: 0;
+    padding: 10px;
+    color: var(--text-color);
+    background: #fff !important;
+    border: 0;
+    border-radius: 0;
+    -webkit-appearance: none;
+    font-size: 16px;
+    font-family: var(--font-family);
+    box-sizing: content-box;
+    -moz-box-sizing: content-box;
+    -webkit-box-sizing: content-box;
+}
+
+.dropdown-select > option {
+    margin: 3px;
+    padding: 6px 8px;
+    text-shadow: none;
+    background: var(--background-light);
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+/* Container Styling */
+.container {
+    text-align: center;
+}
+
+.container > .dropdown {
+    vertical-align: top;
+}
+
+/* Buy Button Styling */
+.firstday_buy_button_v2 {
+    margin-top: 20px;
+    position: relative;
+    font-size: 20px;
+    font-weight: 600;
+    z-index: 1;
+    cursor: pointer;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    box-sizing: border-box;
+    text-decoration: none;
+    border-radius: 25px;
+    border: var(--button-border-width, 1px) solid rgb(var(--color-button-border, 0, 0, 0));
+    color: #ffffff;
+    background-color: var(--primary-color);
+    font-family: var(--font-family);
+    min-width: 10rem;
+    max-width: 100%;
+    min-height: 4.6rem;
+    text-transform: capitalize;
+    transition-property: color, background-color, box-shadow;
+    transition-duration: var(--duration-long, 0.3s);
+    transition-timing-function: ease;
+    -webkit-appearance: none;
+    appearance: none;
+    overflow: hidden;
+    text-align: center;
+    box-shadow: 5px 5px #2c3e50;
+}
+
+.button--full-width-v2 {
+    display: flex;
+    width: 100%;
+    margin: 25px auto;
+    font-size: 24px;
+}
+
+.firstday_buy_button {
+    margin-top: 0;
+    margin-bottom: 30px;
+}
+
+/* Component States */
+.active .qty {
+    font-weight: bold;
+}
+
+.bestseller_text {
+    color: #fff;
+}
+
+.free-shipping-label {
+    font-weight: 300;
+}
+
+.noMargin {
+    margin: 0px;
+}
+
+/* Variant Heading */
+.es_variant-heading > h2 {
+    font-family: var(--font-family) !important;
+    font-size: 18px;
+    margin-bottom: 0;
+}
+
+/* Input Styling */
+input#monthlyOptionvFour {
+    -moz-appearance: none;
+    -webkit-appearance: none;
+    -o-appearance: none;
+    outline: none;
+    content: none;
+    display: inline-block;
+    width: auto;
+    border: 7px solid #486ced59;
+    color: var(--primary-color);
+    accent-color: var(--primary-color);
+    margin-right: 0.5rem;
+    margin-left: 0;
+    margin-top: 0;
+    border-radius: 20px;
+}
+
+input#oneTimePurchaseOptionvFour {
+    -moz-appearance: none;
+    -webkit-appearance: none;
+    -o-appearance: none;
+    outline: none;
+    content: none;
+    display: inline-block;
+    width: auto;
+    border: 2px solid grey;
+    color: var(--primary-color);
+    accent-color: var(--primary-color);
+    margin-right: 0.5rem;
+    margin-left: 0;
+    margin-top: 0;
+    border-radius: 20px;
+}
+
+/* Text Color Overrides */
+.button-container > *,
+.displayPrice,
+.displayUnit,
+.es_variant-heading > h2,
+#recurringDetailsvFour {
+    color: black;
+}
+
+/* Recurring Details */
+#recurringDetailsvFour {
+    margin-top: 20px;
+    display: none !important;
+}
+
+/* Quantity Selector Styling */
+#monthlyQtySelector,
+#oneTimePurchaseQtySelectorvFour {
+    padding: 0px 45px 25px 45px;
+    margin-bottom: 5px;
+}
+
+.monthly-qty-selectors-container {
+    display: flex;
+    width: 100%;
+}
+
+.monthly-qty-selectors-container > div {
+    width: 50%;
+    margin: 5px 10px;
+    padding: 20px;
+}
+
+.qty-selector-vFour {
+    border: 1px solid var(--primary-color);
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+}
+
+.qty {
+    width: 100%;
+    text-align: center;
+}
+
+.qty-selector-price {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    text-align: center;
+    justify-content: center;
+}
+
+.sale-price {
+    margin-left: 5px;
+}
+
+/* Browser Compatibility Fixes */
+/* Firefox padding fix */
+@-moz-document url-prefix() {
+    .dropdown-select {
+        padding-left: 6px;
+    }
+}
+
+/* IE8 compatibility */
+.lt-ie9 .dropdown {
+    z-index: 1;
+}
+
+.lt-ie9 .dropdown-select {
+    z-index: -1;
+}
+
+.lt-ie9 .dropdown-select:focus {
+    z-index: 3;
+}
+
+/* Loading States */
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.loading-spinner {
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-top-color: #fff;
+    border-radius: 50%;
+    animation: spin 0.6s linear infinite;
+    vertical-align: middle;
+    margin-right: 8px;
+}
+
+/* Button loading states */
+button.loading,
+.firstday_buy_button_v2.loading {
+    opacity: 0.7;
+    cursor: not-allowed;
+    pointer-events: none;
+    position: relative;
+}
+
+button.loading:hover,
+.firstday_buy_button_v2.loading:hover {
+    background-color: var(--primary-color);
+}
+
+/* Disable button pointer events when loading */
+button[disabled].loading,
+.firstday_buy_button_v2[disabled].loading {
+    cursor: not-allowed;
+}
+
+/* Mobile Responsive Styles */
+@media screen and (max-width: 767px) {
+    .es_discount_badge {
+        background: var(--success-color);
+    }
+
+    .monthly-option,
+    .three-month-option {
+        padding: 10px 15px 15px 15px;
+    }
+
+    .monthly-option.subscription {
+        padding-top: 10px;
+    }
+
+    #oneTimePurchaseQtySelectorvFour {
+        padding: 0px 25px 15px 25px;
+    }
+
+    #monthlyQtySelector {
+        padding: 0px 25px 15px 25px;
+    }
+}
+
+/* ============================
+   Cross-Sell Styles
+   ============================ */
+
+.freq_box_container {
+    width: 100%;
+    padding: 20px 20px 10px 20px;
+    background: white;
+    border-radius: 10px;
+    border: 1px solid #2c3e50;
+}
+
+.above_text {
+    display: block;
+    text-align: center;
+    width: 100%;
+}
+
+.see_bought {
+    display: -webkit-inline-box;
+    line-height: 0;
+    display: flex;
+    text-align: -webkit-center;
+    margin: 0 auto;
+    width: 100%;
+    place-content: center;
+}
+
+p.people_saw {
+    font-size: 13px;
+    color: #2c3e50;
+}
+
+.badge-text {
+    font-size: 13px;
+    font-weight: 600;
+    text-transform: capitalize;
+}
+
+.frequently-bought-together-item-container {
+    display: block;
+    padding: 5px 0 8px 0;
+}
+
+p.sub_otp {
+    color: #2c3e50;
+    font-size: 13px;
+    font-weight: 600;
+    margin: 0;
+    text-align: center;
+    height: 21px;
+}
+
+.frequently-bought-together-item-details {
+    display: flex;
+    flex: 0 0 100%;
+    width: 100%;
+    align-items: center;
+}
+
+.image_container img {
+    width: 100%;
+    position: relative;
+}
+
+.image_container {
+    border-radius: 10px;
+    border: 1px solid #ff6f4c;
+    padding-bottom: 19%;
+    position: relative;
+    contain: content;
+    aspect-ratio: 1;
+    height: 0;
+    width: 20%;
+}
+
+.product_info_container {
+    margin-left: 20px;
+}
+
+.heading_third {
+    font-size: clamp(17px, 2.3vw + 0.1rem, 22px) !important;
+    color: #2c3e50;
+    margin-bottom: 0;
+    margin-top: 0;
+}
+
+.benefittext {
+    line-height: 1.2;
+    letter-spacing: .4px;
+    margin-bottom: 10px;
+    margin-top: 2px;
+    color: #2c3e50;
+}
+
+.benefittext img {
+    width: 60px;
+    border: none !important;
+    border-radius: 2px;
+    height: 11px;
+}
+
+.price__pro {
+    line-height: 1.3;
+    display: flex;
+    justify-content: space-between;
+}
+
+span.pp_strike {
+    font-weight: 500;
+    color: #2c3e50;
+}
+
+span.pp_real {
+    font-weight: bold;
+    color: #ff6f4c;
+}
+
+.pp_real_price {
+    color: #6677aa;
+    font-weight: 500;
+}
+
+.checkbox_container {
+    flex: 0.15;
+    background: #f2fbfe;
+    border-radius: 15px;
+    height: 35px;
+    margin-top: 15px;
+    display: flex;
+}
+
+.checkbox_flex {
+    display: flex;
+    align-items: center;
+    margin-inline-start: 10px;
+    pointer-events: none;
+}
+
+.crossSellProduct_checkbox {
+    width: 18px !important;
+    height: 18px;
+    position: relative;
+    vertical-align: bottom;
+    display: inline-block;
+    border: 1px solid #2c3e50;
+    border-radius: 2px;
+}
+
+input#crossSellProduct {
+    -moz-appearance: none;
+    -webkit-appearance: none;
+    -o-appearance: none;
+    outline: none;
+    content: none;
+}
+
+.product-info-text {
+    font-size: clamp(10px, 0.9vw + 0.1rem, 14px) !important;
+}
+
+.review-text {
+    font-size: clamp(10px, 0.9vw + 0.1rem, 14px) !important;
+}
+
+.reviewstars {
+    display: flex;
+    align-items: center;
+}
+
+p.prev_p.crosssell {
+    margin: 0;
+    border-radius: 30px;
+    background: #ff6f4c;
+    color: white;
+    font-weight: 900;
+    padding: 5px 15px;
+    padding-top: 3px;
+}
+
+.price-badge {
+    align-items: baseline;
+    display: flex;
+    top: 0;
+    line-height: 1;
+    justify-content: flex-end;
+    font-family: 'sofia-pro', arial, sans-serif;
+    font-size: 14px;
+}
+
+.see_bought.badge {
+    vertical-align: middle;
+    align-content: middle;
+    flex-wrap: wrap;
+    margin: 0 auto;
+    border-radius: 30px;
+    background: #5AC490;
+    color: white;
+    border: none;
+    width: 195px;
+    padding: 4px 30px;
+    transform: translateY(20px);
+    max-height: 30px;
+    font-size: 10px;
+}
+
+.checkbox_text {
+    color: #2c3e50;
+    font-size: 13px;
+    text-transform: uppercase;
+    font-weight: 800;
+    margin-left: 10px;
+    letter-spacing: 0.4px;
+}
+
+span.review-text {
+    margin-left: 4px;
+    margin-top: 0.5px;
+}
+
+.checkbox_flex > * {
+    pointer-events: none;
+}
+
+.checkmark.crossell > svg {
+    position: absolute;
+    transform: translateX(4px);
+}
+
+/* Cross-Sell Mobile Responsive Styles */
+@media (max-width: 676px) {
+    .image_container {
+        border-radius: 10px;
+        border: 1px solid #ff6f4c;
+        padding-bottom: 33%;
+        position: relative;
+        contain: content;
+        aspect-ratio: 1;
+        height: 0;
+        width: unset;
+    }
+
+    .freq_box_container {
+        padding: 25px 10px 10px 10px;
+    }
+
+    .product_info_container {
+        margin-left: 10px;
+    }
+
+    .see_bought.badge {
+        width: 70%;
+    }
+
+    .benefittext {
+        line-height: 1;
+    }
+
+    p.people_saw {
+        font-size: 10px;
+        color: #2c3e50;
+    }
+
+    span.review-text {
+        margin-left: 4px;
+        margin-top: 0.5px;
+    }
+}

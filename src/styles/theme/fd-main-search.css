@@ -1,0 +1,405 @@
+/* ── fd-main-search.css ── Search results layout + product card + grid (Figma: Search Results) ── */
+/* Tabs and buttons reuse fd-tabs-v3.css / fd-button.css — not duplicated here. */
+
+/* Custom element root — custom elements are inline by default, force block so the container centers */
+fd-search-results {
+  display: block;
+}
+
+/* ── Layout ── (section padding is handled by the `section-padding` snippet on the wrapper) */
+.fd-search__container {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+  max-width: 1344px;
+  margin-inline: auto;
+  padding-inline: var(--spacing-xxs);
+}
+
+@media (min-width: 768px) {
+  .fd-search__container {
+    gap: var(--spacing-md);
+    /* Side padding knob — raise to keep cards from stretching on tablet/laptop */
+    padding-inline: var(--spacing-xl);
+  }
+}
+
+.fd-search__top {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--spacing-sm);
+  flex-wrap: wrap;
+}
+
+.fd-search__heading {
+  font-family: var(--font-body);
+  font-weight: 500;
+  font-size: 28px;
+  line-height: var(--lh-base);
+  color: var(--color-text-on-light-1);
+}
+
+/* search term — bold (Figma: «"kids"») */
+.fd-search__term {
+  font-weight: var(--fw-bold);
+}
+
+/* override the component's full-width so tabs hug their content in the header row */
+.fd-search__top .fd-tabs-v3 {
+  width: auto;
+}
+
+@media (min-width: 1024px) {
+  .fd-search__top {
+    flex-direction: row;
+  }
+}
+
+@media (min-width: 1150px) {
+  .fd-search__heading {
+    font-size: 38px;
+  }
+}
+
+/* ── Grid ── column counts per breakpoint come as CSS variables set inline by the section ── */
+.fd-search__grid {
+  display: grid;
+  gap: var(--spacing-xxs);
+  grid-template-columns: repeat(var(--fd-cols-mobile, 1), minmax(0, 1fr));
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+@media (min-width: 768px) {
+  .fd-search__grid {
+    grid-template-columns: repeat(var(--fd-cols-tablet, 2), minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 1024px) {
+  .fd-search__grid {
+    grid-template-columns: repeat(var(--fd-cols-laptop, 4), minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 1280px) {
+  .fd-search__grid {
+    grid-template-columns: repeat(var(--fd-cols-desktop, 4), minmax(0, 1fr));
+  }
+}
+
+/* ── Card ── */
+.fd-product-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xxs);
+  height: 100%;
+  padding: var(--spacing-xxs);
+  padding-bottom: var(--spacing-xs);
+  background: var(--color-surface-white);
+  border: var(--border-hairline) solid var(--color-helper-outline);
+  border-radius: var(--radius-lg);
+  transition: border-color 0.2s ease;
+}
+
+/* Hover lifts the border to brand blue (Figma product card hover) */
+.fd-product-card:hover {
+  border-color: var(--color-brand-noon-blue);
+}
+
+.fd-product-card__media {
+  position: relative;
+  display: block;
+  height: 185px;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  /* Neutral placeholder behind the image — matches pbfcm carousel card */
+  background: var(--color-helper-black-5);
+}
+
+.fd-product-card__media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.fd-product-card__badge {
+  position: absolute;
+  top: var(--spacing-sm);
+  right: var(--spacing-sm);
+  background: var(--color-text-on-light-1);
+  color: var(--color-text-on-dark);
+  padding: var(--spacing-tiny) var(--spacing-xxxs);
+  border-radius: var(--radius-sm);
+  font-family: var(--font-body);
+  font-size: var(--font-para-sm);
+  line-height: var(--lh-base);
+}
+
+.fd-product-card__content {
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 auto;
+  gap: var(--spacing-xxs);
+}
+
+.fd-product-card__info {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-nano);
+}
+
+/* base title — single line with ellipsis (product card) */
+.fd-product-card__title {
+  display: block;
+  font-family: var(--font-body);
+  font-weight: var(--fw-bold);
+  font-size: var(--font-para-md);
+  line-height: var(--lh-base);
+  color: var(--color-text-on-light-1);
+  text-decoration: none;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Title follows the card hover to brand blue */
+.fd-product-card:hover .fd-product-card__title {
+  color: var(--color-brand-noon-blue);
+}
+
+/* multiline title — up to 2 lines (article card) */
+.fd-product-card__title--multiline {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  white-space: normal;
+}
+
+.fd-product-card__desc {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  font-family: var(--font-body);
+  font-size: var(--font-para-sm);
+  line-height: var(--lh-base);
+  color: var(--color-text-on-light-1);
+}
+
+/* price row + full-width Add To Cart, stacked — pinned to the card bottom */
+.fd-product-card__action {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xxxs);
+  margin-top: auto;
+}
+
+/* CTA spans the card width */
+.fd-product-card__action .fd-btn {
+  width: 100%;
+}
+
+/* full-width CTA (article card) — pinned to the card bottom */
+.fd-product-card__cta {
+  margin-top: auto;
+}
+
+.fd-product-card__cta .fd-btn {
+  width: 100%;
+}
+
+.fd-product-card__price {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-nano);
+  flex-wrap: wrap;
+}
+
+.fd-product-card__price-compare {
+  font-size: var(--font-para-sm);
+  color: var(--color-text-on-light-2);
+  text-decoration: line-through;
+}
+
+.fd-product-card__price-sale {
+  font-weight: var(--fw-bold);
+  font-size: var(--font-para-lg);
+  color: var(--color-feedback-success);
+}
+
+.fd-product-card__price-regular {
+  font-weight: var(--fw-bold);
+  font-size: var(--font-para-md);
+  color: var(--color-text-on-light-1);
+}
+
+/* form wrapper around the Add To Cart button; the button itself uses fd-btn classes */
+.fd-product-card__atc-form {
+  flex-shrink: 0;
+}
+
+/* ── Empty state ── */
+.fd-search__empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: var(--spacing-sm);
+  max-width: 560px;
+  margin-inline: auto;
+  padding-block: var(--spacing-xxxl);
+}
+
+.fd-search__empty-heading {
+  font-family: var(--font-title);
+  font-weight: var(--fw-bold);
+  font-size: var(--font-title-xl-mob);
+  line-height: var(--lh-base);
+  color: var(--color-text-on-light-1);
+}
+
+.fd-search__empty-text {
+  font-family: var(--font-body);
+  font-size: var(--font-para-md);
+  line-height: var(--lh-base);
+  color: var(--color-text-on-light-2);
+}
+
+.fd-search__empty-actions {
+  display: flex;
+  gap: var(--spacing-xxs);
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+@media (min-width: 1150px) {
+  .fd-search__empty-heading {
+    font-size: var(--font-title-xl-desk);
+  }
+}
+
+/* ── Results + tab switch loader ── */
+.fd-search__results {
+  position: relative;
+}
+
+/* grid cell wrapper carries [data-search-item] for the loadMore router */
+.fd-search__grid-cell {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+/* translucent loader shown briefly while switching tabs — hidden until JS adds .is-visible */
+.fd-search__overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  display: none;
+  align-items: flex-start;
+  justify-content: center;
+  padding-top: var(--spacing-xxl);
+  background: rgba(255, 255, 255, 0.7);
+}
+
+.fd-search__overlay.is-visible {
+  display: flex;
+}
+
+/* reuses the global @keyframes fd-spin defined in fd-loader.css */
+.fd-search__overlay-spinner {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: 3px solid var(--color-loader-track, #dde2ed);
+  border-top-color: var(--color-text-on-light-1);
+  animation: fd-spin 0.7s linear infinite;
+}
+
+/* ── Pagination / load-more controls ── */
+.fd-search__paginate {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--spacing-sm);
+  margin-top: var(--spacing-md);
+}
+
+.fd-search__sentinel {
+  width: 100%;
+  height: 1px;
+}
+
+.fd-search__more-loader {
+  position: relative;
+  width: 100%;
+  height: 40px;
+}
+
+/* hidden until JS sets a message and adds .is-visible */
+.fd-search__error {
+  display: none;
+  font-family: var(--font-body);
+  font-size: var(--font-para-sm);
+  color: var(--color-feedback-error);
+}
+
+.fd-search__error.is-visible {
+  display: block;
+}
+
+/* Button spinners (load-more, add-to-cart) — hidden until the button enters .is-loading.
+   Overrides fd-loader's default .is-visible so the loader is driven by the button state. */
+.fd-search .fd-btn .fd-loader {
+  opacity: 0;
+}
+
+.fd-search .fd-btn.is-loading .fd-loader {
+  opacity: 1;
+  transition: opacity 0.2s linear;
+}
+
+/* ── Article card — search page equal-height overrides ── */
+.fd-search .article-card {
+  height: 100%;
+  overflow: hidden;
+}
+
+.fd-search .article-card .card {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  color: inherit;
+}
+
+/* use-animate is inline by default — make it block */
+.fd-search .article-card__image-wrapper {
+  display: block;
+  flex-shrink: 0;
+}
+
+/* image ratio is driven by the media--{ratio} class (image_ratio setting), same as featured-blog */
+
+.fd-search .article-card__info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+/* clamp excerpt to 3 lines so narrow search columns match the blog cards */
+.fd-search .article-card__excerpt {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.fd-search .article-card__footer {
+  margin-top: auto;
+}

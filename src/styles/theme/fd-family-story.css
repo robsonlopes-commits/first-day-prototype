@@ -1,0 +1,295 @@
+/*
+  Family Story.
+
+  Figma 995:836 (mobile) and 995:3352 (desktop). Name + role sit next to the green family badge, then the
+  photo with an orange offset shadow, a left-rail caption, the Before First
+  Day heading, X-circle points, and a closing rail. Image is omitted when
+  the picker is blank. Every value reads var(--fd-fs-*, <design default>).
+*/
+
+.fd-family-story {
+  background-color: var(--fd-fs-bg-color-mobile, var(--fd-fs-bg-color, #ffffff));
+  padding-top: var(--fd-fs-padding-top-mobile, 20px);
+  padding-right: var(--fd-fs-padding-right-mobile, 16px);
+  padding-bottom: var(--fd-fs-padding-bottom-mobile, 20px);
+  padding-left: var(--fd-fs-padding-left-mobile, 16px);
+}
+
+.fd-family-story__inner {
+  display: flex;
+  flex-direction: column;
+  gap: var(--fd-fs-content-gap, 20px);
+  max-width: var(--fd-fs-content-max-width, 1216px);
+  margin-inline: auto;
+}
+
+.fd-family-story__header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.fd-family-story__identity {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 0;
+}
+
+.fd-family-story__col {
+  display: flex;
+  flex-direction: column;
+  gap: var(--fd-fs-content-gap, 20px);
+  min-width: 0;
+}
+
+.fd-family-story .fd-family-story__name {
+  margin: 0;
+  font-family: var(--fd-fs-name-font-family, var(--font-title));
+  font-size: var(--fd-fs-name-font-size-mobile, 26px);
+  font-weight: var(--fd-fs-name-font-weight, var(--fw-bold));
+  line-height: var(--fd-fs-name-line-height, 40px);
+  letter-spacing: -0.01em;
+  color: var(--fd-fs-name-font-color, var(--color-text-on-light-1));
+  text-transform: none;
+}
+
+.fd-family-story__role {
+  margin: 0;
+  font-family: var(--fd-fs-role-font-family, var(--font-body));
+  font-size: var(--fd-fs-role-font-size-mobile, 16px);
+  font-weight: var(--fd-fs-role-font-weight, var(--fw-regular));
+  line-height: var(--fd-fs-role-line-height, 15px);
+  letter-spacing: 0;
+  color: var(--fd-fs-role-font-color, var(--color-text-on-light-1));
+}
+
+.fd-family-story__badge {
+  display: flex;
+  flex: none;
+  align-items: center;
+  gap: 4px;
+  width: var(--fd-fs-badge-width, 122px);
+  padding: 6px 8px;
+  border-radius: 8px;
+  background-color: var(--fd-fs-badge-bg-color, #18b15c);
+}
+
+.fd-family-story__badge-icon {
+  flex: none;
+  display: block;
+  width: var(--fd-fs-badge-icon-size, 28px);
+  height: var(--fd-fs-badge-icon-size, 28px);
+}
+
+.fd-family-story__badge-icon svg,
+.fd-family-story__badge-icon img {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.fd-family-story__badge-text {
+  margin: 0;
+  font-family: var(--fd-fs-badge-font-family, var(--font-body));
+  font-size: var(--fd-fs-badge-font-size-mobile, 12px);
+  font-weight: var(--fd-fs-badge-font-weight, 600);
+  line-height: var(--fd-fs-badge-line-height, 15px);
+  letter-spacing: 0;
+  color: var(--fd-fs-badge-font-color, #ffffff);
+}
+
+.fd-family-story__media {
+  display: block;
+  width: 100%;
+  aspect-ratio: var(--fd-fs-media-aspect, 358 / 220);
+  overflow: hidden;
+  border-radius: var(--fd-fs-media-radius, var(--radius-lg, 12px));
+  box-shadow: var(--fd-fs-shadow-offset, 5px) var(--fd-fs-shadow-offset, 5px) 0 0
+    var(--fd-fs-shadow-color, #e1562f);
+}
+
+.fd-family-story__media-img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.fd-family-story__rail {
+  display: flex;
+  align-items: stretch;
+  gap: var(--fd-fs-rail-gap, 16px);
+}
+
+.fd-family-story__rail-bar {
+  flex: none;
+  width: var(--fd-fs-rail-width, 2px);
+  border-radius: 112px;
+  background-color: color-mix(
+    in srgb,
+    var(--fd-fs-rail-color, var(--color-brand-noon-blue)) var(--fd-fs-rail-opacity, 20%),
+    transparent
+  );
+}
+
+.fd-family-story__caption,
+.fd-family-story__caption > *,
+.fd-family-story__closing,
+.fd-family-story__closing > * {
+  margin: 0;
+  font-family: var(--fd-fs-body-font-family, var(--font-body));
+  font-size: var(--fd-fs-body-font-size-mobile, 16px);
+  font-weight: var(--fd-fs-body-font-weight, var(--fw-regular));
+  line-height: var(--fd-fs-body-line-height, 20px);
+  letter-spacing: -0.01em;
+  color: var(--fd-fs-body-font-color, var(--color-text-on-light-1));
+}
+
+.fd-family-story__closing strong,
+.fd-family-story__closing b {
+  font-weight: var(--fd-fs-closing-strong-weight, 900);
+}
+
+.fd-family-story__list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--fd-fs-list-gap, 16px);
+}
+
+.fd-family-story .fd-family-story__list-heading {
+  margin: 0;
+  font-family: var(--fd-fs-list-heading-font-family, var(--font-title));
+  font-size: var(--fd-fs-list-heading-font-size-mobile, 20px);
+  font-weight: var(--fd-fs-list-heading-font-weight, var(--fw-bold));
+  line-height: var(--fd-fs-list-heading-line-height, 24px);
+  letter-spacing: -0.01em;
+  color: var(--fd-fs-list-heading-font-color, var(--color-text-on-light-1));
+  text-transform: none;
+}
+
+.fd-family-story__points {
+  display: flex;
+  flex-direction: column;
+  gap: var(--fd-sp-gap, 8px);
+  margin: 0;
+  padding: 0;
+}
+
+.fd-family-story__points > * {
+  width: 100%;
+  min-width: 0;
+}
+
+@media (min-width: 750px) {
+  .fd-family-story {
+    background-color: var(--fd-fs-bg-color, #ffffff);
+    padding-top: var(--fd-fs-padding-top-tablet, 48px);
+    padding-bottom: var(--fd-fs-padding-bottom-tablet, 48px);
+  }
+}
+
+@media (min-width: 992px) {
+  .fd-family-story {
+    padding-top: var(--fd-fs-padding-top-desktop, 112px);
+    padding-right: var(--fd-fs-padding-right-desktop, 112px);
+    padding-bottom: var(--fd-fs-padding-bottom-desktop, 112px);
+    padding-left: var(--fd-fs-padding-left-desktop, 112px);
+  }
+
+  .fd-family-story__inner {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: 89px;
+  }
+
+  .fd-family-story__header {
+    align-items: center;
+  }
+
+  .fd-family-story__identity {
+    gap: 8px;
+  }
+
+  .fd-family-story__col--media {
+    flex: 0 1 600px;
+    width: 100%;
+    max-width: 600px;
+    gap: 0;
+  }
+
+  .fd-family-story__col--list {
+    flex: 0 1 527px;
+    width: 100%;
+    max-width: 527px;
+    justify-content: space-between;
+    min-height: 506px;
+    gap: 24px;
+  }
+
+  .fd-family-story .fd-family-story__name {
+    font-size: min(var(--fd-fs-name-font-size-desktop, 48px), clamp(32px, 3.333vw, 56px));
+    line-height: min(var(--fd-fs-name-line-height-desktop, 56px), clamp(40px, 3.889vw, 64px));
+  }
+
+  .fd-family-story__role {
+    font-size: var(--fd-fs-role-font-size-desktop, 18px);
+  }
+
+  .fd-family-story .fd-family-story__name,
+  .fd-family-story__caption,
+  .fd-family-story__caption > *,
+  .fd-family-story__closing,
+  .fd-family-story__closing > *,
+  .fd-family-story .fd-family-story__list-heading {
+    letter-spacing: 0;
+  }
+
+  .fd-family-story__badge-text {
+    font-size: var(--fd-fs-badge-font-size-desktop, 12px);
+  }
+
+  .fd-family-story__media {
+    aspect-ratio: var(--fd-fs-media-aspect-desktop, 600 / 380);
+    border-radius: var(--fd-fs-media-radius-desktop, 16px);
+    box-shadow: var(--fd-fs-shadow-offset-desktop, 8px) var(--fd-fs-shadow-offset-desktop, 8px) 0 0
+      var(--fd-fs-shadow-color, #e1562f);
+  }
+
+  .fd-family-story__header + .fd-family-story__media {
+    margin-top: 15px;
+  }
+
+  .fd-family-story__media + .fd-family-story__rail {
+    margin-top: 24px;
+  }
+
+  .fd-family-story__caption,
+  .fd-family-story__caption > * {
+    font-size: var(--fd-fs-body-font-size-desktop, 16px);
+    line-height: 22px;
+  }
+
+  .fd-family-story__closing,
+  .fd-family-story__closing > * {
+    font-size: 18px;
+    line-height: var(--fd-fs-body-line-height-desktop, 24px);
+  }
+
+  .fd-family-story .fd-family-story__list-heading {
+    font-size: var(--fd-fs-list-heading-font-size-desktop, 40px);
+    line-height: var(--fd-fs-list-heading-line-height-desktop, 48px);
+  }
+
+  .fd-family-story__points {
+    --fd-sp-icon-size: 36px;
+    --fd-sp-icon-mark: 14px;
+    gap: 16px;
+  }
+
+  .fd-family-story__list {
+    gap: 35px;
+  }
+}

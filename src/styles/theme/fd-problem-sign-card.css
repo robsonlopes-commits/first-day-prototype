@@ -1,0 +1,162 @@
+/*
+  Problem Sign Card.
+
+  Shared by the fd-problem-sign-card theme block and by fd-problem-signs when
+  that section is driven by a Section: Problem Signs metaobject. The metaobject
+  path renders cards in a Liquid loop, where there is no block.id to scope on,
+  so these selectors are plain class names.
+
+  Every declaration reads var(--fd-psc-*, <design default>). A parent that
+  defines those properties restyles all its cards at once, and a card dropped
+  anywhere else still renders the Figma design. Custom properties inherit
+  rather than compete, so this never fights a section on specificity.
+*/
+
+.fd-psc-card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--fd-psc-card-inner-gap, 12px);
+  padding: var(--fd-psc-card-padding, 16px);
+  background-color: var(--fd-psc-card-bg-color, #ffffff);
+  border: var(--fd-psc-card-border-width, 1px) solid var(--fd-psc-card-border-color, #d7effa);
+  border-radius: var(--fd-psc-card-radius, 8px);
+}
+
+/* Carries the img, the video, and the empty placeholder, so all three crop and
+   size identically. display: block matters for video, which is inline by
+   default and would otherwise leave a baseline gap under it. */
+.fd-psc-card__media {
+  display: block;
+  width: 100%;
+  height: var(--fd-psc-image-height-mobile, 170px);
+  object-fit: cover;
+  border-radius: var(--fd-psc-image-radius, 8px);
+}
+
+.fd-psc-card__media--placeholder {
+  background-color: #d9d9d9;
+}
+
+.fd-psc-card__head {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/*
+  The number counts itself. Theme blocks get no index from Liquid, so position
+  is only knowable in CSS. The parent section resets fd-psc-number on its list,
+  which restarts the count per section. Standalone, the counter lives at the
+  document root and still numbers cards in source order.
+*/
+.fd-psc-card__number {
+  counter-increment: fd-psc-number;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: var(--fd-psc-number-size, 32px);
+  height: var(--fd-psc-number-size, 32px);
+  background-color: var(--fd-psc-number-bg-color, rgba(0, 0, 0, 0));
+  border: 1px solid var(--fd-psc-number-border-color, #2c3d50);
+  border-radius: 2000px;
+  font-family: var(--fd-psc-number-font-family, 'sofia-pro', sans-serif);
+  font-size: var(--fd-psc-number-font-size-mobile, 16px);
+  font-weight: var(--fd-psc-number-font-weight, 700);
+  color: var(--fd-psc-number-font-color, #2c3d50);
+  line-height: 1.4;
+}
+
+.fd-psc-card__number::before {
+  content: counter(fd-psc-number);
+}
+
+.fd-psc-card__title {
+  margin: 0;
+  font-family: var(--fd-psc-card-title-font-family, 'sofia-pro', sans-serif);
+  font-size: var(--fd-psc-card-title-font-size-mobile, 16px);
+  font-weight: var(--fd-psc-card-title-font-weight, 700);
+  color: var(--fd-psc-card-title-font-color, #2c3d50);
+  line-height: 1.4;
+  text-transform: capitalize;
+  overflow-wrap: break-word;
+}
+
+.fd-psc-card__description,
+.fd-psc-card__description p {
+  margin: 0;
+  font-family: var(--fd-psc-card-body-font-family, 'sofia-pro', sans-serif);
+  font-size: var(--fd-psc-card-body-font-size-mobile, 16px);
+  font-weight: var(--fd-psc-card-body-font-weight, 300);
+  color: var(--fd-psc-card-body-font-color, #2c3d50);
+  line-height: 1.5;
+  overflow-wrap: break-word;
+}
+
+.fd-psc-card__description strong {
+  font-weight: 700;
+}
+
+.fd-psc-card__fact {
+  display: flex;
+  flex-direction: column;
+  gap: var(--fd-psc-fact-gap, 8px);
+  /* Pins the callout to the card base so a row of cards lines up. */
+  margin-top: auto;
+  padding: var(--fd-psc-fact-padding, 16px);
+  background-color: var(--fd-psc-fact-bg-color, rgba(119, 108, 177, 0.07));
+  border-radius: var(--fd-psc-fact-radius, 8px);
+}
+
+.fd-psc-card__fact-label {
+  margin: 0;
+  font-family: var(--fd-psc-fact-label-font-family, 'sofia-pro', sans-serif);
+  font-size: var(--fd-psc-fact-label-font-size-mobile, 14px);
+  font-weight: var(--fd-psc-fact-label-font-weight, 700);
+  color: var(--fd-psc-fact-label-font-color, #2c3d50);
+  line-height: 1.5;
+}
+
+.fd-psc-card__fact-body,
+.fd-psc-card__fact-body p {
+  margin: 0;
+  font-family: var(--fd-psc-fact-body-font-family, 'sofia-pro', sans-serif);
+  font-size: var(--fd-psc-fact-body-font-size-mobile, 14px);
+  font-weight: var(--fd-psc-fact-body-font-weight, 400);
+  color: var(--fd-psc-fact-body-font-color, #2c3d50);
+  line-height: 1.5;
+  overflow-wrap: break-word;
+}
+
+.fd-psc-card__fact-body strong {
+  font-weight: 700;
+}
+
+/* Desktop — fd-ui-kit breakpoint */
+@media (min-width: 992px) {
+  .fd-psc-card__media {
+    height: var(--fd-psc-image-height-desktop, 170px);
+  }
+
+  .fd-psc-card__number {
+    font-size: var(--fd-psc-number-font-size-desktop, 16px);
+  }
+
+  .fd-psc-card__title {
+    font-size: var(--fd-psc-card-title-font-size-desktop, 16px);
+  }
+
+  .fd-psc-card__description,
+  .fd-psc-card__description p {
+    font-size: var(--fd-psc-card-body-font-size-desktop, 16px);
+  }
+
+  .fd-psc-card__fact-label {
+    font-size: var(--fd-psc-fact-label-font-size-desktop, 14px);
+  }
+
+  .fd-psc-card__fact-body,
+  .fd-psc-card__fact-body p {
+    font-size: var(--fd-psc-fact-body-font-size-desktop, 14px);
+  }
+}

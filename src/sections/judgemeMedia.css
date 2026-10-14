@@ -1,0 +1,29 @@
+/* Judge.me review picture thumbnails (MediaThumbnailList + Frame components), added next to judgemeWidget.css. */
+.jm-media-thumbnail-list__thumbnail{inline-size:160px;position:relative;cursor:pointer;transition:opacity .2s ease;border-radius:var(--jm-widget-border-radius);overflow:hidden}
+.jm-media-thumbnail-list__thumbnail:hover{opacity:.8}
+.jm-media-thumbnail-list__thumbnail:focus{outline:2px solid #007bff;outline-offset:2px}
+@container (max-width: 412px){.jm-media-thumbnail-list__thumbnail--align{inline-size:100px}.jm-media-thumbnail-list__thumbnail--carousel{inline-size:80px}}
+
+/* Cascade fixes for the concatenated widget css: the legacy .jdgm-sort-dropdown rule (border:none, padding) must not win over the v3 sort select; row chevrons are plain 16px svgs. */
+.jm-scope .jm-sort-filter__select.jdgm-sort-dropdown{border:1px solid var(--jm-review-widget-text-color);font-size:inherit;padding-block:var(--jm-filter-padding-block);padding-inline-start:var(--jm-filter-padding-inline);padding-inline-end:2em;background:transparent}
+.jm-scope .jm-sort-filter--compact .jm-sort-filter__select.jdgm-sort-dropdown{padding-block:var(--jm-space-150);padding-inline-end:var(--jm-filter-padding-inline)}
+.jm-scope .jm-review-highlights__icon{inline-size:16px;block-size:16px}
+
+/* Vue [data-v-*] scoping gave the stack spacing rule higher specificity than ".jdgm-widget-revamp p{margin:0}": restore it. */
+.jdgm-widget-revamp .jm-stack--space-0>*+*{margin-block-start:var(--jm-space-0)}
+.jdgm-widget-revamp .jm-stack--space-25>*+*{margin-block-start:var(--jm-space-25)}
+.jdgm-widget-revamp .jm-stack--space-50>*+*{margin-block-start:var(--jm-space-50)}
+.jdgm-widget-revamp .jm-stack--space-100>*+*{margin-block-start:var(--jm-space-100)}
+.jdgm-widget-revamp .jm-stack--space-150>*+*{margin-block-start:var(--jm-space-150)}
+.jdgm-widget-revamp .jm-stack--space-200>*+*{margin-block-start:var(--jm-space-200)}
+.jdgm-widget-revamp .jm-stack--space-300>*+*{margin-block-start:var(--jm-space-300)}
+.jdgm-widget-revamp .jm-stack--space-400>*+*{margin-block-start:var(--jm-space-400)}
+.jdgm-widget-revamp .jm-stack--space-500>*+*{margin-block-start:var(--jm-space-500)}
+.jdgm-widget-revamp .jm-stack--space-600>*+*{margin-block-start:var(--jm-space-600)}
+.jdgm-widget-revamp .jm-stack--space-800>*+*{margin-block-start:var(--jm-space-800)}
+.jdgm-widget-revamp .jm-stack--space-1000>*+*{margin-block-start:var(--jm-space-1000)}
+.jdgm-widget-revamp .jm-stack--space-1200>*+*{margin-block-start:var(--jm-space-1200)}
+.jdgm-widget-revamp .jm-stack--space-1600>*+*{margin-block-start:var(--jm-space-1600)}
+.jdgm-widget-revamp .jm-stack--space-2000>*+*{margin-block-start:var(--jm-space-2000)}
+.jdgm-widget-revamp .jm-stack--space-2400>*+*{margin-block-start:var(--jm-space-2400)}
+.jdgm-widget-revamp .jm-stack--space-3200>*+*{margin-block-start:var(--jm-space-3200)}

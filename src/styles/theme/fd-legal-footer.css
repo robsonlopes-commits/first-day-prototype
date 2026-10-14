@@ -1,0 +1,130 @@
+.fd-legal-footer,
+.fd-legal-footer *,
+.fd-legal-footer *::before,
+.fd-legal-footer *::after {
+  box-sizing: border-box;
+}
+
+.fd-legal-footer {
+  width: 100%;
+  padding: 52px 20px 31px;
+  color: var(--fd-legal-footer-text);
+  background-color: var(--fd-legal-footer-bg);
+  font-family: 'Sofia Pro', 'sofia-pro', var(--font-body-family), sans-serif;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 400;
+  letter-spacing: 0;
+}
+
+.fd-legal-footer__inner {
+  width: 100%;
+  max-width: 1440px;
+  margin-inline: auto;
+}
+
+.fd-legal-footer__logo-wrap {
+  display: flex;
+  width: 100%;
+  height: 44px;
+  align-items: flex-end;
+  justify-content: center;
+}
+
+.fd-legal-footer__logo-link {
+  display: block;
+  width: 125px;
+}
+
+.fd-legal-footer__logo {
+  display: block;
+  width: 125px;
+  height: auto;
+}
+
+.fd-legal-footer__legal {
+  display: flex;
+  width: min(100%, 350px);
+  margin: 27px auto 0;
+  color: var(--fd-legal-footer-muted-text);
+  text-align: center;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.fd-legal-footer__notice,
+.fd-legal-footer__copyright {
+  margin: 0;
+  font: inherit;
+}
+
+.fd-legal-footer__notice {
+  line-height: 17px;
+}
+
+.fd-legal-footer__notice a,
+.fd-legal-footer__copyright a {
+  color: inherit;
+  text-decoration: underline;
+  text-underline-offset: 1px;
+}
+
+.fd-legal-footer__meta {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  gap: 32px;
+}
+
+.fd-legal-footer__notice--giveaway,
+.fd-legal-footer__copyright {
+  line-height: 18px;
+}
+
+.fd-legal-footer__copyright {
+  color: var(--fd-legal-footer-text);
+}
+
+.fd-back-to-school-closing-hero-section + .fd-legal-footer-section {
+  margin-top: -24px;
+}
+
+@media screen and (min-width: 992px) {
+  .fd-back-to-school-closing-hero-section + .fd-legal-footer-section .fd-legal-footer {
+    padding-top: 0;
+  }
+}
+
+@media screen and (min-width: 750px) {
+  .fd-legal-footer {
+    padding-block: 48px;
+  }
+
+  .fd-legal-footer__legal {
+    display: grid;
+    width: 100%;
+    max-width: 1212px;
+    margin-top: 32px;
+    color: var(--fd-legal-footer-muted-text);
+    text-align: left;
+    grid-template-columns: minmax(0, 350fr) minmax(0, 350fr) minmax(0, 444fr);
+    column-gap: 34px;
+  }
+
+  .fd-legal-footer__meta {
+    gap: 13px;
+    padding-left: 34px;
+  }
+}
+
+@media screen and (min-width: 1200px) {
+  .fd-legal-footer__copyright {
+    white-space: nowrap;
+  }
+}
+
+@media screen and (max-width: 750px) {
+  .fd-legal-footer {
+    padding-block: 32px;
+  }
+}

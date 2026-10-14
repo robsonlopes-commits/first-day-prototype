@@ -1,0 +1,43 @@
+@import url('https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400..700;1,400..700&family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap');
+
+/* snippets/fd-frontrow-badge.liquid style block */
+.fd-frontrow-badge {
+  position: relative;
+  display: flex;
+  margin: 0 0 var(--PBFCM-spacing-24, 24px);
+  padding: var(--PBFCM-spacing-16, 16px);
+  border-radius: var(--PBFCM-border-radius-sm, 8px);
+  background-color: var(--PBFCM-color-clinician-bg, rgba(0, 0, 0, 0.02));
+  border: 0;
+}
+.fd-frontrow-badge .iframe-frontrow { width: 100%; margin: 0; overflow: hidden; }
+
+/* The FrontrowMD widget document (iframe on production), scoped here. */
+.fd-frontrow-badge .frontrow-embedded,
+.fd-frontrow-badge .frontrow-embedded * { letter-spacing: normal; text-transform: none; font-family: 'Open Sans', serif; box-sizing: content-box; }
+.fd-frontrow-badge .frontrow-embedded p { margin: 0; font-size: 15px; font-style: normal; font-weight: 400; line-height: 22px; color: #2c3e50; }
+.fd-frontrow-badge .frontrow-embedded button { padding: 0; border: none; background-color: transparent; cursor: pointer; }
+.fd-frontrow-badge .frontrow-embedded .bold { display: inline; font-weight: 600; }
+.fd-frontrow-badge .frontrow-embedded .italics { display: inline; font-style: italic; }
+.fd-frontrow-badge #embedded .heading svg path { stroke: #2c3e50; }
+.fd-frontrow-badge #embedded .heading .caduceus-icon svg path { fill: #2c3e50; stroke: none !important; }
+.fd-frontrow-badge #embedded { display: flex; flex-direction: column; gap: 10px; max-width: unset; }
+.fd-frontrow-badge #embedded > .heading { display: flex; flex-direction: row; gap: 4px; align-items: center; }
+.fd-frontrow-badge #embedded > .heading > p { font-size: 18px; font-weight: 500; line-height: normal; font-family: 'Lora', serif; letter-spacing: 0.3px; }
+.fd-frontrow-badge #embedded .main-copy { display: block; line-height: 22px; }
+.fd-frontrow-badge #embedded .images { display: inline-flex; align-items: center; vertical-align: middle; margin-right: 6px; }
+.fd-frontrow-badge #embedded .provider-inline-group { display: inline-flex; align-items: center; white-space: nowrap; vertical-align: middle; margin-top: -3px; }
+.fd-frontrow-badge #embedded > .cta { display: flex; flex-direction: row; gap: 10px; align-items: center; margin-top: 2px; }
+.fd-frontrow-badge #embedded .images img { width: 20px; height: 20px; display: inline-block; vertical-align: middle; margin-top: 0; border-radius: 100px; object-fit: cover; background-color: #eee; border: 2px #fff solid; box-sizing: content-box; }
+.fd-frontrow-badge #embedded .images img:nth-of-type(2),
+.fd-frontrow-badge #embedded .images img:nth-of-type(3) { margin-left: -8px; }
+.fd-frontrow-badge .left-laurels, .fd-frontrow-badge .right-laurels { height: 18px; }
+.fd-frontrow-badge .right-laurels { margin-left: 1px; }
+.fd-frontrow-badge .caduceus-icon { display: flex; height: 15px; }
+.fd-frontrow-badge #embedded button.learn-more-thin > p { color: #2c3e50; font-size: 15px; text-decoration: underline; text-underline-offset: 4px; text-decoration-thickness: 0.5px; }
+@media (max-width: 402px) { .fd-frontrow-badge #embedded p.main-copy, .fd-frontrow-badge #embedded p.main-copy * { font-size: 14px !important; } }
+.fd-frontrow-badge #embedded .testimonial-cta { display: flex; align-items: center; gap: 6px; }
+.fd-frontrow-badge #embedded .testimonial-cta > svg { margin-top: 2px; }
+.fd-frontrow-badge #embedded .testimonial-cta > p { color: #2c3e50; font-weight: 600; }
+.fd-frontrow-badge #embedded .testimonial-cta > p:hover { text-decoration-line: underline; text-underline-offset: 4px; text-decoration-thickness: 1px; }
+.fd-frontrow-badge #embedded .nowrap { white-space: nowrap; }

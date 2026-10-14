@@ -1,0 +1,10 @@
+.fd-icon {
+  display: inline-flex;
+  color: var(--fd-icon-color, var(--color-text-on-light-1));
+}
+
+/* Override the hardcoded width/height baked into each inline SVG */
+.fd-icon svg {
+  width: var(--fd-icon-size, 24px);
+  height: var(--fd-icon-size, 24px);
+}

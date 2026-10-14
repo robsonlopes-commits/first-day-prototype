@@ -1,0 +1,92 @@
+/* SALE 01. Star rating on sale product tiles.
+   Off until a variant class is on html, body, or any ancestor:
+     document.documentElement.classList.add('fd-sale-reviews-name');
+     document.documentElement.classList.add('fd-sale-reviews-price');
+   ab-sale-01-reviews-* aliases still work.
+
+   Visible row is 20px. Parent card info already has an 8px flex gap,
+   so inserting the row shifts the block below by 28px. V1 and V2 share
+   this format. */
+
+.fd-tile-rating {
+  display: none;
+  align-items: center;
+  flex-wrap: nowrap;
+  gap: 8px;
+  margin: 0;
+  min-height: 20px;
+  font-family: 'sofia-pro', sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 20px;
+  color: var(--color-text-on-light-2, #737373);
+  text-decoration: none;
+}
+
+.fd-sale-reviews-name .fd-tile-rating--name,
+.ab-sale-01-reviews-name .fd-tile-rating--name {
+  display: flex;
+}
+
+.fd-sale-reviews-price .fd-tile-rating--price,
+.ab-sale-01-reviews-price .fd-tile-rating--price {
+  display: flex;
+}
+
+.fd-tile-rating__stars {
+  position: relative;
+  display: inline-block;
+  flex: none;
+  width: 80px;
+  height: 16px;
+}
+
+.fd-tile-rating__stars-base,
+.fd-tile-rating__stars-fill {
+  display: flex;
+  height: 16px;
+  white-space: nowrap;
+}
+
+.fd-tile-rating__stars-base {
+  color: #d2cfcf;
+}
+
+.fd-tile-rating__stars-fill {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: var(--fd-tile-rating, 0%);
+  overflow: hidden;
+  color: var(--color-segment-kids, #ffb511);
+}
+
+.fd-tile-rating__star {
+  display: block;
+  flex: none;
+  width: 16px;
+  height: 16px;
+}
+
+.fd-tile-rating__score {
+  flex: none;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 20px;
+  color: var(--color-text-on-light, #1f2a44);
+}
+
+.fd-tile-rating__count {
+  flex: none;
+  font-size: 14px;
+  line-height: 20px;
+  color: var(--color-text-on-light-2, #737373);
+}
+
+@media screen and (max-width: 749px) {
+  .fd-tile-rating,
+  .fd-tile-rating__score,
+  .fd-tile-rating__count {
+    font-size: 12px;
+  }
+}

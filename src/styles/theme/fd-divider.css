@@ -1,0 +1,9 @@
+/* fd-divider — vertical separator line. Params injected via inline CSS vars. */
+.fd-divider {
+  flex-shrink: 0;
+  width: 0;
+  height: var(--fd-divider-height, 16px);
+  margin-inline: var(--fd-divider-margin-x, 0);
+  border: 0;
+  border-inline-start: 1px solid var(--fd-divider-color, var(--color-helper-outline));
+}

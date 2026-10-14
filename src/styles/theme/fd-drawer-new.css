@@ -1,0 +1,82 @@
+/* ==========================================================================
+   Drawer component — reusable slide-in panel with overlay
+   Supports left/right direction via BEM modifier on the panel.
+   Override colors per-instance via CSS custom properties on the element.
+   E.g.: style="--drawer-overlay-color: rgba(0,0,0,0.3)"
+   ========================================================================== */
+
+:root {
+  --drawer-overlay-color: rgba(0, 0, 0, 0.7);
+  --drawer-overlay-z-index: 40000;
+  --drawer-overlay-transition: opacity 0.5s, visibility 0.5s;
+  --drawer-panel-bg: #f2fbff;
+  --drawer-panel-text-color: #2c3e50;
+  --drawer-panel-z-index: 99;
+  --drawer-panel-transition: background 0.5s, transform 0.5s;
+  --drawer-panel-border-radius: 20px;
+  --drawer-panel-max-width: 430px;
+}
+
+/* Overlay backdrop */
+.fd-drawer__overlay {
+  background: var(--drawer-overlay-color);
+  position: fixed;
+  inset: 0;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: var(--drawer-overlay-transition);
+  z-index: var(--drawer-overlay-z-index);
+}
+
+.fd-drawer__overlay--open {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+
+/* Sliding panel */
+.fd-drawer__panel {
+  width: 100%;
+  max-width: 100%;
+  height: 100%;
+  position: absolute;
+  margin: 0;
+  margin-top: 10px;
+  color: var(--drawer-panel-text-color);
+  background: var(--drawer-panel-bg);
+  z-index: var(--drawer-panel-z-index);
+  overflow-x: hidden;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  transition: var(--drawer-panel-transition);
+  border-top-right-radius: var(--drawer-panel-border-radius);
+  border-top-left-radius: var(--drawer-panel-border-radius);
+}
+
+.fd-drawer__panel--right {
+  right: 0;
+  -webkit-transform: translateX(100%);
+  transform: translateX(100%);
+}
+
+.fd-drawer__panel--left {
+  left: 0;
+  -webkit-transform: translateX(-100%);
+  transform: translateX(-100%);
+}
+
+.fd-drawer__panel--open {
+  -webkit-transform: translateX(0);
+  transform: translateX(0);
+}
+
+@media screen and (min-width: 768px) {
+  .fd-drawer__panel {
+    height: 97.3%;
+    width: 70%;
+    max-width: var(--drawer-panel-max-width);
+    margin: 10px;
+    border-radius: var(--drawer-panel-border-radius);
+  }
+}

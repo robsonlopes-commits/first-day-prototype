@@ -1,0 +1,202 @@
+/*
+  Brand Narrative.
+
+  Figma 5561:16937 (mobile) and 5561:17799 (desktop).
+  Centered heading with a [bracket] accent, four narrative points, and an
+  optional product photo that only sits between the columns on desktop.
+  Photo and CTA are omitted when their settings are blank. Every value
+  reads var(--fd-bn-* / --fd-np-*, <design default>).
+*/
+
+.fd-brand-narrative-section {
+  overflow: visible;
+}
+
+.fd-bn {
+  background-color: var(--fd-bn-bg-color, var(--color-surface-white, #ffffff));
+  padding: var(--fd-bn-padding-top-mobile, 52px) var(--fd-bn-padding-right-mobile, 16px)
+    var(--fd-bn-padding-bottom-mobile, 32px) var(--fd-bn-padding-left-mobile, 16px);
+}
+
+.fd-bn__inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--fd-bn-content-gap-mobile, 32px);
+  max-width: var(--fd-bn-container-max-width, 1280px);
+  margin-inline: auto;
+}
+
+.fd-bn__heading {
+  margin: 0;
+  width: 100%;
+  font-family: var(--fd-bn-heading-font-family, var(--font-body, 'sofia-pro', sans-serif));
+  font-size: var(--fd-bn-heading-font-size-mobile, 26px);
+  font-weight: var(--fd-bn-heading-font-weight-mobile, 700);
+  line-height: var(--fd-bn-heading-line-height, 1.4);
+  color: var(--fd-bn-heading-font-color, var(--color-text-on-light-1, #2c3d50));
+  letter-spacing: 0;
+  text-align: center;
+  text-transform: capitalize;
+  overflow-wrap: break-word;
+}
+
+.fd-bn__heading-highlight {
+  color: var(--fd-bn-heading-highlight-color, var(--color-product-magnesium, #776cb1));
+  font-weight: var(--fd-bn-heading-highlight-weight, 700);
+}
+
+.fd-bn__stage {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: var(--fd-bn-item-gap-mobile, 32px);
+  width: 100%;
+}
+
+.fd-bn__media {
+  display: none;
+  width: 100%;
+  aspect-ratio: var(--fd-bn-media-width, 380) / var(--fd-bn-media-height, 320);
+  overflow: hidden;
+  border-radius: var(--fd-bn-media-radius, var(--radius-md, 8px));
+}
+
+.fd-bn--show-media-mobile .fd-bn__media {
+  display: block;
+}
+
+.fd-bn__media-img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  image-rendering: auto;
+}
+
+.fd-bn__points {
+  display: flex;
+  flex-direction: column;
+  gap: var(--fd-bn-item-gap-mobile, 32px);
+  margin: 0;
+  padding: 0;
+}
+
+.fd-bn__cta {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  align-self: stretch;
+  width: 100%;
+}
+
+.fd-bn__cta.fd-btn {
+  width: 100%;
+}
+
+@media (min-width: 992px) {
+  .fd-bn {
+    padding: var(--fd-bn-padding-top-desktop, 40px) var(--fd-bn-padding-right-desktop, 0px)
+      var(--fd-bn-padding-bottom-desktop, 64px) var(--fd-bn-padding-left-desktop, 0px);
+  }
+
+  .fd-bn__inner {
+    gap: var(--fd-bn-content-gap-desktop, 32px);
+  }
+
+  .fd-bn__heading {
+    font-size: var(--fd-bn-heading-font-size-desktop, 38px);
+    font-weight: var(--fd-bn-heading-font-weight, 500);
+  }
+
+  .fd-bn__heading-highlight {
+    display: block;
+  }
+
+  /*
+    Figma 5561:17801 is a hugging row: 361 | 380 | 361, gap 12, align-items
+    center. Each list is its own column (gap 32) and centers as a group
+    against the 320px photo. Do not promote the points to display:contents
+    grid items sharing rows with the photo — that stretches the 32px gap
+    to fill 320px.
+  */
+  .fd-bn__stage {
+    display: grid;
+    grid-template-columns: minmax(0, var(--fd-bn-col-width, 361px)) minmax(0, var(--fd-bn-col-width, 361px));
+    column-gap: var(--fd-bn-column-gap, 12px);
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+  }
+
+  .fd-bn--has-media .fd-bn__stage {
+    grid-template-columns: minmax(0, var(--fd-bn-col-width, 361px)) var(--fd-bn-media-width, 380px)
+      minmax(0, var(--fd-bn-col-width, 361px));
+  }
+
+  .fd-bn--has-media .fd-bn__media {
+    display: block;
+    grid-column: 2;
+    grid-row: 1;
+    width: var(--fd-bn-media-width, 380px);
+    height: var(--fd-bn-media-height, 320px);
+    aspect-ratio: auto;
+    justify-self: center;
+    align-self: center;
+  }
+
+  .fd-bn__points {
+    display: grid;
+    grid-template-columns: minmax(0, var(--fd-bn-col-width, 361px)) minmax(0, var(--fd-bn-col-width, 361px));
+    grid-column: 1 / -1;
+    grid-row: 1;
+    column-gap: var(--fd-bn-column-gap, 12px);
+    row-gap: var(--fd-bn-item-gap-desktop, 32px);
+    /* dense: DOM is L,L,R,R. Sparse packing leaves row 1 col 3 empty
+       after the two left items, so the right column starts one row down. */
+    grid-auto-flow: dense;
+    align-items: start;
+    align-content: start;
+    align-self: center;
+    justify-self: stretch;
+    width: 100%;
+    pointer-events: none;
+  }
+
+  .fd-bn--has-media .fd-bn__points {
+    grid-template-columns: minmax(0, var(--fd-bn-col-width, 361px)) var(--fd-bn-media-width, 380px)
+      minmax(0, var(--fd-bn-col-width, 361px));
+  }
+
+  .fd-bn__points > .fd-np--left,
+  .fd-bn__points > :has(.fd-np--left) {
+    grid-column: 1;
+    width: 100%;
+    min-width: 0;
+    pointer-events: auto;
+  }
+
+  .fd-bn__points > .fd-np--right,
+  .fd-bn__points > :has(.fd-np--right) {
+    grid-column: 2;
+    width: 100%;
+    min-width: 0;
+    pointer-events: auto;
+  }
+
+  .fd-bn--has-media .fd-bn__points > .fd-np--right,
+  .fd-bn--has-media .fd-bn__points > :has(.fd-np--right) {
+    grid-column: 3;
+  }
+
+  .fd-bn__cta--mobile-only {
+    display: none;
+  }
+
+  .fd-bn__cta.fd-btn {
+    width: auto;
+    min-width: 240px;
+    margin-inline: auto;
+  }
+}

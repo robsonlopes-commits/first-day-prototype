@@ -1,0 +1,170 @@
+/* ---- snippets/section-announcement-bar-v2.css.liquid ---- */
+
+/* ==========================================================================
+   Combined Header Group Styles
+   ========================================================================== */
+
+/* Header group wrapper - contains announcement bar and header */
+
+
+
+/* ==========================================================================
+   Sale Announcement Bar
+   ========================================================================== */
+
+.sale-announcement-bar {
+    background: rgb(var(--color-background));
+    position: relative;
+    width: 100%;
+    z-index: 30;
+}
+
+.sale-announcement-trigger {
+    width: 100%;
+    background: transparent;
+    border: none;
+    color: rgb(var(--color-foreground));
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 12px 20px;
+    font-family: 'sofia-pro', sans-serif;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 1.4;
+    transition: opacity 0.2s;
+}
+
+.sale-announcement-trigger:hover {
+    opacity: 0.9;
+}
+
+.sale-announcement-icon,
+.sale-announcement-arrow {
+    flex-shrink: 0;
+    width: 24px;
+    height: 24px;
+}
+
+
+.sale-announcement-text {
+    white-space: nowrap;
+    text-align: center;
+    font-family: 'sofia-pro', sans-serif;
+    font-weight: 400;
+}
+
+/* Desktop styles */
+@media screen and (min-width: 750px) {
+    .sale-announcement-trigger {
+        gap: 12px;
+        padding: 12px 0;
+        font-size: 16px;
+    }
+}
+
+@media screen and (min-width: 990px) {
+    .sale-announcement-trigger {
+        padding-top: 8px;
+        padding-bottom: 8px;
+        font-size: 14px;
+    }
+
+    .sale-announcement-icon,
+    .sale-announcement-arrow {
+        width: 20px;
+        height: 20px;
+    }
+}
+
+/* Header section padding */
+.header-section--padding {
+    padding-top: var(--section-padding-top);
+    padding-bottom: var(--section-padding-bottom);
+}
+
+/* Link variant (when using redirect) */
+.sale-announcement-trigger[href] {
+    text-decoration: none;
+}
+
+/* Disabled state (no dialog, no redirect) */
+.sale-announcement-trigger--disabled {
+    cursor: default;
+    opacity: 0.7;
+}
+
+.sale-announcement-trigger--disabled:hover {
+    opacity: 0.7;
+}
+
+/* Ensure SVG paths inherit color */
+.sale-announcement-icon path {
+    fill: currentColor;
+}
+
+/* ==========================================================================
+   Mobile Navbar Styles
+   ========================================================================== */
+
+.mobile-navbar {
+    display: none;
+    position: relative;
+    background: var(--gradient-header-background);
+    background-color: #ffffff;
+    z-index: 100;
+    padding: 16px;
+    border-bottom: 1px solid #D7EFFA;
+    will-change: transform;
+}
+
+.mobile-navbar__inner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 100%;
+}
+
+.mobile-navbar__logo {
+    display: flex;
+    align-items: center;
+}
+
+.mobile-navbar__actions {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    flex-direction: row-reverse;
+}
+
+.mobile-navbar__icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.mobile-navbar__cart-icon {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.mobile-navbar__cart-icon .icon-cart {
+    width: 24px;
+    height: 24px;
+}
+
+/* Show mobile navbar only on small screens */
+@media screen and (max-width: 989px) {
+    .mobile-navbar {
+        display: block;
+    }
+
+    /* Hide the existing header on mobile */
+    .header-wrapper {
+        display: none !important;
+    }
+}

@@ -1,0 +1,367 @@
+.fd-whats-in-it,
+.fd-whats-in-it *,
+.fd-whats-in-it *::before,
+.fd-whats-in-it *::after {
+  box-sizing: border-box;
+}
+
+.fd-whats-in-it-section {
+  background-color: var(--fd-whats-in-it-background);
+}
+
+.fd-whats-in-it {
+  width: 100%;
+  padding: var(--fd-whats-in-it-padding-top-mobile) 16px var(--fd-whats-in-it-padding-bottom-mobile);
+  background-color: var(--fd-whats-in-it-background);
+  color: var(--fd-whats-in-it-text);
+  font-family: 'Sofia Pro', 'sofia-pro', var(--font-body-family), sans-serif;
+}
+
+.fd-whats-in-it__stage {
+  display: flex;
+  width: 100%;
+  max-width: 1216px;
+  flex-direction: column;
+  gap: 16px;
+  margin-inline: auto;
+}
+
+.fd-whats-in-it__hero {
+  width: 100%;
+  overflow: hidden;
+  aspect-ratio: 2400 / 1792;
+  border-radius: 12px;
+}
+
+.fd-whats-in-it__hero img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.fd-whats-in-it__intro {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.fd-whats-in-it__heading {
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  color: var(--fd-whats-in-it-text);
+  font-family: 'gelica', var(--font-heading-family), serif;
+  font-size: 26px !important;
+  font-style: normal;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  line-height: 1.154 !important;
+}
+
+.fd-whats-in-it__heading-accent {
+  color: var(--fd-whats-in-it-accent);
+}
+
+.fd-whats-in-it__quote {
+  display: flex;
+  align-items: stretch;
+  gap: 16px;
+}
+
+.fd-whats-in-it__accent-bar {
+  width: 2px;
+  flex: 0 0 2px;
+  border-radius: 112px;
+  background-color: var(--fd-whats-in-it-accent);
+  opacity: 0.2;
+}
+
+.fd-whats-in-it__quote-copy {
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
+  gap: 16px;
+  margin: 0;
+  color: var(--fd-whats-in-it-text);
+  font-size: 16px;
+  font-weight: 400;
+  letter-spacing: -0.01em;
+  line-height: 1.25;
+}
+
+.fd-whats-in-it__quote-copy p,
+.fd-whats-in-it__card-body p {
+  margin: 0;
+}
+
+.fd-whats-in-it__quote-copy strong,
+.fd-whats-in-it__card-body strong {
+  font-weight: 900;
+}
+
+.fd-whats-in-it__cards {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 8px;
+}
+
+.fd-whats-in-it__card {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 10px;
+  padding: 10px;
+  border: 1px solid var(--fd-whats-in-it-card-border);
+  border-radius: 12px;
+  background-color: var(--fd-whats-in-it-card-background);
+}
+
+.fd-whats-in-it__card-header {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+}
+
+.fd-whats-in-it__icon-slot {
+  position: relative;
+  display: flex;
+  width: 42px;
+  height: 42px;
+  flex: 0 0 42px;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  border: 1px solid var(--fd-whats-in-it-card-border);
+  border-radius: 9px;
+  background-color: var(--fd-whats-in-it-slot-background);
+}
+
+.fd-whats-in-it__icon-slot img,
+.fd-whats-in-it__product-slot img,
+.fd-whats-in-it__ingredients img,
+.fd-whats-in-it__arrow img {
+  display: block;
+  max-width: none;
+}
+
+.fd-whats-in-it__card--immunity .fd-whats-in-it__icon-slot img {
+  width: 31px;
+  height: 30px;
+}
+
+.fd-whats-in-it__card--focus .fd-whats-in-it__icon-slot img {
+  width: 30px;
+  height: 34px;
+}
+
+.fd-whats-in-it__card--sleep .fd-whats-in-it__icon-slot img {
+  width: 27px;
+  height: 28px;
+}
+
+.fd-whats-in-it__card-heading {
+  margin: 0;
+  color: var(--fd-whats-in-it-text);
+  font-family: inherit;
+  font-size: 17px;
+  font-weight: 900;
+  letter-spacing: 0;
+  line-height: 1.118 !important;
+}
+
+.fd-whats-in-it__card-body {
+  color: var(--fd-whats-in-it-text);
+  font-size: 14px;
+  font-weight: 400;
+  letter-spacing: -0.01em;
+  line-height: 1.286;
+}
+
+.fd-whats-in-it__divider {
+  display: block;
+  width: 100%;
+  height: 1px;
+  background-color: var(--fd-whats-in-it-divider);
+  opacity: 0.5;
+}
+
+.fd-whats-in-it__card-details {
+  display: flex;
+  min-height: 56px;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.fd-whats-in-it__ingredients {
+  display: flex;
+  width: 120px;
+  flex: 0 0 120px;
+  align-items: center;
+}
+
+.fd-whats-in-it__ingredients img {
+  width: 120px;
+  height: auto;
+}
+
+.fd-whats-in-it__arrow,
+.fd-whats-in-it__arrow img {
+  width: 50px;
+  height: 16px;
+}
+
+.fd-whats-in-it__product-slot {
+  display: flex;
+  width: 56px;
+  height: 56px;
+  flex: 0 0 56px;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  border: 1px solid var(--fd-whats-in-it-card-border);
+  border-radius: 12px;
+  background-color: var(--fd-whats-in-it-slot-background);
+}
+
+.fd-whats-in-it__card--immunity .fd-whats-in-it__product-slot img {
+  width: 32px;
+  height: 36px;
+}
+
+.fd-whats-in-it__card--focus .fd-whats-in-it__product-slot img {
+  width: 33px;
+  height: 35px;
+}
+
+.fd-whats-in-it__card--sleep .fd-whats-in-it__product-slot img {
+  width: 34px;
+  height: 36px;
+}
+
+@media screen and (min-width: 750px) {
+  .fd-whats-in-it {
+    padding: var(--fd-whats-in-it-padding-top-tablet) 20px var(--fd-whats-in-it-padding-bottom-tablet);
+  }
+
+  .fd-whats-in-it__stage {
+    display: grid;
+    grid-template-columns: minmax(0, 0.82fr) minmax(0, 1fr);
+    gap: 32px;
+  }
+
+  .fd-whats-in-it__hero {
+    grid-column: 2;
+    grid-row: 1;
+    align-self: center;
+  }
+
+  .fd-whats-in-it__intro {
+    grid-column: 1;
+    grid-row: 1;
+    align-self: center;
+  }
+
+  .fd-whats-in-it__cards {
+    grid-column: 1 / -1;
+    grid-row: 2;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 16px;
+  }
+
+}
+
+@media screen and (min-width: 750px) and (max-width: 991px) {
+  .fd-whats-in-it__cards {
+    width: 100%;
+    max-width: 704px;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    margin-inline: auto;
+  }
+
+  .fd-whats-in-it__card:last-child:nth-child(odd) {
+    grid-column: 1 / -1;
+    width: calc((100% - 16px) / 2);
+    justify-self: center;
+  }
+}
+
+@media screen and (min-width: 992px) and (max-width: 1439px) {
+  .fd-whats-in-it__stage {
+    grid-template-columns: 129fr 413fr 40fr 505fr 129fr;
+    column-gap: 0;
+    row-gap: 32px;
+  }
+
+  .fd-whats-in-it__hero {
+    grid-column: 4;
+  }
+
+  .fd-whats-in-it__intro {
+    grid-column: 2;
+  }
+}
+
+@media screen and (min-width: 992px) {
+  .fd-whats-in-it {
+    padding-top: var(--fd-whats-in-it-padding-top);
+    padding-bottom: var(--fd-whats-in-it-padding-bottom);
+  }
+}
+
+@media screen and (min-width: 1200px) {
+  .fd-whats-in-it__heading {
+    font-size: 40px !important;
+    letter-spacing: -0.01em;
+    line-height: 1.2 !important;
+  }
+}
+
+@media screen and (min-width: 1200px) and (max-width: 1439px) {
+  .fd-whats-in-it__stage {
+    grid-template-columns:
+      minmax(0, 1fr)
+      minmax(0, 413px)
+      32px
+      minmax(0, 505px)
+      minmax(0, 1fr);
+  }
+}
+
+@media screen and (min-width: 1440px) {
+  .fd-whats-in-it__stage {
+    grid-template-columns: 129px 413px 40px 505px 129px;
+    grid-template-rows: 380px auto;
+    gap: 0;
+  }
+
+  .fd-whats-in-it__hero {
+    width: 505px;
+    height: 380px;
+    grid-column: 4;
+    grid-row: 1;
+    border-radius: 16px;
+  }
+
+  .fd-whats-in-it__intro {
+    grid-column: 2;
+    grid-row: 1;
+    align-self: start;
+    gap: 24px;
+    margin-top: 86px;
+  }
+
+  .fd-whats-in-it__quote-copy {
+    font-size: 18px;
+    line-height: 1.333;
+  }
+
+  .fd-whats-in-it__cards {
+    grid-column: 1 / -1;
+    grid-row: 2;
+    gap: 24px;
+    margin-top: 37px;
+  }
+
+}

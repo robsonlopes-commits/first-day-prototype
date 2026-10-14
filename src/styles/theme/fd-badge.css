@@ -1,0 +1,36 @@
+.fd-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 200px;
+  font-family: var(--font-body);
+  font-weight: var(--fw-regular);
+  line-height: var(--lh-base);
+  color: var(--color-text-on-dark);
+  white-space: nowrap;
+}
+
+/* Sizes */
+.fd-badge--sm {
+  padding: var(--spacing-tiny) var(--spacing-xxxs);
+  font-size: var(--font-para-sm);
+}
+.fd-badge--md {
+  padding: var(--spacing-tiny) var(--spacing-xxs);
+  font-size: var(--font-para-md);
+}
+.fd-badge--lg {
+  padding: var(--spacing-nano) var(--spacing-sm);
+  font-size: var(--font-para-lg);
+}
+
+/* Types */
+.fd-badge--success {
+  background: var(--color-feedback-success);
+}
+.fd-badge--dark {
+  background: var(--color-text-on-light-1);
+}
+.fd-badge--error {
+  background: var(--color-feedback-error);
+}

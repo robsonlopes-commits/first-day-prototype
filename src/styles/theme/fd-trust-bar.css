@@ -1,0 +1,210 @@
+/*
+  Trust Bar.
+
+  Figma 995:812 (mobile) and 1059:1111 (desktop). Gold stars sit inline at
+  the start of the rating sentence,   then wrap with it. Press logos are merchant uploads. Desktop is one row, logos left,
+  copy right. Every value reads var(--fd-tb-*, <design default>).
+*/
+
+.fd-trust-bar {
+  background-color: var(--fd-tb-bg-color, var(--color-brand-noon-blue));
+  padding-top: var(--fd-tb-padding-top-mobile, 18px);
+  padding-right: var(--fd-tb-padding-right-mobile, 16px);
+  padding-bottom: var(--fd-tb-padding-bottom-mobile, 18px);
+  padding-left: var(--fd-tb-padding-left-mobile, 16px);
+}
+
+.fd-trust-bar__inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--fd-tb-stack-gap, 18px);
+}
+
+.fd-trust-bar__copy {
+  max-width: var(--fd-tb-copy-max-width, 359px);
+  margin: 0;
+  text-align: center;
+  font-family: var(--fd-tb-font-family, var(--font-body));
+  font-size: var(--fd-tb-font-size-mobile, 13px);
+  font-weight: var(--fd-tb-font-weight, var(--fw-regular));
+  line-height: var(--fd-tb-line-height, 19px);
+  letter-spacing: -0.01em;
+  color: var(--fd-tb-font-color, var(--color-text-on-dark));
+}
+
+.fd-trust-bar__stars {
+  display: inline-block;
+  width: var(--fd-tb-stars-width, 64px);
+  height: var(--fd-tb-star-size, 12px);
+  margin-right: 4px;
+  vertical-align: -0.1em;
+  color: var(--fd-tb-star-color, var(--color-segment-kids));
+  background-color: currentcolor;
+  -webkit-mask-image: var(--fd-tb-stars-mask);
+  mask-image: var(--fd-tb-stars-mask);
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+  mask-position: center;
+  -webkit-mask-size: 100% 100%;
+  mask-size: 100% 100%;
+}
+
+.fd-trust-bar__text,
+.fd-trust-bar__text > * {
+  display: inline;
+  margin: 0;
+}
+
+.fd-trust-bar__logos {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: var(--fd-tb-logo-gap, 30px);
+  margin: 0;
+  padding: 0;
+  font-size: var(--fd-tb-logo-height, 38px);
+  list-style: none;
+}
+
+.fd-trust-bar__logo {
+  display: flex;
+  flex: 0 0 auto;
+  align-items: center;
+  width: var(--fd-tb-logo-box-width, 1em);
+  height: var(--fd-tb-logo-box-height, 1em);
+}
+
+.fd-trust-bar__logo--1 {
+  --fd-tb-logo-box-width: 0.9649em;
+  --fd-tb-logo-box-height: 0.9946em;
+}
+
+.fd-trust-bar__logo--2 {
+  --fd-tb-logo-box-width: 1.9256em;
+  --fd-tb-logo-box-height: 0.8169em;
+}
+
+.fd-trust-bar__logo--3 {
+  --fd-tb-logo-box-width: 1.0802em;
+  --fd-tb-logo-box-height: 1.1022em;
+}
+
+.fd-trust-bar__logo--4 {
+  --fd-tb-logo-box-width: 1.9064em;
+  --fd-tb-logo-box-height: 0.8298em;
+}
+
+.fd-trust-bar__logo-img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+@media (min-width: 750px) {
+  .fd-trust-bar {
+    padding-top: var(--fd-tb-padding-top-desktop, 14px);
+    padding-right: min(
+      var(--fd-tb-padding-right-desktop, 112px),
+      clamp(24px, calc(12.7536vw - 71.652px), 112px)
+    );
+    padding-bottom: var(--fd-tb-padding-bottom-desktop, 14px);
+    padding-left: min(
+      var(--fd-tb-padding-left-desktop, 112px),
+      clamp(24px, calc(12.7536vw - 71.652px), 112px)
+    );
+  }
+
+  .fd-trust-bar__inner {
+    display: grid;
+    grid-template-columns:
+      minmax(319px, var(--fd-tb-logos-max-width-desktop, 597px))
+      minmax(320px, var(--fd-tb-copy-max-width-desktop, 467px));
+    align-items: center;
+    justify-content: flex-start;
+    gap: min(
+      var(--fd-tb-stack-gap-desktop, 48px),
+      clamp(24px, calc(3.4783vw - 2.087px), 48px)
+    );
+    max-width: var(--fd-tb-content-max-width, 1216px);
+    margin-inline: auto;
+  }
+
+  .fd-trust-bar__copy {
+    order: 2;
+    flex: 0 1 var(--fd-tb-copy-max-width-desktop, 467px);
+    width: 100%;
+    max-width: var(--fd-tb-copy-max-width-desktop, 467px);
+    font-size: var(--fd-tb-font-size-desktop, 16px);
+    text-align: left;
+  }
+
+  .fd-trust-bar__logos {
+    order: 1;
+    flex: 0 1 var(--fd-tb-logos-max-width-desktop, 597px);
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    width: 100%;
+    max-width: var(--fd-tb-logos-max-width-desktop, 597px);
+    font-size: var(--fd-tb-logo-height-desktop, 60px);
+  }
+
+  .fd-trust-bar__logo--1 {
+    --fd-tb-logo-box-width: 0.8667em;
+    --fd-tb-logo-box-height: 0.9em;
+  }
+
+  .fd-trust-bar__logo--2 {
+    --fd-tb-logo-box-width: 1.75em;
+    --fd-tb-logo-box-height: 0.7333em;
+  }
+
+  .fd-trust-bar__logo--3 {
+    --fd-tb-logo-box-width: 0.9833em;
+    --fd-tb-logo-box-height: 1em;
+  }
+
+  .fd-trust-bar__logo--4 {
+    --fd-tb-logo-box-width: 1.7167em;
+    --fd-tb-logo-box-height: 0.75em;
+  }
+}
+
+@media (min-width: 750px) and (max-width: 991px) {
+  .fd-trust-bar__inner {
+    grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+    gap: min(var(--fd-tb-stack-gap-desktop, 48px), 20px);
+  }
+
+  .fd-trust-bar__copy {
+    justify-self: end;
+    width: calc(100% - 20px);
+    max-width: none;
+    font-size: min(
+      var(--fd-tb-font-size-desktop, 16px),
+      clamp(13px, calc(0.7326vw + 7.505px), 15px)
+    );
+  }
+
+  .fd-trust-bar__logos {
+    max-width: none;
+    font-size: min(
+      var(--fd-tb-logo-height-desktop, 60px),
+      clamp(44px, calc(2.9304vw + 22.023px), 52px)
+    );
+  }
+}
+
+@media (min-width: 1440px) {
+  .fd-trust-bar {
+    padding-right: var(--fd-tb-padding-right-desktop, 112px);
+    padding-left: var(--fd-tb-padding-left-desktop, 112px);
+  }
+
+  .fd-trust-bar__inner {
+    gap: var(--fd-tb-stack-gap-desktop, 48px);
+  }
+}

@@ -1,0 +1,1035 @@
+/*
+  Sick Day Hero.
+
+  Figma 995:761 + quote band 995:804. Poster sits in the frame; the video
+  layers over it and fades in once it can play. Reduced motion keeps the
+  poster. Heading, sub, CTA and proof share the same column as the video.
+  The quote band breaks out of that padding so the portrait hits the edge.
+  Every value reads var(--fd-sdh-*, <design default>) so a missing custom
+  property still matches the frame.
+*/
+
+.fd-sick-day-hero-section {
+  overflow: visible;
+}
+
+.fd-sick-day-hero {
+  display: flex;
+  flex-direction: column;
+  background-color: var(--fd-sdh-bg-color, var(--color-surface-late-morning-blue));
+  padding-top: var(--fd-sdh-padding-top-mobile, 20px);
+  padding-right: var(--fd-sdh-padding-right-mobile, 16px);
+  padding-bottom: var(--fd-sdh-padding-bottom-mobile, 20px);
+  padding-left: var(--fd-sdh-padding-left-mobile, 16px);
+}
+
+.fd-sick-day-hero:has(.fd-sick-day-hero__quote) {
+  padding-bottom: 0;
+}
+
+.fd-sick-day-hero__inner {
+  display: flex;
+  flex-direction: column;
+  gap: var(--fd-sdh-content-gap, 20px);
+  max-width: var(--fd-sdh-media-max-width, 1216px);
+  margin-inline: auto;
+}
+
+.fd-sick-day-hero__main {
+  display: contents;
+}
+
+.fd-sick-day-hero__copy {
+  display: flex;
+  flex-direction: column;
+  gap: var(--fd-sdh-copy-gap, 0px);
+  order: 1;
+  text-align: center;
+}
+
+.fd-sick-day-hero .fd-sick-day-hero__heading {
+  margin: 0;
+  font-family: var(--fd-sdh-heading-font-family, var(--font-title));
+  font-size: var(--fd-sdh-heading-font-size-mobile, var(--font-title-lg-mob));
+  font-weight: var(--fd-sdh-heading-font-weight, var(--fw-bold));
+  line-height: var(--fd-sdh-heading-line-height, 30px);
+  letter-spacing: -0.01em !important;
+  color: var(--fd-sdh-heading-font-color, var(--color-text-on-light-1));
+  overflow-wrap: break-word;
+  text-transform: none;
+  min-height: 107px;
+}
+
+.fd-sick-day-hero__heading-accent {
+  color: var(--fd-sdh-heading-accent-color, var(--color-brand-noon-blue));
+}
+
+.fd-sick-day-hero__sub,
+.fd-sick-day-hero__sub > * {
+  margin: 0;
+  font-family: var(--fd-sdh-sub-font-family, var(--font-body));
+  font-size: var(--fd-sdh-sub-font-size-mobile, var(--font-para-md-mob));
+  font-weight: var(--fd-sdh-sub-font-weight, var(--fw-regular));
+  line-height: var(--fd-sdh-sub-line-height, 19px);
+  letter-spacing: -0.01em !important;
+  color: var(--fd-sdh-sub-font-color, var(--color-text-on-light-1));
+}
+
+.fd-sick-day-hero__sub strong,
+.fd-sick-day-hero__sub b {
+  font-weight: var(--fw-bold);
+}
+
+.fd-sick-day-hero__media {
+  display: block;
+  position: relative;
+  order: 2;
+  width: 100%;
+  aspect-ratio: var(--fd-sdh-media-aspect, 358 / 309);
+  overflow: hidden;
+  border-radius: var(--fd-sdh-media-radius, var(--radius-lg));
+  box-shadow: var(--fd-sdh-shadow-offset, 5px) var(--fd-sdh-shadow-offset, 5px) 0 0
+    var(--fd-sdh-shadow-color, var(--color-brand-noon-blue));
+}
+
+.fd-sick-day-hero__poster,
+.fd-sick-day-hero__video {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.fd-sick-day-hero__poster {
+  position: absolute;
+  inset: 0;
+}
+
+.fd-sick-day-hero__video {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transition: opacity 400ms ease;
+}
+
+.fd-sick-day-hero__media.is-video-ready .fd-sick-day-hero__video {
+  opacity: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .fd-sick-day-hero__video {
+    display: none;
+    transition: none;
+  }
+}
+
+.fd-sick-day-hero__offer {
+  display: flex;
+  flex-direction: column;
+  gap: var(--fd-sdh-offer-gap, 11px);
+  order: 3;
+  width: 100%;
+}
+
+.fd-sick-day-hero__cta {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  width: 100%;
+  min-height: var(--fd-sdh-cta-height, 54px);
+  padding: 16px 24px;
+  background-color: var(--fd-sdh-cta-bg-color, #d9441f);
+  border-radius: var(--fd-sdh-cta-radius, 100px);
+  text-decoration: none;
+}
+
+.fd-sick-day-hero__cta.fd-sick-day-hero__cta--inline,
+.fd-sick-day-hero__sticky .fd-sick-day-hero__cta {
+  transition:
+    box-shadow 180ms ease,
+    filter 180ms ease,
+    transform 180ms ease;
+}
+
+@media (hover: hover) {
+  .fd-sick-day-hero__cta.fd-sick-day-hero__cta--inline:hover,
+  .fd-sick-day-hero__sticky .fd-sick-day-hero__cta:hover {
+    box-shadow: 0 8px 18px rgb(44 62 80 / 18%);
+    filter: brightness(0.92);
+    transform: translateY(-1px);
+  }
+}
+
+.fd-sick-day-hero__cta.fd-sick-day-hero__cta--inline:active,
+.fd-sick-day-hero__sticky .fd-sick-day-hero__cta:active {
+  box-shadow: none;
+  filter: brightness(0.88);
+  transform: translateY(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .fd-sick-day-hero__cta.fd-sick-day-hero__cta--inline,
+  .fd-sick-day-hero__sticky .fd-sick-day-hero__cta {
+    transition: none;
+  }
+
+  .fd-sick-day-hero__sticky {
+    transition: none;
+  }
+}
+
+.fd-sick-day-hero__cta:focus-visible {
+  outline: 2px solid var(--fd-sdh-cta-bg-color, #d9441f);
+  outline-offset: 3px;
+}
+
+.fd-sick-day-hero__cta-text {
+  margin-top: -4px;
+  font-family: var(--fd-sdh-cta-font-family, var(--font-body));
+  font-size: var(--fd-sdh-cta-font-size-mobile, 17.5px);
+  font-weight: var(--fd-sdh-cta-font-weight, var(--fw-semibold));
+  line-height: 1.22;
+  letter-spacing: normal !important;
+  color: var(--fd-sdh-cta-font-color, var(--color-text-on-dark));
+  text-align: center;
+}
+
+.fd-sick-day-hero__cta-icon {
+  flex: none;
+  --fd-icon-size: var(--fd-sdh-cta-icon-size, 23px);
+  --fd-icon-color: var(--fd-sdh-cta-font-color, var(--color-text-on-dark));
+  width: var(--fd-icon-size);
+  height: var(--fd-icon-size);
+  background: center / contain no-repeat
+    url("data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTE2IDE3TDIxIDEyTDE2IDdNMjEgMTJIMyIgc3Ryb2tlPSJ3aGl0ZSIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiLz4KPC9zdmc+Cg==");
+}
+
+.fd-sick-day-hero__cta-icon > svg {
+  display: none;
+}
+
+.fd-sick-day-hero__sticky {
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 20;
+  padding: 16px 10px;
+  background-color: var(--fd-sdh-bg-color, var(--color-surface-late-morning-blue));
+  box-shadow: 0 -4px 16px rgba(44, 61, 80, 0.12);
+  transition: transform 200ms ease, visibility 200ms ease;
+}
+
+.fd-sick-day-hero__sticky.is-hidden {
+  transform: translateY(100%);
+  pointer-events: none;
+  visibility: hidden;
+}
+
+.fd-sick-day-hero__sticky .fd-sick-day-hero__cta {
+  max-width: 370px;
+  margin-inline: auto;
+}
+
+.fd-sick-day-hero__sticky-product,
+.fd-sick-day-hero__sticky-offer {
+  display: none;
+}
+
+.fd-sick-day-hero__sticky-inner {
+  width: 100%;
+}
+
+.fd-sick-day-hero__sticky-action {
+  width: 100%;
+}
+
+@media (min-width: 750px) {
+  .fd-sick-day-hero__sticky {
+    min-height: 80px;
+    padding: 0 20px;
+  }
+
+  .fd-sick-day-hero__sticky-inner {
+    display: grid;
+    grid-template-columns: minmax(300px, 370px) minmax(416px, 646px);
+    align-items: center;
+    justify-content: space-between;
+    gap: clamp(12px, 2vw, 32px);
+    max-width: 1225px;
+    min-height: 80px;
+    margin-inline: auto;
+  }
+
+  .fd-sick-day-hero__sticky-product {
+    display: flex;
+    grid-column: 1;
+    flex-flow: row nowrap;
+    align-items: center;
+    gap: 20px;
+    min-width: 0;
+  }
+
+  .fd-sick-day-hero__sticky-product-media {
+    position: relative;
+    display: block;
+    flex: 0 0 64px;
+    width: 64px;
+    height: 64px;
+  }
+
+  .fd-sick-day-hero__sticky-product-image {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    display: block;
+    width: 90px;
+    max-width: none;
+    height: 64px;
+    object-fit: contain;
+    transform: translateX(-50%);
+  }
+
+  .fd-sick-day-hero__sticky-product-copy {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    min-width: 0;
+    color: #2c3e50;
+  }
+
+  .fd-sick-day-hero__sticky-product-title {
+    font-family: var(--font-title, "gelica", serif);
+    font-size: 18px;
+    font-weight: 700;
+    line-height: 1;
+  }
+
+  .fd-sick-day-hero__sticky-rating {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    font-family: var(--font-body, "sofia-pro", sans-serif);
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 18px;
+    white-space: nowrap;
+  }
+
+  .fd-sick-day-hero__sticky-stars {
+    flex: 0 0 70px;
+    width: 70px;
+    height: 14px;
+    background: center / 70px 14px no-repeat
+      url("data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNzAiIGhlaWdodD0iMTQiIHZpZXdCb3g9IjAgMCA3MCAxNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTEzLjEzMzcgNS4wOTgzMUMxMy4xMzM3IDQuOTAyNTUgMTIuOTg4MyA0Ljc3Nzk3IDEyLjY5NzYgNC43MjQ1OEw4LjcyMTU4IDQuMTEwNkw2Ljk1MTYxIDAuMzczMzE2QzYuODQ5MDEgMC4xNTk3NTggNi43MjA3NSAwLjA1Mjk3NzggNi41NjY4NCAwLjA1Mjk3NzhDNi40MTI5MyAwLjA1Mjk3NzggNi4yODQ2NyAwLjE1OTc1OCA2LjE4MjA2IDAuMzczMzE2TDQuNDEyMDkgNC4xMTA2TDAuNDM2MDc5IDQuNzI0NThDMC4xNDUzNiA0Ljc3Nzk3IDAgNC45MDI1NSAwIDUuMDk4MzFDMCA1LjIyMjg5IDAuMDY4NDA0NiA1LjM1NjM2IDAuMjA1MjE0IDUuNDk4NzNMMy4wNzgyMSA4LjQwODQ4TDIuMzg1NjEgMTIuNTE5NUMyLjM4NTYxIDEyLjU5MDcgMi4zODU2MSAxMi42NDQxIDIuMzg1NjEgMTIuNjc5N0MyLjM4NTYxIDEyLjc4NjQgMi40MTEyNiAxMi44Nzk5IDIuNDYyNTYgMTIuOTZDMi41MTM4NyAxMy4wNCAyLjU5OTM3IDEzLjA4MDEgMi43MTkwOCAxMy4wODAxQzIuODA0NTkgMTMuMDgwMSAyLjkwNzE5IDEzLjA0NDUgMy4wMjY5IDEyLjk3MzNMNi41NjY4NCAxMS4wNTEzTDEwLjEwNjggMTIuOTczM0MxMC4yMjY1IDEzLjA0NDUgMTAuMzI5MSAxMy4wODAxIDEwLjQxNDYgMTMuMDgwMUMxMC41MzQzIDEzLjA4MDEgMTAuNjE5OCAxMy4wNCAxMC42NzExIDEyLjk2QzEwLjcyMjQgMTIuODc5OSAxMC43NDgxIDEyLjc4NjQgMTAuNzQ4MSAxMi42Nzk3QzEwLjc0ODEgMTIuNjA4NSAxMC43NDgxIDEyLjU1NTEgMTAuNzQ4MSAxMi41MTk1TDEwLjA1NTUgOC40MDg0OEwxMi45Mjg1IDUuNDk4NzNDMTMuMDY1MyA1LjM1NjM2IDEzLjEzMzcgNS4yMjI4OSAxMy4xMzM3IDUuMDk4MzFaIiBmaWxsPSIjRkZCNTEyIi8+CjxwYXRoIGQ9Ik0yNy4zNTEgNS4wOTgzMUMyNy4zNTEgNC45MDI1NSAyNy4yMDU3IDQuNzc3OTcgMjYuOTE1IDQuNzI0NThMMjIuOTM5IDQuMTEwNkwyMS4xNjkgMC4zNzMzMTZDMjEuMDY2NCAwLjE1OTc1OCAyMC45MzgxIDAuMDUyOTc3OCAyMC43ODQyIDAuMDUyOTc3OEMyMC42MzAzIDAuMDUyOTc3OCAyMC41MDIgMC4xNTk3NTggMjAuMzk5NCAwLjM3MzMxNkwxOC42Mjk1IDQuMTEwNkwxNC42NTM1IDQuNzI0NThDMTQuMzYyNyA0Ljc3Nzk3IDE0LjIxNzQgNC45MDI1NSAxNC4yMTc0IDUuMDk4MzFDMTQuMjE3NCA1LjIyMjg5IDE0LjI4NTggNS4zNTYzNiAxNC40MjI2IDUuNDk4NzNMMTcuMjk1NiA4LjQwODQ4TDE2LjYwMyAxMi41MTk1QzE2LjYwMyAxMi41OTA3IDE2LjYwMyAxMi42NDQxIDE2LjYwMyAxMi42Nzk3QzE2LjYwMyAxMi43ODY0IDE2LjYyODYgMTIuODc5OSAxNi42Nzk5IDEyLjk2QzE2LjczMTIgMTMuMDQgMTYuODE2NyAxMy4wODAxIDE2LjkzNjUgMTMuMDgwMUMxNy4wMjIgMTMuMDgwMSAxNy4xMjQ2IDEzLjA0NDUgMTcuMjQ0MyAxMi45NzMzTDIwLjc4NDIgMTEuMDUxM0wyNC4zMjQxIDEyLjk3MzNDMjQuNDQzOSAxMy4wNDQ1IDI0LjU0NjUgMTMuMDgwMSAyNC42MzIgMTMuMDgwMUMyNC43NTE3IDEzLjA4MDEgMjQuODM3MiAxMy4wNCAyNC44ODg1IDEyLjk2QzI0LjkzOTggMTIuODc5OSAyNC45NjU0IDEyLjc4NjQgMjQuOTY1NCAxMi42Nzk3QzI0Ljk2NTQgMTIuNjA4NSAyNC45NjU0IDEyLjU1NTEgMjQuOTY1NCAxMi41MTk1TDI0LjI3MjggOC40MDg0OEwyNy4xNDU4IDUuNDk4NzNDMjcuMjgyNiA1LjM1NjM2IDI3LjM1MSA1LjIyMjg5IDI3LjM1MSA1LjA5ODMxWiIgZmlsbD0iI0ZGQjUxMiIvPgo8cGF0aCBkPSJNNDEuNTY2NSA1LjA5ODMxQzQxLjU2NjUgNC45MDI1NSA0MS40MjExIDQuNzc3OTcgNDEuMTMwNCA0LjcyNDU4TDM3LjE1NDQgNC4xMTA2TDM1LjM4NDQgMC4zNzMzMTZDMzUuMjgxOCAwLjE1OTc1OCAzNS4xNTM1IDAuMDUyOTc3OCAzNC45OTk2IDAuMDUyOTc3OEMzNC44NDU3IDAuMDUyOTc3OCAzNC43MTc1IDAuMTU5NzU4IDM0LjYxNDkgMC4zNzMzMTZMMzIuODQ0OSA0LjExMDZMMjguODY4OSA0LjcyNDU4QzI4LjU3ODEgNC43Nzc5NyAyOC40MzI4IDQuOTAyNTUgMjguNDMyOCA1LjA5ODMxQzI4LjQzMjggNS4yMjI4OSAyOC41MDEyIDUuMzU2MzYgMjguNjM4IDUuNDk4NzNMMzEuNTExIDguNDA4NDhMMzAuODE4NCAxMi41MTk1QzMwLjgxODQgMTIuNTkwNyAzMC44MTg0IDEyLjY0NDEgMzAuODE4NCAxMi42Nzk3QzMwLjgxODQgMTIuNzg2NCAzMC44NDQgMTIuODc5OSAzMC44OTU0IDEyLjk2QzMwLjk0NjcgMTMuMDQgMzEuMDMyMiAxMy4wODAxIDMxLjE1MTkgMTMuMDgwMUMzMS4yMzc0IDEzLjA4MDEgMzEuMzQgMTMuMDQ0NSAzMS40NTk3IDEyLjk3MzNMMzQuOTk5NiAxMS4wNTEzTDM4LjUzOTYgMTIuOTczM0MzOC42NTkzIDEzLjA0NDUgMzguNzYxOSAxMy4wODAxIDM4Ljg0NzQgMTMuMDgwMUMzOC45NjcxIDEzLjA4MDEgMzkuMDUyNiAxMy4wNCAzOS4xMDM5IDEyLjk2QzM5LjE1NTIgMTIuODc5OSAzOS4xODA5IDEyLjc4NjQgMzkuMTgwOSAxMi42Nzk3QzM5LjE4MDkgMTIuNjA4NSAzOS4xODA5IDEyLjU1NTEgMzkuMTgwOSAxMi41MTk1TDM4LjQ4ODMgOC40MDg0OEw0MS4zNjEzIDUuNDk4NzNDNDEuNDk4MSA1LjM1NjM2IDQxLjU2NjUgNS4yMjI4OSA0MS41NjY1IDUuMDk4MzFaIiBmaWxsPSIjRkZCNTEyIi8+CjxwYXRoIGQ9Ik01NS43ODM4IDUuMDk4MzFDNTUuNzgzOCA0LjkwMjU1IDU1LjYzODUgNC43Nzc5NyA1NS4zNDc4IDQuNzI0NThMNTEuMzcxNyA0LjExMDZMNDkuNjAxOCAwLjM3MzMxNkM0OS40OTkyIDAuMTU5NzU4IDQ5LjM3MDkgMC4wNTI5Nzc4IDQ5LjIxNyAwLjA1Mjk3NzhDNDkuMDYzMSAwLjA1Mjk3NzggNDguOTM0OCAwLjE1OTc1OCA0OC44MzIyIDAuMzczMzE2TDQ3LjA2MjMgNC4xMTA2TDQzLjA4NjIgNC43MjQ1OEM0Mi43OTU1IDQuNzc3OTcgNDIuNjUwMiA0LjkwMjU1IDQyLjY1MDIgNS4wOTgzMUM0Mi42NTAyIDUuMjIyODkgNDIuNzE4NiA1LjM1NjM2IDQyLjg1NTQgNS40OTg3M0w0NS43Mjg0IDguNDA4NDhMNDUuMDM1OCAxMi41MTk1QzQ1LjAzNTggMTIuNTkwNyA0NS4wMzU4IDEyLjY0NDEgNDUuMDM1OCAxMi42Nzk3QzQ1LjAzNTggMTIuNzg2NCA0NS4wNjE0IDEyLjg3OTkgNDUuMTEyNyAxMi45NkM0NS4xNjQgMTMuMDQgNDUuMjQ5NSAxMy4wODAxIDQ1LjM2OTIgMTMuMDgwMUM0NS40NTQ3IDEzLjA4MDEgNDUuNTU3NCAxMy4wNDQ1IDQ1LjY3NzEgMTIuOTczM0w0OS4yMTcgMTEuMDUxM0w1Mi43NTY5IDEyLjk3MzNDNTIuODc2NiAxMy4wNDQ1IDUyLjk3OTIgMTMuMDgwMSA1My4wNjQ4IDEzLjA4MDFDNTMuMTg0NSAxMy4wODAxIDUzLjI3IDEzLjA0IDUzLjMyMTMgMTIuOTZDNTMuMzcyNiAxMi44Nzk5IDUzLjM5ODIgMTIuNzg2NCA1My4zOTgyIDEyLjY3OTdDNTMuMzk4MiAxMi42MDg1IDUzLjM5ODIgMTIuNTU1MSA1My4zOTgyIDEyLjUxOTVMNTIuNzA1NiA4LjQwODQ4TDU1LjU3ODYgNS40OTg3M0M1NS43MTU0IDUuMzU2MzYgNTUuNzgzOCA1LjIyMjg5IDU1Ljc4MzggNS4wOTgzMVoiIGZpbGw9IiNGRkI1MTIiLz4KPHBhdGggZD0iTTY5Ljk5OTMgNS4wOTgzMUM2OS45OTkzIDQuOTAyNTUgNjkuODUzOSA0Ljc3Nzk3IDY5LjU2MzIgNC43MjQ1OEw2NS41ODcyIDQuMTEwNkw2My44MTcyIDAuMzczMzE2QzYzLjcxNDYgMC4xNTk3NTggNjMuNTg2MyAwLjA1Mjk3NzggNjMuNDMyNCAwLjA1Mjk3NzhDNjMuMjc4NSAwLjA1Mjk3NzggNjMuMTUwMiAwLjE1OTc1OCA2My4wNDc2IDAuMzczMzE2TDYxLjI3NzcgNC4xMTA2TDU3LjMwMTcgNC43MjQ1OEM1Ny4wMTA5IDQuNzc3OTcgNTYuODY1NiA0LjkwMjU1IDU2Ljg2NTYgNS4wOTgzMUM1Ni44NjU2IDUuMjIyODkgNTYuOTM0IDUuMzU2MzYgNTcuMDcwOCA1LjQ5ODczTDU5Ljk0MzggOC40MDg0OEw1OS4yNTEyIDEyLjUxOTVDNTkuMjUxMiAxMi41OTA3IDU5LjI1MTIgMTIuNjQ0MSA1OS4yNTEyIDEyLjY3OTdDNTkuMjUxMiAxMi43ODY0IDU5LjI3NjggMTIuODc5OSA1OS4zMjgxIDEyLjk2QzU5LjM3OTQgMTMuMDQgNTkuNDY0OSAxMy4wODAxIDU5LjU4NDcgMTMuMDgwMUM1OS42NzAyIDEzLjA4MDEgNTkuNzcyOCAxMy4wNDQ1IDU5Ljg5MjUgMTIuOTczM0w2My40MzI0IDExLjA1MTNMNjYuOTcyMyAxMi45NzMzQzY3LjA5MjEgMTMuMDQ0NSA2Ny4xOTQ3IDEzLjA4MDEgNjcuMjgwMiAxMy4wODAxQzY3LjM5OTkgMTMuMDgwMSA2Ny40ODU0IDEzLjA0IDY3LjUzNjcgMTIuOTZDNjcuNTg4IDEyLjg3OTkgNjcuNjEzNiAxMi43ODY0IDY3LjYxMzYgMTIuNjc5N0M2Ny42MTM2IDEyLjYwODUgNjcuNjEzNiAxMi41NTUxIDY3LjYxMzYgMTIuNTE5NUw2Ni45MjEgOC40MDg0OEw2OS43OTQgNS40OTg3M0M2OS45MzA4IDUuMzU2MzYgNjkuOTk5MyA1LjIyMjg5IDY5Ljk5OTMgNS4wOTgzMVoiIGZpbGw9IiNGRkI1MTIiLz4KPC9zdmc+Cg==");
+  }
+
+  .fd-sick-day-hero__sticky-offer {
+    display: flex;
+    flex: 1 1 270px;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
+    min-width: 0;
+    font-family: var(--font-body, "sofia-pro", sans-serif);
+    color: #2c3e50;
+  }
+
+  .fd-sick-day-hero__sticky-action {
+    display: flex;
+    grid-column: 2;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 6px;
+    max-width: 646px;
+  }
+
+  .fd-sick-day-hero__sticky-offer-heading {
+    display: flex;
+    align-items: center;
+    gap: 3px;
+    font-size: 16.845px;
+    font-weight: 500;
+    line-height: 20.537px;
+    white-space: normal;
+  }
+
+  .fd-sick-day-hero__sticky-offer-icon {
+    flex: 0 0 18.457px;
+    width: 18.457px;
+    height: 18.457px;
+    background: center / 16px 16px no-repeat
+      url("data:image/svg+xml;base64,PHN2ZyBwcmVzZXJ2ZUFzcGVjdFJhdGlvPSJub25lIiBvdmVyZmxvdz0idmlzaWJsZSIgc3R5bGU9ImRpc3BsYXk6IGJsb2NrOyIgd2lkdGg9IjE2IiBoZWlnaHQ9IjE2IiB2aWV3Qm94PSIwIDAgMTYgMTYiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxnIGlkPSIxIiBjbGlwLXBhdGg9InVybCgjY2xpcDBfMF81KSI+CjxwYXRoIGlkPSJTdGFyIDkiIGQ9Ik02LjQ5MzgzIDAuOTk5MjQ0QzcuNDA2NjQgMC4zOTM2NTkgOC41OTMzNiAwLjM5MzY1OSA5LjUwNjE3IDAuOTk5MjQ0VjAuOTk5MjQ0QzkuOTE5NzggMS4yNzM2NSAxMC40MDA1IDEuNDI5ODUgMTAuODk2NCAxLjQ1MDk3VjEuNDUwOTdDMTEuOTkwOSAxLjQ5NzU3IDEyLjk1MDkgMi4xOTUxMSAxMy4zMzM1IDMuMjIxNTdWMy4yMjE1N0MxMy41MDY4IDMuNjg2NjkgMTMuODAzOSA0LjA5NTYyIDE0LjE5MjcgNC40MDQyVjQuNDA0MkMxNS4wNTA3IDUuMDg1MTkgMTUuNDE3NCA2LjIxMzgzIDE1LjEyMzUgNy4yNjkxVjcuMjY5MUMxNC45OTA0IDcuNzQ3MjcgMTQuOTkwNCA4LjI1MjczIDE1LjEyMzUgOC43MzA5VjguNzMwOUMxNS40MTc0IDkuNzg2MTcgMTUuMDUwNyAxMC45MTQ4IDE0LjE5MjcgMTEuNTk1OFYxMS41OTU4QzEzLjgwMzkgMTEuOTA0NCAxMy41MDY4IDEyLjMxMzMgMTMuMzMzNSAxMi43Nzg0VjEyLjc3ODRDMTIuOTUwOSAxMy44MDQ5IDExLjk5MDkgMTQuNTAyNCAxMC44OTY0IDE0LjU0OVYxNC41NDlDMTAuNDAwNSAxNC41NzAxIDkuOTE5NzggMTQuNzI2MyA5LjUwNjE3IDE1LjAwMDhWMTUuMDAwOEM4LjU5MzM2IDE1LjYwNjMgNy40MDY2NCAxNS42MDYzIDYuNDkzODMgMTUuMDAwOFYxNS4wMDA4QzYuMDgwMjIgMTQuNzI2MyA1LjU5OTQ5IDE0LjU3MDEgNS4xMDM1NyAxNC41NDlWMTQuNTQ5QzQuMDA5MTUgMTQuNTAyNCAzLjA0OTA2IDEzLjgwNDkgMi42NjY1NCAxMi43Nzg0VjEyLjc3ODRDMi40OTMyMSAxMi4zMTMzIDIuMTk2MTEgMTEuOTA0NCAxLjgwNzMyIDExLjU5NThWMTEuNTk1OEMwLjk0OTI5OSAxMC45MTQ4IDAuNTgyNTggOS43ODYxNyAwLjg3NjQ1NSA4LjczMDlWOC43MzA5QzEuMDA5NjIgOC4yNTI3MyAxLjAwOTYyIDcuNzQ3MjcgMC44NzY0NTUgNy4yNjkxVjcuMjY5MUMwLjU4MjU4IDYuMjEzODMgMC45NDkyOTkgNS4wODUxOSAxLjgwNzMyIDQuNDA0MlY0LjQwNDJDMi4xOTYxMSA0LjA5NTYyIDIuNDkzMjEgMy42ODY2OSAyLjY2NjU0IDMuMjIxNTdWMy4yMjE1N0MzLjA0OTA2IDIuMTk1MTEgNC4wMDkxNSAxLjQ5NzU3IDUuMTAzNTcgMS40NTA5N1YxLjQ1MDk3QzUuNTk5NDkgMS40Mjk4NSA2LjA4MDIyIDEuMjczNjUgNi40OTM4MyAwLjk5OTI0NFYwLjk5OTI0NFoiIGZpbGw9IiMxOEIxNUMiLz4KPHBhdGggaWQ9IlZlY3RvciIgZD0iTTUgOC40TDcgMTAuNEwxMSA2IiBzdHJva2U9IndoaXRlIiBzdHJva2Utd2lkdGg9IjEuNSIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIi8+CjwvZz4KPGRlZnM+CjxjbGlwUGF0aCBpZD0iY2xpcDBfMF81Ij4KPHJlY3Qgd2lkdGg9IjE2IiBoZWlnaHQ9IjE2IiBmaWxsPSJ3aGl0ZSIvPgo8L2NsaXBQYXRoPgo8L2RlZnM+Cjwvc3ZnPgo=");
+  }
+
+  .fd-sick-day-hero__sticky-offer-subtext {
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 20.189px;
+    white-space: normal;
+  }
+
+  .fd-sick-day-hero__sticky .fd-sick-day-hero__cta {
+    flex: 0 1 370px;
+    width: 100%;
+    max-width: 370px;
+    min-height: 54.497px;
+    margin-inline: 0;
+    padding: 16px 24px;
+  }
+
+  .fd-sick-day-hero__sticky .fd-sick-day-hero__cta-text {
+    font-size: 17.517px;
+  }
+
+  .fd-sick-day-hero__sticky .fd-sick-day-hero__cta-icon {
+    display: none;
+  }
+}
+
+@media (min-width: 750px) and (max-width: 899px) {
+  .fd-sick-day-hero__sticky-product-title {
+    font-size: 15px;
+    line-height: 17px;
+  }
+
+  .fd-sick-day-hero__sticky-rating {
+    font-size: 12px;
+  }
+
+  .fd-sick-day-hero__sticky-stars {
+    flex-basis: 55px;
+    width: 55px;
+    background-size: 55px 11px;
+  }
+
+  .fd-sick-day-hero__sticky-offer-heading {
+    font-size: 14px;
+    line-height: 18px;
+    white-space: normal;
+  }
+
+  .fd-sick-day-hero__sticky-offer-subtext {
+    font-size: 10px;
+    line-height: 16px;
+    white-space: normal;
+  }
+
+  .fd-sick-day-hero__sticky .fd-sick-day-hero__cta-text {
+    font-size: 15px;
+  }
+}
+
+@media (min-width: 750px) and (max-width: 991px) {
+  .fd-sick-day-hero__sticky-offer {
+    display: none;
+  }
+
+  .fd-sick-day-hero__sticky .fd-sick-day-hero__cta {
+    flex-basis: 320px;
+    max-width: 320px;
+  }
+}
+
+@media (min-width: 992px) and (max-width: 1199px) {
+  .fd-sick-day-hero__sticky-offer {
+    flex: 0 0 285px;
+  }
+
+  .fd-sick-day-hero__sticky-offer-heading,
+  .fd-sick-day-hero__sticky-offer-subtext {
+    white-space: nowrap;
+  }
+
+  .fd-sick-day-hero__sticky .fd-sick-day-hero__cta {
+    flex: 1 1 auto;
+    min-width: 0;
+  }
+
+  .fd-sick-day-hero__sticky .fd-sick-day-hero__cta-text {
+    font-size: 14px;
+  }
+}
+
+@media (min-width: 992px) {
+  .fd-sick-day-hero__sticky-product-title {
+    white-space: nowrap;
+  }
+}
+
+.fd-sick-day-hero__quote {
+  position: relative;
+  order: 4;
+  margin-top: 0;
+  margin-right: calc(-1 * var(--fd-sdh-padding-right-mobile, 16px));
+  margin-bottom: 0;
+  margin-left: calc(-1 * var(--fd-sdh-padding-left-mobile, 16px));
+  min-height: 151px;
+  padding: 19px 16px 16px;
+}
+
+.fd-sick-day-hero__quote:has(.fd-sick-day-hero__quote-media) {
+  padding-left: 157px;
+}
+
+.fd-sick-day-hero__quote-media {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 147px;
+  height: 151px;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.fd-sick-day-hero__quote-disc {
+  position: absolute;
+  left: 16px;
+  top: 39px;
+  z-index: 0;
+  width: 108px;
+  height: 108px;
+  border-radius: 50%;
+  background-color: var(--fd-sdh-quote-disc-color, var(--color-brand-noon-blue));
+}
+
+.fd-sick-day-hero__quote-photo {
+  position: relative;
+  z-index: 1;
+  display: block;
+  width: 147px;
+  height: 151px;
+  object-fit: cover;
+  object-position: bottom left;
+  filter: grayscale(1);
+}
+
+.fd-sick-day-hero__quote-copy {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 14px;
+  max-width: 100%;
+  min-width: 0;
+  min-height: 116px;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-style: normal;
+  color: inherit;
+  quotes: none;
+}
+
+.fd-sick-day-hero__quote-copy::before,
+.fd-sick-day-hero__quote-copy::after {
+  content: none;
+}
+
+.fd-sick-day-hero__quote-text,
+.fd-sick-day-hero__quote-text > * {
+  margin: 0;
+  font-family: var(--fd-sdh-quote-font-family, var(--font-body));
+  font-size: var(--fd-sdh-quote-font-size-mobile, 16px);
+  font-weight: var(--fd-sdh-quote-font-weight, 400);
+  font-style: italic;
+  font-synthesis: none;
+  line-height: 20px;
+  color: var(--fd-sdh-quote-font-color, var(--color-text-on-light-1));
+  letter-spacing: normal !important;
+}
+
+.fd-sick-day-hero__quote-text strong,
+.fd-sick-day-hero__quote-text b {
+  font-weight: 700;
+  font-style: italic;
+}
+
+.fd-sick-day-hero__quote-person {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.fd-sick-day-hero__quote-name {
+  font-family: var(--fd-sdh-quote-font-family, var(--font-body));
+  font-size: var(--fd-sdh-quote-name-font-size-mobile, 16px);
+  font-weight: var(--fd-sdh-quote-name-font-weight, var(--fw-bold));
+  font-style: normal;
+  font-synthesis: none;
+  line-height: 20px;
+  letter-spacing: normal !important;
+  color: var(--fd-sdh-quote-font-color, var(--color-text-on-light-1));
+}
+
+.fd-sick-day-hero__quote-role {
+  font-family: var(--fd-sdh-quote-font-family, var(--font-body));
+  font-size: var(--fd-sdh-quote-role-font-size-mobile, 12px);
+  font-weight: var(--fd-sdh-quote-role-font-weight, var(--fw-regular));
+  font-style: normal;
+  font-synthesis: none;
+  line-height: 20px;
+  letter-spacing: normal !important;
+  color: var(--fd-sdh-quote-font-color, var(--color-text-on-light-1));
+}
+
+@media (max-width: 991px) {
+  .fd-sick-day-hero__cta {
+    min-height: 54.497px;
+  }
+
+  .fd-sick-day-hero__offer .fd-proof-row {
+    gap: 6.5px;
+    font-size: 14.237px;
+    letter-spacing: normal !important;
+  }
+
+  .fd-sick-day-hero__offer .fd-proof__line {
+    line-height: 15.424px;
+  }
+
+  .fd-sick-day-hero__offer .fd-proof__line:not(.fd-proof__line--2) > * {
+    margin-inline: 0;
+  }
+
+  .fd-sick-day-hero__offer
+    .fd-proof__line:not(.fd-proof__line--2)
+    > .fd-proof__text {
+    margin-left: 4.746px;
+  }
+
+  .fd-sick-day-hero__offer
+    .fd-proof__line:not(.fd-proof__line--2)
+    > .fd-proof__dot,
+  .fd-sick-day-hero__offer
+    .fd-proof__line:not(.fd-proof__line--2)
+    > .fd-proof__stars {
+    margin-left: 6.812px;
+  }
+
+  .fd-sick-day-hero__offer
+    .fd-proof__line:not(.fd-proof__line--2)
+    > .fd-proof__dot {
+    width: 2.919px;
+    height: 2.919px;
+  }
+
+  .fd-sick-day-hero__offer
+    .fd-proof__line:not(.fd-proof__line--2)
+    > .fd-proof__stars {
+    --fd-icon-size: 11.803px;
+    --fd-proof-star-gap: 0.973px;
+  }
+
+  .fd-sick-day-hero__offer
+    .fd-proof__line:not(.fd-proof__line--2)
+    > .fd-proof__text--rating {
+    margin-left: 1.323px;
+    font-size: 12.727px;
+    line-height: 13.788px;
+  }
+
+  .fd-sick-day-hero__offer
+    .fd-proof__media--stack
+    .fd-proof__media-item
+    + .fd-proof__media-item {
+    margin-left: -8.761px;
+  }
+
+  .fd-sick-day-hero__offer
+    .fd-proof__line:not(.fd-proof__line--2)
+    .fd-proof__media-item
+    img {
+    width: 53px;
+    height: 24px;
+  }
+
+  .fd-sick-day-hero__offer .fd-proof__line--2 {
+    font-size: 12.651px;
+    width: 330px;
+    max-width: 100%;
+    margin-inline: auto;
+  }
+
+  .fd-sick-day-hero__offer .fd-proof__line--2 > * {
+    margin-inline: 0;
+  }
+
+  .fd-sick-day-hero__offer
+    .fd-proof__line--2
+    > .fd-proof__media:last-child {
+    margin-left: 4px;
+  }
+
+  .fd-sick-day-hero__offer .fd-proof__line--2 .fd-proof__media--inline {
+    gap: 3px;
+  }
+
+  .fd-sick-day-hero__offer .fd-proof__line--2 .fd-proof__count {
+    min-width: 34px;
+    text-align: right;
+  }
+
+  .fd-sick-day-hero__offer
+    .fd-proof__line--2
+    > .fd-proof__media:first-child
+    .fd-proof__media-item
+    img {
+    width: 19px;
+    height: 19px;
+  }
+}
+
+.lp-back-to-school {
+  --fd-bts-page-gutter: 16px;
+}
+
+.lp-back-to-school
+  :is(
+    .fd-sick-day-hero,
+    .fd-trust-bar,
+    .fd-family-story,
+    .fd-story-beat,
+    .fd-story-stats,
+    .fd-revelation,
+    .fd-whats-in-it,
+    .fd-product-showcase,
+    .fd-what-to-expect,
+    .fd-clinician-endorsement,
+    .fd-social-proof,
+    .fd-bts-comparison,
+    .fd-founder-guarantee,
+    .fd-legal-footer
+  ),
+.lp-back-to-school #standalone-product-section,
+.lp-back-to-school
+  .shopify-section:has(.faq-v2__heading)
+  .section--padding {
+  padding-inline: var(--fd-bts-page-gutter);
+}
+
+.lp-back-to-school .fd-trust-bar__inner,
+.lp-back-to-school .fd-legal-footer__inner,
+.lp-back-to-school .fd-social-proof__heading,
+.lp-back-to-school
+  .shopify-section:has(.faq-v2__heading)
+  .page-width {
+  padding-inline: 0;
+}
+
+.lp-back-to-school .fd-what-to-expect__canvas {
+  width: min(1214px, 100%);
+  padding-inline: 0;
+}
+
+.lp-back-to-school .fd-social-proof__proof {
+  max-width: 100%;
+  margin-inline: 0;
+}
+
+.lp-back-to-school .fd-bts-comparison__comparison {
+  width: min(876px, 100%);
+}
+
+.lp-back-to-school
+  #standalone-product-section
+  .fd-campaign-product
+  .page-width.product.grid {
+  width: min(100%, 1250px);
+  padding-inline: 0;
+}
+
+@media (max-width: 749px) {
+  .lp-back-to-school .fd-founder-guarantee {
+    padding-inline: 0;
+  }
+}
+
+@media (max-width: 991px) {
+  .lp-back-to-school #standalone-product-section .fd-campaign-product__mobile-heading {
+    width: 100%;
+  }
+
+  .lp-back-to-school
+    #standalone-product-section
+    .PBFCM-PDP-product-gallery__campaign-mobile,
+  .lp-back-to-school
+    #standalone-product-section
+    .product__info-wrapper.grid__item {
+    padding-inline: 0;
+  }
+}
+
+@media (min-width: 750px) and (max-width: 991px) {
+  .lp-back-to-school {
+    --fd-bts-page-gutter: 48px;
+  }
+
+  .lp-back-to-school
+    .fd-sick-day-hero__inner {
+    width: 100%;
+    max-width: 600px;
+  }
+
+  .fd-sick-day-hero__quote-text {
+    width: 100%;
+    max-width: 260px;
+  }
+
+  .fd-sick-day-hero__quote-text strong,
+  .fd-sick-day-hero__quote-text b {
+    white-space: nowrap;
+  }
+}
+
+@media (min-width: 992px) and (max-width: 1199px) {
+  .lp-back-to-school {
+    --fd-bts-page-gutter: 32px;
+  }
+}
+
+@media (min-width: 1200px) {
+  .lp-back-to-school {
+    --fd-bts-page-gutter: 16px;
+  }
+}
+
+@media (min-width: 992px) {
+  .fd-sick-day-hero {
+    background-color: var(--fd-sdh-bg-color-desktop, #e7f6ff);
+    padding-top: var(--fd-sdh-padding-top-desktop, 64px);
+    padding-right: var(--fd-sdh-padding-right-desktop, 80px);
+    padding-bottom: var(--fd-sdh-padding-bottom-desktop, 0px);
+    padding-left: var(--fd-sdh-padding-left-desktop, 80px);
+  }
+
+  .fd-sick-day-hero:has(.fd-sick-day-hero__quote) {
+    padding-bottom: 0;
+  }
+
+  .fd-sick-day-hero__inner {
+    display: grid;
+    grid-template-columns: minmax(0, 596px) minmax(0, 516px);
+    align-items: stretch;
+    gap: 104px;
+  }
+
+  .fd-sick-day-hero__main {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 24px;
+    min-width: 0;
+    min-height: 100%;
+  }
+
+  .fd-sick-day-hero__copy,
+  .fd-sick-day-hero__offer,
+  .fd-sick-day-hero__quote,
+  .fd-sick-day-hero__media {
+    order: 0;
+  }
+
+  .fd-sick-day-hero__copy {
+    gap: 20px;
+    text-align: left;
+    width: 100%;
+  }
+
+  .fd-sick-day-hero .fd-sick-day-hero__heading {
+    font-family: var(--fd-sdh-heading-font-family, var(--font-title)) !important;
+    font-size: var(--fd-sdh-heading-font-size-desktop, 48px) !important;
+    line-height: var(--fd-sdh-heading-line-height-desktop, 56px) !important;
+    letter-spacing: -1.5px !important;
+    min-height: 0;
+  }
+
+  .fd-sick-day-hero__sub,
+  .fd-sick-day-hero__sub > * {
+    font-size: var(--fd-sdh-sub-font-size-desktop, 18px);
+    line-height: 26px;
+    letter-spacing: normal !important;
+  }
+
+  .fd-sick-day-hero__offer {
+    gap: 16px;
+  }
+
+  .fd-sick-day-hero__media {
+    order: 0;
+    align-self: start;
+    aspect-ratio: 516 / 573;
+    border-radius: var(--fd-sdh-media-radius-desktop, 16px);
+    box-shadow: var(--fd-sdh-shadow-offset-desktop, 8px)
+      var(--fd-sdh-shadow-offset-desktop, 8px) 0 0
+      var(--fd-sdh-shadow-color, var(--color-brand-noon-blue));
+  }
+
+  .fd-sick-day-hero__cta {
+    width: 380px;
+    min-width: 0;
+    min-height: 60px;
+    padding-inline: 32px;
+  }
+
+  .fd-sick-day-hero__cta-text {
+    font-size: var(--fd-sdh-cta-font-size-desktop, 18px);
+  }
+
+  .fd-sick-day-hero__cta-icon {
+    --fd-icon-size: 18px;
+  }
+
+  .fd-sick-day-hero__offer .fd-proof-row {
+    gap: 12px;
+  }
+
+  .fd-sick-day-hero__offer .fd-proof__line:not(.fd-proof__line--2) > * {
+    margin-inline: 0;
+  }
+
+  .fd-sick-day-hero__offer .fd-proof__line:not(.fd-proof__line--2) > .fd-proof__text,
+  .fd-sick-day-hero__offer .fd-proof__line:not(.fd-proof__line--2) > .fd-proof__dot,
+  .fd-sick-day-hero__offer .fd-proof__line:not(.fd-proof__line--2) > .fd-proof__stars {
+    margin-left: 16px;
+  }
+
+  .fd-sick-day-hero__offer .fd-proof__line:not(.fd-proof__line--2) > .fd-proof__text--rating {
+    margin-left: 4px;
+    font-size: 14px;
+    line-height: normal;
+  }
+
+  .fd-sick-day-hero__offer .fd-proof__line:not(.fd-proof__line--2) > .fd-proof__dot {
+    width: 1px;
+    height: 20px;
+    border-radius: 0;
+    background-color: #d7effa;
+    opacity: 1;
+  }
+
+  .fd-sick-day-hero__offer .fd-proof__line:not(.fd-proof__line--2) > .fd-proof__stars {
+    --fd-icon-size: 11.803px;
+    --fd-proof-star-gap: 0.973px;
+  }
+
+  .fd-sick-day-hero__offer .fd-proof__line--2 {
+    width: auto;
+    margin-inline: 0;
+    font-size: 16px;
+    line-height: 22.4px;
+    text-align: left;
+  }
+
+  .fd-sick-day-hero__offer .fd-proof__line--2 > * {
+    margin-inline: 0;
+  }
+
+  .fd-sick-day-hero__offer
+    .fd-proof__line--2
+    > .fd-proof__media:last-child {
+    margin-left: 12px;
+  }
+
+  .fd-sick-day-hero__offer .fd-proof__line--2 .fd-proof__media--inline {
+    gap: 3px;
+  }
+
+  .fd-sick-day-hero__offer .fd-proof__line--2 .fd-proof__count {
+    min-width: 0;
+    text-align: left;
+  }
+
+  .fd-sick-day-hero__offer
+    .fd-proof__line--2
+    > .fd-proof__media:first-child
+    .fd-proof__media-item
+    img {
+    width: 24px;
+    height: 24px;
+  }
+
+  .fd-sick-day-hero__offer .fd-proof__line--2 .fd-proof__text {
+    letter-spacing: 0.6px !important;
+  }
+
+  .fd-sick-day-hero__quote {
+    width: 550px;
+    min-height: 189px;
+    max-width: 100%;
+    margin: auto 0 0;
+    padding: 32px 0 15px;
+  }
+
+  .fd-sick-day-hero__quote-copy {
+    gap: 24px;
+    min-height: 138px;
+  }
+
+  .fd-sick-day-hero__quote:has(.fd-sick-day-hero__quote-media) {
+    padding-left: 34.455%;
+  }
+
+  .fd-sick-day-hero__quote-media {
+    width: 33.273%;
+    height: auto;
+    aspect-ratio: 183 / 189;
+  }
+
+  .fd-sick-day-hero__quote-disc {
+    top: 25.926%;
+    left: 16.94%;
+    width: 69.399%;
+    height: auto;
+    aspect-ratio: 1;
+  }
+
+  .fd-sick-day-hero__quote-photo {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: top center;
+  }
+
+  .fd-sick-day-hero__quote-text,
+  .fd-sick-day-hero__quote-text > * {
+    font-size: var(--fd-sdh-quote-font-size-desktop, 18px);
+    line-height: 24px;
+  }
+
+  .fd-sick-day-hero__quote-name {
+    font-size: var(--fd-sdh-quote-name-font-size-desktop, 18px);
+  }
+
+  .fd-sick-day-hero__quote-role {
+    font-size: var(--fd-sdh-quote-role-font-size-desktop, 14px);
+  }
+}
+
+@media (max-width: 1199px) {
+  .fd-sick-day-hero__quote-text br {
+    display: none;
+  }
+}
+
+@media (min-width: 992px) and (max-width: 1199px) {
+  .lp-back-to-school .fd-sick-day-hero {
+    padding-inline: 32px;
+  }
+
+  .lp-back-to-school .fd-sick-day-hero__inner {
+    grid-template-columns: minmax(0, 52fr) minmax(0, 48fr);
+    gap: 32px;
+  }
+
+  .lp-back-to-school .fd-sick-day-hero__quote {
+    margin-top: 24px;
+  }
+
+  .lp-back-to-school .fd-sick-day-hero__quote-media {
+    right: auto;
+    bottom: 0;
+    left: 0;
+  }
+}

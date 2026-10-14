@@ -1,0 +1,307 @@
+.pbfcm-coupon-banner {
+  padding-top: var(--pcb-pt, 0);
+  padding-bottom: var(--pcb-pb, 0);
+  background: white;
+}
+
+.pbfcm-coupon-banner__container {
+  max-width: var(--pcb-max-width, 1280px);
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.pbfcm-coupon-banner__banner {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: var(--pcb-banner-height, 160px);
+  border-radius: var(--pcb-banner-radius, 12px);
+  background-color: var(--pcb-bg-fallback, #d81e1e);
+}
+
+.pbfcm-coupon-banner__bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  border-radius: inherit;
+  overflow: hidden;
+}
+
+.pbfcm-coupon-banner__bg-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+}
+
+.pbfcm-coupon-banner__bg-image--mobile {
+  display: none;
+}
+
+.pbfcm-coupon-banner__content {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px 32px;
+  width: 100%;
+  max-width: 100%;
+  padding: 20px 46px;
+  box-sizing: border-box;
+}
+
+.pbfcm-coupon-banner__content-left {
+  flex: 0 1 304px;
+  min-width: 0;
+}
+
+.pbfcm-coupon-banner__content-right {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+  gap: 16px;
+  flex-shrink: 0;
+  margin-left: auto;
+}
+
+.pbfcm-coupon-banner__title {
+  margin: 0;
+  max-width: 304px;
+  font-family: 'sofia-pro', sans-serif;
+  font-size: var(--pcb-title-size, 32px);
+  font-weight: 461;
+  line-height: 1.4;
+  letter-spacing: 0;
+  color: var(--pcb-title-color, #ffffff);
+  text-align: left;
+  white-space: pre-line;
+}
+
+.pbfcm-coupon-banner__title-emphasis {
+  font-weight: 708;
+}
+
+/* Ticket: 46px stub + 270px body, grows with content */
+.pbfcm-coupon-banner__coupon {
+  display: flex;
+  align-items: stretch;
+  flex-shrink: 0;
+  width: 331px;
+  min-height: 104px;
+}
+
+.pbfcm-coupon-banner__coupon-left,
+.pbfcm-coupon-banner__coupon-right {
+  position: relative;
+  min-height: 104px;
+}
+
+.pbfcm-coupon-banner__coupon-left {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 46px;
+  width: 46px;
+  z-index: 1;
+  right: -3px;
+}
+
+.pbfcm-coupon-banner__coupon-right {
+  flex: 0 0 270px;
+  width: 270px;
+}
+
+.pbfcm-coupon-banner__coupon-left-svg,
+.pbfcm-coupon-banner__coupon-right-svg {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.pbfcm-coupon-banner__coupon-left-fill {
+  fill: var(--pcb-coupon-label-bg, #2c3d50);
+}
+
+.pbfcm-coupon-banner__coupon-right-fill {
+  fill: var(--pcb-coupon-bg, #fdeef4);
+}
+
+.pbfcm-coupon-banner__coupon-label {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--pcb-coupon-label-color, #ffffff);
+  font-family: 'sofia-pro', sans-serif;
+  font-size: var(--pcb-coupon-label-size, 14px);
+  font-weight: 708;
+  line-height: 1;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
+  pointer-events: none;
+}
+
+.pbfcm-coupon-banner__coupon-copy {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  min-height: 104px;
+  padding: 16px 16px 16px 12px;
+  box-sizing: border-box;
+}
+
+.pbfcm-coupon-banner__coupon-title {
+  margin: 0;
+  font-family: 'sofia-pro', sans-serif;
+  font-size: var(--pcb-coupon-title-size, 18px);
+  font-weight: 461;
+  line-height: 1.2;
+  color: var(--pcb-coupon-title-color, #2c3d50);
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: 0;
+}
+
+.pbfcm-coupon-banner__coupon-code {
+  margin: 0;
+  font-family: 'sofia-pro', sans-serif;
+  font-size: var(--pcb-coupon-code-size, 22px);
+  font-weight: 591;
+  line-height: 1.2;
+  letter-spacing: 0.02em;
+  color: var(--pcb-coupon-code-color, #2c3d50);
+  text-align: center;
+  text-transform: uppercase;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.pbfcm-coupon-banner__button.fd-btn {
+  flex-shrink: 0;
+  min-width: 180px;
+  letter-spacing: 0;
+}
+
+@media screen and (min-width: 769px) and (max-width: 1100px) {
+  .pbfcm-coupon-banner__bg {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 989px) {
+  .pbfcm-coupon-banner__content {
+    flex-direction: column;
+    align-items: stretch;
+    padding: 16px;
+  }
+
+  .pbfcm-coupon-banner__content-left {
+    flex: 1 1 auto;
+  }
+
+  .pbfcm-coupon-banner__content-right {
+    justify-content: center;
+    margin-left: 0;
+  }
+
+  .pbfcm-coupon-banner__title {
+    max-width: 100%;
+    text-align: center;
+    font-size: calc(var(--pcb-title-size, 32px) * 0.9);
+  }
+}
+
+@media screen and (max-width:  768px) {
+  .pbfcm-coupon-banner__bg-image--desktop {
+    display: none;
+  }
+
+  .pbfcm-coupon-banner__bg-image--mobile {
+    display: block;
+  }
+}
+
+@media screen and (max-width: 749px) {
+  .pbfcm-coupon-banner__banner {
+    background: none;
+  }
+  .pbfcm-coupon-banner__banner {
+    min-height: auto;
+  }
+
+  .pbfcm-coupon-banner__content {
+    gap: 16px;
+  }
+
+  .pbfcm-coupon-banner__content-right {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .pbfcm-coupon-banner__title {
+    font-size: calc(var(--pcb-title-size, 32px) * 0.78);
+  }
+
+  .pbfcm-coupon-banner__coupon {
+    width: 100%;
+    min-height: 104px;
+    margin: 0 auto;
+  }
+
+  .pbfcm-coupon-banner__coupon-left,
+  .pbfcm-coupon-banner__coupon-right {
+    min-height: 104px;
+  }
+
+  .pbfcm-coupon-banner__coupon-left {
+    flex: 0 0 14.56%;
+    width: 14.56%;
+  }
+
+  .pbfcm-coupon-banner__coupon-right {
+    flex: 1 1 auto;
+    width: auto;
+  }
+
+  .pbfcm-coupon-banner__coupon-copy {
+    min-height: 104px;
+  }
+
+  .pbfcm-coupon-banner__coupon-title {
+    font-size: 16px;
+  }
+
+  .pbfcm-coupon-banner__coupon-code {
+    font-size: var(--pcb-coupon-code-size, 22px);
+    font-weight: 591;
+  }
+
+  .pbfcm-coupon-banner__button {
+    width: 100%;
+  }
+}
+
+@media screen and (max-width:  600px) {
+  .pbfcm-coupon-banner__title {
+    text-align: left;
+  }
+  .pbfcm-coupon-banner__title-emphasis {
+    display: block;
+  }
+  .pbfcm-coupon-banner {
+    padding-top: 0;
+  }
+}

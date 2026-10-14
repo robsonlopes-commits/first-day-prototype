@@ -1,0 +1,369 @@
+.fd-contact {
+  --fd-contact-link: color-mix(in srgb, var(--color-brand-noon-blue) 92%, #000);
+  --fd-contact-link-hover: var(--color-brand-late-noon-blue);
+  --fd-contact-divider: var(--color-helper-outline);
+  --fd-contact-inset: var(--spacing-nano);
+  --fd-contact-max-width: 960px;
+  --fd-contact-embed-min-height: var(--fd-contact-embed-reserve-mobile, 1216px);
+  display: block;
+  padding: var(--fd-contact-padding-top-mobile, 32px) var(--fd-contact-padding-right-mobile, 16px)
+    var(--fd-contact-padding-bottom-mobile, 24px) var(--fd-contact-padding-left-mobile, 16px);
+  background: var(--color-surface-morning-blue);
+  color: var(--color-text-on-light-1);
+  font-family: var(--font-body);
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.5;
+  letter-spacing: normal;
+}
+
+.fd-contact__inner {
+  max-width: var(--fd-contact-max-width);
+  margin: 0 auto;
+}
+
+/* ---------- hero ---------- */
+
+.fd-contact__hero {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  grid-template-areas:
+    'title envelope'
+    'subtitle subtitle'
+    'cta cta';
+  column-gap: var(--spacing-xxxs);
+  align-items: center;
+  margin: 0 0 var(--spacing-xs);
+  padding: 0 var(--fd-contact-inset);
+}
+
+.fd-contact__title {
+  grid-area: title;
+  margin: 0;
+  color: var(--fd-contact-title-color, var(--color-text-on-light-1));
+  font-family: var(--fd-contact-title-family, var(--font-title));
+  /*
+    px + vw preferred value so browser zoom still grows the heading inside the fluid range.
+    The px part is kept small on purpose: larger values wrap the title to three lines beside
+    the envelope at 320px (mobile) and to two lines at 768px (desktop).
+  */
+  font-size: clamp(36px, 4px + 10.8vw, var(--fd-contact-title-size-mobile, 46px));
+  font-weight: var(--fd-contact-title-weight, 400);
+  line-height: 1.04;
+  letter-spacing: normal;
+  text-transform: none;
+  text-wrap: balance;
+}
+
+.fd-contact__subtitle {
+  grid-area: subtitle;
+  margin: var(--spacing-nano) 0 0;
+  color: var(--fd-contact-subtitle-color, var(--color-text-on-light-1));
+  font-family: var(--fd-contact-subtitle-family, var(--font-body));
+  font-size: var(--fd-contact-subtitle-size-mobile, 18px);
+  font-weight: var(--fd-contact-subtitle-weight, 400);
+  line-height: 1.4;
+  text-wrap: pretty;
+}
+
+.fd-contact__envelope {
+  grid-area: envelope;
+  display: block;
+  width: clamp(80px, 28.75vw, 112px);
+  height: auto;
+  aspect-ratio: 1448 / 1086;
+}
+
+.fd-contact__faq-button {
+  grid-area: cta;
+  justify-self: start;
+  margin-top: var(--spacing-xxs);
+}
+
+/* ---------- support enclosure (Gorgias owns everything inside the iframe) ---------- */
+
+.fd-contact__support {
+  position: relative;
+  padding: var(--spacing-xxs) 0;
+  border-radius: var(--radius-xl);
+  background: var(--color-surface-white);
+  scroll-margin-top: var(--fd-contact-anchor-offset, 96px);
+}
+
+.fd-contact__embed {
+  display: flex;
+  flex-direction: column;
+  min-height: var(--fd-contact-embed-min-height);
+}
+
+.fd-contact__embed.is-sized,
+.fd-contact__embed.is-unavailable {
+  min-height: 0;
+}
+
+.fd-contact__unavailable {
+  margin: 0;
+  padding: 0 var(--fd-contact-inset);
+  font-size: 16px;
+  line-height: 1.5;
+  text-wrap: pretty;
+}
+
+.fd-contact__unavailable-link {
+  color: var(--fd-contact-link);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.fd-contact__unavailable-link:hover {
+  color: var(--fd-contact-link-hover);
+}
+
+.fd-contact__loading {
+  position: absolute;
+  inset: var(--spacing-sm) var(--fd-contact-inset) auto;
+  margin: 0;
+  color: var(--color-text-on-light-2);
+  font-size: 16px;
+}
+
+.fd-contact__support:has(.fd-contact__embed.is-sized) .fd-contact__loading,
+.fd-contact__support:has(.fd-contact__embed.is-unavailable) .fd-contact__loading {
+  display: none;
+}
+
+.fd-contact a:focus-visible,
+.fd-contact summary:focus-visible,
+.fd-contact__support:focus-visible {
+  outline: 2px solid var(--fd-contact-link);
+  outline-offset: 3px;
+  box-shadow: none;
+}
+
+/* ---------- account shortcut ---------- */
+
+.fd-contact__account {
+  margin: var(--spacing-xxs) 0 0;
+  padding: 0 var(--fd-contact-inset);
+}
+
+.fd-contact__account-link,
+.fd-contact__faq-link,
+.fd-contact__faq-support-link,
+.fd-contact__help-link,
+.fd-contact__email-link,
+.fd-contact__other-link {
+  color: var(--fd-contact-link);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+}
+
+.fd-contact__account-link:hover,
+.fd-contact__faq-link:hover,
+.fd-contact__faq-support-link:hover,
+.fd-contact__help-link:hover,
+.fd-contact__email-link:hover,
+.fd-contact__other-link:hover {
+  color: var(--fd-contact-link-hover);
+}
+
+/* ---------- quick answers ---------- */
+
+.fd-contact__faq {
+  margin: var(--spacing-sm) 0 0;
+  padding: 0 var(--fd-contact-inset);
+}
+
+.fd-contact__faq-title {
+  margin: 0 0 var(--spacing-tiny);
+  color: var(--fd-contact-faq-title-color, var(--color-text-on-light-1));
+  font-family: var(--fd-contact-faq-title-family, var(--font-title));
+  font-size: var(--fd-contact-faq-title-size-mobile, 30px);
+  font-weight: var(--fd-contact-faq-title-weight, 400);
+  line-height: 1.1;
+  letter-spacing: normal;
+  text-transform: none;
+  text-wrap: balance;
+}
+
+.fd-contact__faq-item {
+  border-bottom: 1px solid var(--fd-contact-divider);
+}
+
+.fd-contact__faq-question,
+.fd-contact__other-summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--spacing-xxs);
+  min-height: 44px;
+  padding: var(--spacing-xxxs) 0;
+  color: var(--color-text-on-light-1);
+  font-size: 16px;
+  line-height: 1.5;
+  cursor: pointer;
+}
+
+.fd-contact__faq-icon,
+.fd-contact__other-icon {
+  flex: none;
+  width: 16px;
+  height: 16px;
+  transition: transform 0.2s ease;
+}
+
+.fd-contact__faq-item[open] .fd-contact__faq-icon {
+  transform: rotate(45deg);
+}
+
+.fd-contact__other[open] .fd-contact__other-icon {
+  transform: rotate(180deg);
+}
+
+.fd-contact__faq-answer {
+  padding: 0 0 var(--spacing-xxxs);
+}
+
+.fd-contact__faq-text {
+  margin: 0;
+  max-width: 640px;
+  text-wrap: pretty;
+}
+
+.fd-contact__faq-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-nano) var(--spacing-sm);
+  margin: var(--spacing-nano) 0 0;
+}
+
+.fd-contact__help {
+  margin: var(--spacing-xxxs) 0 0;
+}
+
+/* ---------- email fallback and business contacts ---------- */
+
+.fd-contact__contact {
+  margin: var(--spacing-xxs) var(--fd-contact-inset) 0;
+  padding: var(--spacing-xxs) 0 0;
+  border-top: 1px solid var(--fd-contact-divider);
+}
+
+.fd-contact__email {
+  margin: 0;
+  text-wrap: pretty;
+}
+
+.fd-contact__other-summary {
+  padding: 10px 0;
+}
+
+.fd-contact__other-list {
+  margin: 0;
+  padding: var(--spacing-tiny) 0 var(--spacing-nano);
+  list-style: none;
+}
+
+.fd-contact__other-item {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0 var(--spacing-xxxs);
+  padding: 6px 0;
+}
+
+.fd-contact__other-label {
+  flex: 0 0 120px;
+}
+
+/* Very narrow viewports (for example 390px at 200% zoom): the decorative envelope gives way to the title. */
+@media screen and (max-width: 259px) {
+  .fd-contact__hero {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-areas:
+      'title'
+      'subtitle'
+      'cta';
+  }
+
+  .fd-contact__envelope {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .fd-contact__faq-icon,
+  .fd-contact__other-icon {
+    transition: none;
+  }
+}
+
+/* ---------- desktop ---------- */
+
+@media screen and (min-width: 768px) {
+  .fd-contact {
+    --fd-contact-inset: var(--spacing-sm);
+    --fd-contact-embed-min-height: var(--fd-contact-embed-reserve-desktop, 1168px);
+    padding: var(--fd-contact-padding-top-desktop, 64px) var(--fd-contact-padding-right-desktop, 32px)
+      var(--fd-contact-padding-bottom-desktop, 28px) var(--fd-contact-padding-left-desktop, 32px);
+  }
+
+  .fd-contact__hero {
+    grid-template-rows: 1fr auto auto auto var(--spacing-xxxs);
+    grid-template-areas:
+      '. envelope'
+      'title envelope'
+      'subtitle envelope'
+      'cta envelope'
+      '. envelope';
+    column-gap: var(--spacing-sm);
+    margin-bottom: var(--spacing-sm);
+  }
+
+  .fd-contact__title {
+    font-size: clamp(44px, 8px + 5.45vw, var(--fd-contact-title-size-desktop, 64px));
+    line-height: 1.06;
+  }
+
+  .fd-contact__subtitle {
+    font-size: var(--fd-contact-subtitle-size-desktop, 22px);
+  }
+
+  .fd-contact__envelope {
+    width: 208px;
+  }
+
+  .fd-contact__support {
+    padding: var(--spacing-sm) 0;
+    border-radius: var(--radius-2xl);
+  }
+
+  .fd-contact__account {
+    margin-top: var(--spacing-xs);
+  }
+
+  .fd-contact__faq {
+    margin-top: var(--spacing-md);
+  }
+
+  .fd-contact__faq-title {
+    font-size: var(--fd-contact-faq-title-size-desktop, 38px);
+  }
+
+  .fd-contact__faq-question {
+    padding: var(--spacing-xxs) 0;
+  }
+
+  .fd-contact__faq-answer {
+    padding-bottom: var(--spacing-xxs);
+  }
+
+  .fd-contact__contact {
+    margin-top: var(--spacing-xs);
+    padding-top: var(--spacing-sm);
+  }
+
+  .fd-contact__other-label {
+    flex-basis: 144px;
+  }
+}

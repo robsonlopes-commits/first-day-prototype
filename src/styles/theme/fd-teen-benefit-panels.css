@@ -1,0 +1,242 @@
+.fd-teen-benefit-panels,
+.fd-teen-benefit-panels *,
+.fd-teen-benefit-panels *::before,
+.fd-teen-benefit-panels *::after {
+  box-sizing: border-box;
+}
+
+.fd-teen-benefit-panels-section {
+  background-color: var(--fd-teen-benefits-bg-color);
+}
+
+.fd-teen-benefit-panels {
+  width: 100%;
+  max-width: 1440px;
+  margin-inline: auto;
+  overflow: hidden;
+  padding-block: var(--fd-teen-benefits-padding-top-mobile) var(--fd-teen-benefits-padding-bottom-mobile);
+  background-color: var(--fd-teen-benefits-bg-color);
+}
+
+.fd-teen-benefit-panels__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+.fd-teen-benefit-panels__card {
+  position: relative;
+  width: 100%;
+  height: 349px;
+  overflow: hidden;
+  background: linear-gradient(135deg, var(--fd-teen-benefit-card-start), var(--fd-teen-benefit-card-end));
+  color: #fff;
+}
+
+.fd-teen-benefit-panels__circle {
+  position: absolute;
+  z-index: 0;
+  display: block;
+  width: 257px;
+  height: 257px;
+  border-radius: 50%;
+  background-color: var(--fd-teen-benefit-circle);
+}
+
+.fd-teen-benefit-panels__content {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  width: min(390px, 100%);
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 16px;
+  margin-inline: auto;
+  padding: 16px;
+}
+
+.fd-teen-benefit-panels__heading {
+  width: 258px;
+  margin: 0;
+  color: inherit;
+  font-family: "gelica", var(--font-heading-family), serif;
+  font-size: 26px;
+  font-style: normal;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  line-height: 1.154 !important;
+}
+
+.fd-teen-benefit-panels__icon {
+  display: flex;
+  flex: 0 0 auto;
+  width: 56px;
+  height: 56px;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  border-radius: 12px;
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+.fd-teen-benefit-panels__icon img {
+  display: block;
+  max-width: none;
+  object-fit: fill;
+}
+
+.fd-teen-benefit-panels__art,
+.fd-teen-benefit-panels__art img {
+  position: absolute;
+  z-index: 1;
+  display: block;
+  max-width: none;
+}
+
+.fd-teen-benefit-panels__art {
+  display: block;
+}
+
+.fd-teen-benefit-panels__art img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: bottom !important;
+}
+
+.fd-teen-benefit-panels__card--immunity .fd-teen-benefit-panels__icon img {
+  width: 31px;
+  height: 30px;
+}
+
+.fd-teen-benefit-panels__card--focus .fd-teen-benefit-panels__icon img {
+  width: 30px;
+  height: 34px;
+}
+
+.fd-teen-benefit-panels__card--sleep .fd-teen-benefit-panels__icon img {
+  width: 27px;
+  height: 28px;
+}
+
+.fd-teen-benefit-panels__card--immunity .fd-teen-benefit-panels__circle {
+  top: 63px;
+  left: calc(50% - 74px);
+}
+
+.fd-teen-benefit-panels__card--immunity .fd-teen-benefit-panels__art {
+  top: 81px;
+  left: calc(50% - 195px);
+  width: 390px;
+  height: 268px;
+}
+
+.fd-teen-benefit-panels__card--focus .fd-teen-benefit-panels__heading {
+  width: 239px;
+}
+
+.fd-teen-benefit-panels__card--focus .fd-teen-benefit-panels__circle {
+  top: 83px;
+  left: calc(50% - 54px);
+}
+
+.fd-teen-benefit-panels__card--focus .fd-teen-benefit-panels__art {
+  top: 8px;
+  left: calc(50% - 103px);
+  width: 298px;
+  height: 341px;
+}
+
+.fd-teen-benefit-panels__card--sleep .fd-teen-benefit-panels__heading {
+  width: 217px;
+}
+
+.fd-teen-benefit-panels__card--sleep .fd-teen-benefit-panels__circle {
+  top: 67px;
+  left: calc(50% - 62px);
+}
+
+.fd-teen-benefit-panels__card--sleep .fd-teen-benefit-panels__art {
+  top: 82px;
+  left: calc(50% - 164px);
+  width: 359px;
+  height: 267px;
+}
+
+@media screen and (max-width: 749px) {
+  .fd-teen-benefit-panels__art img {
+    object-fit: cover;
+    object-position: bottom left !important;
+  }
+}
+
+@media screen and (min-width: 750px) {
+  .fd-teen-benefit-panels {
+    padding-block: var(--fd-teen-benefits-padding-top-tablet) var(--fd-teen-benefits-padding-bottom-tablet);
+  }
+
+  .fd-teen-benefit-panels__grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .fd-teen-benefit-panels__card {
+    height: 38.958vw;
+    min-height: 292px;
+    max-height: 561px;
+  }
+
+  .fd-teen-benefit-panels__content {
+    width: 100%;
+    gap: clamp(16px, 1.667vw, 24px);
+    margin-inline: 0;
+    padding: clamp(32px, 4.097vw, 59px) clamp(28px, 3.889vw, 56px) 0;
+  }
+
+  .fd-teen-benefit-panels__heading,
+  .fd-teen-benefit-panels__card--focus .fd-teen-benefit-panels__heading,
+  .fd-teen-benefit-panels__card--sleep .fd-teen-benefit-panels__heading {
+    width: min(317px, 100%);
+    font-size: clamp(20px, 1.944vw, 28px);
+    line-height: 1.143 !important;
+  }
+
+  .fd-teen-benefit-panels__icon {
+    width: 69px;
+    height: 69px;
+  }
+
+  .fd-teen-benefit-panels__circle,
+  .fd-teen-benefit-panels__card--immunity .fd-teen-benefit-panels__circle,
+  .fd-teen-benefit-panels__card--focus .fd-teen-benefit-panels__circle,
+  .fd-teen-benefit-panels__card--sleep .fd-teen-benefit-panels__circle {
+    top: 34.938%;
+    left: 17.083%;
+    width: 65.882%;
+    height: auto;
+    aspect-ratio: 1;
+  }
+
+  .fd-teen-benefit-panels__card--immunity .fd-teen-benefit-panels__art,
+  .fd-teen-benefit-panels__card--sleep .fd-teen-benefit-panels__art {
+    top: 41.176%;
+    left: 0;
+    width: 100%;
+    height: 58.824%;
+  }
+
+  .fd-teen-benefit-panels__card--focus .fd-teen-benefit-panels__art {
+    top: 16.399%;
+    left: 0;
+    width: 100%;
+    height: 83.601%;
+  }
+}
+
+@media screen and (min-width: 1200px) {
+  .fd-teen-benefit-panels {
+    padding-block: var(--fd-teen-benefits-padding-top) var(--fd-teen-benefits-padding-bottom);
+  }
+}

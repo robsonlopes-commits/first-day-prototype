@@ -1,0 +1,415 @@
+/* See Ingredients drawer — Figma 4927:21084 / mobile full-bleed */
+
+.fd-ingredients-popup {
+  --fd-ig-text: #2c3d50;
+  --fd-ig-outline: #d7effa;
+  --fd-ig-border: rgba(0, 0, 0, 0.1);
+  --fd-ig-overlay: rgba(0, 0, 0, 0.75);
+  --fd-ig-primary: #476ded;
+  --fd-ig-z: 50000;
+  position: fixed;
+  inset: 0;
+  z-index: var(--fd-ig-z);
+  pointer-events: none;
+}
+
+.fd-ingredients-popup.is-open {
+  pointer-events: auto;
+}
+
+.fd-ingredients-popup[hidden] {
+  display: none !important;
+}
+
+.fd-ingredients-popup__overlay {
+  position: absolute;
+  inset: 0;
+  background: var(--fd-ig-overlay);
+  opacity: 0;
+  transition: opacity 0.35s ease;
+}
+
+.fd-ingredients-popup.is-open .fd-ingredients-popup__overlay {
+  opacity: 1;
+}
+
+.fd-ingredients-popup__panel {
+  position: absolute;
+  top: 0;
+  right: 0;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 480px;
+  height: 100%;
+  background: #fff;
+  color: var(--fd-ig-text);
+  transform: translateX(100%);
+  transition: transform 0.35s ease;
+  z-index: 1;
+}
+
+.fd-ingredients-popup.is-open .fd-ingredients-popup__panel {
+  transform: translateX(0);
+}
+
+.fd-ingredients-popup__header {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  height: 64px;
+  padding: 16px;
+  border-bottom: 1px solid var(--fd-ig-outline);
+  background: #fff;
+}
+
+.fd-ingredients-popup__title {
+  flex: 1;
+  margin: 0;
+  padding-right: 48px;
+  font-family: 'sofia-pro', sans-serif;
+  font-size: 16px;
+  font-weight: 708;
+  line-height: 1.4;
+  color: var(--fd-ig-text);
+  text-align: center;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.fd-ingredients-popup__close {
+  position: absolute;
+  top: 12px;
+  right: 16px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  border: 1px solid var(--fd-ig-border);
+  border-radius: 2000px;
+  background: #fff;
+  color: var(--fd-ig-text);
+  cursor: pointer;
+}
+
+.fd-ingredients-popup__close:hover {
+  background: #fafafa;
+}
+
+.fd-ingredients-popup__body {
+  position: relative;
+  flex: 1;
+  min-height: 0;
+  overflow-x: hidden;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.fd-ingredients-popup__content {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  padding: 24px;
+  padding-bottom: 32px;
+  opacity: 1;
+  transition: opacity 0.2s ease;
+}
+
+.fd-ingredients-popup.is-loading .fd-ingredients-popup__content {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.fd-ingredients-popup__loader {
+  position: absolute;
+  inset: 0;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.85);
+  z-index: 2;
+}
+
+.fd-ingredients-popup.is-loading .fd-ingredients-popup__loader {
+  display: flex;
+}
+
+.fd-ingredients-popup__spinner {
+  width: 36px;
+  height: 36px;
+  border: 3px solid var(--fd-ig-outline);
+  border-top-color: var(--fd-ig-primary);
+  border-radius: 50%;
+  animation: fd-ig-spin 0.7s linear infinite;
+}
+
+@keyframes fd-ig-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.fd-ingredients-popup__image-wrap {
+  width: 100%;
+  border-radius: 8px;
+  overflow: hidden;
+  background: #f5f5f5;
+  aspect-ratio: 1 / 1;
+  max-height: 432px;
+}
+
+.fd-ingredients-popup__image {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.fd-ingredients-popup__text {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  color: var(--fd-ig-text);
+}
+
+.fd-ingredients-popup__label {
+  margin: 0;
+  font-family: 'sofia-pro', sans-serif;
+  font-size: 20px;
+  font-weight: 708;
+  line-height: 1.4;
+}
+
+.fd-ingredients-popup__richtext,
+.fd-ingredients-popup__richtext .metafield-rich_text_field {
+  font-family: 'sofia-pro', sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.45;
+  color: var(--fd-ig-text);
+}
+
+.fd-ingredients-popup__richtext p {
+  margin: 0 0 0.75em;
+}
+
+.fd-ingredients-popup__richtext p:last-child {
+  margin-bottom: 0;
+}
+
+.fd-ingredients-popup__richtext strong,
+.fd-ingredients-popup__richtext b {
+  font-weight: 708;
+}
+
+.fd-ingredients-popup__footer {
+  flex-shrink: 0;
+  padding: 24px;
+  border-top: 1px solid var(--fd-ig-outline);
+  background: #fff;
+}
+
+.fd-ingredients-popup__atc {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  width: 100%;
+  height: 60px;
+  padding: 16px 32px;
+  border: none;
+  border-radius: 2000px;
+  background: #476ded;
+  color: #fff;
+  cursor: pointer;
+  font-family: 'sofia-pro', sans-serif;
+  font-weight: 400;
+  line-height: 1.4;
+}
+
+.fd-ingredients-popup__atc:hover:not(:disabled) {
+  filter: brightness(1.05);
+}
+
+.fd-ingredients-popup__atc:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+.fd-ingredients-popup__atc-main {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  flex-shrink: 0;
+}
+
+.fd-ingredients-popup__atc-icon {
+  display: block;
+  flex-shrink: 0;
+  width: 32px;
+  height: 32px;
+}
+
+.fd-ingredients-popup__atc-label {
+  font-size: 20px;
+  font-weight: 400;
+  line-height: 1.4;
+  color: #fff;
+  white-space: nowrap;
+}
+
+/* Price hidden: the label and cart icon sit alone, already centred by the
+   button's own justify-content. */
+.fd-ingredients-popup__atc--no-price .fd-ingredients-popup__atc-divider,
+.fd-ingredients-popup__atc--no-price .fd-ingredients-popup__atc-prices {
+  display: none;
+}
+
+.fd-ingredients-popup__atc-divider {
+  display: block;
+  flex-shrink: 0;
+  width: 1px;
+  height: 14px;
+  background: rgba(255, 255, 255, 0.7);
+}
+
+.fd-ingredients-popup__atc-prices {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 8px;
+  flex-shrink: 0;
+  color: #fff;
+  white-space: nowrap;
+}
+
+.fd-ingredients-popup__atc-compare {
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.4;
+  text-decoration: line-through;
+  opacity: 0.7;
+}
+
+.fd-ingredients-popup__atc-price {
+  font-size: 20px;
+  font-weight: 400;
+  line-height: 1.4;
+}
+
+/* Card trigger */
+.fd-see-ingredients {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 40px;
+  padding: 0;
+  border: none;
+  background: transparent;
+  font-family: 'sofia-pro', sans-serif;
+  font-size: 15px;
+  font-weight: 400;
+  line-height: 1.4;
+  color: #2c3d50;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+a.fd-see-ingredients {
+  text-decoration: underline;
+}
+
+.fd-see-ingredients:hover {
+  color: #476ded;
+}
+
+.fd-see-ingredients--pdp {
+  display: inline-flex;
+  min-height: auto;
+  margin: 0px 0 0;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 20px;
+  color: #2c3d50;
+}
+
+.product__see-ingredients {
+  margin: 0 0 24px;
+}
+
+.fd-ingredients-host {
+  display: contents;
+}
+
+@media screen and (max-width: 749px) {
+  .fd-ingredients-popup__panel {
+    max-width: 100%;
+  }
+
+  .fd-ingredients-popup__content {
+    gap: 24px;
+    padding: 16px;
+    padding-bottom: 24px;
+  }
+
+  .fd-ingredients-popup__image-wrap {
+    max-height: none;
+    aspect-ratio: 1 / 1;
+  }
+
+  .fd-ingredients-popup__label {
+    font-size: 18px;
+  }
+
+  .fd-ingredients-popup__richtext,
+  .fd-ingredients-popup__richtext .metafield-rich_text_field {
+    font-size: 14px;
+  }
+
+  .fd-ingredients-popup__footer {
+    padding: 16px;
+  }
+
+  .fd-ingredients-popup__atc {
+    height: 56px;
+    gap: 12px;
+    padding: 12px 20px;
+  }
+
+  .fd-ingredients-popup__atc-icon {
+    width: 28px;
+    height: 28px;
+  }
+
+  .fd-ingredients-popup__atc-main {
+    gap: 8px;
+  }
+
+  .fd-ingredients-popup__atc-label,
+  .fd-ingredients-popup__atc-price {
+    font-size: 16px;
+  }
+
+  .fd-ingredients-popup__atc-compare {
+    font-size: 12px;
+  }
+
+  .fd-see-ingredients {
+    min-height: 34px;
+    font-size: 14px;
+  }
+
+  .fd-see-ingredients--pdp {
+    min-height: auto;
+  }
+}
+
+body.fd-ingredients-popup-open {
+  overflow: hidden;
+}

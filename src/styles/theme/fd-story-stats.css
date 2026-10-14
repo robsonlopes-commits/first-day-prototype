@@ -1,0 +1,208 @@
+/*
+  Story Stats.
+
+  Figma 995:914 (mobile) and 1059:1000 (desktop). Heading plus intro rail,
+  2x2 stat cards, closing rail. Visual values are fixed to the design;
+  only vertical section spacing remains merchant-controlled.
+*/
+
+.fd-story-stats-section {
+  overflow: visible;
+}
+
+.fd-story-stats {
+  position: relative;
+  overflow: visible;
+  background-color: #e7f6ff;
+  padding-top: var(--fd-ss-padding-top-mobile, 32px);
+  padding-right: 16px;
+  padding-bottom: var(--fd-ss-padding-bottom-mobile, 32px);
+  padding-left: 16px;
+}
+
+.fd-story-stats__inner {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  max-width: 802px;
+  margin-inline: auto;
+}
+
+.fd-story-stats__deco {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  z-index: 1;
+  width: 316px;
+  max-width: calc(100% - 32px);
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  line-height: 0;
+}
+
+.fd-story-stats__deco-img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.fd-story-stats__header {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 10px;
+}
+
+.fd-story-stats .fd-story-stats__heading {
+  margin: 0;
+  font-family: var(--font-title);
+  font-size: 26px;
+  font-weight: var(--fw-bold);
+  line-height: 1.538 !important;
+  letter-spacing: -0.01em;
+  color: #2c3d50;
+  text-align: left;
+  text-transform: none;
+  overflow-wrap: break-word;
+}
+
+.fd-story-stats__rail {
+  display: flex;
+  align-items: stretch;
+  gap: 16px;
+  width: 100%;
+}
+
+.fd-story-stats__rail-bar {
+  flex: none;
+  width: 2px;
+  border-radius: 112px;
+  background-color: rgb(72 108 237 / 20%);
+}
+
+.fd-story-stats__body,
+.fd-story-stats__body > * {
+  margin: 0;
+  font-family: var(--font-body);
+  font-size: 16px;
+  font-weight: var(--fw-regular);
+  line-height: 1.25;
+  letter-spacing: -0.01em;
+  color: #2c3e50;
+  text-align: left;
+}
+
+.fd-story-stats__body > * + * {
+  margin-top: 20px;
+}
+
+.fd-story-stats__rail--closing {
+  margin-top: 4px;
+}
+
+.fd-story-stats__rail--closing .fd-story-stats__body > * + * {
+  margin-top: 0;
+}
+
+.fd-story-stats__header .fd-story-stats__body > * + * {
+  display: none;
+}
+
+.fd-story-stats__body strong,
+.fd-story-stats__body b {
+  font-weight: 900;
+}
+
+.fd-story-stats__grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  width: 100%;
+}
+
+.fd-story-stats__grid > * {
+  min-width: 0;
+}
+
+@media (min-width: 750px) {
+  .fd-story-stats {
+    padding-top: var(--fd-ss-padding-top-tablet, 48px);
+    padding-bottom: var(--fd-ss-padding-bottom-tablet, 48px);
+  }
+}
+
+@media (min-width: 992px) {
+  .fd-story-stats {
+    padding-top: var(--fd-ss-padding-top-desktop, 112px);
+    padding-bottom: var(--fd-ss-padding-bottom-desktop, 112px);
+  }
+
+  .fd-story-stats__inner {
+    gap: 48px;
+  }
+
+  .fd-story-stats__rail--closing {
+    margin-top: 0;
+  }
+
+  .fd-story-stats__deco {
+    width: 596px;
+  }
+
+  .fd-story-stats__header {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+  }
+
+  .fd-story-stats .fd-story-stats__heading {
+    flex: none;
+    width: 278px;
+    font-size: 40px;
+    line-height: 1.2 !important;
+  }
+
+  .fd-story-stats__header .fd-story-stats__rail {
+    flex: 1 1 0;
+    max-width: 428px;
+  }
+
+  .fd-story-stats__body,
+  .fd-story-stats__body > * {
+    font-size: 18px;
+    line-height: 1.333;
+  }
+
+  .fd-story-stats__body > * + * {
+    margin-top: 16px;
+  }
+
+  .fd-story-stats__header .fd-story-stats__body > * + * {
+    display: block;
+  }
+
+  .fd-story-stats__grid {
+    gap: 32px;
+  }
+
+  /*
+    Figma desktop swaps the middle two cards vs mobile reading order
+    (sleep and missed-days). Holds only for the designed 4-card grid.
+  */
+  .fd-story-stats__grid > :nth-child(1) {
+    grid-area: 1 / 1;
+  }
+
+  .fd-story-stats__grid > :nth-child(2) {
+    grid-area: 2 / 1;
+  }
+
+  .fd-story-stats__grid > :nth-child(3) {
+    grid-area: 1 / 2;
+  }
+
+  .fd-story-stats__grid > :nth-child(4) {
+    grid-area: 2 / 2;
+  }
+}
