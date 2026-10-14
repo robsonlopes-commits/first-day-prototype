@@ -43,7 +43,11 @@ npm run dev
 
 Open http://localhost:5173 (the list of pages is at `/__prototype`).
 
-Images and videos come from First Day's public CDN and are **downloaded automatically the first time** each page opens, then stored in `public/assets/`. The first visit to a page can be slower. If an image fails to load, a "Missing asset - upload image" placeholder appears where you can pick a local file (it lasts for the browser session only).
+Images and videos from First Day's public CDN are stored in `public/assets/` and committed to the repo, so they are part of every deploy. If the dev server meets a file that is not stored yet, it downloads it on the first request. Run `npm run assets:fetch` to scan the code and download every referenced file that is still missing, then commit the result. If an image fails to load, a "Missing asset - upload image" placeholder appears where you can pick a local file (it lasts for the browser session only).
+
+### Adding your own images
+
+Put new images (for example designs that are not in production yet) in `public/assets/custom/` and reference them with `customImg('file-name.png')` from `src/lib/assets.js`. They are committed and deployed like everything else.
 
 To produce a production build of the prototype: `npm run build`.
 
@@ -83,4 +87,4 @@ React 18, Vite 5 and React Router 6. No backend, no database, no Tailwind.
 
 ## Deploying
 
-The project deploys as a static site (for example on Vercel, config in `vercel.json`). In production, image and video requests to `/assets/shop`, `/assets/replo` and `/assets/ext/<host>` are proxied to First Day's public CDNs by rewrites, and any other path falls back to `index.html` so direct links to pages work. Locally, the dev server does the same job and caches the files in `public/assets/`.
+The project deploys as a static site (for example on Vercel, config in `vercel.json`). Images and videos are served from the repo itself (`public/assets/`). As a safety net, requests to `/assets/shop`, `/assets/replo` and `/assets/ext/<host>` for files that are not stored are proxied to First Day's public CDNs by rewrites, and any other path falls back to `index.html` so direct links to pages work.

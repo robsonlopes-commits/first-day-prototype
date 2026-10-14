@@ -3,7 +3,3 @@ dist
 .DS_Store
 # Reference material (theme export + screenshots): local only, 895 MB
 reference/
-# Images/videos cached from the public CDN by the dev server (re-downloaded on demand)
-public/assets/shop/
-public/assets/replo/
-public/assets/ext/
