@@ -80,3 +80,7 @@ Cart and add to cart, Judge.me reviews, the FrontRowMD block, subscriptions, sea
 ## Stack
 
 React 18, Vite 5 and React Router 6. No backend, no database, no Tailwind.
+
+## Deploying
+
+The project deploys as a static site (for example on Vercel, config in `vercel.json`). In production, image and video requests to `/assets/shop`, `/assets/replo` and `/assets/ext/<host>` are proxied to First Day's public CDNs by rewrites, and any other path falls back to `index.html` so direct links to pages work. Locally, the dev server does the same job and caches the files in `public/assets/`.

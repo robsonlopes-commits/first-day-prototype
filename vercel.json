@@ -1,0 +1,12 @@
+{
+  "rewrites": [
+    { "source": "/assets/shop/:path*", "destination": "https://cdn.shopify.com/s/files/1/0028/0533/4131/files/:path*" },
+    { "source": "/assets/replo/:path*", "destination": "https://assets.replocdn.com/projects/43d7f533-5ca6-450f-a904-9ecebbb301d8/:path*" },
+    { "source": "/assets/ext/cdn.shopify.com/:path*", "destination": "https://cdn.shopify.com/:path*" },
+    { "source": "/assets/ext/firstday.com/:path*", "destination": "https://firstday.com/:path*" },
+    { "source": "/assets/ext/cdn.weglot.com/:path*", "destination": "https://cdn.weglot.com/:path*" },
+    { "source": "/assets/ext/assets.app.thefrontrowhealth.com/:path*", "destination": "https://assets.app.thefrontrowhealth.com/:path*" },
+    { "source": "/assets/ext/review-images.judgeme.com/:path*", "destination": "https://review-images.judgeme.com/:path*" },
+    { "source": "/((?!assets/).*)", "destination": "/index.html" }
+  ]
+}
