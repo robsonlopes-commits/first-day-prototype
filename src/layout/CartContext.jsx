@@ -33,14 +33,15 @@ export function CartProvider({ children }) {
       changeQty: (key, delta) =>
         setLines((ls) => ls.map((l) => (l.key === key ? { ...l, qty: Math.max(1, l.qty + delta) } : l))),
       removeLine: (key) => setLines((ls) => ls.filter((l) => l.key !== key)),
-      addLine: (product, subscribed) =>
+      // opts (optional) overrides the line: { key, title, image, price, compare, delivery } (prices in cents), used by bundles
+      addLine: (product, subscribed, opts = {}) =>
         setLines((ls) => {
-          const key = `${product.handle}:${subscribed ? 'sub' : 'otp'}`;
+          const key = opts.key || `${product.handle}:${subscribed ? 'sub' : 'otp'}`;
           if (ls.some((l) => l.key === key)) return ls.map((l) => (l.key === key ? { ...l, qty: l.qty + 1 } : l));
-          const price = Math.round(product.price * 0.7);
+          const price = opts.price ?? Math.round(product.price * 0.7);
           return [
             ...ls,
-            { key, handle: product.handle, title: product.title, image: product.image, qty: 1, compare: product.price, price, delivery: subscribed ? 'Delivered Monthly' : '' },
+            { key, handle: product.handle, title: opts.title || product.title, image: opts.image || product.image, qty: 1, compare: opts.compare ?? product.price, price, delivery: opts.delivery ?? (subscribed ? 'Delivered Monthly' : '') },
           ];
         }),
     };

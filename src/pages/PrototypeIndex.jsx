@@ -9,6 +9,7 @@ const routes = [
   ['/pages/tdk-behind-the-science-lp', 'Behind the Science LP (teens)', 'page.lp-BTS-master'],
   ['/pages/bundle-builder-v2', 'Bundle builder v2 (quiz)', 'page.lp-bundle-v2'],
   ['/pages/bundle-quiz', 'Bundle quiz', 'page.lp-bundle-v3'],
+  ['/explorations/all-in-1-bundle', 'EXPLORATION: All-in-1 Bundle', 'new concept (not in production)'],
   ['/pages/sale', 'Sale', 'page.bfcm-categories'],
 ];
 export default function PrototypeIndex() {

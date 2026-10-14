@@ -102,3 +102,13 @@ Build box (`src/sections/FdBuildBox.jsx`, port of snippets fd-build-box-qty / fd
 Other interactive bits: gallery (Swiper-like), benefit accordions (details), science tabs, accordions, trust carousel, Judge.me all-reviews mock (`JudgeMeAllReviewsWidget.jsx`: Product/Shop tabs, sort dropdown, star filter, Load More; first 25 reviews of each tab only).
 Extensions made to shared sections (backward compatible): `StandaloneProduct` (build_box_* blocks, `templateSuffix`, `product.allReviewsText`, 0/0 spacing block hidden), `standaloneProductCss.js` (`v.templateSuffix`), `Apps` (`allReviews`), `AccordionBlock` (`image_alt`, `image_mobile_alt`, `image_mobile_pos`), `TempScienceModule` (`panel_image_alt/pos`), `FrontrowBrandBand` (`paddingTop/Bottom`).
 Known gaps: FrontRowMD band is ~21px taller on mobile than live; the 52% vs 45% copy follows the template (page title "up to 52%", mobile title from the highest tier 45%); the owner's mobile screenshots were taken at a slightly wider viewport (mobile page title fits one line there).
+
+## Explorations (new concepts, not production pages)
+Explorations live under `/explorations/...`, in `src/pages/explorations/` and `src/sections/explorations/<name>/`, so they never mix with the production recreations. They follow the `firstday-design` skill (tokens, fonts, buttons only from the design system).
+
+### All-in-1 Bundle: `/explorations/all-in-1-bundle`
+Concept: the 4 hero products (Multivitamin, Probiotic+, Brain Support, Magnesium) in one bundle for holistic support, led by picky eating.
+- **Requirements covered:** (1) each product can be added on its own, at a higher price than inside the bundle (rows under the buy box show the price on its own, struck base price, and the price in the bundle); (2) switch between Kids / Teens / Women / Men with tabs at the top of the buy box (and again in the closing band). The choice is kept in the URL (`?demo=teens`) without reloading.
+- **Pricing (concept):** individual item 30% off, bundle 52% off monthly and 40% off one-time. Change `INDIVIDUAL_DISCOUNT`, `BUNDLE_DISCOUNT_MONTHLY`, `BUNDLE_DISCOUNT_ONETIME` in `src/data/allInOneBundle.js`.
+- **Where to edit:** page `src/pages/explorations/AllInOneBundle.jsx`; content `src/data/allInOneBundle.js`; sections `src/sections/explorations/allInOneBundle/` (`BundleGallery`, `BundleBuyBox`, `DemoTabs`, `IndividualPicks`, `StickyBundleBar`, `PickyEaterBenefits`, `BundleVsIndividual`, `BundleFaq`, `FinalCta`), styles `allInOneBundle.css` next to them.
+- The cart's `addLine(product, subscribed, opts)` accepts `opts` ({ key, title, image, price, compare, delivery }) so a bundle can be a single cart line.
