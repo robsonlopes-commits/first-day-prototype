@@ -85,3 +85,6 @@
 @media (prefers-reduced-motion: reduce) {
   .aio-inside .pdp-benefit-accordion-stats__caret svg { transition: none; }
 }
+
+/* storytelling CTAs above the buy box scroll to it: keep its title below the sticky header */
+.aio-page #shopify-section-all-in-1-bundle-main { scroll-margin-top: 100px; }
