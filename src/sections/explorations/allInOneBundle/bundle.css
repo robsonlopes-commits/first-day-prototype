@@ -1,0 +1,87 @@
+/*
+ * All-in-1 Bundle exploration: the few bundle specific rules. Everything else reuses production classes.
+ * Rules (firstday-design skill): white page, sofia-pro only, hairline borders, pill buttons, no shadows, no gradients.
+ */
+
+/* The theme sets headings in Gelica (--font-heading-family). Never on this page: sofia-pro only. */
+.aio-page :is(h1, h2, h3, h4, h5, h6) { font-family: var(--font-body); }
+/* The theme capitalizes headings ("All-In-1"). Keep the bundle name as written. */
+.aio-page .pdp-vanity h1, .aio-page .pdp-vanity h1 * { text-transform: none; }
+
+/* ---- gallery: slide 1 shows the four bottles lined up (transparent cutouts on a contained light blue tile) ---- */
+.PBFCM-PDP-product-gallery__group {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  aspect-ratio: 1 / 1;
+  padding: 0;
+  background: var(--color-surface-morning-blue);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  box-sizing: border-box;
+}
+.PBFCM-PDP-product-gallery__group img { width: 38%; height: auto; flex: 0 0 auto; margin-left: -16%; }
+.PBFCM-PDP-product-gallery__group img:first-child { margin-left: -3%; }
+.PBFCM-PDP-product-gallery__thumbnail-image.PBFCM-PDP-product-gallery__group { display: flex; padding: 14% 4% 6%; border-radius: 0; }
+.PBFCM-PDP-product-gallery__thumbnail-image.PBFCM-PDP-product-gallery__group img { width: 34%; margin-left: -9%; object-fit: contain; }
+.PBFCM-PDP-product-gallery__thumbnail-image.PBFCM-PDP-product-gallery__group img:first-child { margin-left: 0; }
+/* single bottle slides get the same tile so the gallery stays consistent */
+.aio-gallery-tile .PBFCM-PDP-product-gallery__main-image { background: var(--color-surface-morning-blue); }
+
+/* ---- buy box: "What's Inside" rows ---- */
+.aio-inside .PBFCM-PDP-quantity-selector__header { margin-bottom: 12px; }
+.aio-inside .pdp-benefit-accordion-stats__items { padding-bottom: 8px; }
+.aio-inside .pdp-benefit-accordion-stats__icon { width: 44px; height: 44px; border: 1px solid var(--color-helper-black-10); }
+.aio-inside .pdp-benefit-accordion-stats__icon img { width: 36px; height: 36px; }
+.aio-inside .pdp-benefit-accordion-stats__content { align-items: start; }
+.aio-inside .pdp-benefit-accordion-stats__percent { flex-direction: column; gap: 2px; padding: 8px 4px; }
+.aio-role { color: var(--color-brand-noon-blue); margin-right: 4px; }
+.aio-pct { font-size: 28px; line-height: 1; }
+.aio-pct-label { font-size: 12px; font-weight: 400; letter-spacing: 0; color: var(--color-text-on-light-1); text-align: center; line-height: 1.2; }
+.aio-price-line { margin: 12px 0 !important; font-size: 14px; color: var(--color-text-on-light-1); }
+.aio-price-line s { color: var(--color-text-on-light-2); }
+.aio-price-line strong { font-weight: 700; }
+.aio-price-line__bundle { color: var(--color-feedback-success); font-weight: 700; }
+.aio-add-one { max-width: 100%; }
+.aio-add-one .fd-btn-text { white-space: normal; }
+.aio-intro .pdp-benefit-accordion-stats__intro { margin-bottom: 20px; }
+
+/* ---- bundle vs one at a time ---- */
+.aio-compare { background: var(--color-surface-white); padding: 40px 32px 64px; }
+.aio-compare__inner { max-width: 1040px; margin: 0 auto; }
+.aio-compare__head { text-align: center; margin: 0 auto 32px; max-width: 720px; }
+.aio-compare__title { font-size: var(--font-title-xxl); font-weight: var(--fw-medium); line-height: var(--lh-tight); color: var(--color-text-on-light-1); margin: 0 0 12px; }
+.aio-compare__title strong { font-weight: var(--fw-bold); color: var(--color-brand-noon-blue); }
+.aio-compare__sub { font-size: var(--font-para-md); line-height: 1.5; color: var(--color-text-on-light-1); margin: 0; }
+.aio-compare__card { background: var(--color-surface-white); border: var(--border-hairline) solid var(--color-helper-black-10); border-radius: var(--radius-lg); overflow: hidden; }
+.aio-compare__row { display: grid; grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr) minmax(0, 1fr); align-items: center; gap: 16px; padding: 16px 24px; border-top: var(--border-hairline) solid var(--color-helper-black-10); font-size: var(--font-para-sm); color: var(--color-text-on-light-1); }
+.aio-compare__row:first-child { border-top: 0; }
+.aio-compare__row--head { background: var(--color-surface-card); font-weight: var(--fw-bold); }
+.aio-compare__row--total { background: var(--color-surface-card); font-weight: var(--fw-bold); }
+.aio-compare__prod { display: flex; align-items: center; gap: 12px; min-width: 0; font-weight: var(--fw-semibold); }
+.aio-compare__prod img { width: 48px; height: 48px; object-fit: contain; border-radius: 50%; border: var(--border-hairline) solid var(--color-helper-black-10); background: var(--color-surface-white); flex: 0 0 auto; }
+.aio-compare__role { display: block; font-size: 14px; font-weight: var(--fw-regular); color: var(--color-text-on-light-2); }
+.aio-compare__cell { text-align: right; }
+.aio-compare__cell s { color: var(--color-text-on-light-2); margin-right: 6px; font-weight: var(--fw-regular); }
+.aio-compare__cell--bundle { color: var(--color-feedback-success); font-weight: var(--fw-bold); }
+.aio-compare__save { display: inline-block; margin-top: 4px; padding: 2px 8px; border-radius: var(--radius-sm); background: #e8f6ef; color: var(--color-feedback-success); font-size: 14px; font-weight: var(--fw-bold); }
+.aio-compare__cta { display: flex; justify-content: center; margin-top: 32px; }
+@media (max-width: 749px) {
+  .aio-compare { padding: 40px 16px 40px; }
+  .aio-compare__row { grid-template-columns: minmax(0, 1fr) auto auto; gap: 8px; padding: 12px 12px; font-size: 14px; }
+  .aio-compare__prod { gap: 8px; }
+  .aio-compare__prod img { width: 36px; height: 36px; }
+  .aio-compare__cell s { display: block; margin: 0; font-size: 12px; }
+}
+
+/* ---- audience switcher repeated near the end of the page ---- */
+.aio-switch { background: var(--color-surface-white); padding: 56px 16px 40px; }
+.aio-switch__inner { max-width: 560px; margin: 0 auto; text-align: center; }
+.aio-switch__title { font-size: var(--font-title-lg); font-weight: var(--fw-medium); line-height: var(--lh-tight); color: var(--color-text-on-light-1); margin: 0 0 8px; }
+.aio-switch__title strong { font-weight: var(--fw-bold); color: var(--color-brand-noon-blue); }
+.aio-switch__sub { font-size: var(--font-para-sm); line-height: 1.5; color: var(--color-text-on-light-1); margin: 0 0 24px; }
+.aio-switch .pdp-demo-tabs { margin-bottom: 0; text-align: left; }
+
+@media (prefers-reduced-motion: reduce) {
+  .aio-inside .pdp-benefit-accordion-stats__caret svg { transition: none; }
+}

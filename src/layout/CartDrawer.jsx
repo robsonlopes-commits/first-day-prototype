@@ -6,7 +6,7 @@ import { themeAsset } from '../lib/assets.js';
 import { CART_CODE, GUARANTEE_TEXT, SUBSCRIBE_EXTRA_PCT, CHECKOUT_PLUS_FEE_CENTS, GIFT, upsellPool, upsellTabs } from '../data/cart.js';
 import lockSvg from './svg/gwp-lock.svg?raw';
 import checkSvg from './svg/gwp-check.svg?raw';
-import '../styles/fd-ui-kit.css';
+import '../styles/ui-kit.css';
 import './styles/fd-tabs-v3.css';
 import './styles/cart-minicart.css';
 import '../styles/theme/fd-ab-cart-drawer.css';

@@ -1,5 +1,6 @@
 import { shopImg } from '../lib/assets.js';
 import { getProduct } from './products.js';
+import { INFO_MODAL_PRODUCTS } from './bundleQuiz.js';
 
 // EXPLORATION: All-in-1 Bundle (not a production page).
 // Concept: the 4 hero products in one bundle for holistic support, led by picky eating (still the top reason families
@@ -12,40 +13,41 @@ export const BUNDLE_DISCOUNT_ONETIME = 40;
 
 // Product roles (order = order shown everywhere)
 export const ROLES = [
-  { key: 'multi', label: 'Nutrition', headline: 'Fills the gaps picky plates leave', category: 'multivitamin' },
-  { key: 'gut', label: 'Gut', headline: 'Digestion and immunity, every day', category: 'probiotic' },
-  { key: 'focus', label: 'Focus', headline: 'Support for focus, learning and memory', category: 'brain' },
-  { key: 'sleep', label: 'Sleep', headline: 'Melatonin free support for sleep', category: 'magnesium' },
+  { key: 'multi', label: 'Nutrition', category: 'multivitamin' },
+  { key: 'gut', label: 'Gut', category: 'probiotic' },
+  { key: 'focus', label: 'Focus', category: 'brain' },
+  { key: 'sleep', label: 'Sleep', category: 'magnesium' },
 ];
 
-// Demos (audiences). "color" = segment color token value from fd-ui-kit.
+// Demos (audiences). Copy that changes per audience lives here: Kids = picky eaters, the others = busy schedules.
+// vanity: [..] marks the blue highlighted phrase (same convention as the PDP vanity title). banner: age line under the tabs.
 const bottle = (f) => shopImg(f);
 export const DEMOS = [
   {
-    id: 'kids', label: 'Kids', possessive: "Kids'", color: '#FFB511', age: 'Ages 4 to 12',
-    tagline: 'One daily ritual for picky eaters.',
-    sub: 'Four gummies that cover nutrition, gut, focus and sleep, so one fussy plate does not decide the day.',
+    id: 'kids', label: 'Kids', possessive: "Kids'", banner: { prefix: 'This Bundle is For Kids Ages ', ages: '4 - 12' },
+    vanity: 'Complete Daily Support For [Picky Eaters]',
+    intro: '<p><strong>Four hero gummies in one bundle.</strong> Nutrition, gut, focus and sleep support for picky eaters, in one simple daily routine.</p>',
     handles: ['kids-enrichment-vitamin', 'kids-belly-biotic', 'kids-daily-focus', 'kids-calming-magnesium'],
     bottles: ['kids-multi.png', 'kids-prob_4b7651d5-86e6-4eb3-8d96-e6d26e57c0e4.png', 'kids-brain.png', 'kids-mag.png'],
   },
   {
-    id: 'teens', label: 'Teens', possessive: "Teens'", color: '#00B4E4', age: 'Ages 13 to 17',
-    tagline: 'One daily ritual for a full schedule.',
-    sub: 'Four gummies for nutrition, gut, focus and sleep, built for teens who skip meals and stay up late.',
+    id: 'teens', label: 'Teens', possessive: "Teens'", banner: { prefix: 'This Bundle is For Teens Ages ', ages: '13 - 17' },
+    vanity: 'Complete Daily Support For [Busy Teens]',
+    intro: '<p><strong>Four hero gummies in one bundle.</strong> Nutrition, gut, focus and sleep support for busy schedules, in one simple daily routine.</p>',
     handles: ['teens-kickstart-vitamin', 'teens-gut-sustainer', 'teens-daily-focus', 'teens-calming-magnesium'],
     bottles: ['teens-multi.png', 'teens-prob.png', 'teens-brain.png', 'teens-mag.png'],
   },
   {
-    id: 'women', label: 'Women', possessive: "Women's", color: '#F78684', age: 'Ages 18 and up',
-    tagline: 'One daily ritual for everything in a day.',
-    sub: 'Four gummies that bring nutrition, gut, focus and sleep support into a single routine.',
+    id: 'women', label: 'Women', possessive: "Women's", banner: { prefix: 'This Bundle is For Women Ages ', ages: '18 +' },
+    vanity: 'Complete Daily Support For [Busy Women]',
+    intro: '<p><strong>Four hero gummies in one bundle.</strong> Nutrition, gut, focus and sleep support for busy schedules, in one simple daily routine.</p>',
     handles: ['womens-supercharge-vitamin', 'womens-good-gut', 'womens-daily-focus', 'womens-calming-magnesium'],
     bottles: ['woman-multi.png', 'woman-prob.png', 'woman-brain.png', 'woman-mag.png'],
   },
   {
-    id: 'men', label: 'Men', possessive: "Men's", color: '#5368C2', age: 'Ages 18 and up',
-    tagline: 'One daily ritual, four jobs done.',
-    sub: 'Four gummies that bring nutrition, gut, focus and sleep support into a single routine.',
+    id: 'men', label: 'Men', possessive: "Men's", banner: { prefix: 'This Bundle is For Men Ages ', ages: '18 +' },
+    vanity: 'Complete Daily Support For [Busy Men]',
+    intro: '<p><strong>Four hero gummies in one bundle.</strong> Nutrition, gut, focus and sleep support for busy schedules, in one simple daily routine.</p>',
     handles: ['mens-provisions-vitamin', 'mens-gut-guardian', 'mens-daily-focus', 'mens-calming-magnesium'],
     bottles: ['men-multi.png', 'men-prob.png', 'men-brain.png', 'men-mag.png'],
   },
@@ -63,6 +65,7 @@ export function getDemo(id) {
       title: p.title,
       pdpTitle: p.pdpTitle,
       blurb: p.blurb,
+      description: INFO_MODAL_PRODUCTS[h]?.description || `<p>${p.blurb}</p>`, // production product description (shop product .js)
       rating: p.rating,
       reviews: p.reviews,
       base,
@@ -74,19 +77,13 @@ export function getDemo(id) {
     };
   });
   const sum = (k) => round2(items.reduce((t, i) => t + i[k], 0));
+  const reviews = items.reduce((t, i) => t + i.reviews, 0);
+  const rating = Math.round((items.reduce((t, i) => t + i.rating * i.reviews, 0) / reviews) * 10) / 10; // review weighted average of the four products
   return {
     ...d,
-    items,
+    items, reviews, rating,
     totals: { base: sum('base'), individual: sum('individual'), monthly: sum('inBundleMonthly'), oneTime: sum('inBundleOneTime') },
   };
 }
 const round2 = (n) => Math.round(n * 100) / 100;
 export const money = (n) => `$${n.toFixed(2)}`;
-
-export const FAQ = [
-  ['What is in the All-in-1 Bundle?', 'One bottle each of the Multivitamin, the 3-in-1 Probiotic, Daily Focus Brain Support and Nighttime Reset Magnesium for the audience you pick. Every bottle is a 30 day supply.'],
-  ['Can I buy the products one at a time?', 'Yes. Every product can be added on its own. The bundle price is lower than buying the same four separately.'],
-  ['What is the difference between Monthly and One-Time?', 'Monthly delivers a new bundle every month at our best price and you can cancel anytime. One-Time is a single order at a smaller discount.'],
-  ['Can I switch between Kids, Teens, Women and Men?', 'Yes. Use the tabs at the top of the page. The products, images and prices update right away.'],
-  ['Are the gummies free from junk?', 'Yes. First Day gummies are made with no fake sugars, no artificial colors, no fillers and no fads.'],
-];

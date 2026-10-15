@@ -3,7 +3,7 @@ import { settingLink } from '../lib/settingsLink.js';
 import { settingImg } from '../lib/settingsImg.js';
 import { TEMP_HERO_HOME } from '../data/sharedSections.js';
 import css from './tempHeroCss.js';
-import '../styles/fd-ui-kit.css';
+import '../styles/ui-kit.css';
 import '../styles/theme/fd-button.css';
 
 // sections/temp-hero.liquid. Props = { id, settings } as in the template JSON (TEMP_HERO_HOME / TEMP_HERO_PDP_NEW in src/data/sharedSections.js).

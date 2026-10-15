@@ -3,7 +3,7 @@ import { createRoot } from 'react-dom/client';
 import { BrowserRouter } from 'react-router-dom';
 import './styles/fonts.css';
 import './styles/theme-variables.css';
-import './styles/fd-ui-kit.css';
+import './styles/ui-kit.css';
 import './styles/base.css';
 import './styles/custom.css';
 import './styles/new_custom.css';

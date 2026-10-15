@@ -3,7 +3,7 @@ import Img from '../components/Img.jsx';
 import TileRating from '../components/TileRating.jsx';
 import { useCart } from '../layout/CartContext.jsx';
 import { Blurb, useCardData } from './PbfcmProductCard.jsx';
-import '../styles/fd-ui-kit.css';
+import '../styles/ui-kit.css';
 import '../styles/theme/fd-button.css';
 import '../styles/theme/pbfcm-product-carousel-alt.css';
 

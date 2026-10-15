@@ -5,7 +5,7 @@ import shieldSvg from './narrativeIcons/fd-narrative-icon-shield.svg?raw';
 import scienceSvg from './narrativeIcons/fd-narrative-icon-science.svg?raw';
 import sugarSvg from './narrativeIcons/fd-narrative-icon-sugar.svg?raw';
 import veggiesSvg from './narrativeIcons/fd-narrative-icon-veggies.svg?raw';
-import '../styles/fd-ui-kit.css';
+import '../styles/ui-kit.css';
 import '../styles/theme/fd-button.css';
 import '../styles/theme/fd-brand-narrative.css';
 

@@ -2,7 +2,7 @@ import { useEffect, useRef } from 'react';
 import Img from '../components/Img.jsx';
 import { settingImg } from '../lib/settingsImg.js';
 import css from './fdProblemSignsCss.js';
-import '../styles/fd-ui-kit.css';
+import '../styles/ui-kit.css';
 import '../styles/theme/fd-problem-sign-card.css';
 
 // sections/fd-problem-signs.liquid + snippets/fd-problem-sign-card.liquid + snippets/fd-wave-svg.liquid.

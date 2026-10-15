@@ -7,7 +7,7 @@ import { getProduct, DEFAULT_DISCOUNT } from '../data/products.js';
 import PbfcmProductCard from './PbfcmProductCard.jsx';
 import AltProductCard from './AltProductCard.jsx';
 import { BASE, WULL, CLASSIC, SHOP_ALL } from './pbfcmCarouselCss.js';
-import '../styles/fd-ui-kit.css';
+import '../styles/ui-kit.css';
 import '../styles/theme/fd-tabs-v3.css';
 import '../styles/theme/pbfcm-product-carousel-alt.css';
 

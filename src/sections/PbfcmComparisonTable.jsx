@@ -5,7 +5,7 @@ import { resolveTokens } from '../lib/resolveTokens.js';
 import { COMPARISON_HOME } from '../data/sharedSections.js';
 import stylesCss from './pbfcmStylesCss.js';
 import comparisonCss from './pbfcmComparisonTableCss.js';
-import '../styles/fd-ui-kit.css';
+import '../styles/ui-kit.css';
 import '../styles/theme/fd-tabs-v3.css';
 
 // sections/pbfcm-comparison-table.liquid (+ snippets/pbfcm-styles.css, wave-bg-svg, pbfcm-benefit-head-logo, pbfcm-comparison-table-extended.js).

@@ -1,0 +1,118 @@
+/*
+ * First Day UI kit: design tokens.
+ * Source of truth = what the HOME and the NEW PDP actually render (measured from their computed styles).
+ * Replaces the old fd-ui-kit.css, which was outdated (Gelica titles, hard outline shadows, unused segment utilities).
+ * Rules this kit encodes: white pages, sofia-pro only, hairline borders, pill buttons, no shadows.
+ */
+:root {
+  /* ---- Typography: sofia-pro only. --font-title is kept as a name (theme CSS reads it) but it is sofia-pro too. ---- */
+  --font-body: 'sofia-pro', sans-serif;
+  --font-title: 'sofia-pro', sans-serif;
+  --fw-light: 300;
+  --fw-regular: 400;
+  --fw-medium: 500;
+  --fw-semibold: 600;
+  --fw-bold: 700;
+  --lh-base: 1.4;
+  --lh-tight: 1.3;
+
+  /* Headings: Home h1 52/900, section h2 32 to 38 (300 to 500), h3 20/700, PDP h1 40 */
+  --font-title-xs-mob: 14px;  --font-title-xs-desk: 16px;
+  --font-title-sm-mob: 16px;  --font-title-sm-desk: 20px;
+  --font-title-md-mob: 20px;  --font-title-md-desk: 24px;
+  --font-title-lg-mob: 24px;  --font-title-lg-desk: 32px;
+  --font-title-xl-mob: 28px;  --font-title-xl-desk: 36px;
+  --font-title-xxl-mob: 32px; --font-title-xxl-desk: 38px;
+  --font-title-xxxl-mob: 40px; --font-title-xxxl-desk: 52px;
+
+  /* Body text: 16px on Home and PDP, 14px secondary, 18px buttons */
+  --font-para-xs-mob: 12px; --font-para-xs-desk: 14px;
+  --font-para-sm-mob: 14px; --font-para-sm-desk: 16px;
+  --font-para-md-mob: 16px; --font-para-md-desk: 18px;
+  --font-para-lg-mob: 18px; --font-para-lg-desk: 20px;
+  --font-para-xl-mob: 20px; --font-para-xl-desk: 22px;
+
+  /* Responsive aliases (switch at 992px) */
+  --font-title-xs: var(--font-title-xs-mob);   --font-title-sm: var(--font-title-sm-mob);
+  --font-title-md: var(--font-title-md-mob);   --font-title-lg: var(--font-title-lg-mob);
+  --font-title-xl: var(--font-title-xl-mob);   --font-title-xxl: var(--font-title-xxl-mob);
+  --font-title-xxxl: var(--font-title-xxxl-mob);
+  --font-para-xs: var(--font-para-xs-mob);     --font-para-sm: var(--font-para-sm-mob);
+  --font-para-md: var(--font-para-md-mob);     --font-para-lg: var(--font-para-lg-mob);
+  --font-para-xl: var(--font-para-xl-mob);
+
+  /* ---- Color ---- */
+  /* Brand */
+  --color-brand-noon-blue: #476DED;        /* primary button, links, emphasis words, blue bands (#486CED) */
+  --color-brand-late-noon-blue: #5368C2;   /* Home hero band, hover */
+  /* Surfaces: pages and sections are white. Light blue only as a contained band or tint. */
+  --color-surface-white: #FFFFFF;
+  --color-surface-morning-blue: #F2FBFF;
+  --color-surface-late-morning-blue: #E4F5FF;
+  --color-surface-card: #FAFAFA;           /* neutral info card fill (Clinicians' Choice, age banner) */
+  /* Text */
+  --color-text-on-light-1: #2C3D50;        /* headings, body, selected navy pill */
+  --color-text-on-light-2: #737373;        /* secondary, struck prices */
+  --color-text-on-dark: #FFFFFF;
+  /* Feedback */
+  --color-feedback-success: #078942;       /* sale prices, savings, "Saving $X" */
+  --color-feedback-error: #D24343;
+  --color-feedback-warning: #F7B31A;
+  --color-highlight-yellow: #FFB511;       /* highlighted word on blue hero, stars */
+  /* Product accents (selected strips, tiles, chips). The PDP uses the magnesium purple for its selection states. */
+  --color-product-multi: #64DAA1;
+  --color-product-tribiotic: #DE4343;
+  --color-product-magnesium: #776CB1;
+  --color-product-brain: #008780;
+  --color-helper-magnesium-10: rgba(119, 108, 177, 0.10);
+  /* Segment accents (only where an audience is named) */
+  --color-segment-kids: #FFB511;
+  /* Lines and fills */
+  --color-helper-outline: #D7EFFA;
+  --color-border-card: #E5E5E5;            /* Home product cards */
+  --color-helper-black-100: rgba(0, 0, 0, 1);
+  --color-helper-black-75: rgba(0, 0, 0, 0.75);
+  --color-helper-black-30: rgba(0, 0, 0, 0.30);
+  --color-helper-black-10: rgba(0, 0, 0, 0.10);   /* hairline border on cards and radio options */
+  --color-helper-black-5: rgba(0, 0, 0, 0.05);
+  --color-helper-black-2: rgba(0, 0, 0, 0.02);
+  --color-helper-white-75: rgba(255, 255, 255, 0.75);
+
+  /* ---- Shape ---- */
+  --radius-sm: 4px;
+  --radius-md: 8px;     /* Home shop cards */
+  --radius-lg: 12px;    /* info cards, product cards */
+  --radius-xl: 16px;
+  --radius-2xl: 20px;   /* large media and cards */
+  --radius-full: 50%;
+  --radius-pill: 2000px; /* buttons, segmented tabs */
+  --border-hairline: 1px;
+
+  /* ---- Spacing scale ---- */
+  --spacing-tiny: 4px;
+  --spacing-nano: 8px;
+  --spacing-xxxs: 12px;
+  --spacing-xxs: 16px;
+  --spacing-xs: 20px;
+  --spacing-sm: 24px;
+  --spacing-md: 32px;
+  --spacing-lg: 40px;
+  --spacing-xl: 48px;
+  --spacing-xxl: 56px;
+  --spacing-xxxl: 64px;
+  --spacing-huge: 72px;
+  --spacing-giant: 80px;
+  /* Breakpoints (documentation, media queries cannot read vars): 750 / 990 / 992 / 1280 */
+}
+
+@media (min-width: 992px) {
+  :root {
+    --font-title-xs: var(--font-title-xs-desk);   --font-title-sm: var(--font-title-sm-desk);
+    --font-title-md: var(--font-title-md-desk);   --font-title-lg: var(--font-title-lg-desk);
+    --font-title-xl: var(--font-title-xl-desk);   --font-title-xxl: var(--font-title-xxl-desk);
+    --font-title-xxxl: var(--font-title-xxxl-desk);
+    --font-para-xs: var(--font-para-xs-desk);     --font-para-sm: var(--font-para-sm-desk);
+    --font-para-md: var(--font-para-md-desk);     --font-para-lg: var(--font-para-lg-desk);
+    --font-para-xl: var(--font-para-xl-desk);
+  }
+}

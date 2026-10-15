@@ -1,35 +1,33 @@
-import { useEffect, useRef, useState } from 'react';
+import { useState } from 'react';
 import usePageClass from '../../lib/usePageClass.js';
 import { useCart } from '../../layout/CartContext.jsx';
 import { getDemo, DEMOS } from '../../data/allInOneBundle.js';
-import { TRUST_PDP_NEW } from '../../data/sharedSections.js';
+import { problemProps, whyFourProps, fourJobsProps, scienceProps, timelineProps, faqProps, closingProps, trustProps } from '../../data/allInOneStory.js';
+import FdProblemSigns from '../../sections/FdProblemSigns.jsx';
+import PdpV2TwoUp from '../../sections/PdpV2TwoUp.jsx';
+import FdBrandNarrative from '../../sections/FdBrandNarrative.jsx';
+import TempScienceModule from '../../sections/TempScienceModule.jsx';
+import TimelineSection from '../../sections/TimelineSection.jsx';
 import HomepageTrustSection from '../../sections/HomepageTrustSection.jsx';
-import BundleGallery from '../../sections/explorations/allInOneBundle/BundleGallery.jsx';
-import BundleBuyBox from '../../sections/explorations/allInOneBundle/BundleBuyBox.jsx';
-import StickyBundleBar from '../../sections/explorations/allInOneBundle/StickyBundleBar.jsx';
-import PickyEaterBenefits from '../../sections/explorations/allInOneBundle/PickyEaterBenefits.jsx';
-import BundleVsIndividual from '../../sections/explorations/allInOneBundle/BundleVsIndividual.jsx';
-import BundleFaq from '../../sections/explorations/allInOneBundle/BundleFaq.jsx';
-import FinalCta from '../../sections/explorations/allInOneBundle/FinalCta.jsx';
-import '../../styles/theme/fd-button.css';
-import '../../styles/theme/fd-badge.css';
-import '../../styles/theme/fd-tabs-v3.css';
-import '../../sections/explorations/allInOneBundle/allInOneBundle.css';
+import CollapsibleContent from '../../sections/CollapsibleContent.jsx';
+import BundleMainProduct, { DemoTabs } from '../../sections/explorations/allInOneBundle/BundleMainProduct.jsx';
+import BundleCompare from '../../sections/explorations/allInOneBundle/BundleCompare.jsx';
+import '../../sections/explorations/allInOneBundle/bundle.css';
 
 // EXPLORATION (not a production page): /explorations/all-in-1-bundle
-// The 4 hero products in one bundle (concept: picky eaters). Requirements from the task:
-//  1. shoppers can add individual items to the cart, at a higher price than the complete bundle
-//  2. shoppers can easily switch between demos (Kids / Teens / Women / Men) to buy other options
+// A landing page for the 4 hero products in one bundle (concept: picky eaters). Task requirements:
+//  1. shoppers can add individual items to the cart, at a higher price than the complete bundle ("What's Inside" rows)
+//  2. shoppers can easily switch between demos (Kids / Teens / Women / Men): tabs in the buy box and again before the closing band
+// Layout: [A] buy box (new PDP buy box, reused)  [B] storytelling (existing sections, new content in src/data/allInOneStory.js)  [C] proof + closing.
 export default function AllInOneBundle() {
   usePageClass('template-product all-in-1-bundle');
   const { addLine, openCart } = useCart();
   const initial = new URLSearchParams(window.location.search).get('demo');
   const [demoId, setDemoId] = useState(DEMOS.some((d) => d.id === initial) ? initial : 'kids');
   const [frequency, setFrequency] = useState('monthly');
-  const [stickyVisible, setStickyVisible] = useState(false);
-  const ctaRef = useRef(null);
   const demo = getDemo(demoId);
-  const price = frequency === 'monthly' ? demo.totals.monthly : demo.totals.oneTime;
+  const monthly = frequency === 'monthly';
+  const cents = (n) => Math.round(n * 100);
 
   const changeDemo = (id) => {
     setDemoId(id);
@@ -37,49 +35,46 @@ export default function AllInOneBundle() {
     url.searchParams.set('demo', id);
     window.history.replaceState(null, '', url); // no reload: the demo switch is instant
   };
+  // switching from the bottom of the page brings the shopper back to the buy box
+  const changeDemoFromBottom = (id) => {
+    changeDemo(id);
+    document.getElementById('shopify-section-all-in-1-bundle-main')?.scrollIntoView({ behavior: 'smooth' });
+  };
 
   const addBundle = () => {
-    const cents = (n) => Math.round(n * 100);
+    const price = cents(monthly ? demo.totals.monthly : demo.totals.oneTime);
     addLine(
-      { handle: `all-in-1-${demo.id}`, title: `${demo.possessive} All-in-1 Bundle`, image: demo.items[0].image, price: cents(price) },
-      frequency === 'monthly',
-      {
-        key: `aio-${demo.id}-${frequency}`,
-        title: `${demo.possessive} All-in-1 Bundle (4 products)`,
-        price: cents(price),
-        compare: cents(demo.totals.base),
-        delivery: frequency === 'monthly' ? 'Delivered Monthly' : '',
-      }
+      { handle: `all-in-1-${demo.id}`, title: `${demo.possessive} All-in-1 Bundle`, image: demo.items[0].image, price },
+      monthly,
+      { key: `aio-${demo.id}-${frequency}`, title: `${demo.possessive} All-in-1 Bundle (4 products)`, price, compare: cents(demo.totals.base), delivery: monthly ? 'Delivered Monthly' : '' },
     );
     openCart();
   };
+  // one product on its own: individual price (30% off), higher than its price inside the bundle
   const addItem = (it) => {
-    addLine({ handle: it.handle, title: it.title, image: it.image, price: Math.round(it.base * 100) }, true);
+    addLine({ handle: it.handle, title: it.title, image: it.image, price: cents(it.individual) }, monthly, { price: cents(it.individual), compare: cents(it.base) });
     openCart();
   };
 
-  useEffect(() => {
-    const el = ctaRef.current;
-    if (!el || !('IntersectionObserver' in window)) return undefined;
-    const io = new IntersectionObserver(([e]) => setStickyVisible(!e.isIntersecting && e.boundingClientRect.top < 0), { threshold: 0 });
-    io.observe(el);
-    return () => io.disconnect();
-  }, []);
-
   return (
     <div className="aio-page">
-      <section className="aio-hero">
-        <div className="aio-container aio-hero__grid">
-          <BundleGallery demo={demo} />
-          <BundleBuyBox ref={ctaRef} demo={demo} demoId={demoId} onDemoChange={changeDemo} frequency={frequency} onFrequencyChange={setFrequency} onAddBundle={addBundle} onAddItem={addItem} />
+      <BundleMainProduct demo={demo} demoId={demoId} onDemoChange={changeDemo} frequency={frequency} onFrequencyChange={setFrequency} onAddBundle={addBundle} onAddItem={addItem} />
+      <FdProblemSigns key={`p-${demoId}`} {...problemProps(demoId)} />
+      <PdpV2TwoUp key={`w-${demoId}`} {...whyFourProps(demoId)} />
+      <FdBrandNarrative key={`j-${demoId}`} {...fourJobsProps(demo)} />
+      <TempScienceModule key={`s-${demoId}`} {...scienceProps(demo)} />
+      <TimelineSection key={`t-${demoId}`} {...timelineProps(demo)} />
+      <BundleCompare demo={demo} onAddBundle={addBundle} />
+      <div id="reviews"><HomepageTrustSection key={`tr-${demoId}`} {...trustProps(demoId)} /></div>
+      <CollapsibleContent {...faqProps()} />
+      <section className="aio-switch" aria-labelledby="aio-switch-title">
+        <div className="aio-switch__inner">
+          <h2 className="aio-switch__title" id="aio-switch-title">Shopping For <strong>Someone Else?</strong></h2>
+          <p className="aio-switch__sub">Pick another group to see its bundle.</p>
+          <DemoTabs demoId={demoId} onChange={changeDemoFromBottom} />
         </div>
       </section>
-      <PickyEaterBenefits demo={demo} onAddItem={addItem} />
-      <BundleVsIndividual demo={demo} onAddBundle={addBundle} />
-      <HomepageTrustSection {...TRUST_PDP_NEW} />
-      <BundleFaq />
-      <FinalCta demo={demo} demoId={demoId} onDemoChange={(id) => { changeDemo(id); window.scrollTo({ top: 0, behavior: 'smooth' }); }} price={price} onAddBundle={addBundle} />
-      <StickyBundleBar visible={stickyVisible} demo={demo} price={price} onAdd={addBundle} />
+      <PdpV2TwoUp key={`c-${demoId}`} {...closingProps(demo)} />
     </div>
   );
 }

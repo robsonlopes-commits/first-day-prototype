@@ -18,7 +18,7 @@ import '../styles/theme/component-rte.css';
 import '../styles/theme/component-slider.css';
 import '../styles/theme/component-rating.css';
 import '../styles/theme/component-deferred-media.css';
-import '../styles/fd-ui-kit.css';
+import '../styles/ui-kit.css';
 import '../styles/theme/fd-button.css';
 import '../styles/theme/PBFCM-PDP-styles.css';
 import '../styles/theme/fd-ingredients-popup.css';

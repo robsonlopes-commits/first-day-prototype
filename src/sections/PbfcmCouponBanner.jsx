@@ -5,7 +5,7 @@ import { settingLink } from '../lib/settingsLink.js';
 import { resolveTokens } from '../lib/resolveTokens.js';
 import { HOME_COUPON_BANNER } from '../data/home.js';
 import css from './pbfcmCouponBannerCss.js';
-import '../styles/fd-ui-kit.css';
+import '../styles/ui-kit.css';
 import '../styles/theme/fd-button.css';
 import '../styles/theme/pbfcm-coupon-banner.css';
 

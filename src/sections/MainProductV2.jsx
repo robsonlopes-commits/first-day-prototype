@@ -36,12 +36,12 @@ const Caret = () => (
     <path fillRule="evenodd" clipRule="evenodd" d="M12 15c-.3 0-.6-.1-.8-.4l-11-13C-.2 1.2-.1.5.3.2c.4-.4 1.1-.3 1.4.1L12 12.5 22.2.4c.4-.4 1-.5 1.4-.1.4.4.5 1 .1 1.4l-11 13c-.1.2-.4.3-.7.3z" fill="currentColor" />
   </svg>
 );
-const CheckBenefit = () => (
+export const CheckBenefit = () => (
   <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
     <path d="M9.99996 1.66663C14.6023 1.66663 18.3333 5.39759 18.3333 9.99996C18.3333 14.6023 14.6023 18.3333 9.99996 18.3333C5.39759 18.3333 1.66663 14.6023 1.66663 9.99996C1.66663 5.39759 5.39759 1.66663 9.99996 1.66663ZM13.6377 6.62811C13.4353 6.62674 13.2403 6.70422 13.0938 6.84376C13.0864 6.85101 13.0799 6.8588 13.0734 6.86682L9.45607 11.4757L7.27508 9.29602C7.20356 9.21926 7.11728 9.15697 7.02144 9.11427C6.92578 9.07167 6.82232 9.04972 6.71762 9.04781C6.61289 9.04596 6.50824 9.06425 6.41109 9.10342C6.31381 9.14271 6.22486 9.20149 6.15068 9.27568C6.07649 9.34986 6.01771 9.43881 5.97842 9.53609C5.93925 9.63324 5.92096 9.73789 5.92281 9.84262C5.92472 9.94732 5.94667 10.0508 5.98927 10.1464C6.03197 10.2423 6.09426 10.3286 6.17102 10.4001L8.9271 13.1562C9.00137 13.2304 9.09011 13.2891 9.18751 13.3284C9.28484 13.3676 9.38913 13.3873 9.49405 13.3854C9.5988 13.3834 9.70219 13.3602 9.79787 13.3176C9.89355 13.2748 9.98012 13.2126 10.0515 13.1358L14.2087 7.93697C14.3453 7.78771 14.4188 7.59129 14.4135 7.38901C14.4081 7.18662 14.3246 6.99378 14.1802 6.8519C14.0356 6.71 13.8403 6.62964 13.6377 6.62811Z" fill="#078942" />
   </svg>
 );
-const RadioCheck = ({ id, hidden }) => (
+export const RadioCheck = ({ id, hidden }) => (
   <svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="16" height="16" viewBox="0 0 256 256" id={id} style={hidden ? { display: 'none' } : undefined}>
     <g style={{ stroke: 'none', strokeWidth: 0, strokeDasharray: 'none', strokeLinecap: 'butt', strokeLinejoin: 'miter', strokeMiterlimit: 10, fill: 'none', fillRule: 'nonzero', opacity: 1 }} transform="translate(1.4065934065934016 1.4065934065934016) scale(2.81 2.81)">
       <circle cx="45" cy="45" r="45" style={{ stroke: 'none', strokeWidth: 1, fill: '#486ced', fillRule: 'nonzero', opacity: 1 }} transform="matrix(1 0 0 1 0 0)" />
@@ -49,14 +49,15 @@ const RadioCheck = ({ id, hidden }) => (
     </g>
   </svg>
 );
-const CartIcon = () => (
+export const CartIcon = () => (
   <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="PBFCM-PDP-cart-summary__button-icon" aria-hidden="true">
     <path d="M3 3H5L5.4 5M7 13H17L21 5H5.4M7 13L5.4 5M7 13L4.70711 15.2929C4.07714 15.9229 4.52331 17 5.41421 17H17M17 17C15.8954 17 15 17.8954 15 19C15 20.1046 15.8954 21 17 21C18.1046 21 19 20.1046 19 19C19 17.8954 18.1046 17 17 17ZM9 19C9 20.1046 8.10457 21 7 21C5.89543 21 5 20.1046 5 19C5 17.8954 5.89543 17 7 17C8.10457 17 9 17.8954 9 19Z" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
   </svg>
 );
 
 /* ---------- gallery (PBFCM-PDP-product-gallery: Swiper main slider + thumbnail strip) ---------- */
-function Gallery({ images }) {
+// images: [{ src, alt }] or, for a composed slide, { key, group: [{ src, alt }] } (several cutouts side by side; used by the All-in-1 Bundle exploration)
+export function Gallery({ images }) {
   const [index, setIndex] = useState(0);
   const [drag, setDrag] = useState(null); // { startX, dx }
   const [scrollable, setScrollable] = useState(true);
@@ -108,8 +109,10 @@ function Gallery({ images }) {
       >
         <div className="swiper-wrapper" aria-live="polite" style={{ cursor: 'grab', transitionDuration: drag ? '0ms' : '320ms', transform: `translate3d(calc(${-index * 100}% - ${index * 16}px + ${dx}px), 0, 0)` }}>
           {images.map((im, i) => (
-            <div key={im.src} className={`swiper-slide PBFCM-PDP-product-gallery__main-slide${i === index ? ' swiper-slide-active' : ''}`} style={{ marginRight: 16 }} role="group" aria-label={`${i + 1} / ${images.length}`}>
-              <Img src={im.src} alt={im.alt} className="PBFCM-PDP-product-gallery__main-image" id={i === 0 ? 'PBFCM-main-image' : undefined} loading={i < 2 ? 'eager' : 'lazy'} draggable="false" />
+            <div key={im.key || im.src} className={`swiper-slide PBFCM-PDP-product-gallery__main-slide${i === index ? ' swiper-slide-active' : ''}`} style={{ marginRight: 16 }} role="group" aria-label={`${i + 1} / ${images.length}`}>
+              {im.group
+                ? <div className="PBFCM-PDP-product-gallery__main-image PBFCM-PDP-product-gallery__group">{im.group.map((g) => <Img key={g.src} src={g.src} alt={g.alt} loading="eager" draggable="false" />)}</div>
+                : <Img src={im.src} alt={im.alt} className="PBFCM-PDP-product-gallery__main-image" id={i === 0 ? 'PBFCM-main-image' : undefined} loading={i < 2 ? 'eager' : 'lazy'} draggable="false" />}
             </div>
           ))}
         </div>
@@ -121,8 +124,10 @@ function Gallery({ images }) {
         <div className={`PBFCM-PDP-product-gallery__thumbnail-container${scrollable ? ' is-scrollable' : ''}`}>
           <div className="PBFCM-PDP-product-gallery__thumbnail-track" id="PBFCM-thumb-track" ref={trackRef}>
             {images.map((im, i) => (
-              <button key={im.src} type="button" className={`PBFCM-PDP-product-gallery__thumbnail${i === index ? ' PBFCM-PDP-product-gallery__thumbnail--active' : ''}`} data-image-index={i} aria-label={`View image ${i + 1}`} onClick={() => go(i)}>
-                <Img src={im.src} alt={im.alt} className="PBFCM-PDP-product-gallery__thumbnail-image" loading="lazy" width="88" height="88" />
+              <button key={im.key || im.src} type="button" className={`PBFCM-PDP-product-gallery__thumbnail${i === index ? ' PBFCM-PDP-product-gallery__thumbnail--active' : ''}`} data-image-index={i} aria-label={`View image ${i + 1}`} onClick={() => go(i)}>
+                {im.group
+                  ? <span className="PBFCM-PDP-product-gallery__thumbnail-image PBFCM-PDP-product-gallery__group">{im.group.map((g) => <Img key={g.src} src={g.src} alt="" loading="lazy" />)}</span>
+                  : <Img src={im.src} alt={im.alt} className="PBFCM-PDP-product-gallery__thumbnail-image" loading="lazy" width="88" height="88" />}
               </button>
             ))}
           </div>
