@@ -65,6 +65,10 @@
   --color-product-magnesium: #776CB1;
   --color-product-brain: #008780;
   --color-helper-magnesium-10: rgba(119, 108, 177, 0.10);
+  /* Purple = second accent (selected pills, chips, info notes, story accents). Same value as the magnesium accent used by the PDP. */
+  --color-accent-purple: #776CB1;
+  --color-accent-purple-10: rgba(119, 108, 177, 0.10);
+  --color-accent-purple-border: rgba(119, 108, 177, 0.45);
   /* Segment accents (only where an audience is named) */
   --color-segment-kids: #FFB511;
   /* Lines and fills */

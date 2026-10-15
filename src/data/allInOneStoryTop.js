@@ -13,6 +13,7 @@ import { LANDING } from './landing.js';
 // IMAGES: every photo (public/assets/custom/aio-<demo>-<slot>.jpg) is an AI generated MOCKUP (Gemini, prompts in public/assets/custom/PROMPTS.md).
 // CLAIMS: only production copy (kids Behind the Science page, product pages, bundle quiz, new PDP, founder note). New copy has no dashes, colons or semicolons.
 const ACCENT = '#476ded';
+const PURPLE = '#776CB1'; // --color-accent-purple
 const BUY_BOX_SECTION = '#shopify-section-all-in-1-bundle-main';
 const img = (demoId, slot) => customImg(`aio-${demoId}-${slot}.jpg`);
 
@@ -91,50 +92,50 @@ const DAY_ORDER = [
 const HIGHLIGHT = { multi: 'Nutrition with the ', focus: 'Focus with the ', gut: 'Gut support with the ', sleep: 'Sleep support with the ' };
 const DAY = {
   kids: [
-    { badge: 'Morning', heading: 'Breakfast Gets [Pushed Away]', alt: 'A young child in pajamas turns away from a bowl of oatmeal while a parent sits beside them.',
+    { badge: '☀️ Morning', heading: 'Breakfast Gets [Pushed Away]', alt: 'A young child in pajamas turns away from a bowl of oatmeal while a parent sits beside them.',
       body: '<p>The oatmeal sits untouched and the clock keeps moving. You wonder what they will eat today.</p><p>Our Kids\' Multivitamin has 21 organic superfoods and 9 nutrients most kids lack. It supplies what they need during important years of growth.*</p>' },
-    { badge: 'School Day', heading: 'Homework Takes [Forever]', alt: 'A girl rests her chin on her hand and looks away from her homework while her mother points at the notebook.',
+    { badge: '📚 School Day', heading: 'Homework Takes [Forever]', alt: 'A girl rests her chin on her hand and looks away from her homework while her mother points at the notebook.',
       body: '<p>Your child starts homework and instantly gets distracted. Simple tasks take forever. It\'s like their brain just won\'t stay put.</p><p>Daily Focus Brain Support has Cognizin®, sunflower Phosphatidylserine and Vitamin B3. It is daily brain nutrition for focus, memory and learning.*</p>' },
-    { badge: 'Dinner', heading: 'Some Nights The Plate [Comes Back Full]', alt: 'A family of three at the dinner table while the child pokes at a small portion of pasta.',
+    { badge: '🍽️ Dinner', heading: 'Some Nights The Plate [Comes Back Full]', alt: 'A family of three at the dinner table while the child pokes at a small portion of pasta.',
       body: '<p>You cook. You coax. You try again tomorrow. That is love, not failure.</p><p>Our 3-in-1 Pre+ Post+ Probiotic is designed to promote gut health, support oral health, fortify immunity and improve overall wellness.*</p>' },
-    { badge: 'Bedtime', heading: 'Bedtime Should Feel [Calm]', alt: 'A mother reads a picture book to a sleepy child tucked into bed.',
+    { badge: '🌙 Bedtime', heading: 'Bedtime Should Feel [Calm]', alt: 'A mother reads a picture book to a sleepy child tucked into bed.',
       body: '<p>Tired of bedtime battles? Every parent knows the one more story and the one more glass of water.</p><p>Our Nighttime Reset Magnesium is made with calming ingredients and has no melatonin hormones. It supports restful sleep and calm.*</p>' },
   ],
   teens: [
-    { badge: 'Morning', heading: 'Breakfast Gets [Skipped]', alt: 'A teen rushes through the kitchen with a backpack while breakfast waits on the counter.',
+    { badge: '☀️ Morning', heading: 'Breakfast Gets [Skipped]', alt: 'A teen rushes through the kitchen with a backpack while breakfast waits on the counter.',
       body: '<p>The alarm goes late and the door closes fast. Breakfast stays on the counter.</p><p>Vitamin A and Vitamin B9 support cell growth and development, helping to fill in nutritional gaps when teens skip meals.* Our Teens\' Multivitamin brings an organic fruit and veggie blend plus 12 key nutrients.</p>' },
-    { badge: 'School Day', heading: 'Motivation Runs [Low]', alt: 'A tired teen rests his head on his hand while studying at a laptop.',
+    { badge: '📚 School Day', heading: 'Motivation Runs [Low]', alt: 'A tired teen rests his head on his hand while studying at a laptop.',
       body: '<p>Homework piles up after a long day. Staying on track is hard.</p><p>Daily Focus Brain Support has Cognizin® for focus and memory, sunflower Phosphatidylserine for brain cell communication and Vitamin B3 for energy production in the brain.*</p>' },
-    { badge: 'Dinner', heading: 'Dinner Comes [Late]', alt: 'A family at the dinner table in the evening with a teen in a sports jersey.',
+    { badge: '🍽️ Dinner', heading: 'Dinner Comes [Late]', alt: 'A family at the dinner table in the evening with a teen in a sports jersey.',
       body: '<p>Practice runs long and dinner is whenever it happens.</p><p>Our Teens\' Probiotic+ has clinically studied pre, post and probiotics for digestive, immune and skin health.*</p>' },
-    { badge: 'Night', heading: 'Up All Night, [Tired All Day]', alt: 'A teen lies awake in bed at night.',
+    { badge: '🌙 Night', heading: 'Up All Night, [Tired All Day]', alt: 'A teen lies awake in bed at night.',
       body: '<p>Your teen is tired but cannot switch off.</p><p>Our Nighttime Reset Magnesium helps teens wind down before bed and sleep better at night. It has no melatonin hormones.</p>' },
   ],
   women: [
-    { badge: 'Morning', heading: 'Energy Runs [Out]', alt: 'A woman packs a child\'s lunch while her own breakfast sits untouched.',
+    { badge: '☀️ Morning', heading: 'Energy Runs [Out]', alt: 'A woman packs a child\'s lunch while her own breakfast sits untouched.',
       body: '<p>Everyone else eats first. Your breakfast goes cold.</p><p>Our multi is scientifically designed to help combat fatigue and exhaustion, with the nutrients your body needs to stay energized.</p>' },
-    { badge: 'Work Day', heading: 'Focus [Slips]', alt: 'A tired woman rubs her temple at her desk in the afternoon.',
+    { badge: '💼 Work Day', heading: 'Focus [Slips]', alt: 'A tired woman rubs her temple at her desk in the afternoon.',
       body: '<p>The afternoon slump hits and the to do list keeps growing.</p><p>Daily Focus Brain Support has Cognizin® for focus and memory, sunflower Phosphatidylserine for brain cell communication, Vitamin B3 for energy production in the brain and sustained release caffeine for calm, steady energy.*</p>' },
-    { badge: 'Evening', heading: 'Dinner Is A [Quick Fix]', alt: 'A woman cooks a quick weeknight dinner in the kitchen.',
+    { badge: '🍽️ Evening', heading: 'Dinner Is A [Quick Fix]', alt: 'A woman cooks a quick weeknight dinner in the kitchen.',
       body: '<p>Dinner is whatever is fastest. You cook, you clean and you do not sit down.</p><p>Our Women\'s Probiotic+ is the first 3-in-1 tribiotic for digestive, immune and vaginal health.*</p>' },
-    { badge: 'Night', heading: 'Nights Feel [Endless]', alt: 'A woman lies awake in bed at night.',
+    { badge: '🌙 Night', heading: 'Nights Feel [Endless]', alt: 'A woman lies awake in bed at night.',
       body: '<p>The house is quiet and your mind is not.</p><p>Our Nighttime Reset Magnesium helps women relax before bed, get restorative sleep and feel more energized during the day. It has no melatonin hormones.</p>' },
   ],
   men: [
-    { badge: 'Morning', heading: 'Days Run [Long]', alt: 'A man gulps coffee at the kitchen counter before work.',
+    { badge: '☀️ Morning', heading: 'Days Run [Long]', alt: 'A man gulps coffee at the kitchen counter before work.',
       body: '<p>Coffee in hand and out the door. Breakfast gets skipped.</p><p>Our Men\'s Multivitamin has a unique organic superfood blend plus 13 key nutrients. Perfect for the modern lifestyle.</p>' },
-    { badge: 'Work Day', heading: 'Focus [Slips]', alt: 'A tired man rubs his eyes at his desk in the afternoon.',
+    { badge: '💼 Work Day', heading: 'Focus [Slips]', alt: 'A tired man rubs his eyes at his desk in the afternoon.',
       body: '<p>Meetings stack up and your focus fades by the afternoon.</p><p>Daily Focus Brain Support has Cognizin® for focus and memory, sunflower Phosphatidylserine for brain cell communication, Vitamin B3 for energy production in the brain and sustained release caffeine for long lasting energy.*</p>' },
-    { badge: 'Evening', heading: 'After The [Workout]', alt: 'A man in gym clothes sits at the dinner table with his partner.',
+    { badge: '🍽️ Evening', heading: 'After The [Workout]', alt: 'A man in gym clothes sits at the dinner table with his partner.',
       body: '<p>You train hard and eat late.</p><p>Our Men\'s Probiotic+ is the first men\'s 3-in-1 tribiotic with clinically studied pre, post and probiotics. It supports digestion, strength, power and athletic performance.*</p>' },
-    { badge: 'Night', heading: 'Tossing And [Turning]', alt: 'A man lies awake in bed at night.',
+    { badge: '🌙 Night', heading: 'Tossing And [Turning]', alt: 'A man lies awake in bed at night.',
       body: '<p>You are tired but your mind keeps going.</p><p>Our Nighttime Reset Magnesium supports mind and muscle relaxation, better sleep and energized mornings. It has no melatonin hormones.</p>' },
   ],
 };
 const twoUpBase = TWO_UP_ROOT_CAUSES.settings;
 const twoUpLook = {
   ...twoUpBase, container_max_width_desktop: 1100, wave_top: false, wave_bottom: false, section_bg_color: '#ffffff',
-  heading_accent_color: ACCENT, badge_bg_color: '#e4f5ff', badge_font_color: '#486ced', cta_url: BUY_BOX_SECTION,
+  heading_accent_color: PURPLE, badge_bg_color: 'rgba(119, 108, 177, 0.10)', badge_font_color: PURPLE, cta_url: BUY_BOX_SECTION,
   media_width_desktop: 400, media_height_desktop: 500, media_aspect_mobile: '4 / 5', media_height_mobile: 500, media_radius: 12,
   card_padding_desktop: 40, card_gap_desktop: 56, content_gap_desktop: 20,
 };
@@ -147,7 +148,7 @@ export function dayChapters(demo) {
       id: `aio_day_${demo.id}_${d.slot}`, type: 'pdp-v2-two-up', custom_css: [],
       blocks: [{
         id: `hl-${d.slot}`, type: 'highlight',
-        settings: { icon: it.image, icon_size: 64, font_family: "'sofia-pro', sans-serif", font_size_desktop: 16, font_size_mobile: 16, font_weight: 600, font_color: '#2c3d50', text: `${HIGHLIGHT[d.role]}${it.title}` },
+        settings: { icon: it.image, icon_size: 64, font_family: "'sofia-pro', sans-serif", font_size_desktop: 16, font_size_mobile: 16, font_weight: 600, font_color: '#2c3d50', text: `${HIGHLIGHT[d.role]}${it.title}`, eyebrow: 'Our Solution', cta_text: 'Learn More', cta_url: BUY_BOX_SECTION },
       }],
       settings: {
         ...twoUpLook, anchor_id: '', media_position: d.side, image: img(demo.id, d.slot), image_alt: c.alt,

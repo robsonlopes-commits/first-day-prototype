@@ -131,13 +131,13 @@ export default function PdpV2TwoUp({ id, settings: s, blocks = [], custom_css })
     '--ptu-highlights-gap': `${s.highlights_gap}px`,
     '--ptu-highlights-margin-top': `${s.highlights_margin_top}px`,
   };
-  const jump = (e) => {
-    const href = s.cta_url;
+  const jumpTo = (e, href) => {
     if (href && href.startsWith('#')) {
       const el = document.querySelector(href);
       if (el) { e.preventDefault(); el.scrollIntoView({ behavior: 'smooth' }); }
     }
   };
+  const jump = (e) => jumpTo(e, s.cta_url);
   return (
     <div id={`shopify-section-${id}`} className="shopify-section">
       <style>{twoUpCss(s, id)}{(custom_css || []).map((c) => `#shopify-section-${id} ${c}`).join('\n')}</style>
@@ -169,7 +169,18 @@ export default function PdpV2TwoUp({ id, settings: s, blocks = [], custom_css })
                         '--ptu-highlight-font-color': b.settings.font_color,
                       }}>
                         {b.settings.icon ? <img className="pdp-v2-two-up__highlight-icon" src={settingImg(b.settings.icon)} alt="" loading="lazy" /> : null}
-                        <span className="pdp-v2-two-up__highlight-text">{b.settings.text}</span>
+                        {b.settings.eyebrow || b.settings.cta_text ? (
+                          // optional extras (used by the All-in-1 exploration): eyebrow above the text and a small link that scrolls to an anchor
+                          <span className="pdp-v2-two-up__highlight-copy">
+                            {b.settings.eyebrow ? <span className="pdp-v2-two-up__highlight-eyebrow">{b.settings.eyebrow}</span> : null}
+                            <span className="pdp-v2-two-up__highlight-text">{b.settings.text}</span>
+                            {b.settings.cta_text ? (
+                              <a className="pdp-v2-two-up__highlight-cta" href={b.settings.cta_url || '#'} onClick={(e) => jumpTo(e, b.settings.cta_url)}>{b.settings.cta_text}</a>
+                            ) : null}
+                          </span>
+                        ) : (
+                          <span className="pdp-v2-two-up__highlight-text">{b.settings.text}</span>
+                        )}
                       </li>
                     ))}
                   </ul>

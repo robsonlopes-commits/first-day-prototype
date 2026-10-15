@@ -94,12 +94,9 @@
    Values are object-position y per photo (measured on the 928x1152 originals). Desktop shows the full 4:5 photo, so this only applies below 992px. */
 @media (max-width: 991px) {
   /* pin the photo inside the 16:11 frame, otherwise the 4:5 image grows the frame once it loads */
-  .aio-page [id^="shopify-section-aio_day_"] .pdp-v2-two-up__media,
-  #shopify-section-aio_story_empathy .pdp-v2-two-up__media { position: relative; overflow: hidden; }
-  .aio-page [id^="shopify-section-aio_day_"] .pdp-v2-two-up__image,
-  #shopify-section-aio_story_empathy .pdp-v2-two-up__image { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+  .aio-page [id^="shopify-section-aio_day_"] .pdp-v2-two-up__media { position: relative; overflow: hidden; }
+  .aio-page [id^="shopify-section-aio_day_"] .pdp-v2-two-up__image { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
   .aio-page [id^="shopify-section-aio_day_"] .pdp-v2-two-up__image { object-position: 50% 70%; }
-  #shopify-section-aio_story_empathy .pdp-v2-two-up__image { object-position: 50% 35%; }
   #shopify-section-aio_day_kids_morning .pdp-v2-two-up__image { object-position: 50% 77%; }
   #shopify-section-aio_day_kids_school .pdp-v2-two-up__image { object-position: 50% 69%; }
   #shopify-section-aio_day_kids_dinner .pdp-v2-two-up__image { object-position: 50% 54%; }
@@ -117,3 +114,65 @@
   #shopify-section-aio_day_men_dinner .pdp-v2-two-up__image { object-position: 50% 73%; }
   #shopify-section-aio_day_men_bedtime .pdp-v2-two-up__image { object-position: 50% 75%; }
 }
+
+/* ---- titles: Medium (500). Highlighted phrases (accent color or emphasized line): Bold (700). ----
+   Several production sections already follow this; these rules align the rest (hero, plate accordion, buy box h1, science, timeline, trust, FAQ).
+   !important because the theme sets these weights with more specific selectors. */
+.aio-page :is(
+  .v1-hero-headline,
+  .pdp-vanity h1,
+  .pdp-vanity .vanity-title,
+  [id^="shopify-section-aio_story_plate"] h2.title,
+  .science-tabs__heading,
+  .kids-timeline__heading-line--secondary,
+  [class*="homepage-trust-section__title"],
+  .faq-v2__heading
+) { font-weight: 500 !important; }
+.aio-page :is(
+  .v1-hero-headline-highlight,
+  .accordion-block__highlight,
+  .pdp-vanity .vanity-title-highlight,
+  .kids-timeline__heading-line--primary
+) { font-weight: 700 !important; }
+
+/* ---- mobile order of the two-up story cards: photo, badge, title, text (same as desktop) ----
+   The production component puts the title above the photo on mobile. The component sets `order` with an id selector,
+   so this scoped override needs !important. */
+@media (max-width: 991px) {
+  .aio-page .pdp-v2-two-up .pdp-v2-two-up__media { order: 1 !important; }
+  .aio-page .pdp-v2-two-up .pdp-v2-two-up__badge { order: 2 !important; }
+  .aio-page .pdp-v2-two-up .pdp-v2-two-up__heading { order: 3 !important; }
+  .aio-page .pdp-v2-two-up .pdp-v2-two-up__body { order: 4 !important; }
+  .aio-page .pdp-v2-two-up .pdp-v2-two-up__cta { order: 5 !important; }
+  .aio-page .pdp-v2-two-up .pdp-v2-two-up__highlights { order: 6 !important; }
+}
+
+
+/* ---- purple: the second accent (--color-accent-purple #776CB1). Blue stays for buttons, links and prices. ---- */
+/* highlighted phrases in the story headings (the production new PDP also uses purple for these) */
+.aio-page :is(
+  .v1-hero-headline-highlight,
+  .accordion-block__highlight,
+  .fd-psc__heading-highlight,
+  .fd-bn__heading-highlight,
+  .pdp-v2-two-up__heading-accent,
+  .aio-compare__title strong,
+  .aio-switch__title strong
+) { color: var(--color-accent-purple) !important; }
+/* selected audience pill (as on the bundle quiz page), both tab bars */
+.aio-page .pdp-demo-tabs .fd-tabs-v3__item--active { background: var(--color-accent-purple) !important; color: var(--color-text-on-dark) !important; }
+/* story chips: emoji + purple tint */
+.aio-page .pdp-v2-two-up__badge { font-weight: 600; }
+
+/* info note with dashed purple border (buy box) */
+.aio-order-note { display: flex; align-items: center; gap: 12px; margin: 0 0 16px; padding: 12px 16px; border: 1px dashed var(--color-accent-purple-border); border-radius: var(--radius-lg); background: var(--color-accent-purple-10); color: var(--color-accent-purple); font-size: var(--font-para-sm); line-height: 1.4; }
+.aio-order-note__icon { flex: none; }
+.aio-order-note strong { font-weight: 700; }
+
+/* "Our Solution" box inside each story card: purple tint, dashed purple border, eyebrow + product line + Learn More */
+.aio-page .pdp-v2-two-up__highlight { align-items: center; gap: 16px; padding: 16px; border: 1px dashed var(--color-accent-purple-border); border-radius: var(--radius-lg); background: var(--color-accent-purple-10); }
+.aio-page .pdp-v2-two-up__highlight-copy { display: flex; flex-direction: column; align-items: flex-start; gap: 4px; min-width: 0; }
+.aio-page .pdp-v2-two-up__highlight-eyebrow { font-family: var(--font-body); font-size: 12px; font-weight: 600; letter-spacing: 0.08em; line-height: 1.2; text-transform: uppercase; color: var(--color-accent-purple); }
+.aio-page .pdp-v2-two-up__highlight-cta { display: inline-flex; align-items: center; margin-top: 8px; height: 36px; padding: 0 16px; border-radius: var(--radius-pill); background: var(--color-accent-purple); color: var(--color-text-on-dark); font-family: var(--font-body); font-size: 14px; font-weight: 600; text-decoration: none; transition: background 0.2s ease; }
+.aio-page .pdp-v2-two-up__highlight-cta:hover { background: #6a5fa3; }
+.aio-page .pdp-v2-two-up__highlight-cta:focus-visible { outline: 2px solid var(--color-accent-purple); outline-offset: 2px; }

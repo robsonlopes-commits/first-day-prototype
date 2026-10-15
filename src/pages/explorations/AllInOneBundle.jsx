@@ -3,7 +3,7 @@ import usePageClass from '../../lib/usePageClass.js';
 import { useCart } from '../../layout/CartContext.jsx';
 import { getDemo, DEMOS } from '../../data/allInOneBundle.js';
 import { problemProps, whyFourProps, fourJobsProps, scienceProps, timelineProps, faqProps, closingProps, trustProps } from '../../data/allInOneStory.js';
-import { heroProps, dayHeadingProps, dayChapters, plateProps, empathyProps } from '../../data/allInOneStoryTop.js';
+import { heroProps, dayHeadingProps, dayChapters, plateProps } from '../../data/allInOneStoryTop.js';
 import TempReploHero from '../../sections/TempReploHero.jsx';
 import FrontrowBrandBand from '../../sections/FrontrowBrandBand.jsx';
 import AccordionBlock from '../../sections/AccordionBlock.jsx';
@@ -68,7 +68,6 @@ export default function AllInOneBundle() {
       <TimelineSection key={`sd-${demoId}`} {...dayHeadingProps(demo)} />
       {dayChapters(demo).map((c) => <PdpV2TwoUp key={`${c.id}`} {...c} />)}
       <AccordionBlock key={`sp-${demoId}`} {...plateProps(demo)} />
-      <PdpV2TwoUp key={`se-${demoId}`} {...empathyProps(demo)} />
       <BundleMainProduct demo={demo} demoId={demoId} onDemoChange={changeDemo} frequency={frequency} onFrequencyChange={setFrequency} onAddBundle={addBundle} onAddItem={addItem} />
       <FdProblemSigns key={`p-${demoId}`} {...problemProps(demoId)} />
       <PdpV2TwoUp key={`w-${demoId}`} {...whyFourProps(demoId)} />

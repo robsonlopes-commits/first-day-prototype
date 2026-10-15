@@ -14,10 +14,11 @@ import './bundle.css';
 // gallery, demo tabs, vanity title, benefit accordion rows, frequency selector, add to cart + savings rows, USP row.
 // Only the content is new (bundle data) plus a few `aio-` classes in bundle.css for the bundle specific bits.
 const ACCENT = '#476DED'; // noon blue: the bundle is not a single product, so it does not borrow one product accent
+const PURPLE = '#776CB1'; // --color-accent-purple: second accent (selected pills, info notes, percent tiles)
 const BAS = BENEFIT_ACCORDION.settings;
 const BAS_VARS = {
   '--bas-bg': BAS.background_color, '--bas-text': BAS.text_color, '--bas-muted': BAS.body_text_color, '--bas-border': BAS.border_color, '--bas-card-bg': BAS.card_background_color,
-  '--bas-icon-bg': '#f2fbff', '--bas-icon-color': BAS.icon_color, '--bas-percent-bg': BAS.percent_background_color, '--bas-percent-color': ACCENT,
+  '--bas-icon-bg': '#f2fbff', '--bas-icon-color': BAS.icon_color, '--bas-percent-bg': 'rgba(119, 108, 177, 0.10)', '--bas-percent-color': PURPLE,
   '--bas-radius': `${BAS.corner_radius}px`, '--bas-font-size': `${BAS.body_font_size}px`, '--bas-heading-size': `${BAS.heading_font_size}px`, '--bas-percent-size': '28px',
 };
 
@@ -38,6 +39,20 @@ export function DemoTabs({ demoId, onChange, className = '' }) {
       </div>
       <div className="pdp-demo-tabs__banner"><span className="pdp-demo-tabs__banner-age">{demo.banner.prefix}<strong>{demo.banner.ages}</strong> </span></div>
     </div>
+  );
+}
+
+
+// Info note in the production style of the bundle quiz page ("Order by Oct. 14th for guaranteed FREE gifts."): light purple fill, dashed purple border.
+const ordinal = (d) => `${d}${[11, 12, 13].includes(d % 100) ? 'th' : ({ 1: 'st', 2: 'nd', 3: 'rd' }[d % 10] || 'th')}`;
+function OrderNote() {
+  const now = new Date();
+  const when = `${now.toLocaleString('en-US', { month: 'short' })} ${ordinal(now.getDate())}`;
+  return (
+    <p className="aio-order-note">
+      <svg className="aio-order-note__icon" width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="12" fill="#776CB1" /><path d="M8 16l8-8" stroke="#fff" strokeWidth="2" strokeLinecap="round" /><circle cx="8.6" cy="8.6" r="1.6" fill="#fff" /><circle cx="15.4" cy="15.4" r="1.6" fill="#fff" /></svg>
+      <span>Order by <strong>{when}</strong> for guaranteed FREE gifts.</span>
+    </p>
   );
 }
 
@@ -110,6 +125,7 @@ function Purchase({ demo, frequency, onFrequencyChange, onAddBundle }) {
   const setFreq = (f) => onFrequencyChange(f);
   return (
     <>
+      <OrderNote />
       <div id="product-purchase-content" className="product-purchase-content">
         <div className="PBFCM-PDP-frequency-selector" style={{ '--PBFCM-color-freq-selected-bg': '#E4F5FF' }}>
           <div className="PBFCM-PDP-quantity-selector__header PBFCM-PDP-frequency-selector__header"><h2 className="PBFCM-PDP-frequency-selector__title">{P.frequencyTitle}</h2></div>
