@@ -7,7 +7,8 @@
     "dev": "vite --port 5173",
     "build": "vite build",
     "preview": "vite preview",
-    "assets:fetch": "node tools/fetch-assets.mjs"
+    "assets:fetch": "node tools/fetch-assets.mjs",
+    "image": "node tools/generate-image.mjs"
   },
   "dependencies": {
     "react": "^18.3.1",
