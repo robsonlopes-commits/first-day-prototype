@@ -1,5 +1,5 @@
 // Usage: node tools/generate-image.mjs --prompt "..." --out my-image [--ref path.png ...] [--aspect 16:9] [--size 1K] [--model lite] [--dry-run]
-// Generates an image with the Gemini API (Nano Banana) and saves it to public/assets/custom/<out>.png.
+// Generates an image with the Gemini API (Nano Banana) and saves it to public/assets/custom/<out>.jpg (the API only returns JPEG).
 // The key is read from GEMINI_API_KEY (environment or .env.local). It is never printed or logged.
 import fs from 'node:fs';
 import path from 'node:path';
@@ -13,7 +13,7 @@ const args = process.argv.slice(2);
 const get = (k) => { const i = args.indexOf(`--${k}`); return i >= 0 ? args[i + 1] : undefined; };
 const all = (k) => args.flatMap((a, i) => (a === `--${k}` ? [args[i + 1]] : []));
 const prompt = get('prompt');
-const out = (get('out') || '').replace(/\.png$/i, '');
+const out = (get('out') || '').replace(/\.(png|jpe?g)$/i, '');
 const refs = all('ref');
 const aspect = get('aspect') || '1:1';
 const size = get('size') || '1K';
@@ -38,9 +38,9 @@ for (const r of refs) {
   const file = path.isAbsolute(r) ? r : path.join(ROOT, r);
   input.push({ type: 'image', mime_type: mime(file), data: fs.readFileSync(file).toString('base64') });
 }
-const body = { model, input, response_format: { type: 'image', mime_type: 'image/png', aspect_ratio: aspect, image_size: size } };
+const body = { model, input, response_format: { type: 'image', mime_type: 'image/jpeg', aspect_ratio: aspect, image_size: size } };
 
-const dest = path.join(ROOT, 'public/assets/custom', `${out}.png`);
+let dest = path.join(ROOT, 'public/assets/custom', `${out}.jpg`); // the API only returns JPEG
 console.log(`model=${model} aspect=${aspect} size=${size} refs=${refs.length} -> ${path.relative(ROOT, dest)}`);
 console.log(`estimated cost for this image: about $${((COST_1K[model] || 0.05) * (size === '2K' ? 1.5 : size === '4K' ? 3.3 : 1)).toFixed(3)}`);
 if (dry) { console.log('dry run: nothing sent'); process.exit(0); }
@@ -68,5 +68,5 @@ if (!found) { console.error('No image in the response:', text.slice(0, 800)); pr
 
 fs.mkdirSync(path.dirname(dest), { recursive: true });
 fs.writeFileSync(dest, Buffer.from(found.data, 'base64'));
-fs.appendFileSync(path.join(ROOT, 'public/assets/custom/PROMPTS.md'), `\n## ${out}.png\n- model: ${model}, aspect ${aspect}, size ${size}, refs: ${refs.join(', ') || 'none'}\n- prompt: ${prompt}\n`);
-console.log(`saved ${path.relative(ROOT, dest)}  ->  use customImg('${out}.png')`);
+fs.appendFileSync(path.join(ROOT, 'public/assets/custom/PROMPTS.md'), `\n## ${out}.jpg\n- model: ${model}, aspect ${aspect}, size ${size}, refs: ${refs.join(', ') || 'none'}\n- prompt: ${prompt}\n`);
+console.log(`saved ${path.relative(ROOT, dest)}  ->  use customImg('${out}.jpg')`);
