@@ -152,7 +152,12 @@ export function dayChapters(demo) {
       settings: {
         ...twoUpLook, anchor_id: '', media_position: d.side, image: img(demo.id, d.slot), image_alt: c.alt,
         badge_text: c.badge, heading: c.heading, body: c.body, cta_text: '', highlights_margin_top: 8,
-        padding_top_desktop: 16, padding_bottom_desktop: 16, padding_top_mobile: 12, padding_bottom_mobile: 12,
+        padding_top_desktop: 16, padding_bottom_desktop: 16, padding_top_mobile: 8, padding_bottom_mobile: 8,
+        // mobile: each moment is its own contained card (hairline border, 16px radius, side gutters) and the 4:5 photo is cropped to 16:11
+        // (the crop focus per photo is in bundle.css so the First Day bottle is never cut off)
+        padding_left_mobile: 16, padding_right_mobile: 16,
+        card_bg_color_mobile: '#ffffff', card_border_color_mobile: 'rgba(0, 0, 0, 0.1)', card_border_width: 1, card_radius: 16, card_padding_mobile: 16,
+        media_aspect_mobile: '16 / 11',
       },
     };
   });
@@ -231,7 +236,10 @@ export function empathyProps(demo) {
     id: 'aio_story_empathy', type: 'pdp-v2-two-up', blocks: [], custom_css: [],
     settings: {
       ...twoUpLook, anchor_id: '', media_position: 'right', image: img(demo.id, 'empathy'), image_alt: e.alt, badge_text: e.badge, heading: e.heading, body: e.body,
-      cta_text: 'See The Bundle', padding_top_desktop: 24, padding_bottom_desktop: 64, padding_top_mobile: 12, padding_bottom_mobile: 40,
+      cta_text: 'See The Bundle', padding_top_desktop: 24, padding_bottom_desktop: 64, padding_top_mobile: 8, padding_bottom_mobile: 40,
+      padding_left_mobile: 16, padding_right_mobile: 16,
+      card_bg_color_mobile: '#ffffff', card_border_color_mobile: 'rgba(0, 0, 0, 0.1)', card_border_width: 1, card_radius: 16, card_padding_mobile: 16,
+      media_aspect_mobile: '16 / 11',
     },
   };
 }

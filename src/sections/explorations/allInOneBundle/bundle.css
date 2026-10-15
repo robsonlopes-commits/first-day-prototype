@@ -88,3 +88,32 @@
 
 /* storytelling CTAs above the buy box scroll to it: keep its title below the sticky header */
 .aio-page #shopify-section-all-in-1-bundle-main { scroll-margin-top: 100px; }
+
+
+/* ---- mobile: story photos are 4:5 but shown in a 16:11 frame; the vertical focus keeps the First Day bottle (and the gummy) in view ----
+   Values are object-position y per photo (measured on the 928x1152 originals). Desktop shows the full 4:5 photo, so this only applies below 992px. */
+@media (max-width: 991px) {
+  /* pin the photo inside the 16:11 frame, otherwise the 4:5 image grows the frame once it loads */
+  .aio-page [id^="shopify-section-aio_day_"] .pdp-v2-two-up__media,
+  #shopify-section-aio_story_empathy .pdp-v2-two-up__media { position: relative; overflow: hidden; }
+  .aio-page [id^="shopify-section-aio_day_"] .pdp-v2-two-up__image,
+  #shopify-section-aio_story_empathy .pdp-v2-two-up__image { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+  .aio-page [id^="shopify-section-aio_day_"] .pdp-v2-two-up__image { object-position: 50% 70%; }
+  #shopify-section-aio_story_empathy .pdp-v2-two-up__image { object-position: 50% 35%; }
+  #shopify-section-aio_day_kids_morning .pdp-v2-two-up__image { object-position: 50% 77%; }
+  #shopify-section-aio_day_kids_school .pdp-v2-two-up__image { object-position: 50% 69%; }
+  #shopify-section-aio_day_kids_dinner .pdp-v2-two-up__image { object-position: 50% 54%; }
+  #shopify-section-aio_day_kids_bedtime .pdp-v2-two-up__image { object-position: 50% 70%; }
+  #shopify-section-aio_day_teens_morning .pdp-v2-two-up__image { object-position: 50% 79%; }
+  #shopify-section-aio_day_teens_school .pdp-v2-two-up__image { object-position: 50% 75%; }
+  #shopify-section-aio_day_teens_dinner .pdp-v2-two-up__image { object-position: 50% 64%; }
+  #shopify-section-aio_day_teens_bedtime .pdp-v2-two-up__image { object-position: 50% 64%; }
+  #shopify-section-aio_day_women_morning .pdp-v2-two-up__image { object-position: 50% 77%; }
+  #shopify-section-aio_day_women_school .pdp-v2-two-up__image { object-position: 50% 73%; }
+  #shopify-section-aio_day_women_dinner .pdp-v2-two-up__image { object-position: 50% 90%; }
+  #shopify-section-aio_day_women_bedtime .pdp-v2-two-up__image { object-position: 50% 64%; }
+  #shopify-section-aio_day_men_morning .pdp-v2-two-up__image { object-position: 50% 54%; }
+  #shopify-section-aio_day_men_school .pdp-v2-two-up__image { object-position: 50% 77%; }
+  #shopify-section-aio_day_men_dinner .pdp-v2-two-up__image { object-position: 50% 73%; }
+  #shopify-section-aio_day_men_bedtime .pdp-v2-two-up__image { object-position: 50% 75%; }
+}
