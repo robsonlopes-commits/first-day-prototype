@@ -37,20 +37,6 @@ export const DEMOS = [
     handles: ['teens-kickstart-vitamin', 'teens-gut-sustainer', 'teens-daily-focus', 'teens-calming-magnesium'],
     bottles: ['teens-multi.png', 'teens-prob.png', 'teens-brain.png', 'teens-mag.png'],
   },
-  {
-    id: 'women', label: 'Women', possessive: "Women's", banner: { prefix: 'This Bundle is For Women Ages ', ages: '18 +' },
-    vanity: 'Complete Daily Support For [Busy Women]',
-    intro: '<p><strong>Four hero gummies in one bundle.</strong> Nutrition, gut, focus and sleep support for busy schedules, in one simple daily routine.</p>',
-    handles: ['womens-supercharge-vitamin', 'womens-good-gut', 'womens-daily-focus', 'womens-calming-magnesium'],
-    bottles: ['woman-multi.png', 'woman-prob.png', 'woman-brain.png', 'woman-mag.png'],
-  },
-  {
-    id: 'men', label: 'Men', possessive: "Men's", banner: { prefix: 'This Bundle is For Men Ages ', ages: '18 +' },
-    vanity: 'Complete Daily Support For [Busy Men]',
-    intro: '<p><strong>Four hero gummies in one bundle.</strong> Nutrition, gut, focus and sleep support for busy schedules, in one simple daily routine.</p>',
-    handles: ['mens-provisions-vitamin', 'mens-gut-guardian', 'mens-daily-focus', 'mens-calming-magnesium'],
-    bottles: ['men-multi.png', 'men-prob.png', 'men-brain.png', 'men-mag.png'],
-  },
 ];
 
 // Fully resolved items for a demo (price math in dollars; cents for the cart)

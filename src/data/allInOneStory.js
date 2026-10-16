@@ -17,14 +17,14 @@ import { TRUST_PDP_NEW } from './sharedSections.js';
 //   faq       CollapsibleContent   (new PDP FAQ)
 //   closing   PdpV2TwoUp           (new PDP blue wavy band with white pill)
 // Claims are taken from production copy only (product descriptions, kids landing, bundle quiz, new PDP). Audience changes (Kids = picky eaters,
-// Teens / Women / Men = busy schedule) go through the demo id, not through duplicated sections.
+// Teens = busy schedule) go through the demo id, not through duplicated sections.
 const ACCENT = '#476ded';
 const sh = (name) => (name ? shopImg(name) : '');
 const BUY_BOX = '#product-purchase-content';
 
 /* ---------- 1. problem: FdProblemSigns ---------- */
 const kidsCard = (i, title) => ({ ...PROBLEM_SIGNS_PDP_NEW.blocks[i], settings: { ...PROBLEM_SIGNS_PDP_NEW.blocks[i].settings, title } });
-const SIGN_IMAGES = { teens: 'tdk_2_-_Lifestyle_Image_-_Teens_Multi_result.webp', women: 'wds-hero-carousel-dont-eat-veggies.webp', men: 'mdp_9_-_Nutrition_-_Men_s_Multi_result.webp' };
+const SIGN_IMAGES = { teens: 'tdk_2_-_Lifestyle_Image_-_Teens_Multi_result.webp' };
 const signCard = (id, image, title, description) => ({ id, type: 'fd-problem-sign-card', settings: { image: sh(image), show_number: true, title, description } });
 const SIGNS = {
   kids: {
@@ -39,22 +39,6 @@ const SIGNS = {
       signCard('s3', 'tcm_5_-_Benefits_-_Teens_Magnesium_result.webp', 'Up All Night, Tired All Day', '<p>Our magnesium gummy helps teens wind down before bed and sleep better at night. It has no melatonin hormones.</p>'),
     ],
   },
-  women: {
-    heading: '3 Signs A Busy Schedule May Be [Leaving Gaps.]',
-    cards: [
-      signCard('s1', SIGN_IMAGES.women, 'Energy Runs Out', '<p>Our multi is scientifically designed to help combat fatigue and exhaustion, with the nutrients your body needs to stay energized.</p>'),
-      signCard('s2', 'wdbf_4_-_Gummies_Nutrients_-_Women_s_Brain_Support_result.webp', 'Focus Slips', '<p>Daily nootropic gummies for modern women, to support focus, memory and calm, steady energy.</p>'),
-      signCard('s3', 'wcm_5_-_Benefits_-_Women_s_Magnesium_result.webp', 'Nights Feel Endless', '<p>Our magnesium gummy helps women relax before bed, get restorative sleep and feel more energized during the day. It has no melatonin hormones.</p>'),
-    ],
-  },
-  men: {
-    heading: '3 Signs A Busy Schedule May Be [Leaving Gaps.]',
-    cards: [
-      signCard('s1', SIGN_IMAGES.men, 'Days Run Long', '<p>A unique organic superfood blend plus 13 key nutrients. Perfect for the modern lifestyle.</p>'),
-      signCard('s2', 'mdbf_5_-_Benefits_-_Men_s_Brain_Support_result.webp', 'Focus Slips', '<p>Daily brain nutrition for adult men, to support focus, memory and long lasting energy.</p>'),
-      signCard('s3', 'mcm_5_Product-Focused_Benefits_-_Men_s_Magnesium_result.webp', 'Tossing And Turning', '<p>Our magnesium gummy supports mind and muscle relaxation, better sleep and energized mornings. It has no melatonin hormones.</p>'),
-    ],
-  },
 };
 export function problemProps(demoId) {
   const base = PROBLEM_SIGNS_PDP_NEW;
@@ -63,7 +47,7 @@ export function problemProps(demoId) {
     id: base.id,
     settings: {
       ...base.settings, anchor_id: 'warning-signs', heading: s.heading, heading_highlight_color: ACCENT, fact_bg_color: `${ACCENT}12`,
-      list_aria_label: 'Signs of gaps in daily nutrition', cta_text: 'Fill The Gaps Today', cta_url: BUY_BOX,
+      list_aria_label: 'Signs of gaps in daily nutrition', cta_text: 'Fill The Gaps Today', fd_button: true, cta_url: BUY_BOX,
     },
     blocks: s.cards,
   };
@@ -81,16 +65,6 @@ const WHY = {
     heading: 'Busy Days Ask A Lot. [One Gummy Cannot Do Four Jobs.]',
     body: '<p>School, sports and late nights fill the day. Nutrition, gut, focus and sleep all need support.</p><p>The All-in-1 Bundle puts four gummies in one daily routine. You cover all four together.</p>',
   },
-  women: {
-    image: sh('wds-hero-carousel-dont-eat-veggies.webp'), alt: "Women's multivitamin nutrition image.",
-    heading: 'Busy Days Ask A Lot. [One Gummy Cannot Do Four Jobs.]',
-    body: '<p>Work, family and everything between fill the day. Nutrition, gut, focus and sleep all need support.</p><p>The All-in-1 Bundle puts four gummies in one daily routine. You cover all four together.</p>',
-  },
-  men: {
-    image: sh('mdp_9_-_Nutrition_-_Men_s_Multi_result.webp'), alt: "Men's multivitamin nutrition image.",
-    heading: 'Busy Days Ask A Lot. [One Gummy Cannot Do Four Jobs.]',
-    body: '<p>Work, training and everything between fill the day. Nutrition, gut, focus and sleep all need support.</p><p>The All-in-1 Bundle puts four gummies in one daily routine. You cover all four together.</p>',
-  },
 };
 export function whyFourProps(demoId) {
   const w = WHY[demoId] || WHY.kids;
@@ -100,7 +74,7 @@ export function whyFourProps(demoId) {
     settings: {
       ...base.settings, anchor_id: 'why-four', image: w.image, image_alt: w.alt, heading: w.heading, body: w.body, badge_text: '💡 Did You Know?', section_bg_color: '#ffffff',
       media_width_desktop: 520, media_height_desktop: 520, media_aspect_mobile: '1 / 1', media_height_mobile: 360,
-      heading_accent_color: ACCENT, badge_bg_color: '#e4f5ff', badge_font_color: '#486ced', cta_text: 'Build My Routine', cta_url: BUY_BOX,
+      heading_accent_color: ACCENT, badge_bg_color: '#e4f5ff', badge_font_color: '#486ced', cta_text: 'Build My Routine', fd_button: true, cta_url: BUY_BOX,
     },
   };
 }
@@ -133,18 +107,6 @@ const OTHER_LISTS = {
     focus: '<p>🎯 <strong>Cognizin</strong> for focus and memory</p><p>🧠 <strong>Sunflower Phosphatidylserine</strong> for brain cell communication</p><p>💡 <strong>Vitamin B3</strong> for energy production in the brain</p>',
     sleep: '<p>🌙 <strong>Calming ingredients</strong> to wind down before bed</p><p>🚫 <strong>No melatonin hormones</strong></p>',
   },
-  women: {
-    multi: '<p>⚡ <strong>Nutrients your body needs to stay energized</strong></p><p>🚫 <strong>No fake sugars, no artificial colors, no fillers</strong></p>',
-    gut: '<p>🛡️ <strong>The first 3-in-1 tribiotic</strong> for digestive, immune and vaginal health</p>',
-    focus: '<p>🎯 <strong>Cognizin</strong> for focus and memory</p><p>🧠 <strong>Sunflower Phosphatidylserine</strong> for brain cell communication</p><p>💡 <strong>Vitamin B3</strong> for energy production in the brain</p><p>☕ <strong>Sustained release caffeine</strong> for calm, steady energy</p>',
-    sleep: '<p>🌙 <strong>Calming ingredients</strong> to relax before bed</p><p>🚫 <strong>No melatonin hormones</strong></p>',
-  },
-  men: {
-    multi: '<p>🫐 <strong>Organic superfood blend</strong> plus 13 key nutrients</p><p>🚫 <strong>No fake sugars, no artificial colors, no fillers</strong></p>',
-    gut: '<p>🛡️ <strong>The first men\'s 3-in-1 tribiotic</strong> with clinically studied pre, post and probiotics</p><p>💪 <strong>Supports</strong> digestion, strength, power and athletic performance</p>',
-    focus: '<p>🎯 <strong>Cognizin</strong> for focus and memory</p><p>🧠 <strong>Sunflower Phosphatidylserine</strong> for brain cell communication</p><p>💡 <strong>Vitamin B3</strong> for energy production in the brain</p><p>☕ <strong>Sustained release caffeine</strong> for long lasting energy</p>',
-    sleep: '<p>🌙 <strong>Calming ingredients</strong> for mind and muscle relaxation</p><p>🚫 <strong>No melatonin hormones</strong></p>',
-  },
 };
 export function scienceProps(demo) {
   const proto = sciT.blocks[0].settings;
@@ -175,12 +137,10 @@ const OTHER_TIMELINE = (who) => [
 const TL_IMAGES = {
   kids: [QUIZ_TIMELINE.items[0].image, QUIZ_TIMELINE.items[1].image, QUIZ_TIMELINE.items[2].image],
   teens: ['tdk_2_-_Lifestyle_Image_-_Teens_Multi_result.webp', QUIZ_TIMELINE.items[1].image, QUIZ_TIMELINE.items[2].image],
-  women: ['wds-hero-carousel-dont-eat-veggies.webp', QUIZ_TIMELINE.items[1].image, QUIZ_TIMELINE.items[2].image],
-  men: ['mdp_9_-_Nutrition_-_Men_s_Multi_result.webp', QUIZ_TIMELINE.items[1].image, QUIZ_TIMELINE.items[2].image],
 };
 export function timelineProps(demo) {
   const kids = demo.id === 'kids';
-  const WHO = { teens: 'teens', women: 'women', men: 'men' };
+  const WHO = { teens: 'teens' };
   const items = kids
     ? QUIZ_TIMELINE.items.map((it) => ({ title: it.title, badge: it.badge, body: it.body.replace(/<[^>]+>/g, '') }))
     : OTHER_TIMELINE(WHO[demo.id]);
@@ -200,7 +160,7 @@ const FAQ_ROWS = [
   ['What is in the All-in-1 Bundle?', '<p>You get one bottle each of the Multivitamin, the 3-in-1 Probiotic, Daily Focus Brain Support and Nighttime Reset Magnesium for the audience you pick.</p>'],
   ['Can I buy one product at a time?', '<p>Yes. Open What\'s Inside on this page and add any product on its own. Each product costs less when it is in the bundle.</p>'],
   ['What is the difference between Monthly and One-Time?', '<p>Monthly delivers every month at our best price and you can cancel anytime. One-Time is a single order at a smaller discount.</p>'],
-  ['Can I switch between Kids, Teens, Women and Men?', '<p>Yes. Use the tabs at the top or bottom of the page. The products, photos and prices update right away.</p>'],
+  ['Can I switch between Kids and Teens?', '<p>Yes. Use the tabs at the top or bottom of the page. The products, photos and prices update right away.</p>'],
   ['Is there a free gift?', '<p>Yes. Orders over $75 come with a free gift.</p>'],
   ['What does No Junk mean?', '<p>Our gummies have no fake sugars, no artificial colors and no fillers.</p>'],
   ['Is there a guarantee?', '<p>Yes. We offer a 45 day satisfaction guarantee on your first purchase.</p>'],
@@ -217,15 +177,15 @@ export function faqProps() {
 /* ---------- 8. closing: blue wavy band with a white pill (PdpV2TwoUp, same look as the PDP "our formula" band) ---------- */
 const CLOSING = {
   kids: ['Picky Eaters Need Support. [Give Them All Four.]', '<p>Four gummies. One daily routine. Start with the bundle today.</p>'],
-  other: ['A Busy Schedule Needs Support. [Give It All Four.]', '<p>Four gummies. One daily routine. Start with the bundle today.</p>'],
+  teens: ['A Busy Schedule Needs Support. [Give It All Four.]', '<p>Four gummies. One daily routine. Start with the bundle today.</p>'],
 };
 export function closingProps(demo) {
-  const [heading, body] = demo.id === 'kids' ? CLOSING.kids : CLOSING.other;
+  const [heading, body] = demo.id === 'kids' ? CLOSING.kids : CLOSING.teens;
   const base = TWO_UP_FORMULA;
   return {
     id: 'aio_closing', type: base.type, blocks: [], custom_css: base.custom_css,
     settings: {
-      ...base.settings, anchor_id: 'start-today', video: '', video_poster: '', heading, body, cta_text: 'Add The Bundle', cta_url: BUY_BOX,
+      ...base.settings, anchor_id: 'start-today', video: '', video_poster: '', heading, body, cta_text: 'Add The Bundle', fd_button: true, fd_button_variant: 'reversed', cta_url: BUY_BOX,
       image_alt: '',
     },
   };

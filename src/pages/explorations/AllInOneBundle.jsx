@@ -21,7 +21,7 @@ import '../../sections/explorations/allInOneBundle/bundle.css';
 // EXPLORATION (not a production page): /explorations/all-in-1-bundle
 // A landing page for the 4 hero products in one bundle (concept: picky eaters). Task requirements:
 //  1. shoppers can add individual items to the cart, at a higher price than the complete bundle ("What's Inside" rows)
-//  2. shoppers can easily switch between demos (Kids / Teens / Women / Men): tabs in the buy box and again before the closing band
+//  2. shoppers can easily switch between demos (Kids / Teens, Toddlers later): tabs in the buy box and again before the closing band
 // Layout: [0] emotional storytelling above the buy box (new)  [A] buy box (new PDP buy box, reused)  [B] storytelling (existing sections, new content in src/data/allInOneStory.js)  [C] proof + closing.
 export default function AllInOneBundle() {
   usePageClass('template-product all-in-1-bundle');
@@ -69,9 +69,9 @@ export default function AllInOneBundle() {
       {dayChapters(demo).map((c) => <PdpV2TwoUp key={`${c.id}`} {...c} />)}
       <AccordionBlock key={`sp-${demoId}`} {...plateProps(demo)} />
       <BundleMainProduct demo={demo} demoId={demoId} onDemoChange={changeDemo} frequency={frequency} onFrequencyChange={setFrequency} onAddBundle={addBundle} onAddItem={addItem} />
+      <FdBrandNarrative key={`j-${demoId}`} {...fourJobsProps(demo)} />
       <FdProblemSigns key={`p-${demoId}`} {...problemProps(demoId)} />
       <PdpV2TwoUp key={`w-${demoId}`} {...whyFourProps(demoId)} />
-      <FdBrandNarrative key={`j-${demoId}`} {...fourJobsProps(demo)} />
       <TempScienceModule key={`s-${demoId}`} {...scienceProps(demo)} />
       <TimelineSection key={`t-${demoId}`} {...timelineProps(demo)} />
       <BundleCompare demo={demo} onAddBundle={addBundle} />

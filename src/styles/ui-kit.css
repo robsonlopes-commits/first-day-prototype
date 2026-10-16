@@ -74,6 +74,8 @@
   /* Lines and fills */
   --color-helper-outline: #D7EFFA;
   --color-border-card: #E5E5E5;            /* Home product cards */
+  --color-border-interactive: rgba(119, 108, 177, 0.10);  /* clickable things with an outline: accordion rows, option cards, tabs, round buttons */
+  --color-border-subtle: rgba(0, 0, 0, 0.07);             /* every other outline: cards, tables, tiles */
   --color-helper-black-100: rgba(0, 0, 0, 1);
   --color-helper-black-75: rgba(0, 0, 0, 0.75);
   --color-helper-black-30: rgba(0, 0, 0, 0.30);

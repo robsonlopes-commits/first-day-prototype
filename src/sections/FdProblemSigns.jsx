@@ -116,7 +116,7 @@ export default function FdProblemSigns({ id = 'fd_problem_signs', settings: s = 
               </div>
             )}
             {s.cta_text && (
-              <a className="fd-psc__cta" href={s.cta_url || '#'}><span className="fd-psc__cta-text">{s.cta_text}</span></a>
+              <a className={s.fd_button ? 'fd-btn fd-btn--primary fd-btn--large fd-btn-shape--pill aio-cta aio-cta--center' : 'fd-psc__cta'} href={s.cta_url || '#'}><span className={s.fd_button ? 'fd-btn-text' : 'fd-psc__cta-text'}>{s.cta_text}</span></a>
             )}
           </div>
         </div>

@@ -31,17 +31,12 @@
 /* ---- buy box: "What's Inside" rows ---- */
 .aio-inside .PBFCM-PDP-quantity-selector__header { margin-bottom: 12px; }
 .aio-inside .pdp-benefit-accordion-stats__items { padding-bottom: 8px; }
+/* more air between the four product rows and Delivery Frequency */
+.aio-inside { margin-bottom: 32px; }
 .aio-inside .pdp-benefit-accordion-stats__icon { width: 44px; height: 44px; border: 1px solid var(--color-helper-black-10); }
 .aio-inside .pdp-benefit-accordion-stats__icon img { width: 36px; height: 36px; }
-.aio-inside .pdp-benefit-accordion-stats__content { align-items: start; }
-.aio-inside .pdp-benefit-accordion-stats__percent { flex-direction: column; gap: 2px; padding: 8px 4px; }
+.aio-inside .pdp-benefit-accordion-stats__content { display: block; }
 .aio-role { color: var(--color-brand-noon-blue); margin-right: 4px; }
-.aio-pct { font-size: 28px; line-height: 1; }
-.aio-pct-label { font-size: 12px; font-weight: 400; letter-spacing: 0; color: var(--color-text-on-light-1); text-align: center; line-height: 1.2; }
-.aio-price-line { margin: 12px 0 !important; font-size: 14px; color: var(--color-text-on-light-1); }
-.aio-price-line s { color: var(--color-text-on-light-2); }
-.aio-price-line strong { font-weight: 700; }
-.aio-price-line__bundle { color: var(--color-feedback-success); font-weight: 700; }
 .aio-add-one { max-width: 100%; }
 .aio-add-one .fd-btn-text { white-space: normal; }
 .aio-intro .pdp-benefit-accordion-stats__intro { margin-bottom: 20px; }
@@ -90,8 +85,9 @@
 .aio-page #shopify-section-all-in-1-bundle-main { scroll-margin-top: 100px; }
 
 
-/* ---- mobile: story photos are 4:5 but shown in a 16:11 frame; the vertical focus keeps the First Day bottle (and the gummy) in view ----
-   Values are object-position y per photo (measured on the 928x1152 originals). Desktop shows the full 4:5 photo, so this only applies below 992px. */
+/* ---- mobile: the day photos (before/after slider) keep their full 4:5 frame so the faces and the bottle both show; the pin below keeps the
+   frame stable while the images load. The per-photo object-position values only matter if media_aspect_mobile is changed back to a shorter
+   frame such as 16:11 (they keep the First Day bottle in view). Desktop shows the full 4:5 photo. ---- */
 @media (max-width: 991px) {
   /* pin the photo inside the 16:11 frame, otherwise the 4:5 image grows the frame once it loads */
   .aio-page [id^="shopify-section-aio_day_"] .pdp-v2-two-up__media { position: relative; overflow: hidden; }
@@ -105,34 +101,36 @@
   #shopify-section-aio_day_teens_school .pdp-v2-two-up__image { object-position: 50% 75%; }
   #shopify-section-aio_day_teens_dinner .pdp-v2-two-up__image { object-position: 50% 64%; }
   #shopify-section-aio_day_teens_bedtime .pdp-v2-two-up__image { object-position: 50% 64%; }
-  #shopify-section-aio_day_women_morning .pdp-v2-two-up__image { object-position: 50% 77%; }
-  #shopify-section-aio_day_women_school .pdp-v2-two-up__image { object-position: 50% 73%; }
-  #shopify-section-aio_day_women_dinner .pdp-v2-two-up__image { object-position: 50% 90%; }
-  #shopify-section-aio_day_women_bedtime .pdp-v2-two-up__image { object-position: 50% 64%; }
-  #shopify-section-aio_day_men_morning .pdp-v2-two-up__image { object-position: 50% 54%; }
-  #shopify-section-aio_day_men_school .pdp-v2-two-up__image { object-position: 50% 77%; }
-  #shopify-section-aio_day_men_dinner .pdp-v2-two-up__image { object-position: 50% 73%; }
-  #shopify-section-aio_day_men_bedtime .pdp-v2-two-up__image { object-position: 50% 75%; }
 }
 
-/* ---- titles: Medium (500). Highlighted phrases (accent color or emphasized line): Bold (700). ----
-   Several production sections already follow this; these rules align the rest (hero, plate accordion, buy box h1, science, timeline, trust, FAQ).
+/* ---- titles: Semibold (600). Highlighted phrases (accent color or emphasized line): Bold (700). ----
+   Covers every section title on the page, including those production components already set to 500.
    !important because the theme sets these weights with more specific selectors. */
 .aio-page :is(
   .v1-hero-headline,
   .pdp-vanity h1,
   .pdp-vanity .vanity-title,
+  .pdp-v2-two-up__heading,
+  .fd-psc__heading,
+  .fd-bn__heading,
   [id^="shopify-section-aio_story_plate"] h2.title,
   .science-tabs__heading,
   .kids-timeline__heading-line--secondary,
   [class*="homepage-trust-section__title"],
-  .faq-v2__heading
-) { font-weight: 500 !important; }
+  .faq-v2__heading,
+  .aio-compare__title,
+  .aio-switch__title
+) { font-weight: 600 !important; }
 .aio-page :is(
   .v1-hero-headline-highlight,
   .accordion-block__highlight,
   .pdp-vanity .vanity-title-highlight,
-  .kids-timeline__heading-line--primary
+  .kids-timeline__heading-line--primary,
+  .pdp-v2-two-up__heading-accent,
+  .fd-psc__heading-highlight,
+  .fd-bn__heading-highlight,
+  .aio-compare__title strong,
+  .aio-switch__title strong
 ) { font-weight: 700 !important; }
 
 /* ---- mobile order of the two-up story cards: photo, badge, title, text (same as desktop) ----
@@ -159,15 +157,10 @@
   .aio-compare__title strong,
   .aio-switch__title strong
 ) { color: var(--color-accent-purple) !important; }
-/* selected audience pill (as on the bundle quiz page), both tab bars */
-.aio-page .pdp-demo-tabs .fd-tabs-v3__item--active { background: var(--color-accent-purple) !important; color: var(--color-text-on-dark) !important; }
+/* selected audience pill: purple in the bottom switcher (as on the bundle quiz page); the buy box switcher keeps the production navy pill */
+.aio-page .aio-switch .pdp-demo-tabs .fd-tabs-v3__item--active { background: var(--color-accent-purple) !important; color: var(--color-text-on-dark) !important; }
 /* story chips: emoji + purple tint */
 .aio-page .pdp-v2-two-up__badge { font-weight: 600; }
-
-/* info note with dashed purple border (buy box) */
-.aio-order-note { display: flex; align-items: center; gap: 12px; margin: 0 0 16px; padding: 12px 16px; border: 1px dashed var(--color-accent-purple-border); border-radius: var(--radius-lg); background: var(--color-accent-purple-10); color: var(--color-accent-purple); font-size: var(--font-para-sm); line-height: 1.4; }
-.aio-order-note__icon { flex: none; }
-.aio-order-note strong { font-weight: 700; }
 
 /* "Our Solution" box inside each story card: purple tint, dashed purple border, eyebrow + product line + Learn More */
 .aio-page .pdp-v2-two-up__highlight { align-items: center; gap: 16px; padding: 16px; border: 1px dashed var(--color-accent-purple-border); border-radius: var(--radius-lg); background: var(--color-accent-purple-10); }
@@ -176,3 +169,298 @@
 .aio-page .pdp-v2-two-up__highlight-cta { display: inline-flex; align-items: center; margin-top: 8px; height: 36px; padding: 0 16px; border-radius: var(--radius-pill); background: var(--color-accent-purple); color: var(--color-text-on-dark); font-family: var(--font-body); font-size: 14px; font-weight: 600; text-decoration: none; transition: background 0.2s ease; }
 .aio-page .pdp-v2-two-up__highlight-cta:hover { background: #6a5fa3; }
 .aio-page .pdp-v2-two-up__highlight-cta:focus-visible { outline: 2px solid var(--color-accent-purple); outline-offset: 2px; }
+
+/* ---- story hero, mobile: more breathing room (stars, headline, text, photo, CTA were stacked 10 to 12px apart) ---- */
+@media (max-width: 990px) {
+  #shopify-section-aio_story_hero .v1-hero-section { padding: 32px 20px 40px; }
+  #shopify-section-aio_story_hero .v1-hero-text-section { gap: 16px; }
+  #shopify-section-aio_story_hero .v1-hero-headline { font-size: 32px; line-height: 1.2; }
+  #shopify-section-aio_story_hero .v1-hero-container { gap: 20px; }
+  #shopify-section-aio_story_hero .v1-hero-mobile-content { gap: 28px; }
+  #shopify-section-aio_story_hero .v1-hero-description { font-size: 16px; line-height: 1.5; }
+  #shopify-section-aio_story_hero .v1-hero-description p { margin: 0 0 16px; font-size: inherit; line-height: inherit; }
+  #shopify-section-aio_story_hero .v1-hero-description p:last-child { margin-bottom: 0; }
+}
+
+/* ---- "A Day With ..." heading: larger, more space below, title + highlighted part (semibold navy line, bold purple line) ---- */
+.aio-page #shopify-section-aio_day_heading .kids-timeline__heading { font-size: 32px; line-height: 1.2; }
+.aio-page #shopify-section-aio_day_heading .kids-timeline__heading-wrap { margin-bottom: 28px; }
+.aio-page #shopify-section-aio_day_heading .kids-timeline__heading-line--primary { font-weight: 600 !important; color: var(--color-text-on-light-1); }
+.aio-page #shopify-section-aio_day_heading .kids-timeline__heading-line--secondary { font-weight: 700 !important; color: var(--color-accent-purple); }
+@media (min-width: 750px) {
+  .aio-page #shopify-section-aio_day_heading .kids-timeline__heading { font-size: 37px; }
+  .aio-page #shopify-section-aio_day_heading .kids-timeline__heading-wrap { margin-bottom: 24px; }
+}
+.aio-page #shopify-section-aio_day_heading .kids-timeline__heading-line { text-wrap: balance; }
+
+/* ---- story hero headline, desktop: line height 120% ---- */
+@media (min-width: 991px) {
+  #shopify-section-aio_story_hero .v1-hero-headline,
+  #shopify-section-aio_story_hero .v1-hero-headline-highlight { line-height: 1.2; }
+}
+
+/* ---- story hero photo: rounded corners on desktop only (mobile stays full bleed) ---- */
+@media (min-width: 991px) {
+  #shopify-section-aio_story_hero .v1-hero-image-wrap,
+  #shopify-section-aio_story_hero .v1-hero-image-inner,
+  #shopify-section-aio_story_hero .v1-hero-image-picture,
+  #shopify-section-aio_story_hero .v1-hero-image { border-radius: var(--radius-xl); overflow: hidden; }
+}
+
+/* ---- "Our Solution" box, desktop: full width of the text column, bottle left, text in the middle, Learn More on the right, all vertically centered ---- */
+@media (min-width: 991px) {
+  .aio-page .pdp-v2-two-up__highlights { align-items: stretch; width: 100%; }
+  .aio-page .pdp-v2-two-up__highlight {
+    /* !important: the component sets display:flex and gap on this element with an id selector */
+    display: grid !important; grid-template-columns: auto minmax(0, 1fr) auto; grid-template-rows: auto auto;
+    gap: 4px 12px !important; align-items: center; align-content: center; width: 100%; box-sizing: border-box;
+  }
+  .aio-page .pdp-v2-two-up__highlight-copy { display: contents; }
+  .aio-page .pdp-v2-two-up__highlight-icon { grid-column: 1; grid-row: 1 / 3; }
+  .aio-page .pdp-v2-two-up__highlight-eyebrow { grid-column: 2; grid-row: 1; align-self: end; }
+  .aio-page .pdp-v2-two-up__highlight-text { grid-column: 2; grid-row: 2; align-self: start; }
+  .aio-page .pdp-v2-two-up__highlight-cta { grid-column: 3; grid-row: 1 / 3; align-self: center; justify-self: end; margin-top: 0; margin-left: 36px; } /* 12px column gap + 36px = 48px between the text and the button */
+}
+
+
+/* ---- buy box is purple (as the production PDP buy box): selected frequency check, strip and radio use --color-accent-purple.
+   The radio check svg carries an inline blue fill, hence !important. The Add To Cart button stays blue. ---- */
+.aio-page .PBFCM-PDP-frequency-selector__radio-container svg circle { fill: var(--color-accent-purple) !important; }
+
+/* ================= buttons: the fd-btn pill component everywhere =================
+   Mobile: full width. Desktop: hug the label (left aligned in text columns, centered in centered sections). */
+.fd-btn--purple { background: var(--color-accent-purple); color: var(--color-text-on-dark); }
+.fd-btn--purple:hover { background: #6a5fa3; }
+.aio-page .aio-cta { width: 100%; box-sizing: border-box; text-decoration: none; }
+@media (min-width: 991px) {
+  .aio-page .aio-cta { width: fit-content; }
+  .aio-page .aio-cta--center { display: flex; margin-inline: auto; }
+}
+/* order of the CTA inside the two-up card on mobile (the component orders its own class) */
+@media (max-width: 991px) {
+  .aio-page .pdp-v2-two-up .pdp-v2-two-up__fdcta { order: 5 !important; }
+}
+/* Learn More inside the "Our Solution" box: size only, the look comes from fd-btn--purple */
+.aio-page .pdp-v2-two-up__highlight-cta { margin-top: 8px; text-decoration: none; }
+
+/* ================= borders =================
+   Clickable things with an outline: purple (magnesium) at 10%. Everything else: black at 7%. */
+.aio-page :is(
+  .accordion-block__accordion,
+  .pdp-benefit-accordion-stats__item,
+  .pdp-benefit-accordion-stats__content,
+  .pdp-demo-tabs__list,
+  .science-tabs__tab-bar,
+  .fd-btn--small.fd-btn--secondary,
+  [class*="homepage-trust-section__carousel-btn"],
+  .PBFCM-PDP-product-gallery__arrow,
+  .PBFCM-PDP-frequency-selector__option:not(.PBFCM-PDP-frequency-selector__option--selected)
+) { border-color: var(--color-border-interactive) !important; }
+.aio-page :is(
+  .pdp-v2-two-up__card,
+  .fd-psc-card,
+  .aio-compare__card,
+  .aio-compare__row,
+  [class*="homepage-trust-section__stat-card"],
+  .tc-card,
+  .science-tabs__panel,
+  .pdp-benefit-accordion-stats__icon,
+  .pdp-benefit-accordion-stats__percent,
+  .pdp-benefit-accordion-stats__icon img
+) { border-color: var(--color-border-subtle) !important; }
+/* the closing blue band keeps its blue card */
+#shopify-section-aio_closing .pdp-v2-two-up__card { border-color: #486ced !important; }
+
+/* ================= accordion photo: rounded =================
+   rounded on every size; the photo is inside a 1:1 wrapper */
+#shopify-section-aio_story_plate .accordion-block__image-wrapper,
+#shopify-section-aio_story_plate .accordion-block__image { border-radius: var(--radius-xl); overflow: hidden; }
+
+
+/* ---- One-Time selected = destructive: red border, red radio, red strip, X icons (text colors unchanged) ---- */
+.aio-page .PBFCM-PDP-frequency-selector__option--onetime-selected { border-color: var(--color-feedback-error) !important; }
+.aio-page .PBFCM-PDP-frequency-selector__option--onetime-selected .PBFCM-PDP-frequency-selector__radio-container svg circle { fill: var(--color-feedback-error) !important; }
+.aio-page .PBFCM-PDP-frequency-selector__option--onetime-selected .PBFCM-PDP-frequency-selector__radio { border-color: var(--color-feedback-error) !important; }
+.aio-page .PBFCM-PDP-frequency-selector__badge--negative { background-color: var(--color-feedback-error) !important; }
+
+/* the accordion component sets its card border with !important and an id selector: double the class to win */
+#shopify-section-aio_story_plate .accordion-block__accordion.accordion-block__accordion,
+#shopify-section-aio_story_plate accordion-tab.accordion-block__accordion { border-color: var(--color-border-interactive) !important; }
+
+/* ---- page background is white (the theme body is baby blue and showed through the gaps between sections) ---- */
+body.all-in-1-bundle, .aio-page { background: var(--color-surface-white); }
+.aio-page .aio-compare__prod img { border-color: var(--color-border-subtle) !important; }
+
+/* ================= buy box, bottom: the main CTA, subtotal, gift and trust badges ================= */
+/* main CTA of the page: bigger (64px tall, 20px label, 28px cart icon) */
+.aio-page .PBFCM-PDP-cart-summary__button { min-height: 64px; padding: 0 40px; font-size: 20px; gap: 12px; }
+.aio-page .PBFCM-PDP-cart-summary__button .PBFCM-PDP-cart-summary__button-text { font-size: 20px; }
+.aio-page .PBFCM-PDP-cart-summary__button svg { width: 28px; height: 28px; }
+
+/* subtotal: a #FAFAFA card without border, savings pill + struck price + big final price */
+.aio-page .fd-savings-display { margin: 16px 0 12px !important; padding: 16px 20px !important; border: 0; border-radius: var(--radius-xl); background: var(--color-surface-card); }
+.aio-page .fd-savings-display__row { align-items: center; gap: 12px; }
+.aio-page .fd-savings-display__label { font-size: 16px; font-weight: 600; color: var(--color-text-on-light-1); }
+.aio-page .fd-savings-display__final { font-size: 24px; font-weight: 700; }
+.aio-page .fd-savings-display__compare { font-size: 16px; color: var(--color-text-on-light-2); }
+
+/* trust badges: one card (same hairline and radius as the subtotal card), three equal columns with hairline dividers, badges sized to the card */
+.aio-page .product__custom-liquid:has(.usprow) { margin-top: 12px; }
+.aio-page .usprow { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0; align-items: center; margin: 0; padding: 0; border: 1px solid var(--color-border-subtle); border-radius: var(--radius-xl); background: var(--color-surface-white); overflow: hidden; }
+.aio-page .usp { display: flex; align-items: center; justify-content: center; width: 100%; padding: 16px 8px; box-sizing: border-box; }
+.aio-page .usp + .usp { border-left: 1px solid var(--color-border-subtle); }
+.aio-page .usp img { width: min(100%, 80px); height: auto; }
+@media (max-width: 749px) {
+  .aio-page .PBFCM-PDP-cart-summary__button { min-height: 60px; padding: 0 24px; }
+  .aio-page .fd-savings-display { padding: 14px 16px !important; }
+  .aio-page .fd-savings-display__final { font-size: 22px; }
+  .aio-page .usp { padding: 14px 6px; }
+  .aio-page .usp img { width: min(100%, 68px); }
+}
+
+
+/* ---- What's Inside rows: price comparison, the bundle price is the star ---- */
+.aio-compare-prices { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 16px 0; }
+.aio-compare-prices__tile { display: flex; flex-direction: column; gap: 4px; padding: 12px 14px; border: 1px solid var(--color-border-subtle); border-radius: var(--radius-lg); background: var(--color-surface-white); }
+.aio-compare-prices__label { font-size: 12px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: var(--color-text-on-light-2); }
+.aio-compare-prices__price { font-size: 18px; font-weight: 700; line-height: 1.2; color: var(--color-text-on-light-1); }
+.aio-compare-prices__price s { font-size: 14px; font-weight: 400; color: var(--color-text-on-light-2); margin-right: 4px; }
+.aio-compare-prices__tile--bundle { border-color: var(--color-feedback-success); background: rgba(7, 137, 66, 0.08); }
+.aio-compare-prices__tile--bundle .aio-compare-prices__label { color: var(--color-feedback-success); }
+.aio-compare-prices__tile--bundle .aio-compare-prices__price { font-size: 26px; color: var(--color-feedback-success); }
+.aio-compare-prices__save { align-self: flex-start; padding: 2px 10px; border-radius: var(--radius-pill); background: var(--color-feedback-success); color: var(--color-text-on-dark); font-size: 12px; font-weight: 700; }
+
+
+/* ---- buy box audience switcher: more space above it ---- */
+#shopify-section-all-in-1-bundle-main .pdp-demo-tabs { margin-top: 32px; }
+@media (max-width: 749px) { #shopify-section-all-in-1-bundle-main .pdp-demo-tabs { margin-top: 28px; } }
+
+/* ---- desktop: day photos are 400x400 (was 400x500, which left white space above and below the text column).
+   Vertical focus per photo keeps the First Day bottle in view; the originals are 4:5. ---- */
+@media (min-width: 992px) {
+  .aio-page [id^="shopify-section-aio_day_"] .pdp-v2-two-up__image { object-position: 50% 50%; }
+  #shopify-section-aio_day_kids_morning .pdp-v2-two-up__image { object-position: 50% 56%; }
+  #shopify-section-aio_day_kids_school .pdp-v2-two-up__image { object-position: 50% 30%; }
+  #shopify-section-aio_day_kids_dinner .pdp-v2-two-up__image { object-position: 50% 43%; }
+  #shopify-section-aio_day_kids_bedtime .pdp-v2-two-up__image { object-position: 50% 43%; }
+  #shopify-section-aio_day_teens_morning .pdp-v2-two-up__image { object-position: 50% 52%; }
+  #shopify-section-aio_day_teens_school .pdp-v2-two-up__image { object-position: 50% 48%; }
+  #shopify-section-aio_day_teens_dinner .pdp-v2-two-up__image { object-position: 50% 26%; }
+  #shopify-section-aio_day_teens_bedtime .pdp-v2-two-up__image { object-position: 50% 22%; }
+}
+
+
+/* ---- hero quote card (Dr. Adam Smith, the .tc-card block): no border, #FAFAFA fill ---- */
+.aio-page .tc-card { border: 0 !important; background: var(--color-surface-card) !important; }
+
+/* ---- desktop: the photo is never shorter than the text column ----
+   The photo stretches to the height of the card row (min 400px) and the text column is vertically centered when it is shorter.
+   The component fixes the media height and centers the row with id selectors, hence !important. */
+@media (min-width: 992px) {
+  .aio-page [id^="shopify-section-aio_day_"] .pdp-v2-two-up__card { align-items: stretch !important; }
+  .aio-page [id^="shopify-section-aio_day_"] .pdp-v2-two-up__content { justify-content: center; }
+  .aio-page [id^="shopify-section-aio_day_"] .pdp-v2-two-up__media { align-self: stretch; min-height: 400px; position: relative; }
+  .aio-page [id^="shopify-section-aio_day_"] .pdp-v2-two-up__image { position: absolute; inset: 0; width: 100%; height: 100% !important; object-fit: cover; }
+  /* Learn More is centered by the grid, not pushed down by its mobile margin */
+  .aio-page .pdp-v2-two-up__highlight-cta { margin-top: 0 !important; }
+}
+
+/* One-Time selected: red border wins over the interactive purple (more specific selector) */
+.aio-page .PBFCM-PDP-frequency-selector__container .PBFCM-PDP-frequency-selector__option.PBFCM-PDP-frequency-selector__option--onetime-selected { border-color: var(--color-feedback-error) !important; }
+
+/* no shadows anywhere on the page (the timeline cards carry a fully transparent one) */
+.aio-page .kids-timeline__card { box-shadow: none !important; }
+
+/* ================= every section's content is at most 1200px wide, centered =================
+   Section backgrounds (bands, closing wave) stay full bleed. Sections already narrower than 1200px are left alone
+   (compare 855, FAQ 992). The components set their widths with id selectors, hence !important. */
+#shopify-section-aio_story_hero .v1-hero-container,
+#shopify-section-aio_four_jobs .fd-bn__inner,
+#shopify-section-fd_problem_signs_aLMBHN .fd-psc__container,
+#shopify-section-aio_why_four .pdp-v2-two-up__container,
+#shopify-section-aio_closing .pdp-v2-two-up__container,
+#shopify-section-temp_science_module_wWLDWj .science-tabs__wrapper,
+#shopify-section-timeline_section_xei4R8 .kids-timeline__inner,
+.aio-page [class*="homepage-trust-section__container"] {
+  max-width: 1200px !important;
+  width: 100%;
+  margin-inline: auto !important;
+  box-sizing: border-box;
+}
+.aio-page [class*="homepage-trust-section__container"] { overflow: hidden; }
+
+/* plate accordion: the CTA + guarantee sit in the right column, under the collapses */
+.aio-page #shopify-section-aio_story_plate .accordion-block__content .accordion-block__cta-block { margin: 24px 0 0 !important; align-items: flex-start; text-align: left; }
+.aio-page #shopify-section-aio_story_plate .accordion-block__content .accordion-block__cta { text-align: left; }
+.aio-page #shopify-section-aio_story_plate .accordion-block__content .accordion-block__guarantee { justify-content: flex-start; margin-top: 16px; }
+
+/* plate accordion, desktop: the photo is never shorter than the right column (it stretches to the row height) */
+@media (min-width: 750px) {
+  .aio-page #shopify-section-aio_story_plate .accordion-block__grid { align-items: stretch !important; }
+  .aio-page #shopify-section-aio_story_plate .accordion-block__content { align-self: stretch; display: flex; flex-direction: column; justify-content: center; }
+  .aio-page #shopify-section-aio_story_plate .accordion-block__media { align-self: stretch; display: flex; }
+  .aio-page #shopify-section-aio_story_plate .accordion-block__image-wrapper { flex: 1; aspect-ratio: auto !important; height: auto !important; position: relative; min-height: 100%; }
+  .aio-page #shopify-section-aio_story_plate .accordion-block__image { position: absolute; inset: 0; width: 100%; height: 100% !important; object-fit: cover; }
+}
+
+/* ---- before / after compare slider on the "day" photos (PdpV2TwoUp opt-in: settings.image_before) ----
+   Left = without First Day, right = with First Day. The "without" photo is drawn over the main (with) photo and clipped at
+   --ptu-compare-pos. A transparent range input covers the photo for dragging (mouse, touch, keyboard). No shadows. */
+.pdp-v2-two-up__media.has-compare { --ptu-compare-pos: 50%; overflow: hidden; border-radius: var(--ptu-media-radius); touch-action: pan-y; }
+.pdp-v2-two-up__media.has-compare .pdp-v2-two-up__image--before {
+  position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: 1;
+  clip-path: inset(0 calc(100% - var(--ptu-compare-pos)) 0 0); -webkit-user-drag: none; user-select: none; pointer-events: none;
+}
+.ptu-compare__line {
+  position: absolute; top: 0; bottom: 0; left: var(--ptu-compare-pos); width: 2px; margin-left: -1px; z-index: 2;
+  background: #fff; pointer-events: none;
+}
+.ptu-compare__knob {
+  position: absolute; top: 50%; left: 50%; width: 48px; height: 48px; margin: -24px 0 0 -24px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center; background: #fff; color: var(--color-accent-purple);
+  border: 1px solid var(--color-border-subtle);
+}
+.ptu-compare__label {
+  position: absolute; top: 12px; z-index: 2; padding: 6px 12px; border-radius: 2000px; font-size: 13px; font-weight: 700; line-height: 1.2;
+  pointer-events: none; transition: opacity 150ms ease; white-space: nowrap;
+}
+.ptu-compare__label--before { left: 12px; background: #fff; color: #2c3d50; }
+.ptu-compare__label--after { right: 12px; background: var(--color-accent-purple); color: #fff; }
+.pdp-v2-two-up__media[data-compare="min"] .ptu-compare__label--before,
+.pdp-v2-two-up__media[data-compare="max"] .ptu-compare__label--after { opacity: 0; }
+.ptu-compare__range {
+  position: absolute; inset: 0; z-index: 3; width: 100%; height: 100%; margin: 0; padding: 0; opacity: 0; cursor: ew-resize;
+  -webkit-appearance: none; appearance: none; background: transparent; touch-action: pan-y;
+}
+.ptu-compare__range::-webkit-slider-runnable-track { height: 100%; background: transparent; }
+.ptu-compare__range::-webkit-slider-thumb { -webkit-appearance: none; width: 48px; height: 100%; }
+.ptu-compare__range::-moz-range-track { height: 100%; background: transparent; }
+.ptu-compare__range::-moz-range-thumb { width: 48px; height: 100%; border: 0; background: transparent; }
+.ptu-compare__range:focus-visible + .ptu-compare__line .ptu-compare__knob { outline: 2px solid var(--color-accent-purple); outline-offset: 2px; }
+@media (prefers-reduced-motion: reduce) { .ptu-compare__label { transition: none; } }
+
+/* the two sections built on .page-width (buy box and plate) have 16px side padding, so their container is 1232px wide and the content is exactly 1200px */
+#shopify-section-all-in-1-bundle-main .page-width,
+#shopify-section-aio_story_plate .page-width {
+  max-width: 1232px !important;
+  width: 100%;
+  margin-inline: auto !important;
+  box-sizing: border-box;
+}
+
+/* plate band: light blue (#f2fbff) with white waves on top and bottom, same as "Our Food Is Not What It Used to Be" on the Home
+   (homepage-problem-section). AccordionBlock opt-in: settings.waves + section_bg_color. */
+.aio-wave { line-height: 0; width: 100%; background-color: #ffffff; }
+.aio-wave svg { display: block; width: 100%; height: 99px; }
+.aio-wave--top { margin-bottom: -1px; }
+.aio-wave--top svg { transform: scaleY(-1); }
+.aio-wave--bottom { margin-top: -1px; }
+
+/* plate icons are generated flat icons on a white square: multiply lets the badge tint show through the white */
+#shopify-section-aio_story_plate .accordion-block__icon-badge img { mix-blend-mode: multiply; }
+
+/* plate band: breathing room above and below (the waves already add 99px of their own) */
+.aio-page #shopify-section-aio_story_plate { margin-top: 56px; margin-bottom: 56px; }
+@media (max-width: 749px) { .aio-page #shopify-section-aio_story_plate { margin-top: 40px; margin-bottom: 40px; } }
+#shopify-section-aio_story_plate .accordion-block__body p { margin: 0; }
+#shopify-section-aio_story_plate .accordion-block__body p + p { margin-top: 10px; }

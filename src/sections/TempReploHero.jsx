@@ -205,7 +205,7 @@ export default function TempReploHero({ id, settings: s, blocks = [], video, mob
             </div>
             <div className={`v1-hero-creator-quote v1-hero-desktop-only${s.creator_quote ? '' : ' hidden'}`}><div className="v1-hero-creator-quote__text">{s.creator_quote}</div></div>
             <div className={`v1-hero-creator-handle v1-hero-desktop-only${s.creator_handle ? '' : ' hidden'}`}>{s.creator_handle}</div>
-            {cta && <a href={s.cta_url} className="v1-hero-cta v1-hero-desktop-only">{cta}</a>}
+            {cta && <a href={s.cta_url} className={s.fd_button ? `fd-btn fd-btn--primary fd-btn--large fd-btn-shape--pill aio-cta v1-hero-desktop-only` : 'v1-hero-cta v1-hero-desktop-only'}>{cta}</a>}
             {s.show_divider && <div className="v1-hero-divider v1-hero-desktop-only" />}
             <div className="v1-hero-highlights v1-hero-desktop-only">
               <div className="v1-hero-list" />
@@ -237,7 +237,7 @@ export default function TempReploHero({ id, settings: s, blocks = [], video, mob
             {desc && !s.description_above_image_mobile && <Rich className="v1-hero-description" html={desc} />}
             <div className={`v1-hero-creator-quote${s.creator_quote ? '' : ' hidden'}`}><div className="v1-hero-creator-quote__text">{s.creator_quote}</div></div>
             <div className={`v1-hero-creator-handle${s.creator_handle ? '' : ' hidden'}`}>{s.creator_handle}</div>
-            {cta && <a href={s.cta_url} className="v1-hero-cta v1-hero-cta-mobile">{cta}</a>}
+            {cta && <a href={s.cta_url} className={s.fd_button ? 'fd-btn fd-btn--primary fd-btn--large fd-btn-shape--pill aio-cta' : 'v1-hero-cta v1-hero-cta-mobile'}>{cta}</a>}
             {s.show_divider && <div className="v1-hero-divider" />}
             <div className="v1-hero-highlights">
               <div className="v1-hero-list" />

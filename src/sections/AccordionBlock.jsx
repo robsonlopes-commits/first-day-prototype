@@ -1,4 +1,5 @@
 import Img from '../components/Img.jsx';
+import { Wave } from './HomepageProblemSection.jsx';
 import AccordionTab from '../components/AccordionTab.jsx';
 import { settingImg } from '../lib/settingsImg.js';
 import customCss from '../lib/customCss.js';
@@ -51,10 +52,30 @@ export default function AccordionBlock({ id, settings: s, blocks = [] }) {
     </span>
   );
 
+  const ctaBlock = (s.button_label || s.guarantee_text) && (
+    <div className="accordion-block__cta-block">
+      {s.button_label && (
+        <div className="accordion-block__cta">
+          <a href={s.button_link || '#'} className={s.fd_button ? 'fd-btn fd-btn--primary fd-btn--large fd-btn-shape--pill aio-cta' : 'button button--primary accordion-block__button'} dangerouslySetInnerHTML={{ __html: hl(s.button_label) }} />
+        </div>
+      )}
+      {s.guarantee_text && (
+        <div className="accordion-block__guarantee">
+          <span className="accordion-block__guarantee-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 28 28" fill="none">
+              <path d="M24.3204 7.78518V20.2149C24.3204 20.7161 24.1474 21.1398 23.8013 21.4859C23.4552 21.832 23.0316 22.0051 22.5305 22.0051H5.46916C4.96807 22.0051 4.54448 21.832 4.19837 21.4859C3.85225 21.1398 3.6792 20.7161 3.6792 20.2149V7.78518C3.6792 7.28391 3.85225 6.86021 4.19837 6.5141C4.54448 6.16799 4.96807 5.99493 5.46916 5.99493H22.5305C23.0316 5.99493 23.4552 6.16799 23.8013 6.5141C24.1474 6.86021 24.3204 7.28391 24.3204 7.78518ZM4.75632 10.3653H23.2433V7.78985C23.2433 7.61038 23.1686 7.44578 23.019 7.29606C22.8695 7.14653 22.705 7.07177 22.5255 7.07177H5.47412C5.29464 7.07177 5.13014 7.14653 4.98062 7.29606C4.83109 7.44578 4.75632 7.61038 4.75632 7.78985V10.3653ZM4.75632 13.004V20.2102C4.75632 20.3897 4.83109 20.5543 4.98062 20.704C5.13014 20.8535 5.29464 20.9283 5.47412 20.9283H22.5255C22.705 20.9283 22.8695 20.8535 23.019 20.704C23.1686 20.5543 23.2433 20.3897 23.2433 20.2102V13.004H4.75632Z" fill="#078942" />
+            </svg>
+          </span>
+          <span className="accordion-block__guarantee-text" dangerouslySetInnerHTML={{ __html: hl(s.guarantee_text) }} />
+        </div>
+      )}
+    </div>
+  );
   return (
     <div id={`shopify-section-${id}`} className="shopify-section section">
       <style>{css(s, id)}</style>
       <style>{customCss(id, s.custom_css)}</style>
+      {s.waves && <div className="aio-wave aio-wave--top"><Wave fill={s.section_bg_color} /></div>}
       <div className={`section--padding accordion-block${s.heading_position === 'above_blocks' ? ' accordion-block--heading-inline' : ''}`}>
         <div className="page-width">
           {heading && <div className="accordion-block__heading-wrapper accordion-block__heading--top">{heading}</div>}
@@ -101,30 +122,14 @@ export default function AccordionBlock({ id, settings: s, blocks = [] }) {
                     })}
                   </div>
                 )}
+                {s.cta_in_content && ctaBlock}
               </div>
             </div>
-            {(s.button_label || s.guarantee_text) && (
-              <div className="accordion-block__cta-block">
-                {s.button_label && (
-                  <div className="accordion-block__cta">
-                    <a href={s.button_link || '#'} className="button button--primary accordion-block__button" dangerouslySetInnerHTML={{ __html: hl(s.button_label) }} />
-                  </div>
-                )}
-                {s.guarantee_text && (
-                  <div className="accordion-block__guarantee">
-                    <span className="accordion-block__guarantee-icon">
-                      <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 28 28" fill="none">
-                        <path d="M24.3204 7.78518V20.2149C24.3204 20.7161 24.1474 21.1398 23.8013 21.4859C23.4552 21.832 23.0316 22.0051 22.5305 22.0051H5.46916C4.96807 22.0051 4.54448 21.832 4.19837 21.4859C3.85225 21.1398 3.6792 20.7161 3.6792 20.2149V7.78518C3.6792 7.28391 3.85225 6.86021 4.19837 6.5141C4.54448 6.16799 4.96807 5.99493 5.46916 5.99493H22.5305C23.0316 5.99493 23.4552 6.16799 23.8013 6.5141C24.1474 6.86021 24.3204 7.28391 24.3204 7.78518ZM4.75632 10.3653H23.2433V7.78985C23.2433 7.61038 23.1686 7.44578 23.019 7.29606C22.8695 7.14653 22.705 7.07177 22.5255 7.07177H5.47412C5.29464 7.07177 5.13014 7.14653 4.98062 7.29606C4.83109 7.44578 4.75632 7.61038 4.75632 7.78985V10.3653ZM4.75632 13.004V20.2102C4.75632 20.3897 4.83109 20.5543 4.98062 20.704C5.13014 20.8535 5.29464 20.9283 5.47412 20.9283H22.5255C22.705 20.9283 22.8695 20.8535 23.019 20.704C23.1686 20.5543 23.2433 20.3897 23.2433 20.2102V13.004H4.75632Z" fill="#078942" />
-                      </svg>
-                    </span>
-                    <span className="accordion-block__guarantee-text" dangerouslySetInnerHTML={{ __html: hl(s.guarantee_text) }} />
-                  </div>
-                )}
-              </div>
-            )}
+            {!s.cta_in_content && ctaBlock}
           </div>
         </div>
       </div>
+      {s.waves && <div className="aio-wave aio-wave--bottom"><Wave fill={s.section_bg_color} /></div>}
     </div>
   );
 }

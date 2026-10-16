@@ -38,11 +38,36 @@ function Media({ s }) {
     if (s.video_autoplay) v.play?.().catch(() => {});
     return () => { v.removeEventListener('canplay', on); v.removeEventListener('error', off); };
   }, [s.video, s.video_autoplay]);
+  // Opt-in before/after compare (All-in-1 exploration): settings.image_before is the "without" photo, drawn over the
+  // main image (the "with" photo) and clipped at --ptu-compare-pos. A transparent range input on top does the dragging
+  // (mouse, touch and keyboard); the position is written to the DOM directly so dragging never re-renders React.
+  const before = settingImg(s.image_before);
+  const mediaRef = useRef(null);
+  const onCompare = (e) => {
+    const v = Number(e.target.value);
+    const el = mediaRef.current;
+    el.style.setProperty('--ptu-compare-pos', `${v}%`);
+    el.dataset.compare = v < 22 ? 'min' : v > 78 ? 'max' : '';
+  };
   return (
-    <div className={`pdp-v2-two-up__media${ready ? ' is-video-ready' : ''}`}>
+    <div ref={mediaRef} className={`pdp-v2-two-up__media${ready ? ' is-video-ready' : ''}${before ? ' has-compare' : ''}`}>
       {image
         ? <img className="pdp-v2-two-up__image" src={image} alt={s.image_alt || ''} loading="lazy" />
         : <div className="pdp-v2-two-up__image pdp-v2-two-up__image--placeholder" aria-hidden="true" />}
+      {before && (
+        <>
+          <img className="pdp-v2-two-up__image pdp-v2-two-up__image--before" src={before} alt="" aria-hidden="true" loading="lazy" draggable="false" />
+          <span className="ptu-compare__label ptu-compare__label--before">{s.compare_before_label || 'Without First Day'}</span>
+          <span className="ptu-compare__label ptu-compare__label--after">{s.compare_after_label || 'With First Day'}</span>
+          <input className="ptu-compare__range" type="range" min="0" max="100" step="1" defaultValue="50" onInput={onCompare} onChange={onCompare}
+            aria-label={`${s.compare_before_label || 'Without First Day'} / ${s.compare_after_label || 'With First Day'}: drag to compare`} />
+          <span className="ptu-compare__line" aria-hidden="true">
+            <span className="ptu-compare__knob">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M9.5 7L4.5 12l5 5M14.5 7l5 5-5 5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" /></svg>
+            </span>
+          </span>
+        </>
+      )}
       {s.video && (
         <video ref={ref} className="pdp-v2-two-up__video" src={s.video} poster={image || settingImg(s.video_poster)}
           {...(s.video_autoplay ? { loop: true, muted: true, playsInline: true, preload: 'none' } : { controls: true, preload: 'metadata' })} />
@@ -153,8 +178,8 @@ export default function PdpV2TwoUp({ id, settings: s, blocks = [], custom_css })
                 {s.heading ? <Heading text={s.heading} /> : null}
                 {s.body ? <div className="pdp-v2-two-up__body" dangerouslySetInnerHTML={{ __html: s.body }} /> : null}
                 {s.cta_text ? (
-                  <a className="pdp-v2-two-up__cta" href={s.cta_url || '#'} onClick={jump}>
-                    <span className="pdp-v2-two-up__cta-text">{s.cta_text}</span>
+                  <a className={s.fd_button ? `fd-btn fd-btn--${s.fd_button_variant || 'primary'} fd-btn--large fd-btn-shape--pill aio-cta pdp-v2-two-up__fdcta` : 'pdp-v2-two-up__cta'} href={s.cta_url || '#'} onClick={jump}>
+                    <span className={s.fd_button ? 'fd-btn-text' : 'pdp-v2-two-up__cta-text'}>{s.cta_text}</span>
                   </a>
                 ) : null}
                 {highlights.length > 0 && (
@@ -175,7 +200,7 @@ export default function PdpV2TwoUp({ id, settings: s, blocks = [], custom_css })
                             {b.settings.eyebrow ? <span className="pdp-v2-two-up__highlight-eyebrow">{b.settings.eyebrow}</span> : null}
                             <span className="pdp-v2-two-up__highlight-text">{b.settings.text}</span>
                             {b.settings.cta_text ? (
-                              <a className="pdp-v2-two-up__highlight-cta" href={b.settings.cta_url || '#'} onClick={(e) => jumpTo(e, b.settings.cta_url)}>{b.settings.cta_text}</a>
+                              <a className="fd-btn fd-btn--small fd-btn--purple fd-btn-shape--pill pdp-v2-two-up__highlight-cta" href={b.settings.cta_url || '#'} onClick={(e) => jumpTo(e, b.settings.cta_url)}>{b.settings.cta_text}</a>
                             ) : null}
                           </span>
                         ) : (

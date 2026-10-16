@@ -1,5 +1,6 @@
 import { useMemo } from 'react';
 import Img from '../../../components/Img.jsx';
+import { customImg } from '../../../lib/assets.js';
 import { JudgeMePreviewBadge } from '../../JudgeMeReviewWidget.jsx';
 import { Gallery, CheckBenefit, RadioCheck, CartIcon } from '../../MainProductV2.jsx';
 import { BENEFIT_ACCORDION, PURCHASE, SAVINGS_DISPLAY, USP_IMAGES } from '../../../data/pdpNew.js';
@@ -14,6 +15,14 @@ import './bundle.css';
 // gallery, demo tabs, vanity title, benefit accordion rows, frequency selector, add to cart + savings rows, USP row.
 // Only the content is new (bundle data) plus a few `aio-` classes in bundle.css for the bundle specific bits.
 const ACCENT = '#476DED'; // noon blue: the bundle is not a single product, so it does not borrow one product accent
+// Destructive twin of CheckBenefit: red disc with a white X (used for the One-Time "you are missing out" lines).
+const XBenefit = () => (
+  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+    <circle cx="10" cy="10" r="8.333" fill="var(--color-feedback-error)" />
+    <path d="M7 7l6 6M13 7l-6 6" stroke="#fff" strokeWidth="1.8" strokeLinecap="round" />
+  </svg>
+);
+
 const PURPLE = '#776CB1'; // --color-accent-purple: second accent (selected pills, info notes, percent tiles)
 const BAS = BENEFIT_ACCORDION.settings;
 const BAS_VARS = {
@@ -43,19 +52,6 @@ export function DemoTabs({ demoId, onChange, className = '' }) {
 }
 
 
-// Info note in the production style of the bundle quiz page ("Order by Oct. 14th for guaranteed FREE gifts."): light purple fill, dashed purple border.
-const ordinal = (d) => `${d}${[11, 12, 13].includes(d % 100) ? 'th' : ({ 1: 'st', 2: 'nd', 3: 'rd' }[d % 10] || 'th')}`;
-function OrderNote() {
-  const now = new Date();
-  const when = `${now.toLocaleString('en-US', { month: 'short' })} ${ordinal(now.getDate())}`;
-  return (
-    <p className="aio-order-note">
-      <svg className="aio-order-note__icon" width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="12" fill="#776CB1" /><path d="M8 16l8-8" stroke="#fff" strokeWidth="2" strokeLinecap="round" /><circle cx="8.6" cy="8.6" r="1.6" fill="#fff" /><circle cx="15.4" cy="15.4" r="1.6" fill="#fff" /></svg>
-      <span>Order by <strong>{when}</strong> for guaranteed FREE gifts.</span>
-    </p>
-  );
-}
-
 function Vanity({ demo }) {
   const [before, rest = ''] = demo.vanity.split('[');
   const [highlight, after = ''] = rest.split(']');
@@ -71,7 +67,6 @@ function Vanity({ demo }) {
 
 // "What's inside": benefit_accordion_stats rows. icon circle = the bottle, tile = discount inside the bundle, text = product blurb + price line + Add.
 function WhatsInside({ demo, monthly, onAddItem }) {
-  const pct = monthly ? BUNDLE_DISCOUNT_MONTHLY : BUNDLE_DISCOUNT_ONETIME;
   return (
     <div className="pdp-benefit-accordion-stats aio-inside" style={BAS_VARS}>
       <div className="PBFCM-PDP-quantity-selector__header"><h2 className="PBFCM-PDP-quantity-selector__title">{"What's Inside"}</h2></div>
@@ -79,7 +74,7 @@ function WhatsInside({ demo, monthly, onAddItem }) {
         {demo.items.map((it, i) => {
           const inBundle = monthly ? it.inBundleMonthly : it.inBundleOneTime;
           return (
-            <details key={`${demo.id}-${it.key}`} className="pdp-benefit-accordion-stats__item" open={i === 0 || undefined}>
+            <details key={`${demo.id}-${it.key}`} className="pdp-benefit-accordion-stats__item">
               <summary className="pdp-benefit-accordion-stats__summary">
                 <span className="pdp-benefit-accordion-stats__summary-left">
                   <span className="pdp-benefit-accordion-stats__icon"><Img src={it.image} alt="" loading="lazy" /></span>
@@ -90,16 +85,21 @@ function WhatsInside({ demo, monthly, onAddItem }) {
                 </span>
               </summary>
               <div className="pdp-benefit-accordion-stats__content">
-                <div className="pdp-benefit-accordion-stats__percent"><span className="aio-pct">{pct}%</span><span className="aio-pct-label">off in bundle</span></div>
                 <div className="pdp-benefit-accordion-stats__copy">
                   <div className="metafield-rich_text_field" dangerouslySetInnerHTML={{ __html: it.description }} />
-                  <p className="aio-price-line">
-                    On its own <s>{money(it.base)}</s> <strong>{money(it.individual)}</strong>
-                    <span aria-hidden="true"> · </span>
-                    <span className="aio-price-line__bundle">{money(inBundle)} in the bundle</span>
-                  </p>
+                  <div className="aio-compare-prices" role="group" aria-label="Price on its own versus in the bundle">
+                    <div className="aio-compare-prices__tile">
+                      <span className="aio-compare-prices__label">On its own</span>
+                      <span className="aio-compare-prices__price"><s>{money(it.base)}</s> {money(it.individual)}</span>
+                    </div>
+                    <div className="aio-compare-prices__tile aio-compare-prices__tile--bundle">
+                      <span className="aio-compare-prices__label">In the bundle</span>
+                      <span className="aio-compare-prices__price">{money(inBundle)}</span>
+                      <span className="aio-compare-prices__save">Save {money(it.individual - inBundle)}</span>
+                    </div>
+                  </div>
                   <button type="button" className="fd-btn fd-btn--small fd-btn--secondary fd-btn-shape--pill aio-add-one" onClick={() => onAddItem(it)} aria-label={`Add ${it.title} on its own for ${money(it.individual)}`}>
-                    <span className="fd-btn-text">Add {it.title} For {money(it.individual)}</span>
+                    <span className="fd-btn-text">Add Individually</span>
                   </button>
                 </div>
               </div>
@@ -118,16 +118,14 @@ function Purchase({ demo, frequency, onFrequencyChange, onAddBundle }) {
   const monthly = frequency === 'monthly';
   const { base, monthly: monthlyPrice, oneTime } = demo.totals;
   const sale = monthly ? monthlyPrice : oneTime;
-  const giftUnlocked = base >= P.gift.threshold;
-  const compare = base + (giftUnlocked ? P.gift.value : 0); // as production: the free gift counts in the struck total
+  const compare = base; // the free gift line was removed, so the struck total is the plain list total
   const saving = compare - sale;
   const onSale = saving > 0.004;
   const setFreq = (f) => onFrequencyChange(f);
   return (
     <>
-      <OrderNote />
       <div id="product-purchase-content" className="product-purchase-content">
-        <div className="PBFCM-PDP-frequency-selector" style={{ '--PBFCM-color-freq-selected-bg': '#E4F5FF' }}>
+        <div className="PBFCM-PDP-frequency-selector" style={{ '--PBFCM-color-freq-selected-bg': '#FFFFFF' }}>
           <div className="PBFCM-PDP-quantity-selector__header PBFCM-PDP-frequency-selector__header"><h2 className="PBFCM-PDP-frequency-selector__title">{P.frequencyTitle}</h2></div>
           <div className="PBFCM-PDP-frequency-selector__container" role="radiogroup" aria-label="Select delivery frequency">
             <div className={`PBFCM-PDP-frequency-selector__option${monthly ? ' PBFCM-PDP-frequency-selector__option--selected' : ' PBFCM-PDP-frequency-selector__option--dimmed'}`} id="PBFCM-frequency-monthly" onClick={() => setFreq('monthly')} aria-describedby="PBFCM-monthly-benefits">
@@ -149,7 +147,7 @@ function Purchase({ demo, frequency, onFrequencyChange, onAddBundle }) {
               <div className={`PBFCM-PDP-frequency-selector__benefits PBFCM-PDP-frequency-selector__benefits--positive${monthly ? '' : ' PBFCM-PDP-frequency-selector__benefits--hidden'}`} id="PBFCM-monthly-benefits">
                 {P.monthlyBenefits.map((b) => (<div key={b} className="PBFCM-PDP-frequency-selector__benefit"><CheckBenefit /><p className="PBFCM-PDP-frequency-selector__benefit-text">{b}</p></div>))}
               </div>
-              <div className="PBFCM-PDP-frequency-selector__badge" style={{ backgroundColor: ACCENT }}><p className="PBFCM-PDP-frequency-selector__badge-text" dangerouslySetInnerHTML={{ __html: P.freqBadge }} /></div>
+              <div className="PBFCM-PDP-frequency-selector__badge" style={{ backgroundColor: PURPLE }}><p className="PBFCM-PDP-frequency-selector__badge-text" dangerouslySetInnerHTML={{ __html: P.freqBadge }} /></div>
             </div>
             <div className={`PBFCM-PDP-frequency-selector__option${monthly ? '' : ' PBFCM-PDP-frequency-selector__option--selected PBFCM-PDP-frequency-selector__option--onetime-selected'}`} id="PBFCM-frequency-onetime" onClick={() => setFreq('onetime')} aria-describedby="PBFCM-onetime-benefits">
               <div className="PBFCM-PDP-frequency-selector__top">
@@ -160,15 +158,15 @@ function Purchase({ demo, frequency, onFrequencyChange, onAddBundle }) {
                   </div>
                   <label htmlFor="PBFCM-radio-onetime" className="PBFCM-PDP-frequency-selector__label"> {P.onetimeLabel} </label>
                 </div>
-                <div className="PBFCM-PDP-frequency-selector__price-box otppricebox">
+                <div className="PBFCM-PDP-frequency-selector__price-box">
                   <div className="PBFCM-PDP-frequency-selector__price-row">
-                    <span className="PBFCM-PDP-frequency-selector__price-final" style={{ color: '#2c3e50' }}><span className="sr-only">Sale price {money(oneTime)}</span><span aria-hidden="true">{money(oneTime)}</span></span>
+                    <div className="PBFCM-PDP-frequency-selector__price-compare"><span className="sr-only">Original price {money(base)}, strikethrough</span><span aria-hidden="true">{money(base)}</span></div>
+                    <span className="PBFCM-PDP-frequency-selector__price-final"><span className="sr-only">Sale price {money(oneTime)}</span><span aria-hidden="true">{money(oneTime)}</span></span>
                   </div>
-                  <span className="PBFCM-PDP-frequency-selector__price-note">{BUNDLE_DISCOUNT_ONETIME}% off the {money(base)} total</span>
                 </div>
               </div>
               <div className={`PBFCM-PDP-frequency-selector__benefits PBFCM-PDP-frequency-selector__benefits--${monthly ? 'hidden' : 'negative'}`} id="PBFCM-onetime-benefits">
-                {P.onetimeBenefits.map((b) => (<div key={b} className="PBFCM-PDP-frequency-selector__benefit"><CheckBenefit /><p className="PBFCM-PDP-frequency-selector__benefit-text">{b}</p></div>))}
+                {P.onetimeBenefits.map((b) => (<div key={b} className="PBFCM-PDP-frequency-selector__benefit"><XBenefit /><p className="PBFCM-PDP-frequency-selector__benefit-text">{b}</p></div>))}
               </div>
               <div className={`PBFCM-PDP-frequency-selector__badge PBFCM-PDP-frequency-selector__badge--negative${monthly ? ' PBFCM-PDP-frequency-selector__badge--hidden' : ''}`} id="PBFCM-onetime-badge" style={{ backgroundColor: P.onetimeBadgeColor }}><p className="PBFCM-PDP-frequency-selector__badge-text">{P.onetimeBadge}</p></div>
             </div>
@@ -192,31 +190,17 @@ function Purchase({ demo, frequency, onFrequencyChange, onAddBundle }) {
           </span>
         </div>
       </div>
-      <div className="fd-savings-display-attach fd-savings-display-attach--rows" style={{ '--fd-attach-gap': '16px', paddingLeft: 0, paddingRight: 0 }}>
-        <div className="PBFCM-PDP-cart-summary_container_breakdown PBFCM-PDP-cart-summary_container_breakdown--gift-only">
-          {giftUnlocked && (
-            <div id="PBFCM-breakdown-gift-line" aria-label="Free gift" aria-live="polite">
-              <div className="PBFCM-PDP-cart-summary__line PBFCM-PDP-cart-summary__line--gift">
-                <span className="PBFCM-PDP-cart-summary__line-label">{P.gift.title}</span>
-                <div className="PBFCM-PDP-cart-summary__line-price">
-                  <span className="PBFCM-PDP-cart-summary__line-compare"><span className="sr-only">Original price {money(P.gift.value)}, strikethrough</span><span aria-hidden="true">{money(P.gift.value)}</span></span>
-                  <span className="PBFCM-PDP-cart-summary__line-final" style={{ color: P.successColor }}><span className="sr-only">Now FREE</span><span aria-hidden="true">{P.gift.salePrice}</span></span>
-                </div>
-              </div>
-            </div>
-          )}
-        </div>
-      </div>
     </>
   );
 }
 
 export default function BundleMainProduct({ demo, demoId, onDemoChange, frequency, onFrequencyChange, onAddBundle, onAddItem }) {
   const monthly = frequency === 'monthly';
-  // first slide: the four bottles lined up, then each bottle on its own
+  // first slide: emotional photo with the four bottles (AI mockup), then one benefit infographic per bottle (AI mockups, same
+  // style as the PDP carousel infographics). Files: public/assets/custom/aio-buybox-<demo>.jpg and aio-info-<demo>-<role>.jpg
   const images = useMemo(() => [
-    { key: `${demo.id}-all`, group: demo.items.map((it) => ({ src: it.image, alt: it.pdpTitle })) },
-    ...demo.items.map((it) => ({ src: it.image, alt: `${it.pdpTitle} bottle` })),
+    { src: customImg(`aio-buybox-${demo.id}.jpg`), alt: `${demo.label} All-in-1 Bundle: the four First Day bottles` },
+    ...demo.items.map((it) => ({ src: customImg(`aio-info-${demo.id}-${it.key}.jpg`), alt: `${it.pdpTitle} benefits` })),
   ], [demo]);
   return (
     <div id="shopify-section-all-in-1-bundle-main" className="shopify-section section">
