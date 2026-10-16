@@ -253,7 +253,7 @@
 
 .fd-campaign-bundle__stat-label {
   font-family: "sofia-pro", sans-serif;
-  font-size: 10px;
+  font-size: 12px;
   line-height: 12px;
 }
 
@@ -464,7 +464,7 @@
   background: #16b96f;
   color: #fff;
   content: "✓";
-  font-size: 9px;
+  font-size: 12px;
   vertical-align: 1px;
 }
 

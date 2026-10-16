@@ -41,32 +41,51 @@
 .aio-add-one .fd-btn-text { white-space: normal; }
 .aio-intro .pdp-benefit-accordion-stats__intro { margin-bottom: 20px; }
 
-/* ---- bundle vs one at a time ---- */
-.aio-compare { background: var(--color-surface-white); padding: 40px 32px 64px; }
-.aio-compare__inner { max-width: 1040px; margin: 0 auto; }
-.aio-compare__head { text-align: center; margin: 0 auto 32px; max-width: 720px; }
-.aio-compare__title { font-size: var(--font-title-xxl); font-weight: var(--fw-medium); line-height: var(--lh-tight); color: var(--color-text-on-light-1); margin: 0 0 12px; }
-.aio-compare__title strong { font-weight: var(--fw-bold); color: var(--color-brand-noon-blue); }
-.aio-compare__sub { font-size: var(--font-para-md); line-height: 1.5; color: var(--color-text-on-light-1); margin: 0; }
-.aio-compare__card { background: var(--color-surface-white); border: var(--border-hairline) solid var(--color-helper-black-10); border-radius: var(--radius-lg); overflow: hidden; }
-.aio-compare__row { display: grid; grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr) minmax(0, 1fr); align-items: center; gap: 16px; padding: 16px 24px; border-top: var(--border-hairline) solid var(--color-helper-black-10); font-size: var(--font-para-sm); color: var(--color-text-on-light-1); }
+/* ---- bundle vs one at a time (container is 1232px with 16px gutters, so the content is exactly 1200px) ---- */
+.aio-compare { background: var(--color-surface-white); padding: 8px 0 64px; }
+.aio-compare__inner { max-width: 1232px; margin: 0 auto; padding: 0 16px; box-sizing: border-box; }
+.aio-compare__card { background: var(--color-surface-white); border: var(--border-hairline) solid var(--color-border-subtle); border-radius: var(--radius-xl); overflow: hidden; }
+.aio-compare__row { display: grid; grid-template-columns: minmax(0, 1.7fr) minmax(0, 1fr) minmax(0, 1fr) 176px; align-items: center; gap: 0 24px; padding: 16px 28px; border-top: var(--border-hairline) solid var(--color-border-subtle); font-size: var(--font-para-md); color: var(--color-text-on-light-1); }
 .aio-compare__row:first-child { border-top: 0; }
-.aio-compare__row--head { background: var(--color-surface-card); font-weight: var(--fw-bold); }
-.aio-compare__row--total { background: var(--color-surface-card); font-weight: var(--fw-bold); }
-.aio-compare__prod { display: flex; align-items: center; gap: 12px; min-width: 0; font-weight: var(--fw-semibold); }
-.aio-compare__prod img { width: 48px; height: 48px; object-fit: contain; border-radius: 50%; border: var(--border-hairline) solid var(--color-helper-black-10); background: var(--color-surface-white); flex: 0 0 auto; }
-.aio-compare__role { display: block; font-size: 14px; font-weight: var(--fw-regular); color: var(--color-text-on-light-2); }
+.aio-compare__row--head { background: var(--color-surface-card); font-size: var(--font-para-sm); font-weight: var(--fw-bold); padding-top: 14px; padding-bottom: 14px; }
+.aio-compare__row--total { background: var(--color-surface-card); font-weight: var(--fw-bold); padding-top: 20px; padding-bottom: 20px; }
+.aio-compare__prod { display: flex; align-items: center; gap: 14px; min-width: 0; }
+.aio-compare__disc { width: 60px; height: 60px; border-radius: 50%; background: #f2fbff; display: flex; align-items: center; justify-content: center; flex: 0 0 auto; }
+.aio-compare__disc img { width: 46px; height: 46px; object-fit: contain; }
+.aio-compare__name { display: flex; flex-direction: column; align-items: flex-start; gap: 4px; min-width: 0; }
+.aio-compare__role { display: inline-block; padding: 2px 10px; border-radius: 4px; background: var(--color-accent-purple-10); color: var(--color-accent-purple); font-size: 13px; font-weight: var(--fw-bold); line-height: 1.3; }
+.aio-compare__title { font-weight: var(--fw-bold); font-size: 17px; line-height: 1.3; }
 .aio-compare__cell { text-align: right; }
-.aio-compare__cell s { color: var(--color-text-on-light-2); margin-right: 6px; font-weight: var(--fw-regular); }
-.aio-compare__cell--bundle { color: var(--color-feedback-success); font-weight: var(--fw-bold); }
-.aio-compare__save { display: inline-block; margin-top: 4px; padding: 2px 8px; border-radius: var(--radius-sm); background: #e8f6ef; color: var(--color-feedback-success); font-size: 14px; font-weight: var(--fw-bold); }
-.aio-compare__cta { display: flex; justify-content: center; margin-top: 32px; }
+.aio-compare__cell s { color: var(--color-text-on-light-2); margin-right: 8px; font-weight: var(--fw-regular); }
+.aio-compare__cell b { font-weight: var(--fw-bold); }
+.aio-compare__cell--bundle { color: var(--color-feedback-success); font-weight: var(--fw-bold); font-size: 20px; }
+.aio-compare__cell--bundle-head { color: var(--color-accent-purple); }
+.aio-compare__save { display: inline-block; margin: 6px 0 0 0; padding: 3px 10px; border-radius: 4px; background: #e8f6ef; color: var(--color-feedback-success); font-size: 14px; font-weight: var(--fw-bold); }
+.aio-compare__row--total .aio-compare__cell--bundle { display: flex; flex-direction: column; align-items: flex-end; }
+.aio-compare__action { display: flex; justify-content: flex-end; }
+.aio-compare__sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+.aio-compare__cta { display: flex; justify-content: center; margin-top: 28px; }
+/* desktop shows the table columns; the buy box style tiles are mobile only (the .aio-compare prefix beats the later .aio-compare-prices rule) */
+.aio-compare .aio-compare__tiles { display: none; }
 @media (max-width: 749px) {
-  .aio-compare { padding: 40px 16px 40px; }
-  .aio-compare__row { grid-template-columns: minmax(0, 1fr) auto auto; gap: 8px; padding: 12px 12px; font-size: 14px; }
-  .aio-compare__prod { gap: 8px; }
-  .aio-compare__prod img { width: 36px; height: 36px; }
-  .aio-compare__cell s { display: block; margin: 0; font-size: 12px; }
+  .aio-compare { padding: 8px 0 40px; }
+  .aio-compare__row--head { display: none; }
+  /* per product: [bottle + name] then the same two price tiles as the buy box, then Add Individually */
+  .aio-compare__row { grid-template-columns: 1fr; gap: 10px; padding: 14px 16px; }
+  .aio-compare__prod { gap: 12px; }
+  .aio-compare__disc { width: 48px; height: 48px; }
+  .aio-compare__disc img { width: 38px; height: 38px; }
+  .aio-compare__title { font-size: 16px; }
+  .aio-compare .aio-compare__cell, .aio-compare .aio-compare__row--total .aio-compare__cell--bundle { display: none; }
+  .aio-compare .aio-compare__tiles { display: grid; margin: 0; gap: 10px; }
+  .aio-compare__tiles .aio-compare-prices__tile { padding: 8px 14px; gap: 1px; }
+  .aio-compare__tiles .aio-compare-prices__save { margin-top: 4px; padding: 1px 8px; font-size: 12px; }
+  .aio-compare__tiles .aio-compare-prices__label { font-size: 12px; }
+  .aio-compare__tiles .aio-compare-prices__price { font-size: 18px; }
+  .aio-compare__tiles .aio-compare-prices__tile--bundle .aio-compare-prices__price { font-size: 22px; }
+  .aio-compare__action .fd-btn { width: 100%; min-height: 44px; }
+  .aio-compare__row--total .aio-compare__action { display: none; }
+}
 }
 
 /* ---- audience switcher repeated near the end of the page ---- */
@@ -85,9 +104,8 @@
 .aio-page #shopify-section-all-in-1-bundle-main { scroll-margin-top: 100px; }
 
 
-/* ---- mobile: the day photos (before/after slider) keep their full 4:5 frame so the faces and the bottle both show; the pin below keeps the
-   frame stable while the images load. The per-photo object-position values only matter if media_aspect_mobile is changed back to a shorter
-   frame such as 16:11 (they keep the First Day bottle in view). Desktop shows the full 4:5 photo. ---- */
+/* ---- mobile: the day photos (before/after slider) use a shorter 16:11 frame (media_aspect_mobile). The "with" and "without" photos share the
+   same crop (same class), and the per-photo object-position keeps the First Day bottle and the face in view. Desktop shows the full 4:5 photo. ---- */
 @media (max-width: 991px) {
   /* pin the photo inside the 16:11 frame, otherwise the 4:5 image grows the frame once it loads */
   .aio-page [id^="shopify-section-aio_day_"] .pdp-v2-two-up__media { position: relative; overflow: hidden; }
@@ -163,7 +181,7 @@
 .aio-page .pdp-v2-two-up__badge { font-weight: 600; }
 
 /* "Our Solution" box inside each story card: purple tint, dashed purple border, eyebrow + product line + Learn More */
-.aio-page .pdp-v2-two-up__highlight { align-items: center; gap: 16px; padding: 16px; border: 1px dashed var(--color-accent-purple-border); border-radius: var(--radius-lg); background: var(--color-accent-purple-10); }
+.aio-page .pdp-v2-two-up__highlight { align-items: center; gap: 16px; padding: 16px; border: 0; border-radius: var(--radius-lg); background: var(--color-accent-purple-10); }
 .aio-page .pdp-v2-two-up__highlight-copy { display: flex; flex-direction: column; align-items: flex-start; gap: 4px; min-width: 0; }
 .aio-page .pdp-v2-two-up__highlight-eyebrow { font-family: var(--font-body); font-size: 12px; font-weight: 600; letter-spacing: 0.08em; line-height: 1.2; text-transform: uppercase; color: var(--color-accent-purple); }
 .aio-page .pdp-v2-two-up__highlight-cta { display: inline-flex; align-items: center; margin-top: 8px; height: 36px; padding: 0 16px; border-radius: var(--radius-pill); background: var(--color-accent-purple); color: var(--color-text-on-dark); font-family: var(--font-body); font-size: 14px; font-weight: 600; text-decoration: none; transition: background 0.2s ease; }
@@ -177,6 +195,8 @@
   #shopify-section-aio_story_hero .v1-hero-headline { font-size: 32px; line-height: 1.2; }
   #shopify-section-aio_story_hero .v1-hero-container { gap: 20px; }
   #shopify-section-aio_story_hero .v1-hero-mobile-content { gap: 28px; }
+  /* the section padding is 20px here (the component's full-width pull is -16px), so pull the photo out by 20px: edge to edge */
+  #shopify-section-aio_story_hero .v1-hero-image-wrap-mobile { margin-left: -20px !important; margin-right: -20px !important; width: calc(100% + 40px) !important; max-width: none !important; }
   #shopify-section-aio_story_hero .v1-hero-description { font-size: 16px; line-height: 1.5; }
   #shopify-section-aio_story_hero .v1-hero-description p { margin: 0 0 16px; font-size: inherit; line-height: inherit; }
   #shopify-section-aio_story_hero .v1-hero-description p:last-child { margin-bottom: 0; }
@@ -304,18 +324,21 @@ body.all-in-1-bundle, .aio-page { background: var(--color-surface-white); }
 .aio-page .fd-savings-display__final { font-size: 24px; font-weight: 700; }
 .aio-page .fd-savings-display__compare { font-size: 16px; color: var(--color-text-on-light-2); }
 
-/* trust badges: one card (same hairline and radius as the subtotal card), three equal columns with hairline dividers, badges sized to the card */
-.aio-page .product__custom-liquid:has(.usprow) { margin-top: 12px; }
-.aio-page .usprow { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0; align-items: center; margin: 0; padding: 0; border: 1px solid var(--color-border-subtle); border-radius: var(--radius-xl); background: var(--color-surface-white); overflow: hidden; }
-.aio-page .usp { display: flex; align-items: center; justify-content: center; width: 100%; padding: 16px 8px; box-sizing: border-box; }
-.aio-page .usp + .usp { border-left: 1px solid var(--color-border-subtle); }
-.aio-page .usp img { width: min(100%, 80px); height: auto; }
+/* trust row: a second #FAFAFA card right under the subtotal card (same fill and radius, no border), three items with purple line icons */
+.aio-page .product__custom-liquid:has(.usprow) { margin-top: 0; }
+.aio-page .usprow { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; align-items: stretch; margin: 0; padding: 14px 12px; border: 0; border-radius: var(--radius-xl); background: var(--color-surface-card); }
+.aio-page .usp { display: flex; align-items: center; justify-content: center; gap: 10px; width: 100%; padding: 0 4px; box-sizing: border-box; text-align: left; }
+.aio-page .usp__icon { flex: 0 0 auto; display: inline-flex; color: var(--color-accent-purple); }
+.aio-page .usp__label { font-size: 14px; line-height: 1.3; color: var(--color-text-on-light-2); }
+.aio-page .usp__label strong { display: block; font-size: 15px; font-weight: 700; color: var(--color-text-on-light-1); }
 @media (max-width: 749px) {
   .aio-page .PBFCM-PDP-cart-summary__button { min-height: 60px; padding: 0 24px; }
   .aio-page .fd-savings-display { padding: 14px 16px !important; }
   .aio-page .fd-savings-display__final { font-size: 22px; }
-  .aio-page .usp { padding: 14px 6px; }
-  .aio-page .usp img { width: min(100%, 68px); }
+  .aio-page .usprow { padding: 14px 8px; gap: 4px; }
+  .aio-page .usp { flex-direction: column; gap: 6px; text-align: center; padding: 0 2px; }
+  .aio-page .usp__label { font-size: 12px; }
+  .aio-page .usp__label strong { font-size: 13px; }
 }
 
 
@@ -328,7 +351,7 @@ body.all-in-1-bundle, .aio-page { background: var(--color-surface-white); }
 .aio-compare-prices__tile--bundle { border-color: var(--color-feedback-success); background: rgba(7, 137, 66, 0.08); }
 .aio-compare-prices__tile--bundle .aio-compare-prices__label { color: var(--color-feedback-success); }
 .aio-compare-prices__tile--bundle .aio-compare-prices__price { font-size: 26px; color: var(--color-feedback-success); }
-.aio-compare-prices__save { align-self: flex-start; padding: 2px 10px; border-radius: var(--radius-pill); background: var(--color-feedback-success); color: var(--color-text-on-dark); font-size: 12px; font-weight: 700; }
+.aio-compare-prices__save { align-self: flex-start; padding: 2px 10px; border-radius: 4px; background: var(--color-feedback-success); color: var(--color-text-on-dark); font-size: 12px; font-weight: 700; }
 
 
 /* ---- buy box audience switcher: more space above it ---- */
@@ -376,7 +399,6 @@ body.all-in-1-bundle, .aio-page { background: var(--color-surface-white); }
    (compare 855, FAQ 992). The components set their widths with id selectors, hence !important. */
 #shopify-section-aio_story_hero .v1-hero-container,
 #shopify-section-aio_four_jobs .fd-bn__inner,
-#shopify-section-fd_problem_signs_aLMBHN .fd-psc__container,
 #shopify-section-aio_why_four .pdp-v2-two-up__container,
 #shopify-section-aio_closing .pdp-v2-two-up__container,
 #shopify-section-temp_science_module_wWLDWj .science-tabs__wrapper,
@@ -387,7 +409,10 @@ body.all-in-1-bundle, .aio-page { background: var(--color-surface-white); }
   margin-inline: auto !important;
   box-sizing: border-box;
 }
-.aio-page [class*="homepage-trust-section__container"] { overflow: hidden; }
+/* the trust carousel is full bleed (slides run past the 1200px grid): the 1200px grid must not clip it, only the page edge does */
+.aio-page [class*="homepage-trust-section__container"] { overflow: visible; }
+.aio-page [class*="homepage-trust-section__carousel-viewport"] { overflow: visible !important; } /* the viewport clipped the neighbouring slides at the 16px section padding on mobile */
+.aio-page #reviews { overflow-x: clip; }
 
 /* plate accordion: the CTA + guarantee sit in the right column, under the collapses */
 .aio-page #shopify-section-aio_story_plate .accordion-block__content .accordion-block__cta-block { margin: 24px 0 0 !important; align-items: flex-start; text-align: left; }
@@ -421,7 +446,7 @@ body.all-in-1-bundle, .aio-page { background: var(--color-surface-white); }
   border: 1px solid var(--color-border-subtle);
 }
 .ptu-compare__label {
-  position: absolute; top: 12px; z-index: 2; padding: 6px 12px; border-radius: 2000px; font-size: 13px; font-weight: 700; line-height: 1.2;
+  position: absolute; top: 12px; z-index: 2; padding: 6px 12px; border-radius: 6px; font-size: 13px; font-weight: 700; line-height: 1.2;
   pointer-events: none; transition: opacity 150ms ease; white-space: nowrap;
 }
 .ptu-compare__label--before { left: 12px; background: #fff; color: #2c3d50; }
@@ -437,6 +462,11 @@ body.all-in-1-bundle, .aio-page { background: var(--color-surface-white); }
 .ptu-compare__range::-moz-range-track { height: 100%; background: transparent; }
 .ptu-compare__range::-moz-range-thumb { width: 48px; height: 100%; border: 0; background: transparent; }
 .ptu-compare__range:focus-visible + .ptu-compare__line .ptu-compare__knob { outline: 2px solid var(--color-accent-purple); outline-offset: 2px; }
+/* phones / touch: touching the photo must scroll the page, never move the slider; only the round knob is draggable */
+@media (max-width: 749px), (pointer: coarse) {
+  .ptu-compare__range { pointer-events: none; }
+  .ptu-compare__knob { pointer-events: auto; touch-action: none; cursor: grab; }
+}
 @media (prefers-reduced-motion: reduce) { .ptu-compare__label { transition: none; } }
 
 /* the two sections built on .page-width (buy box and plate) have 16px side padding, so their container is 1232px wide and the content is exactly 1200px */
@@ -452,6 +482,7 @@ body.all-in-1-bundle, .aio-page { background: var(--color-surface-white); }
    (homepage-problem-section). AccordionBlock opt-in: settings.waves + section_bg_color. */
 .aio-wave { line-height: 0; width: 100%; background-color: #ffffff; }
 .aio-wave svg { display: block; width: 100%; height: 99px; }
+@media (max-width: 749px) { .aio-wave svg { height: 52px; } }
 .aio-wave--top { margin-bottom: -1px; }
 .aio-wave--top svg { transform: scaleY(-1); }
 .aio-wave--bottom { margin-top: -1px; }
@@ -459,8 +490,233 @@ body.all-in-1-bundle, .aio-page { background: var(--color-surface-white); }
 /* plate icons are generated flat icons on a white square: multiply lets the badge tint show through the white */
 #shopify-section-aio_story_plate .accordion-block__icon-badge img { mix-blend-mode: multiply; }
 
-/* plate band: breathing room above and below (the waves already add 99px of their own) */
+/* plate band: desktop keeps its breathing room above and below (the waves add 99px of their own); mobile has shorter waves (52px)
+   and no extra padding or margin, the waves are the only spacing */
 .aio-page #shopify-section-aio_story_plate { margin-top: 56px; margin-bottom: 56px; }
-@media (max-width: 749px) { .aio-page #shopify-section-aio_story_plate { margin-top: 40px; margin-bottom: 40px; } }
+@media (max-width: 749px) {
+  .aio-page #shopify-section-aio_story_plate { margin-top: 0; margin-bottom: 0; }
+  .aio-page #shopify-section-aio_story_plate .section--padding.accordion-block { padding-top: 0 !important; padding-bottom: 0 !important; }
+}
 #shopify-section-aio_story_plate .accordion-block__body p { margin: 0; }
 #shopify-section-aio_story_plate .accordion-block__body p + p { margin-top: 10px; }
+
+/* ---- badges and chips: text optically centered (bottom padding a little larger than the top) ---- */
+.aio-page .aio-compare-prices__save { padding-top: 2px; padding-bottom: 3px; }
+.aio-page .aio-compare__save { padding-top: 3px; padding-bottom: 4px; }
+.aio-page .aio-compare__role { padding-top: 2px; padding-bottom: 3px; }
+.aio-page .ptu-compare__label { padding-top: 6px; padding-bottom: 7px; }
+.aio-page .pdp-v2-two-up__badge { padding-bottom: 9px !important; }
+@media (max-width: 749px) {
+  .aio-page .aio-compare__tiles .aio-compare-prices__save { padding-top: 1px; padding-bottom: 2px; }
+}
+
+/* ---- shape rule: pill is reserved for buttons. Badges, chips, tags and labels are small rounded squares (4px, 6px for larger ones) ---- */
+.aio-page .aio-compare-prices__save,
+.aio-page .aio-compare__save,
+.aio-page .aio-compare__role,
+.aio-page .fd-savings-display__savings { border-radius: 4px; }
+.aio-page .ptu-compare__label { border-radius: 6px; }
+.shopify-section-announcement-bar .sale-announcement-badge { border-radius: 4px; }
+
+/* ---- "Our Solution" box: the science of how First Day helps sits inside the box, under the product row, behind a dashed divider ---- */
+.aio-page .pdp-v2-two-up__highlight { flex-wrap: wrap; }
+.aio-page .pdp-v2-two-up__highlight-detail {
+  flex: 1 1 100%; margin-top: 4px; padding-top: 14px; border-top: 1px solid rgba(0, 0, 0, 0.05);
+  font-family: var(--font-body); font-size: 15px; font-weight: 400; line-height: 1.55; color: var(--color-text-on-light-1);
+}
+.aio-page .pdp-v2-two-up__highlight-detail p { margin: 0; }
+@media (min-width: 991px) {
+  .aio-page .pdp-v2-two-up__highlight { grid-template-rows: auto auto auto; }
+  .aio-page .pdp-v2-two-up__highlight-detail { grid-column: 1 / -1; grid-row: 3; margin-top: 8px; }
+}
+
+/* "Our Solution" box, mobile: [bottle | label + title], then the science, then the full width Learn More (read first, then act) */
+@media (max-width: 990px) {
+  .aio-page .pdp-v2-two-up__highlight {
+    display: grid !important; grid-template-columns: auto minmax(0, 1fr); grid-template-rows: auto auto auto auto;
+    gap: 2px 14px !important; align-items: center; box-sizing: border-box; width: 100%;
+  }
+  .aio-page .pdp-v2-two-up__highlight-copy { display: contents; }
+  .aio-page .pdp-v2-two-up__highlight-icon { grid-column: 1; grid-row: 1 / 3; width: 56px; height: auto; }
+  .aio-page .pdp-v2-two-up__highlight-eyebrow { grid-column: 2; grid-row: 1; align-self: end; }
+  .aio-page .pdp-v2-two-up__highlight-text { grid-column: 2; grid-row: 2; align-self: start; }
+  .aio-page .pdp-v2-two-up__highlight-detail { grid-column: 1 / -1; grid-row: 3; margin-top: 12px; font-size: 15px; }
+  .aio-page .pdp-v2-two-up__highlight-cta { grid-column: 1 / -1; grid-row: 4; margin-top: 14px !important; width: 100%; justify-content: center; min-height: 44px; box-sizing: border-box; }
+}
+
+/* "Learn More" in a day card jumps to that product's collapse in What's Inside, opened; keep it clear of the sticky header */
+.aio-inside details[id^="aio-inside-"] { scroll-margin-top: 120px; }
+
+/* the title in the Our Solution box wraps instead of running under the Learn More button */
+@media (min-width: 991px) { .aio-page .pdp-v2-two-up__highlight-text { white-space: normal; } }
+
+/* ---- free gifts above the main CTA: quiet, directly on the white page (no card, no accent), 4 items in a row (2x2 on mobile) ---- */
+.aio-gifts { margin: 12px 0 4px; box-sizing: border-box; }
+.aio-gifts__title { margin: 0 0 10px; font-size: 14px; line-height: 1.2; font-weight: 700; color: var(--color-text-on-light-1); }
+.aio-gifts__list { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; margin: 0; padding: 0; list-style: none; }
+.aio-gifts__item { position: relative; min-width: 0; display: flex; justify-content: center; }
+.aio-gifts__open { all: unset; box-sizing: border-box; display: flex; flex-direction: column; align-items: center; gap: 8px; width: 100%; min-width: 0; text-align: center; cursor: pointer; }
+.aio-gifts__open:focus-visible { outline: 2px solid var(--color-accent-purple); outline-offset: 2px; border-radius: 8px; }
+.aio-gifts__open:hover .aio-gifts__thumb { background: var(--color-accent-purple-10); }
+.aio-gifts__info { all: unset; box-sizing: border-box; position: absolute; top: -6px; right: calc(50% - 46px); width: 24px; height: 24px; display: flex; align-items: center; justify-content: center; border-radius: 50%; background: #fff; color: var(--color-text-on-light-2); cursor: pointer; }
+.aio-gifts__info::after { content: ''; position: absolute; inset: -10px; }
+.aio-gifts__info:hover { color: var(--color-accent-purple); }
+.aio-gifts__info:focus-visible { outline: 2px solid var(--color-accent-purple); outline-offset: 1px; }
+.aio-gifts__thumb { width: 100%; max-width: 72px; aspect-ratio: 1 / 1; border-radius: 8px; background: var(--color-surface-card); display: flex; align-items: center; justify-content: center; }
+.aio-gifts__thumb img { width: 76%; height: 76%; object-fit: contain; }
+.aio-gifts__text { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+.aio-gifts__name { font-size: 13px; line-height: 1.25; font-weight: 600; color: var(--color-text-on-light-1); }
+.aio-gifts__value { font-size: 12px; line-height: 1.2; color: var(--color-text-on-light-2); }
+@media (max-width: 749px) {
+  .aio-gifts__list { gap: 8px; }
+  .aio-gifts__name { font-size: 12px; }
+}
+
+/* the gifts row icon: purple line gift box in the same circle as the bottles */
+.aio-inside .aio-gift-icon { color: var(--color-accent-purple); display: flex; align-items: center; justify-content: center; }
+
+/* What's Inside rows: slightly less padding top and bottom (76px to 68px rows) */
+.aio-inside .pdp-benefit-accordion-stats__summary { padding-top: 11px; padding-bottom: 11px; }
+
+/* One-Time selected: the radio dot is a ::after pseudo element painted purple by the selected state rule, so it needs its own red override */
+.aio-page .PBFCM-PDP-frequency-selector__option.PBFCM-PDP-frequency-selector__option--onetime-selected .PBFCM-PDP-frequency-selector__radio-container::after { background-color: var(--color-feedback-error) !important; }
+
+/* One-Time selected is red in every part of the radio (ring, svg dot, pseudo dot), with no transition from the purple Monthly state */
+.aio-page .PBFCM-PDP-frequency-selector__option--onetime-selected .PBFCM-PDP-frequency-selector__radio-container,
+.aio-page .PBFCM-PDP-frequency-selector__option--onetime-selected .PBFCM-PDP-frequency-selector__radio-container * { transition: none !important; }
+.aio-page .PBFCM-PDP-frequency-selector__option--onetime-selected .PBFCM-PDP-frequency-selector__radio-container svg circle { fill: var(--color-feedback-error) !important; }
+.aio-page .PBFCM-PDP-frequency-selector__option--onetime-selected .PBFCM-PDP-frequency-selector__radio { border-color: var(--color-feedback-error) !important; accent-color: var(--color-feedback-error); }
+
+/* buy box title ("Complete Daily Support For Picky Eaters"): 34px on desktop, 32px on mobile */
+.aio-page .pdp-vanity .vanity-title, .aio-page .pdp-vanity .vanity-title-highlight { font-size: 32px !important; line-height: 1.2 !important; }
+@media (min-width: 750px) {
+  .aio-page .pdp-vanity .vanity-title, .aio-page .pdp-vanity .vanity-title-highlight { font-size: 34px !important; line-height: 1.25 !important; }
+}
+
+/* small "price per bottle" badge under the price of each delivery option: square (pill is for buttons), green for Monthly, neutral for One-Time */
+.aio-page .PBFCM-PDP-frequency-selector__price-box { display: flex; flex-direction: column; align-items: flex-end; gap: 6px; }
+.aio-perbottle { display: inline-block; padding: 2px 8px 3px; border-radius: 4px; font-size: 12px; font-weight: 700; line-height: 1.3; white-space: nowrap; }
+.aio-perbottle--monthly { background: #e8f6ef; color: var(--color-feedback-success); }
+.aio-perbottle--onetime { background: var(--color-surface-card); color: var(--color-text-on-light-2); }
+
+/* ---- science tabs: white section, content on the 1200px grid (no inner card padding), title like the other sections (line break + purple bold highlight) ---- */
+.aio-page #shopify-section-temp_science_module_wWLDWj .science-tabs { background: #ffffff; }
+.aio-page #shopify-section-temp_science_module_wWLDWj .science-tabs__container { padding-left: 0; padding-right: 0; background: transparent; }
+.aio-page .science-tabs__heading-line, .aio-page .science-tabs__heading-highlight { display: block; }
+.aio-page .science-tabs__heading-highlight { color: var(--color-accent-purple); font-weight: 700; }
+
+/* science tabs panel: left aligned title, slightly smaller description */
+.aio-page #shopify-section-temp_science_module_wWLDWj .science-tabs__content-title { text-align: left !important; }
+.aio-page #shopify-section-temp_science_module_wWLDWj .science-tabs__content-desc { font-size: 16px !important; line-height: 1.55; }
+
+/* ---- "What You Can Expect" timeline on a white page: smaller photo, a grey hairline around each card, a more visible line ---- */
+.aio-page #KidsTimeline-timeline_section_xei4R8 {
+  --kids-timeline-image-size-desktop: 104px;
+  --kids-timeline-image-size-mobile: 80px;
+  --kids-timeline-line: #c2d9e6;
+  --kids-timeline-card-radius: 12px;
+}
+.aio-page #KidsTimeline-timeline_section_xei4R8 .kids-timeline__card { border: 1px solid var(--color-border-subtle); }
+
+/* science tabs: the panel photo is NEVER cropped (they are infographics with text at the edges). It shows at its natural ratio at the width of the
+   photo column; the text column centers next to it. Mobile: same, full width above the text. */
+.aio-page #shopify-section-temp_science_module_wWLDWj .science-tabs__panel-media { height: auto !important; align-self: center; background: transparent; }
+.aio-page #shopify-section-temp_science_module_wWLDWj .science-tabs__panel-media .science-tabs__img { position: static !important; display: block; width: 100%; height: auto !important; object-fit: contain; }
+@media (min-width: 750px) {
+  .aio-page #shopify-section-temp_science_module_wWLDWj .science-tabs__panel-content { gap: 28px; }
+}
+
+/* timeline "What You Can Expect": title in the page pattern (same as the day heading), purple checks, less space under the photos and above the card titles */
+.aio-page #shopify-section-timeline_section_xei4R8 .kids-timeline__heading { font-size: 32px; line-height: 1.2; }
+.aio-page #shopify-section-timeline_section_xei4R8 .kids-timeline__heading-wrap { margin-bottom: 28px; max-width: 760px; }
+.aio-page #shopify-section-timeline_section_xei4R8 .kids-timeline__heading-line--primary { font-weight: 600 !important; color: var(--color-text-on-light-1); }
+.aio-page #shopify-section-timeline_section_xei4R8 .kids-timeline__heading-line--secondary { font-weight: 700 !important; color: var(--color-accent-purple); }
+.aio-page #shopify-section-timeline_section_xei4R8 .kids-timeline__heading-line { text-wrap: balance; text-align: center; }
+.aio-page #KidsTimeline-timeline_section_xei4R8 {
+  --kids-timeline-marker-bg: var(--color-accent-purple);
+  --kids-timeline-card-padding-top-desktop: 52px;
+  --kids-timeline-card-padding-top-mobile: 34px;
+}
+@media (min-width: 750px) {
+  .aio-page #shopify-section-timeline_section_xei4R8 .kids-timeline__heading { font-size: 37px; }
+}
+
+/* timeline line: black 7% (no blue next to the purple checks), centered on the markers (from the first check to the last one, on their vertical center) */
+.aio-page #KidsTimeline-timeline_section_xei4R8 { --kids-timeline-line: var(--color-border-subtle); }
+.aio-page #shopify-section-timeline_section_xei4R8 .kids-timeline__list::before { background-color: var(--color-border-subtle); }
+@media (min-width: 750px) {
+  .aio-page #shopify-section-timeline_section_xei4R8 .kids-timeline__list::before {
+    top: 12px; left: calc((100% - 56px) / 6); right: calc((100% - 56px) / 6); width: auto;
+  }
+}
+
+/* less space above the "What You Can Expect" title */
+.aio-page #KidsTimeline-timeline_section_xei4R8 {
+  --kids-timeline-padding-y-top-desktop: 24px;
+  --kids-timeline-padding-y-top-mobile: 16px;
+}
+
+
+/* science tabs: no extra space under the panel (the card padding is gone), so the next section starts closer */
+.aio-page #shopify-section-temp_science_module_wWLDWj .science-tabs__container { padding-bottom: 0; }
+.aio-page #shopify-section-temp_science_module_wWLDWj .science-tabs { padding-bottom: 24px; }
+
+/* closing CTA (the Home final CTA band): full width button on mobile */
+@media (max-width: 749px) {
+  .aio-page #shopify-section-aio_closing_hero .temp-hero__actions, .aio-page #shopify-section-aio_closing_hero .temp-hero__button { width: 100%; box-sizing: border-box; justify-content: center; }
+}
+
+/* trust carousel: the expert portraits have a blue ring baked into the image file; zoom into the circle so only the portrait shows */
+.aio-page [class*="homepage-trust-section__expert-image"] img[src*="der-lei-chen"] { transform: scale(1.34); }
+.aio-page [class*="homepage-trust-section__expert-image"] img[src*="dr-harvard-ed"] { transform: scale(1.1); }
+
+/* trust section title: same pattern and size as the other section titles (navy line, purple bold highlight line) */
+.aio-page #reviews h2[class*="homepage-trust-section__title"] { font-size: 32px; line-height: 1.2; font-weight: 600 !important; color: var(--color-text-on-light-1); }
+.aio-page #reviews h2[class*="homepage-trust-section__title"] span[class*="title-accent"] { display: block; font-weight: 700 !important; color: var(--color-accent-purple) !important; }
+@media (min-width: 750px) { .aio-page #reviews h2[class*="homepage-trust-section__title"] { font-size: 38px; } }
+
+/* mobile: every section title uses the size of "If You Have A Picky Eater At Home" (32px / 1.2); the moment-card titles stay smaller */
+@media (max-width: 749px) {
+  .aio-page #shopify-section-aio_story_plate h2,
+  .aio-page #shopify-section-aio_four_jobs h2,
+  .aio-page #pdp-v2-two-up-aio_why_four h2,
+  .aio-page #shopify-section-aio_science h2,
+  .aio-page [class*="science-tabs__heading"],
+  .aio-page #reviews h2[class*="homepage-trust-section__title"] { font-size: 32px !important; line-height: 1.2 !important; }
+  .aio-page [class*="science-tabs__heading-line"],
+  .aio-page [class*="science-tabs__heading-highlight"],
+  .aio-page #reviews h2[class*="homepage-trust-section__title"] span { font-size: inherit !important; line-height: inherit !important; }
+}
+
+/* science tabs on mobile: same look as desktop and the Kids/Teens switch (pill container, inactive tabs plain, only the active one filled);
+   the production mobile styling used a square container and dark outlines on the inactive tabs */
+@media (max-width: 749px) {
+  .aio-page .science-tabs .science-tabs__tab-bar { border-radius: 20000px !important; padding: 8px !important; gap: 8px !important; margin-right: 0 !important; }
+  .aio-page .science-tabs .science-tabs__tab:not(.science-tabs__tab--active) { background-color: transparent !important; border-color: transparent !important; }
+  /* the production mobile styling also dropped the panel outline: keep the same hairline as desktop */
+  .aio-page .science-tabs .science-tabs__panel { border: var(--border-hairline, 1px) solid var(--color-border-subtle) !important; }
+}
+
+/* day heading, desktop: two lines, not three (the production wrap is capped at 640px, which pushed the longer Teens and Toddlers first lines onto two lines) */
+@media (min-width: 750px) {
+  .aio-page #shopify-section-aio_day_heading .kids-timeline__heading-wrap { max-width: 1100px; }
+}
+
+
+/* gift row: small animated yellow sparkles around the gift icon to draw the eye (4 point stars that twinkle, staggered; still when motion is reduced) */
+.aio-sparkle-wrap { position: relative; display: inline-flex; flex: 0 0 auto; overflow: visible; }
+.aio-spark { position: absolute; display: block; pointer-events: none; background: #ffb511; opacity: 0; transform: scale(0) rotate(0deg);
+  clip-path: polygon(50% 0, 62% 38%, 100% 50%, 62% 62%, 50% 100%, 38% 62%, 0 50%, 38% 38%);
+  animation: aio-twinkle 2.4s ease-in-out infinite; }
+.aio-spark--1 { width: 14px; height: 14px; top: -7px; right: -6px; animation-delay: 0s; }
+.aio-spark--2 { width: 8px; height: 8px; top: 8px; right: -10px; background: #ffd24d; animation-delay: 0.7s; }
+.aio-spark--3 { width: 11px; height: 11px; bottom: -6px; right: -4px; animation-delay: 1.3s; }
+.aio-spark--4 { width: 9px; height: 9px; top: -4px; left: -8px; background: #ffd24d; animation-delay: 1.8s; }
+.aio-spark--5 { width: 7px; height: 7px; bottom: 2px; left: -11px; animation-delay: 0.4s; }
+@keyframes aio-twinkle {
+  0%, 100% { opacity: 0; transform: scale(0) rotate(0deg); }
+  35% { opacity: 1; transform: scale(1) rotate(45deg); }
+  65% { opacity: 1; transform: scale(0.7) rotate(90deg); }
+  85% { opacity: 0; transform: scale(0.2) rotate(120deg); }
+}
+@media (prefers-reduced-motion: reduce) { .aio-spark { animation: none; opacity: 0.9; transform: scale(0.85); } }

@@ -50,7 +50,7 @@ export const PDP_LEGACY_SECTIONS = [
    "badge_bg_color": "#c8a96e",
    "badge_text_color": "#ffffff",
    "badge_size": 96,
-   "badge_font_size": 11,
+   "badge_font_size": 12,
    "badge_number_font_size": 22,
    "badge_radius": 12,
    "badge_gap": 10,
@@ -296,7 +296,7 @@ export const PDP_LEGACY_SECTIONS = [
    "badge_bg_color": "#c8a96e",
    "badge_text_color": "#ffffff",
    "badge_size": 96,
-   "badge_font_size": 11,
+   "badge_font_size": 12,
    "badge_number_font_size": 22,
    "badge_radius": 12,
    "badge_gap": 10,
@@ -383,7 +383,7 @@ export const PDP_LEGACY_SECTIONS = [
    "badge_bg_color": "#c8a96e",
    "badge_text_color": "#ffffff",
    "badge_size": 96,
-   "badge_font_size": 11,
+   "badge_font_size": 12,
    "badge_number_font_size": 22,
    "badge_radius": 12,
    "badge_gap": 10,
@@ -475,7 +475,7 @@ export const PDP_LEGACY_SECTIONS = [
    "badge_bg_color": "#c8a96e",
    "badge_text_color": "#ffffff",
    "badge_size": 96,
-   "badge_font_size": 11,
+   "badge_font_size": 12,
    "badge_number_font_size": 22,
    "badge_radius": 12,
    "badge_gap": 10,
@@ -649,7 +649,7 @@ export const PDP_LEGACY_SECTIONS = [
    "badge_bg_color": "#c8a96e",
    "badge_text_color": "#ffffff",
    "badge_size": 96,
-   "badge_font_size": 11,
+   "badge_font_size": 12,
    "badge_number_font_size": 22,
    "badge_radius": 12,
    "badge_gap": 10,
@@ -736,7 +736,7 @@ export const PDP_LEGACY_SECTIONS = [
    "badge_bg_color": "#c8a96e",
    "badge_text_color": "#ffffff",
    "badge_size": 96,
-   "badge_font_size": 11,
+   "badge_font_size": 12,
    "badge_number_font_size": 22,
    "badge_radius": 12,
    "badge_gap": 10,
@@ -893,7 +893,7 @@ export const PDP_LEGACY_SECTIONS = [
    "badge_bg_color": "#c8a96e",
    "badge_text_color": "#ffffff",
    "badge_size": 96,
-   "badge_font_size": 11,
+   "badge_font_size": 12,
    "badge_number_font_size": 22,
    "badge_radius": 12,
    "badge_gap": 10,
@@ -1189,7 +1189,7 @@ export const PDP_LEGACY_SECTIONS = [
   },
   "blocks": [],
   "customCss": [
-   "p {font-size: 8px; text-align: center;}"
+   "p {font-size: 12px; text-align: center;}"
   ]
  },
  {
@@ -1241,7 +1241,7 @@ export const PDP_LEGACY_SECTIONS = [
    }
   ],
   "customCss": [
-   "p {font-size: 8px; text-align: center;}"
+   "p {font-size: 12px; text-align: center;}"
   ]
  }
 ];

@@ -1,4 +1,4 @@
-import { customImg, shopImg } from '../lib/assets.js';
+import { customImg, shopImg, extImg } from '../lib/assets.js';
 import { TEMPLATE as LANDING_T } from './landingTemplate.js';
 import { TEMPLATE as QUIZ_T } from './bundleQuizTemplate.js';
 import { TWO_UP_ROOT_CAUSES } from './pdpNewTwoUp.js';
@@ -21,15 +21,24 @@ const img = (demoId, slot) => customImg(`aio-${demoId}-${slot}.jpg`);
 const HERO = {
   kids: {
     headline: 'Dinner Should Not Feel Like A Negotiation. [You Are Not Doing It Wrong.]',
-    description: '<p>Picky eating is hard on everyone at the table. You offer the broccoli. They push the plate away. You stay calm and try again tomorrow.</p><p>Picky eating is still the top reason parents choose First Day. Our four hero gummies give you one simple daily routine for nutrition, gut, focus and sleep.</p>',
+    description: '<p>Picky eating is hard on everyone at the table. You offer the broccoli. They push the plate away. You stay calm and try again tomorrow.</p><p>It can feel like a phase. Sometimes it is a nutrient gap, and the plate is only part of the story. Our four hero gummies give you one simple daily routine for nutrition, gut, focus and sleep.</p>',
     alt: 'A young child pushes away a plate of broccoli and rice while a parent sits patiently beside them.',
   },
   teens: {
-    headline: 'Busy Days Move Fast. [You Are Not Doing It Wrong.]',
-    description: '<p>Early alarms, long practices and late homework fill their day. Meals get skipped and sleep gets short. You cannot be at the table every time.</p><p>Our four hero gummies give your teen one simple daily routine for nutrition, gut, focus and sleep.</p>',
-    alt: 'A teen heads out the door in the morning while a parent hands over a lunch bag.',
+    headline: "Their Friends Keep Growing. [Make Sure Nutrition Isn't Holding Them Back.]",
+    description: '<p>Every parent notices when their teen looks smaller than their friends, even if nobody says it out loud. Growth plates are open during the teen years, creating the areas where new bone is formed, but they do not stay open forever.</p><p>Vitamin D3 and Vitamin K2 work together to support bone development.* Our four hero gummies give your teen one simple daily routine for nutrition, gut, focus and sleep.</p>',
+    alt: '',
+  },
+  toddlers: {
+    headline: 'Is It Just A Phase? [Or Could It Be A Nutrient Gap?]',
+    description: '<p>The meltdown out of nowhere. The words that are slow to come. The plate with only three foods on it. Every parent of a toddler has been told it is just a phase.</p><p>Sometimes there is a nutrient gap behind it. Our two hero gummies give your toddler one simple daily routine for nutrition and gut health, made for ages 2 to 3.</p>',
+    alt: 'A father kneels on the kitchen floor and comforts his crying toddler daughter.',
   },
 };
+// Teens opens with the same video as the Teens Behind the Science landing page (a young soccer player smaller than his teammates, the bones, the gummy).
+// Kids and Toddlers use AI video tests (Veo 3.1 Lite, no audio, problem then cause then solution, public/assets/custom/aio-<demo>-hero.mp4)
+const HERO_VIDEO = { teens: LANDING.tdk.hero.video };
+const HERO_LOCAL_VIDEO = { kids: '/assets/custom/aio-kids-hero.mp4', toddlers: '/assets/custom/aio-toddlers-hero.mp4' };
 const heroSec = LANDING_T.temp_replo_hero_RkYkXc;
 export function heroProps(demo) {
   const h = HERO[demo.id] || HERO.kids;
@@ -51,13 +60,16 @@ export function heroProps(demo) {
       cta_font_weight: 400, hero_image_max_width_desktop: 520, padding_top_desktop: 40, padding_bottom_desktop: 40, above_the_fold: true,
     },
     blocks,
+    video: HERO_LOCAL_VIDEO[demo.id] || (HERO_VIDEO[demo.id] ? extImg(HERO_VIDEO[demo.id]) : undefined),
+    mobileVideo: HERO_LOCAL_VIDEO[demo.id] || (HERO_VIDEO[demo.id] ? extImg(HERO_VIDEO[demo.id]) : undefined),
   };
 }
 
 /* ---------- 3. a day, four moments: heading (TimelineSection, heading only) + four PdpV2TwoUp story blocks ---------- */
 const DAY_HEADING = {
   kids: ['If You Have A Picky Eater At Home,', 'This Is Probably Your Routine'],
-  teens: ['If You Have A Busy Teen At Home,', 'This Is Probably Your Routine'],
+  teens: ["If You Worry About Your Teen's Growth,", 'You Will Recognize These Moments'],
+  toddlers: ['If You Have Ever Been Told It Is Just A Phase,', 'You Will Recognize These Moments'],
 };
 const tlT = QUIZ_T.timeline_section_xei4R8;
 export function dayHeadingProps(demo) {
@@ -79,27 +91,46 @@ const DAY_ORDER = [
   { slot: 'dinner', role: 'gut', side: 'left' },
   { slot: 'bedtime', role: 'sleep', side: 'right' },
 ];
+// Toddlers have two products, so the four moments share them (three about the multi, one about the probiotic) and use their own photo slots
+const DAY_ORDER_BY_DEMO = {
+  toddlers: [
+    { slot: 'meltdown', role: 'multi', side: 'left' },
+    { slot: 'words', role: 'multi', side: 'right' },
+    { slot: 'potty', role: 'gut', side: 'left' },
+    { slot: 'picky', role: 'multi', side: 'right' },
+  ],
+};
 const HIGHLIGHT = { multi: 'Nutrition with the ', focus: 'Focus with the ', gut: 'Gut support with the ', sleep: 'Sleep support with the ' };
 const DAY = {
   kids: [
     { badge: '☀️ Morning', heading: 'Breakfast Gets [Pushed Away]', alt: 'A young child in pajamas turns away from a bowl of oatmeal while a parent sits beside them.',
-      body: '<p>The oatmeal sits untouched and the clock keeps moving. You wonder what they will eat today.</p><p>Our Kids\' Multivitamin has 21 organic superfoods and 9 nutrients most kids lack. It supplies what they need during important years of growth.*</p>' },
+      body: '<p>The oatmeal sits untouched and the clock keeps moving. You wonder what they will eat today.</p><p>Up to 40% of kids can\'t convert folic acid, the form most vitamins use. Our Kids\' Multivitamin uses methylfolate, which is already active, plus 21 organic superfoods for what a picky plate leaves out.*</p>' },
     { badge: '📚 School Day', heading: 'Homework Takes [Forever]', alt: 'A girl rests her chin on her hand and looks away from her homework while her mother points at the notebook.',
-      body: '<p>Your child starts homework and instantly gets distracted. Simple tasks take forever. It\'s like their brain just won\'t stay put.</p><p>Daily Focus Brain Support has Cognizin®, sunflower Phosphatidylserine and Vitamin B3. It is daily brain nutrition for focus, memory and learning.*</p>' },
+      body: '<p>Your child starts homework and instantly gets distracted. Simple tasks take forever. It\'s like their brain just won\'t stay put.</p><p>The brain uses choline to make acetylcholine, a messenger involved in attention, learning and memory. Daily Focus Brain Support has Cognizin® citicoline, sunflower Phosphatidylserine and Vitamin B3 for focus, memory and learning.*</p>' },
     { badge: '🍽️ Dinner', heading: 'Some Nights The Plate [Comes Back Full]', alt: 'A family of three at the dinner table while the child pokes at a small portion of pasta.',
-      body: '<p>You cook. You coax. You try again tomorrow. That is love, not failure.</p><p>Our 3-in-1 Pre+ Post+ Probiotic is designed to promote gut health, support oral health, fortify immunity and improve overall wellness.*</p>' },
+      body: '<p>You cook. You coax. You try again tomorrow. That is love, not failure.</p><p>When the plate comes back full, what little gets eaten has to count. The gut is where the body digests food and takes in nutrients, and our 3-in-1 Pre+ Post+ Probiotic is designed to support gut health, digestion and immunity.*</p>' },
     { badge: '🌙 Bedtime', heading: 'Bedtime Turns Into A [Battle]', alt: 'A mother reads a picture book to a sleepy child tucked into bed.',
-      body: '<p>Every parent knows the one more story and the one more glass of water. The night drags on and everyone ends up tired.</p><p>Our Nighttime Reset Magnesium is made with calming ingredients and has no melatonin hormones. It supports restful sleep and calm.*</p>' },
+      body: '<p>Every parent knows the one more story and the one more glass of water. The night drags on and everyone ends up tired.</p><p>Magnesium helps calm the nervous system, and ultra-processed foods are one of the things that crowd it out of the diet. Our Nighttime Reset Magnesium is made with calming ingredients and has no melatonin hormones, to support restful sleep and calm.*</p>' },
   ],
   teens: [
-    { badge: '☀️ Morning', heading: 'Breakfast Gets [Skipped]', alt: 'A teen rushes through the kitchen with a backpack while breakfast waits on the counter.',
-      body: '<p>The alarm goes late and the door closes fast. Breakfast stays on the counter.</p><p>Vitamin A and Vitamin B9 support cell growth and development, helping to fill in nutritional gaps when teens skip meals.* Our Teens\' Multivitamin brings an organic fruit and veggie blend plus 12 key nutrients.</p>' },
-    { badge: '📚 School Day', heading: 'Motivation Runs [Low]', alt: 'A tired teen rests his head on his hand while studying at a laptop.',
-      body: '<p>Homework piles up after a long day. Staying on track is hard.</p><p>Daily Focus Brain Support has Cognizin® for focus and memory, sunflower Phosphatidylserine for brain cell communication and Vitamin B3 for energy production in the brain.*</p>' },
-    { badge: '🍽️ Dinner', heading: 'Dinner Comes [Late]', alt: 'A family at the dinner table in the evening with a teen in a sports jersey.',
-      body: '<p>Practice runs long and dinner is whenever it happens.</p><p>Our Teens\' Probiotic+ has clinically studied pre, post and probiotics for digestive, immune and skin health.*</p>' },
-    { badge: '🌙 Night', heading: 'Up All Night, [Tired All Day]', alt: 'A teen lies awake in bed at night.',
-      body: '<p>Your teen is tired but cannot switch off.</p><p>Our Nighttime Reset Magnesium helps teens wind down before bed and sleep better at night. It has no melatonin hormones.</p>' },
+    { badge: '📏 The Door Frame', heading: 'The Pencil Mark Barely [Moved]', alt: 'A mother marks a pencil line on the kitchen door frame above her teenage son, who stands against it with his head down.',
+      body: '<p>You measure them against the door frame again. The mark is barely above last year\'s and their friends keep shooting up. You say nothing, but you worry.</p><p>Growth plates are open during the teen years, creating the areas where new bone is formed, but they do not stay open forever. Vitamin D3 and Vitamin K2 work together to support bone development, while B vitamins help the body turn food into growth-fueling energy.* Our Teens\' Multivitamin adds an organic fruit and veggie blend plus 12 key nutrients.</p>' },
+    { badge: '📚 School Day', heading: 'Their Mind Drifts [In Class]', alt: 'A tired teen girl stares out of the classroom window instead of following the lesson while classmates take notes around her.',
+      body: '<p>The teacher keeps talking and their mind is somewhere else. They lose the thread halfway through the lesson and have to ask again.</p><p>The prefrontal cortex, which handles planning and focus, keeps maturing until the mid 20s, and the brain uses choline to make acetylcholine, a messenger for attention and memory. Daily Focus Brain Support has Cognizin® citicoline, sunflower Phosphatidylserine and Vitamin B3 for focus and memory.*</p>' },
+    { badge: '🍽️ Dinner Table', heading: 'They Eat A Lot, But Does It [All Count]?', alt: 'A teen boy in a sports jersey eats a large plate of fast food at the family dinner table while his parents watch with concern.',
+      body: '<p>They go back for seconds and the fridge is empty by Friday. Still you wonder if the food is giving their body what it needs to grow.</p><p>A growing teen has to absorb what they eat. The gut is where the body digests food and takes in nutrients, and our Teens\' 3-in-1 Pre+ Post+ Probiotic has clinically studied pre, post and probiotics for digestive, immune and skin health.*</p>' },
+    { badge: '🌙 Late Night', heading: 'They Sleep Less Than [They Need]', alt: 'A teen lies awake in bed at night, restless and unable to sleep.',
+      body: '<p>The phone glows past midnight and the alarm goes off at six. You worry that a growing body is running short on rest.</p><p>The teen body clock shifts later, and ultra-processed foods are one of the things that crowd out magnesium, which helps calm the nervous system. Our Nighttime Reset Magnesium helps teens wind down before bed and has no melatonin hormones, to support better sleep.*</p>' },
+  ],
+  toddlers: [
+    { badge: '😤 The Meltdown', heading: 'A Meltdown Out Of [Nowhere]', alt: 'A toddler boy has a tantrum on the kitchen floor while his mother kneels beside him.',
+      body: '<p>They were fine a minute ago. Then a small thing goes wrong and the floor is the only place to be. You are told it is just a phase.</p><p>Vitamin B6 is used to make serotonin and dopamine, the messengers that help keep small frustrations from becoming big ones. B vitamins like B6, B12 and folate support emotional regulation and help toddlers navigate big feelings.* Our Toddlers\' Multivitamin has 10 nutrients and 21 organic superfoods, made for ages 2 and 3.</p>' },
+    { badge: '🗣️ Finding Words', heading: 'Still Finding [Their Words]', alt: 'A toddler girl sits at a table with a picture book while her father waits patiently for her to speak.',
+      body: '<p>You watch other toddlers chatter while yours is still finding words. It is one of the most anxious moments of early parenting.</p><p>Choline and B vitamins support brain and nervous system development, which is key for language and learning, and over 50% of toddlers don\'t get enough choline.* Up to 40% of kids can\'t convert folic acid, so our multi uses methylfolate, which is already active.</p>' },
+    { badge: '🚽 Potty Time', heading: 'Potty Training Feels [Stuck]', alt: 'A toddler stands in the bathroom holding his tummy beside a small potty while his mother kneels to comfort him.',
+      body: '<p>Every trip to the potty ends in tears and a tummy that will not cooperate. You wonder if it is something you are doing wrong. It is not.</p><p>Potty problems are not just a training issue, they are often a gut issue. Our Toddlers\' 3-in-1 Pre+ Post+ Probiotic is a gentle gummy for softer, easier to pass stools, with a whole fruit golden kiwi prebiotic, a probiotic and a postbiotic.*</p>' },
+    { badge: '🍽️ The Plate', heading: 'Only Three Foods [This Week]', alt: 'A toddler girl in a booster seat pushes away a plate of plain pasta while her mother offers a spoonful of vegetables.',
+      body: '<p>Pasta, crackers and applesauce again. You offer the broccoli and it goes straight back. It is hard not to worry about what they are missing.</p><p>A vitamin only works if a toddler will eat it. Ours has real strawberry and orange flavor, no fake sugars, no artificial colors and no fillers, plus 21 organic superfoods for what a picky plate leaves out.*</p>' },
   ],
 };
 const twoUpBase = TWO_UP_ROOT_CAUSES.settings;
@@ -111,25 +142,29 @@ const twoUpLook = {
 };
 export function dayChapters(demo) {
   const copy = DAY[demo.id] || DAY.kids;
-  return DAY_ORDER.map((d, i) => {
+  return (DAY_ORDER_BY_DEMO[demo.id] || DAY_ORDER).map((d, i) => {
     const c = copy[i];
     const it = demo.items.find((x) => x.key === d.role);
+    // the body has two paragraphs: the moment (stays in the card text) and the science of how First Day helps (goes inside the Our Solution box)
+    const [moment, ...rest] = c.body.split('</p><p>');
+    const body = moment.endsWith('</p>') ? moment : `${moment}</p>`;
+    const science = rest.length ? `<p>${rest.join('</p><p>').replace(/^<p>/, '')}` : '';
     return {
       id: `aio_day_${demo.id}_${d.slot}`, type: 'pdp-v2-two-up', custom_css: [],
       blocks: [{
         id: `hl-${d.slot}`, type: 'highlight',
-        settings: { icon: it.image, icon_size: 64, font_family: "'sofia-pro', sans-serif", font_size_desktop: 16, font_size_mobile: 16, font_weight: 600, font_color: '#2c3d50', text: `${HIGHLIGHT[d.role]}${it.title}`, eyebrow: 'Our Solution', cta_text: 'Learn More', cta_url: BUY_BOX_SECTION },
+        settings: { icon: it.image, icon_size: 64, font_family: "'sofia-pro', sans-serif", font_size_desktop: 16, font_size_mobile: 16, font_weight: 600, font_color: '#2c3d50', text: `${HIGHLIGHT[d.role]}${it.title}`, eyebrow: 'Our Solution', cta_text: 'Learn More', cta_url: `#aio-inside-${d.role}`, detail: science },
       }],
       settings: {
         ...twoUpLook, anchor_id: '', media_position: d.side, image: img(demo.id, d.slot), image_alt: c.alt, image_before: img(demo.id, `${d.slot}-before`),
-        badge_text: c.badge, heading: c.heading, body: c.body, cta_text: '', highlights_margin_top: 8,
+        badge_text: c.badge, heading: c.heading, body, cta_text: '', highlights_margin_top: 8,
         padding_top_desktop: 16, padding_bottom_desktop: 16, padding_top_mobile: 8, padding_bottom_mobile: 8,
         // mobile: each moment is its own contained card (hairline border, 16px radius, side gutters) and the 4:5 photo is cropped to 16:11
         // (the crop focus per photo is in bundle.css so the First Day bottle is never cut off)
         padding_left_mobile: 16, padding_right_mobile: 16,
         card_bg_color_mobile: '#ffffff', card_border_color_mobile: 'rgba(0, 0, 0, 0.1)', card_border_width: 1, card_radius: 16, card_padding_mobile: 16,
-        // the before/after slider needs the whole scene (the faces carry the story), so the photo keeps its 4:5 frame on mobile
-        media_aspect_mobile: '4 / 5',
+        // mobile: shorter 16:11 frame (the crop focus per photo is in bundle.css); the before/after slider crops both photos the same way
+        media_aspect_mobile: '16 / 11',
       },
     };
   });
@@ -160,22 +195,42 @@ const PLATE = {
         cause('Vitamin B1 supports brain signaling, vitamin B2 maintains nerve function and vitamin B6 supports the pathways behind attention. Low levels of these B vitamins can affect how the brain signals, processes and retains information.*', 'Zoning out mid sentence or shutting down when homework gets hard.')),
       item('a6', 'aio-icon-ultra.jpg', '', 'Ultra-Processed Foods Crowd Out Magnesium',
         cause(ULTRA, 'Restlessness, irritability and trouble settling down at bedtime.')),
+      item('a7', 'aio-icon-nutrients.jpg', '', "Most Vitamins Aren't Built For A Child",
+        cause("Most vitamins use cheap synthetic forms, and up to 40% of kids can't convert folic acid. Many also give a 4 year old a 17 year old dose, scaled down from an adult formula instead of built for a growing body.", 'A vitamin you give every day, and you still wonder if it is doing anything.')),
     ],
   },
   teens: {
-    heading: 'What Is Happening [Behind A Busy Day]',
-    subheading: 'A growing brain and food that has changed can leave gaps.',
+    heading: "What Is Happening [Behind Your Teen's Growth]",
+    subheading: 'A body building bone, muscle and brain needs more than a rushed plate can give.',
     items: [
-      item('a1', 'aio-icon-food.jpg', '', "Today's Food Has Fewer Nutrients",
-        cause(FOOD_WORLD, 'Meals that look full but may not deliver the nutrients a growing body needs.')),
-      item('a2', 'aio-icon-construction.jpg', '', 'A Brain Still Under Construction',
-        cause('The prefrontal cortex, which handles planning, impulse control and emotional regulation, does not fully mature until the mid 20s. Meanwhile the amygdala, the emotional response center, is running the show.', 'Intense reactions, low impulse control and snapping at simple questions.')),
-      item('a3', 'aio-icon-fuel.jpg', '', 'A Growing Brain Burns Through Fuel',
-        cause('The brain is one of the hungriest organs in the body and during adolescence it rewires faster than at almost any other time. It needs vitamins, minerals, amino acids and healthy fats, but modern diets are high in refined carbs, added sugars and ultra-processed snacks. Skipped meals, caffeine and picky eating make it worse.', 'Feeling irritable, unfocused or wiped out by the end of the day.')),
-      item('a4', 'aio-icon-nutrients.jpg', '', 'Key Nutrients Run Low',
-        cause('Low levels of vitamin D, B12, folate and magnesium can quietly affect mood, energy and how the brain handles stress. Low levels of certain B vitamins can also affect brain function and attention.*', 'A little more irritable, anxious or tired than they should be, and harder to concentrate in class.')),
+      item('a1', 'aio-icon-bones.jpg', '', 'Growth Windows Do Not Stay Open',
+        cause('During the teen years growth plates are open, creating the areas where new bone is formed, but they do not stay open forever. That makes nutrition during this window especially important.', 'Friends who seem to shoot up while your teen stays put, and a pencil mark that barely moves.')),
+      item('a2', 'aio-icon-nutrients.jpg', '', 'Vitamin D3 Is Often Missing',
+        cause('Vitamin D3 helps the body absorb calcium, the mineral bones are built from, and it works together with vitamin K2 to support bone development.* Yet 92% of kids do not get enough D3.', 'Nothing obvious at all, which is why it goes unnoticed.')),
+      item('a3', 'aio-icon-food.jpg', '', "Today's Food Has Fewer Nutrients",
+        cause(FOOD_WORLD, 'Plates that look full but may not deliver what a growing body needs.')),
+      item('a4', 'aio-icon-hidden.jpg', '', 'Eating A Lot Is Not The Same As Absorbing It',
+        cause('Hidden hunger is a lack of nutrients, not a lack of food. A teen can eat plenty and still miss the vitamins and minerals a growing body needs. The gut is where the body digests food and takes in nutrients.', 'A big appetite, an empty fridge and still a worry in the back of your mind.')),
       item('a5', 'aio-icon-sleepclock.jpg', '', 'Sleep Rhythms Shift',
         cause(`Natural changes in the circadian rhythm disrupt sleep patterns in the teen years. ${ULTRA}`, 'Tired all day and wired at night.')),
+    ],
+  },
+  toddlers: {
+    heading: 'What Is Happening [Behind The Phase]',
+    subheading: 'Meltdowns, late words and picky plates can all point back to what a small body is missing.',
+    items: [
+      item('a1', 'aio-icon-mood.jpg', '', 'Big Feelings Need Nutrients',
+        cause('The brain uses vitamin B6 to make serotonin and dopamine, and B vitamins like B12 and folate support emotional regulation. When they run low, small frustrations can turn into big meltdowns.*', 'Meltdowns that come out of nowhere and do not look like just a phase.')),
+      item('a2', 'aio-icon-signals.jpg', '', 'A Brain Building Language',
+        cause("Choline and B vitamins support brain and nervous system development, which is key for language and learning. Over 50% of toddlers don't get enough choline.*", 'Other toddlers talking while yours is still finding words.')),
+      item('a3', 'aio-icon-nutrients.jpg', '', 'Most Vitamins Use A Form They Cannot Use',
+        cause("Most vitamins use cheap synthetic forms, and up to 40% of kids can't convert folic acid. Methylfolate is the active form, ready to use.", 'A vitamin you give every day, and you still wonder if it is doing anything.')),
+      item('a4', 'aio-icon-bones.jpg', '', 'Growth Needs D3 And K2 Together',
+        cause('Vitamin D3 and Vitamin K2 work together to support bone development, while B vitamins help the body turn food into growth-fueling energy.*', 'A checkup where your toddler is trending lower on the growth curve.')),
+      item('a5', 'aio-icon-food.jpg', '', "Today's Food Has Fewer Nutrients",
+        cause(FOOD_WORLD, 'A plate of vegetables that may no longer deliver what it once did, and a toddler who catches every bug.')),
+      item('a6', 'aio-icon-gut.jpg', '', 'The Gut Is Where It Starts',
+        cause('The gut is where the body digests food and takes in nutrients. Potty problems are often a gut issue, not just a training issue.', 'Stuck on the potty, tummy aches and a toddler who dreads going.')),
     ],
   },
 };

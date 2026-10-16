@@ -609,7 +609,7 @@ html body.template-product.kids-v3 variant-selects.no-js-hidden.sticky__bottom.s
       padding-right:10px;
 }
  body.template-product.kids-v3 p.pp * {
-    font-size: 10.5px !important;
+    font-size: 12px !important;
 }
   body.template-product.kids-v3 product-form.product-form.sticky__bottom {
     width: calc(100% - 30px);
@@ -795,7 +795,7 @@ padding: 10px 0 10px 0;
     font-weight: 700;
     color: #313b50c2;
     letter-spacing: 0;
-    font-size: 10px;
+    font-size: 12px;
     text-transform: uppercase;
 }
 .index_bannaer .outer_flx .lyt h2 {
@@ -886,7 +886,7 @@ box-shadow:unset;
       padding: 0 5px;
   }
   .logo_banner .inner_div span{
-  font-size: 10px;
+  font-size: 12px;
   }
   .index_bannaer .outer_flx .lyt {
     padding: 0 0 10px 0;
@@ -999,7 +999,7 @@ svg.icon.icon-hamburger {
     color: #486ced;
 }
   .announcement-bar p{
-  font-size: 11px;
+  font-size: 12px;
   }
   .index_bannaer .outer_flx .lyt h2 br, .index_bannaer .outer_flx .lyt p br {
     display: none;
@@ -1025,7 +1025,7 @@ svg.icon.icon-hamburger {
     width: 33%;
   }
   .logo_banner .inner_div span{
-  font-size: 10px;
+  font-size: 12px;
         line-height: normal;
   }
   .index_bannaer {
@@ -1054,7 +1054,7 @@ svg.icon.icon-hamburger {
       width:24px;
   }
   .logo_banner .inner_div span {
-    font-size: 8px;
+    font-size: 12px;
 margin-bottom:10px;
 }
 .index_bannaer .bg_div:before {

@@ -991,7 +991,7 @@ pbfcm-comparison-extended .pbfcm-comparison-panel-${id} .pbfcm-comparison-check-
         grid-template-columns: 1fr 60px 60px 60px;
     }
     .m-ext .pbfcm-comparison-onetime-header-${id} {
-        font-size: 10px;
+        font-size: 12px;
     }
 }
 

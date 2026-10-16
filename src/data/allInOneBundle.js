@@ -24,18 +24,26 @@ export const ROLES = [
 const bottle = (f) => shopImg(f);
 export const DEMOS = [
   {
-    id: 'kids', label: 'Kids', possessive: "Kids'", banner: { prefix: 'This Bundle is For Kids Ages ', ages: '4 - 12' },
+    id: 'kids', label: 'Kids', possessive: "Kids'", bundleName: 'All-in-1 Bundle', countWord: 'Four', banner: { prefix: 'This Bundle is For Kids Ages ', ages: '4 - 12' },
     vanity: 'Complete Daily Support For [Picky Eaters]',
-    intro: '<p><strong>Four hero gummies in one bundle.</strong> Nutrition, gut, focus and sleep support for picky eaters, in one simple daily routine.</p>',
+    intro: '<p><strong>Four hero gummies in one bundle, built for ages 4 to 12.</strong> The multi uses methylfolate instead of folic acid and doses for a growing body, not an adult dose scaled down.</p>',
     handles: ['kids-enrichment-vitamin', 'kids-belly-biotic', 'kids-daily-focus', 'kids-calming-magnesium'],
     bottles: ['kids-multi.png', 'kids-prob_4b7651d5-86e6-4eb3-8d96-e6d26e57c0e4.png', 'kids-brain.png', 'kids-mag.png'],
   },
   {
-    id: 'teens', label: 'Teens', possessive: "Teens'", banner: { prefix: 'This Bundle is For Teens Ages ', ages: '13 - 17' },
-    vanity: 'Complete Daily Support For [Busy Teens]',
-    intro: '<p><strong>Four hero gummies in one bundle.</strong> Nutrition, gut, focus and sleep support for busy schedules, in one simple daily routine.</p>',
+    id: 'teens', label: 'Teens', possessive: "Teens'", bundleName: 'All-in-1 Bundle', countWord: 'Four', banner: { prefix: 'This Bundle is For Teens Ages ', ages: '13 - 17' },
+    vanity: 'Complete Daily Support For [Growing Teens]',
+    intro: '<p><strong>Four hero gummies in one bundle, built for ages 13 to 17.</strong> Nutrition, gut, focus and sleep support for a teen who is growing fast, in one simple daily routine.</p>',
     handles: ['teens-kickstart-vitamin', 'teens-gut-sustainer', 'teens-daily-focus', 'teens-calming-magnesium'],
     bottles: ['teens-multi.png', 'teens-prob.png', 'teens-brain.png', 'teens-mag.png'],
+  },
+  // Toddlers (ages 2 to 3): the line only has two products today (multivitamin and 3-in-1 probiotic), so this bundle is a 2-in-1.
+  {
+    id: 'toddlers', label: 'Toddlers', possessive: "Toddlers'", bundleName: '2-in-1 Bundle', countWord: 'Two', banner: { prefix: 'This Bundle is For Toddlers Ages ', ages: '2 - 3' },
+    vanity: 'Complete Daily Support For [Growing Toddlers]',
+    intro: '<p><strong>Two hero gummies in one bundle, built for ages 2 to 3.</strong> A multivitamin with choline and 21 organic superfoods plus a gentle 3-in-1 probiotic, in one simple daily routine.</p>',
+    handles: ['the-no-junk-toddlers-multivitamin', 'toddlers-3-in-1-probiotic'],
+    bottles: ['toddlers-multi.png', 'toddlers-prob.png'],
   },
 ];
 

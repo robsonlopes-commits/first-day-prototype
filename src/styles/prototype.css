@@ -1,2 +1,11 @@
 /* Prototype-only UI (never part of the storefront design) */
-.proto-missing-asset { display:flex; align-items:center; justify-content:center; width:100%; height:100%; min-height:80px; background:rgba(0,0,0,.04); color:#888; font:11px/1.2 system-ui,sans-serif; text-align:center; cursor:pointer; border:1px dashed rgba(0,0,0,.18); }
+.proto-missing-asset { display:flex; align-items:center; justify-content:center; width:100%; height:100%; min-height:80px; background:rgba(0,0,0,.04); color:#888; font:12px/1.2 system-ui,sans-serif; text-align:center; cursor:pointer; border:1px dashed rgba(0,0,0,.18); }
+
+/* Design rule: never a font size below 12px, anywhere. Superscripts and subscripts get the browser default 0.83em, which can fall under it. */
+sup, sub { font-size: max(12px, 0.75em); }
+
+/* Design rule: text inside a badge or chip is optically centered, so the bottom padding is a little larger than the top (+1px).
+   Production badge classes are adjusted here, the All-in-1 ones in explorations/allInOneBundle/bundle.css. */
+.pbfcm-badge { padding-bottom: calc(4px + 1px); }
+.jm-verified-badge { padding-bottom: calc(.125em + 1px); }
+.fd-badge--sm, .fd-badge--md, .fd-badge--lg { padding-bottom: calc(var(--spacing-tiny) + 1px); }

@@ -202,7 +202,7 @@ export const RICH_TEXT_PDP_NEW_LEGAL = {
     }
   ],
   "custom_css": [
-    "p {font-size: 8px; text-align: center;}"
+    "p {font-size: 12px; text-align: center;}"
   ]
 };
 

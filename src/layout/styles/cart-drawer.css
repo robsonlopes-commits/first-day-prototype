@@ -43,7 +43,7 @@
 /* ---- prototype-only cart state switch (NOT storefront UI) ---- */
 .proto-cart-toggle {
   position: fixed; left: 8px; bottom: 8px; z-index: 2147483647; display: flex; flex-direction: column; align-items: flex-start; gap: 4px;
-  font: 11px/1.2 system-ui, sans-serif; color: #fff;
+  font: 12px/1.2 system-ui, sans-serif; color: #fff;
 }
 .proto-cart-toggle__chip, .proto-cart-toggle__options button {
   font: inherit; color: inherit; border: 1px dashed rgba(255, 255, 255, 0.6); background: rgba(20, 20, 20, 0.9); border-radius: 4px;
@@ -56,7 +56,7 @@
 @media (max-width: 767px) {
   /* mobile drawer is full width: park the chip in the strip above the drawer */
   .proto-cart-toggle { left: 8px; top: 0; bottom: auto; }
-  .proto-cart-toggle__chip { font-size: 8px; line-height: 10px; padding: 0 4px; border-radius: 0 0 4px 4px; border-top: 0; }
+  .proto-cart-toggle__chip { font-size: 12px; line-height: 10px; padding: 0 4px; border-radius: 0 0 4px 4px; border-top: 0; }
 }
 
 /* ---- section-scoped colour overrides from sections/cart-drawer.liquid (cart-drawer-group.json values) ---- */

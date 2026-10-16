@@ -135,7 +135,7 @@ export const HOME_CAT_SLIDER = {
   "mobile_custom_type": true,
   "mobile_header_font_size": 24,
   "mobile_subheader_font_size": 13,
-  "mobile_kicker_font_size": 10,
+  "mobile_kicker_font_size": 12,
   "mobile_title_font_size": 12,
   "mobile_image_size": 48,
   "mobile_custom_spacing": true,

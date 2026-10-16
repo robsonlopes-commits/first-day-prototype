@@ -1,7 +1,7 @@
 /* prototype-only quiz state switch (NOT storefront UI): same chip style as .proto-cart-toggle in layout/styles/cart-drawer.css */
 .proto-quiz-jump {
   position: fixed; left: 8px; bottom: 8px; z-index: 2147483647; display: flex; flex-direction: column-reverse; align-items: flex-start; gap: 4px;
-  font: 11px/1.2 system-ui, sans-serif; color: #fff;
+  font: 12px/1.2 system-ui, sans-serif; color: #fff;
 }
 .proto-quiz-jump__chip, .proto-quiz-jump__options button {
   font: inherit; color: inherit; border: 1px dashed rgba(255, 255, 255, 0.6); background: rgba(20, 20, 20, 0.9); border-radius: 4px;
@@ -13,6 +13,6 @@
 .proto-quiz-jump__options button.is-on { background: #fff; color: #111; opacity: 1; }
 @media (max-width: 767px) {
   .proto-quiz-jump { bottom: 4px; left: 4px; }
-  .proto-quiz-jump__chip { font-size: 9px; padding: 1px 4px; }
-  .proto-quiz-jump__options button { font-size: 9px; }
+  .proto-quiz-jump__chip { font-size: 12px; padding: 1px 4px; }
+  .proto-quiz-jump__options button { font-size: 12px; }
 }

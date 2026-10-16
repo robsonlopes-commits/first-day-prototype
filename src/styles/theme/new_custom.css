@@ -387,7 +387,7 @@ button.view-btn:hover {
     padding: 11px 0;
 }
 .custom_section p.content {
-    font-size: 9px;
+    font-size: 12px;
     font-family: Chivo;
     color: #4e5f70;
     text-align: center;
@@ -518,7 +518,7 @@ border: 2px solid #5495fc!important;
     display: none;
 }
 .custom_section p.bottom_content {
-    font-size: 9px;
+    font-size: 12px;
     font-family: Chivo;
     color: #4e5f70;
     text-align: center;

@@ -11,7 +11,7 @@ export const SALE_SUBNAV = {
     show_heading: true, heading: '', heading_position: 'left', heading_font_family: 'Assistant', heading_italic: true, heading_font_weight: '500',
     heading_font_size_desktop: 16, heading_font_size_mobile: 14, aria_label: 'Shop by product', container: 'page', alignment: 'start', mobile_behavior: 'scroll',
     gap_heading_pills: 8, gap_pills: 10, gap_pills_mobile: 8,
-    pill_font_family: 'Assistant', pill_font_weight: '600', pill_font_size_desktop: 14, pill_font_size_mobile: 11, pill_letter_spacing: 0,
+    pill_font_family: 'Assistant', pill_font_weight: '600', pill_font_size_desktop: 14, pill_font_size_mobile: 12, pill_letter_spacing: 0,
     pill_style: 'outline', pill_size: 'md', pill_padding_x: 16, pill_padding_y: 10, pill_radius: 100, pill_border_width: 1, icon_size: 12, gap_icon_label: 5, active_style: 'tinted',
     bg_color: '#ffffff', heading_color: '#3a475c', pill_bg_color: '#ffffff', pill_border_color: '#e5e9f2', pill_text_color: '#3a475c',
     pill_hover_bg_color: '#f4f6fb', pill_hover_border_color: '#3b47d1', pill_hover_text_color: '#3b47d1',

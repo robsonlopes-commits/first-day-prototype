@@ -163,13 +163,13 @@
 
     .PBFCM-PDP-frequency-selector--configurable .PBFCM-PDP-frequency-selector__label-badge {
       padding: 6px 8px;
-      font-size: 10px;
+      font-size: 12px;
     }
 
 
     .PBFCM-PDP-frequency-selector--configurable .PBFCM-PDP-frequency-selector__alternate-corner-badge {
       padding: 8px 12px;
-      font-size: 10px;
+      font-size: 12px;
       border-radius: 0 0 0 12px;
     }
 

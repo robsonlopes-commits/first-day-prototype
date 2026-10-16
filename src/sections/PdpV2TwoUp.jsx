@@ -43,11 +43,21 @@ function Media({ s }) {
   // (mouse, touch and keyboard); the position is written to the DOM directly so dragging never re-renders React.
   const before = settingImg(s.image_before);
   const mediaRef = useRef(null);
-  const onCompare = (e) => {
-    const v = Number(e.target.value);
+  const setComparePos = (v) => {
     const el = mediaRef.current;
     el.style.setProperty('--ptu-compare-pos', `${v}%`);
     el.dataset.compare = v < 22 ? 'min' : v > 78 ? 'max' : '';
+  };
+  const onCompare = (e) => setComparePos(Number(e.target.value));
+  // phones and touch screens: the photo must stay scrollable, so only the round knob drags (the range input ignores touches there, see
+  // bundle.css). The knob follows the finger through pointer capture and keeps the hidden range in sync for keyboard use.
+  const rangeRef = useRef(null);
+  const dragKnob = (e) => {
+    if (e.type === 'pointermove' && !e.currentTarget.hasPointerCapture(e.pointerId)) return;
+    const r = mediaRef.current.getBoundingClientRect();
+    const v = Math.round(Math.min(100, Math.max(0, ((e.clientX - r.left) / r.width) * 100)));
+    if (rangeRef.current) rangeRef.current.value = v;
+    setComparePos(v);
   };
   return (
     <div ref={mediaRef} className={`pdp-v2-two-up__media${ready ? ' is-video-ready' : ''}${before ? ' has-compare' : ''}`}>
@@ -59,10 +69,10 @@ function Media({ s }) {
           <img className="pdp-v2-two-up__image pdp-v2-two-up__image--before" src={before} alt="" aria-hidden="true" loading="lazy" draggable="false" />
           <span className="ptu-compare__label ptu-compare__label--before">{s.compare_before_label || 'Without First Day'}</span>
           <span className="ptu-compare__label ptu-compare__label--after">{s.compare_after_label || 'With First Day'}</span>
-          <input className="ptu-compare__range" type="range" min="0" max="100" step="1" defaultValue="50" onInput={onCompare} onChange={onCompare}
+          <input ref={rangeRef} className="ptu-compare__range" type="range" min="0" max="100" step="1" defaultValue="50" onInput={onCompare} onChange={onCompare}
             aria-label={`${s.compare_before_label || 'Without First Day'} / ${s.compare_after_label || 'With First Day'}: drag to compare`} />
           <span className="ptu-compare__line" aria-hidden="true">
-            <span className="ptu-compare__knob">
+            <span className="ptu-compare__knob" onPointerDown={(e) => { e.currentTarget.setPointerCapture(e.pointerId); }} onPointerMove={dragKnob} onPointerUp={(e) => e.currentTarget.releasePointerCapture?.(e.pointerId)}>
               <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M9.5 7L4.5 12l5 5M14.5 7l5 5-5 5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" /></svg>
             </span>
           </span>
@@ -159,7 +169,7 @@ export default function PdpV2TwoUp({ id, settings: s, blocks = [], custom_css })
   const jumpTo = (e, href) => {
     if (href && href.startsWith('#')) {
       const el = document.querySelector(href);
-      if (el) { e.preventDefault(); el.scrollIntoView({ behavior: 'smooth' }); }
+      if (el) { e.preventDefault(); if (el.tagName === 'DETAILS') el.open = true; el.scrollIntoView({ behavior: 'smooth' }); } // a link to a collapse opens it
     }
   };
   const jump = (e) => jumpTo(e, s.cta_url);
@@ -206,6 +216,8 @@ export default function PdpV2TwoUp({ id, settings: s, blocks = [], custom_css })
                         ) : (
                           <span className="pdp-v2-two-up__highlight-text">{b.settings.text}</span>
                         )}
+                        {/* optional (All-in-1 exploration): the science behind the solution, full width under the row */}
+                        {b.settings.detail ? <div className="pdp-v2-two-up__highlight-detail" dangerouslySetInnerHTML={{ __html: b.settings.detail }} /> : null}
                       </li>
                     ))}
                   </ul>

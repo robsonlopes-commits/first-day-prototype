@@ -117,7 +117,7 @@ export const CROSSLINKS = {
 // custom-liquid section 'custom_liquid_aiATrm' (footnotes under the page); custom_css is scoped to the section
 export const CUSTOM_LIQUID_PDP_NEW = {
   id: 'template--19276846825570__custom_liquid_aiATrm',
-  customCss: ['p {font-size: 8px; text-align: center;}'],
+  customCss: ['p {font-size: 12px; text-align: center;}'],
   settings: {
     anchor_id: '', full_width: false, show_divider: false, padding_top: 20, padding_bottom: 0,
     custom_liquid: "<p><sup>1</sup>\nWe offer a 45-day satisfaction guarantee for returns. It covers 45 days starting from the day that you place an order and includes only the very first purchase of any product so that families can try our gummies - for any reason you aren't happy with your vitamins. Please note that we will refund up to $100 so that you can try up to 3 bottles of our gummies risk free. If you would like to order more than 3 bottles in your first order, we recommend that you ordering less so that your family can try them first. Thanks so much for your understanding!\n</p>\n<p> Packaging May Vary. </p>\n<p>** Compared with: Flintstones Vitamins Chewable Kids Vitamins; Nordic Naturals Nordic Berries; SmartyPants Kids Formula\n</p>",

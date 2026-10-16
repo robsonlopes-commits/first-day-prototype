@@ -1329,7 +1329,7 @@ export const TEMPLATE = {
    "badge_bg_color": "#c8a96e",
    "badge_text_color": "#ffffff",
    "badge_size": 96,
-   "badge_font_size": 11,
+   "badge_font_size": 12,
    "badge_number_font_size": 22,
    "badge_radius": 12,
    "badge_gap": 10,

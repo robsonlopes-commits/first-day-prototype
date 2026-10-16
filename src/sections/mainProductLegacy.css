@@ -543,7 +543,7 @@ max-width:80%;
   .starDiv {
     margin-left: 0px;
     margin-top: 6px;
-    font-size: 9px;
+    font-size: 12px;
     color: #F9C933;
   }
 
@@ -567,11 +567,11 @@ max-width:80%;
     }
   .iconDiv {
     margin-top: 28px;
-    font-size: 9px;
+    font-size: 12px;
   }
   .iconHighlights {
     margin-top: 24px;
-    font-size: 9px;
+    font-size: 12px;
   }
   .iconText {
     font-weight: 500;
@@ -905,16 +905,16 @@ max-width:80%;
 .iconDiv {
   margin-left: 5px;
   margin-top: 28px;
-  font-size: 9px;
+  font-size: 12px;
 }
 .iconDiv2 {
   margin-top: 14px;
-  font-size: 9px;
+  font-size: 12px;
 display:flex;
 }
 .iconHighlights {
   margin-top: 24px;
-  font-size: 9px;
+  font-size: 12px;
 }
 .iconText {
   margin-left:5px;
@@ -3932,13 +3932,13 @@ Bottom:150px;
 
     .PBFCM-PDP-frequency-selector--configurable .PBFCM-PDP-frequency-selector__label-badge {
       padding: 6px 8px;
-      font-size: 10px;
+      font-size: 12px;
     }
 
 
     .PBFCM-PDP-frequency-selector--configurable .PBFCM-PDP-frequency-selector__alternate-corner-badge {
       padding: 8px 12px;
-      font-size: 10px;
+      font-size: 12px;
       border-radius: 0 0 0 12px;
     }
 
