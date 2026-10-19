@@ -1,3 +1,4 @@
+import AddStepper from './AddStepper.jsx';
 import { useMemo, useState } from 'react';
 import Img from '../../../components/Img.jsx';
 import FdInfoModal from '../../../components/FdInfoModal.jsx';
@@ -75,8 +76,47 @@ function Vanity({ demo }) {
   );
 }
 
+// "What's Inside" rows: only one open at a time, opening and closing are animated (height and a soft fade, 260 ms). The click on the summary is
+// intercepted so the native details can stay open while it plays; without motion preference (reduced motion) it toggles instantly.
+const EASE = 'cubic-bezier(0.2, 0.7, 0.2, 1)';
+function setOpen(d, open) {
+  const box = d.querySelector('.pdp-benefit-accordion-stats__content');
+  d._anim?.cancel();
+  const still = !box || window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (open) {
+    d.setAttribute('open', '');
+    if (still) return;
+    const h = box.getBoundingClientRect().height;
+    box.style.overflow = 'hidden';
+    d._anim = box.animate([{ height: '0px', opacity: 0 }, { height: `${h}px`, opacity: 1 }], { duration: 260, easing: EASE });
+    d._anim.onfinish = d._anim.oncancel = () => { box.style.overflow = ''; d._anim = null; };
+  } else {
+    if (still) { d.removeAttribute('open'); return; }
+    const h = box.getBoundingClientRect().height;
+    box.style.overflow = 'hidden';
+    d._anim = box.animate([{ height: `${h}px`, opacity: 1 }, { height: '0px', opacity: 0 }], { duration: 220, easing: EASE });
+    d._anim.onfinish = () => { d.removeAttribute('open'); box.style.overflow = ''; d._anim = null; };
+    d._anim.oncancel = () => { box.style.overflow = ''; };
+  }
+}
+// rows opened from code (the Learn More buttons set open on the details) also close their siblings, without animation
+const closeOthers = (e) => {
+  const d = e.currentTarget;
+  if (!d.open) return;
+  d.closest('.pdp-benefit-accordion-stats__items')?.querySelectorAll(':scope > details[open]').forEach((o) => { if (o !== d && !o._anim) o.removeAttribute('open'); });
+};
+const toggleRow = (e) => {
+  e.preventDefault();
+  const d = e.currentTarget.parentElement;
+  const opening = !d.open || d._anim; // a row that is closing can be reopened
+  if (opening && !(d.open && !d._anim)) {
+    d.closest('.pdp-benefit-accordion-stats__items')?.querySelectorAll(':scope > details[open]').forEach((o) => { if (o !== d) setOpen(o, false); });
+    setOpen(d, true);
+  } else setOpen(d, false);
+};
+
 // "What's inside": benefit_accordion_stats rows. icon circle = the bottle, tile = discount inside the bundle, text = product blurb + price line + Add.
-function WhatsInside({ demo, monthly, onAddItem }) {
+function WhatsInside({ demo, monthly, onAddItem, onDecItem, itemQty }) {
   return (
     <div className="pdp-benefit-accordion-stats aio-inside" style={BAS_VARS}>
       <div className="PBFCM-PDP-quantity-selector__header"><h2 className="PBFCM-PDP-quantity-selector__title">{"What's Inside"}</h2></div>
@@ -84,8 +124,8 @@ function WhatsInside({ demo, monthly, onAddItem }) {
         {demo.items.map((it, i) => {
           const inBundle = monthly ? it.inBundleMonthly : it.inBundleOneTime;
           return (
-            <details key={`${demo.id}-${it.key}`} id={`aio-inside-${it.key}`} className="pdp-benefit-accordion-stats__item">
-              <summary className="pdp-benefit-accordion-stats__summary">
+            <details key={`${demo.id}-${it.key}`} id={`aio-inside-${it.key}`} onToggle={closeOthers} className="pdp-benefit-accordion-stats__item">
+              <summary className="pdp-benefit-accordion-stats__summary" onClick={toggleRow}>
                 <span className="pdp-benefit-accordion-stats__summary-left">
                   <span className="pdp-benefit-accordion-stats__icon"><Img src={it.image} alt="" loading="lazy" /></span>
                   <span className="pdp-benefit-accordion-stats__heading"><span className="aio-role">{it.label}</span> {it.title}</span>
@@ -108,17 +148,15 @@ function WhatsInside({ demo, monthly, onAddItem }) {
                       <span className="aio-compare-prices__save">Save {money(it.individual - inBundle)}</span>
                     </div>
                   </div>
-                  <button type="button" className="fd-btn fd-btn--small fd-btn--secondary fd-btn-shape--pill aio-add-one" onClick={() => onAddItem(it)} aria-label={`Add ${it.title} on its own for ${money(it.individual)}`}>
-                    <span className="fd-btn-text">Add Individually</span>
-                  </button>
+                  <AddStepper className="aio-add-one" qty={itemQty(it)} label={it.title} onAdd={() => onAddItem(it)} onDec={() => onDecItem(it)} />
                 </div>
               </div>
             </details>
           );
         })}
         {/* fifth row: the four free gifts, shown only when it is opened */}
-        <details id="aio-inside-gifts" className="pdp-benefit-accordion-stats__item">
-          <summary className="pdp-benefit-accordion-stats__summary">
+        <details id="aio-inside-gifts" onToggle={closeOthers} className="pdp-benefit-accordion-stats__item">
+          <summary className="pdp-benefit-accordion-stats__summary" onClick={toggleRow}>
             <span className="pdp-benefit-accordion-stats__summary-left">
               <span className="aio-sparkle-wrap" aria-hidden="true">
                 <span className="pdp-benefit-accordion-stats__icon aio-gift-icon" aria-hidden="true">
@@ -273,7 +311,7 @@ function Purchase({ demo, frequency, onFrequencyChange, onAddBundle }) {
   );
 }
 
-export default function BundleMainProduct({ demo, demoId, onDemoChange, frequency, onFrequencyChange, onAddBundle, onAddItem }) {
+export default function BundleMainProduct({ demo, demoId, onDemoChange, frequency, onFrequencyChange, onAddBundle, onAddItem, onDecItem, itemQty }) {
   const monthly = frequency === 'monthly';
   // first slide: emotional photo with the four bottles (AI mockup), then one benefit infographic per bottle (AI mockups, same
   // style as the PDP carousel infographics). Files: public/assets/custom/aio-buybox-<demo>.jpg and aio-info-<demo>-<role>.jpg
@@ -296,7 +334,7 @@ export default function BundleMainProduct({ demo, demoId, onDemoChange, frequenc
               <div className="pdp-benefit-accordion-stats aio-intro" style={BAS_VARS}>
                 <div className="pdp-benefit-accordion-stats__intro rte"><div className="metafield-rich_text_field" dangerouslySetInnerHTML={{ __html: demo.intro }} /></div>
               </div>
-              <WhatsInside demo={demo} monthly={monthly} onAddItem={onAddItem} />
+              <WhatsInside demo={demo} monthly={monthly} onAddItem={onAddItem} onDecItem={onDecItem} itemQty={itemQty} />
               <Purchase demo={demo} frequency={frequency} onFrequencyChange={onFrequencyChange} onAddBundle={onAddBundle} />
               <div className="product__custom-liquid">
                 <div className="usprow">

@@ -20,17 +20,17 @@ const img = (demoId, slot) => customImg(`aio-${demoId}-${slot}.jpg`);
 /* ---------- 1. hero: TempReploHero (BTS landing hero, creator quote block on Kids) ---------- */
 const HERO = {
   kids: {
-    headline: 'Dinner Should Not Feel Like A Negotiation. [You Are Not Doing It Wrong.]',
+    headline: 'Picky Eaters Need All The Support They Can Get. [Meet The All-in-1 Bundle.]',
     description: '<p>Picky eating is hard on everyone at the table. You offer the broccoli. They push the plate away. You stay calm and try again tomorrow.</p><p>It can feel like a phase. Sometimes it is a nutrient gap, and the plate is only part of the story. Our four hero gummies give you one simple daily routine for nutrition, gut, focus and sleep.</p>',
     alt: 'A young child pushes away a plate of broccoli and rice while a parent sits patiently beside them.',
   },
   teens: {
-    headline: "Their Friends Keep Growing. [Make Sure Nutrition Isn't Holding Them Back.]",
+    headline: 'A Growing Teen Needs More Than One Vitamin. [Give Them All The Support They Can Get In One Bundle.]',
     description: '<p>Every parent notices when their teen looks smaller than their friends, even if nobody says it out loud. Growth plates are open during the teen years, creating the areas where new bone is formed, but they do not stay open forever.</p><p>Vitamin D3 and Vitamin K2 work together to support bone development.* Our four hero gummies give your teen one simple daily routine for nutrition, gut, focus and sleep.</p>',
     alt: '',
   },
   toddlers: {
-    headline: 'Is It Just A Phase? [Or Could It Be A Nutrient Gap?]',
+    headline: 'Meltdowns, Late Words, Picky Plates. [Your Toddler Needs All The Support They Can Get.]',
     description: '<p>The meltdown out of nowhere. The words that are slow to come. The plate with only three foods on it. Every parent of a toddler has been told it is just a phase.</p><p>Sometimes there is a nutrient gap behind it. Our two hero gummies give your toddler one simple daily routine for nutrition and gut health, made for ages 2 to 3.</p>',
     alt: 'A father kneels on the kitchen floor and comforts his crying toddler daughter.',
   },
@@ -53,7 +53,7 @@ export function heroProps(demo) {
     id: 'aio_story_hero',
     settings: {
       ...heroSec.settings, custom_css: heroSec.custom_css || [],
-      headline: h.headline, description: h.description, cta_text: 'Meet Our All-in-1 Solution', fd_button: true, cta_url: BUY_BOX_SECTION,
+      headline: h.headline, description: h.description, cta_text: 'Meet Our Holistic Solution', fd_button: true, cta_url: BUY_BOX_SECTION,
       stars_text: LANDING.kde.hero.starsText, // production: "4.8 stars from 12,322+ reviewers"
       hero_image: img(demo.id, 'hero'), hero_image_mobile: img(demo.id, 'hero'), hero_image_alt: h.alt, mobile_image_full_width: true,
       headline_font_family: "'sofia-pro', sans-serif", headline_font_weight: 500, headline_font_size_desktop: 40, headline_font_size_mobile: 30,

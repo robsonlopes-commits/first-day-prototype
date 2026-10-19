@@ -1,3 +1,4 @@
+import AddStepper from './AddStepper.jsx';
 import Img from '../../../components/Img.jsx';
 import { money } from '../../../data/allInOneBundle.js';
 import '../../../styles/theme/fd-button.css';
@@ -6,7 +7,7 @@ import './bundle.css';
 // Price comparison of each product on its own versus in the bundle. No title of its own: it continues the Four Jobs section
 // right above it. Same visual language as Four Jobs and the buy box: bottle in a light blue disc, purple role chip, purple tinted
 // "In the bundle" column, green savings, pill buttons (one per product to add it on its own, one big pill for the bundle).
-export default function BundleCompare({ demo, onAddBundle, onAddItem }) {
+export default function BundleCompare({ demo, onAddBundle, onAddItem, onDecItem, itemQty }) {
   const { totals } = demo;
   const save = totals.individual - totals.monthly;
   return (
@@ -42,9 +43,7 @@ export default function BundleCompare({ demo, onAddBundle, onAddItem }) {
                 </div>
               </div>
               <span className="aio-compare__action" role="cell">
-                <button type="button" className="fd-btn fd-btn--small fd-btn--secondary fd-btn-shape--pill" onClick={() => onAddItem(it)} aria-label={`Add ${it.title} on its own for ${money(it.individual)}`}>
-                  <span className="fd-btn-text">Add Individually</span>
-                </button>
+                <AddStepper qty={itemQty(it)} label={it.title} onAdd={() => onAddItem(it)} onDec={() => onDecItem(it)} />
               </span>
             </div>
           ))}

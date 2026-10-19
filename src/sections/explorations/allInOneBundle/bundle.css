@@ -720,3 +720,18 @@ body.all-in-1-bundle, .aio-page { background: var(--color-surface-white); }
   85% { opacity: 0; transform: scale(0.2) rotate(120deg); }
 }
 @media (prefers-reduced-motion: reduce) { .aio-spark { animation: none; opacity: 0.9; transform: scale(0.85); } }
+
+/* story hero headline: the strings are already Title Case, so no automatic capitalization (it turned "All-in-1" into "All-In-1") */
+#shopify-section-aio_story_hero .v1-hero-headline,
+#shopify-section-aio_story_hero .v1-hero-headline * { text-transform: none; }
+
+
+/* add individually: the "Add +" / "- 1 +" control of the bundle builder (/pages/bundle-quiz). The wrapper toggles which of the two shows */
+.aio-addstepper { --fd-bb-blue: #476ded; display: inline-flex; align-items: center; }
+.aio-addstepper.is-selected .fd-build-box-popup__add { display: none; }
+.aio-addstepper.is-selected .fd-build-box-popup__stepper { display: flex; }
+.aio-compare__action .aio-addstepper { justify-content: flex-end; }
+@media (max-width: 749px) { .aio-compare__action .aio-addstepper { width: 100%; justify-content: center; } }
+
+/* what's inside rows: the information area under the summary is #fafafa (the item keeps its white summary, the radius clips the fill) */
+.aio-inside .pdp-benefit-accordion-stats__content { background: #fafafa; }

@@ -25,7 +25,7 @@ import '../../sections/explorations/allInOneBundle/bundle.css';
 // Layout: [0] emotional storytelling above the buy box (new)  [A] buy box (new PDP buy box, reused)  [B] storytelling (existing sections, new content in src/data/allInOneStory.js)  [C] proof + FAQ.
 export default function AllInOneBundle() {
   usePageClass('template-product all-in-1-bundle');
-  const { addLine, openCart } = useCart();
+  const { addLine, openCart, lines, changeQty, removeLine } = useCart();
   const initial = new URLSearchParams(window.location.search).get('demo');
   const [demoId, setDemoId] = useState(DEMOS.some((d) => d.id === initial) ? initial : 'kids');
   const [frequency, setFrequency] = useState('monthly');
@@ -49,11 +49,14 @@ export default function AllInOneBundle() {
     );
     openCart();
   };
-  // one product on its own: individual price (30% off), higher than its price inside the bundle
+  // one product on its own: individual price (30% off), higher than its price inside the bundle. Each line has its own cart key so the
+  // "Add +" / stepper next to the item reads and changes exactly that line (no cart drawer pop up on every click: the header cart shows the count).
+  const itemKey = (it) => `aio-one-${it.handle}:${monthly ? 'sub' : 'otp'}`;
+  const itemQty = (it) => lines.find((l) => l.key === itemKey(it))?.qty || 0;
   const addItem = (it) => {
-    addLine({ handle: it.handle, title: it.title, image: it.image, price: cents(it.individual) }, monthly, { price: cents(it.individual), compare: cents(it.base) });
-    openCart();
+    addLine({ handle: it.handle, title: it.title, image: it.image, price: cents(it.individual) }, monthly, { key: itemKey(it), price: cents(it.individual), compare: cents(it.base) });
   };
+  const decItem = (it) => (itemQty(it) > 1 ? changeQty(itemKey(it), -1) : removeLine(itemKey(it)));
 
   return (
     <div className="aio-page">
@@ -63,9 +66,9 @@ export default function AllInOneBundle() {
       <TimelineSection key={`sd-${demoId}`} {...dayHeadingProps(demo)} />
       {dayChapters(demo).map((c) => <PdpV2TwoUp key={`${c.id}`} {...c} />)}
       <AccordionBlock key={`sp-${demoId}`} {...plateProps(demo)} />
-      <BundleMainProduct demo={demo} demoId={demoId} onDemoChange={changeDemo} frequency={frequency} onFrequencyChange={setFrequency} onAddBundle={addBundle} onAddItem={addItem} />
+      <BundleMainProduct demo={demo} demoId={demoId} onDemoChange={changeDemo} frequency={frequency} onFrequencyChange={setFrequency} onAddBundle={addBundle} onAddItem={addItem} onDecItem={decItem} itemQty={itemQty} />
       <FdBrandNarrative key={`j-${demoId}`} {...fourJobsProps(demo)} />
-      <BundleCompare demo={demo} onAddBundle={addBundle} onAddItem={addItem} />
+      <BundleCompare demo={demo} onAddBundle={addBundle} onAddItem={addItem} onDecItem={decItem} itemQty={itemQty} />
       <PdpV2TwoUp key={`w-${demoId}`} {...whyFourProps(demoId)} />
       <TempScienceModule key={`s-${demoId}`} {...scienceProps(demo)} />
       <TimelineSection key={`t-${demoId}`} {...timelineProps(demo)} />
