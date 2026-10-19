@@ -35,6 +35,7 @@ export default function BundleCompare({ demo, onAddBundle, onAddItem, onDecItem,
                 <div className="aio-compare-prices__tile">
                   <span className="aio-compare-prices__label">On its own</span>
                   <span className="aio-compare-prices__price"><s>{money(it.base)}</s> {money(it.individual)}</span>
+                  <AddStepper className="aio-in-tile" qty={itemQty(it)} label={it.title} onAdd={() => onAddItem(it)} onDec={() => onDecItem(it)} />
                 </div>
                 <div className="aio-compare-prices__tile aio-compare-prices__tile--bundle">
                   <span className="aio-compare-prices__label">In the bundle</span>

@@ -735,3 +735,18 @@ body.all-in-1-bundle, .aio-page { background: var(--color-surface-white); }
 
 /* what's inside rows: the information area under the summary is #fafafa (the item keeps its white summary, the radius clips the fill) */
 .aio-inside .pdp-benefit-accordion-stats__content { background: #fafafa; }
+
+/* story hero video on mobile: the Kids and Toddlers videos are 16:9 and the component forces a 1:1 box with object-fit contain, which left white bars
+   above and below. They now fill the 1:1 frame (the sides are cropped, center crop). The Teens video (the square TDK one) is unaffected. */
+@media (max-width: 749px) {
+  #shopify-section-aio_story_hero video.v1-hero-image--mobile-auto:has(source[src*="/assets/custom/aio-"]) { aspect-ratio: 1 / 1 !important; object-fit: cover !important; width: 100%; height: auto; }
+}
+
+
+/* compare table, mobile: the Add + / stepper lives inside the "On its own" tile (the empty space under the price), not in a separate row below.
+   On desktop the tiles are hidden and the stepper stays in the last column. */
+.aio-compare .aio-in-tile { display: none; }
+@media (max-width: 749px) {
+  .aio-compare .aio-in-tile { display: inline-flex; margin-top: auto; padding-top: 8px; align-self: flex-start; }
+  .aio-compare__row:not(.aio-compare__row--total) .aio-compare__action { display: none; }
+}
