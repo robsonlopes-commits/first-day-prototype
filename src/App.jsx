@@ -10,6 +10,7 @@ const LandingBTS = lazy(() => import('./pages/LandingBTS.jsx'));
 const BundleBuilderV2 = lazy(() => import('./pages/BundleBuilderV2.jsx'));
 const BundleQuiz = lazy(() => import('./pages/BundleQuiz.jsx'));
 const AllInOneBundle = lazy(() => import('./pages/explorations/AllInOneBundle.jsx'));
+const BundleAddOn = lazy(() => import('./pages/explorations/BundleAddOn.jsx'));
 const ProductRedirect = lazy(() => import('./pages/ProductRedirect.jsx'));
 const Sale = lazy(() => import('./pages/Sale.jsx'));
 const SharedPreview = lazy(() => import('./pages/SharedPreview.jsx'));
@@ -36,6 +37,7 @@ export default function App() {
                   <Route path="/pages/bundle-builder-v2" element={<BundleBuilderV2 />} />
                   <Route path="/pages/bundle-quiz" element={<BundleQuiz />} />
                   <Route path="/explorations/all-in-1-bundle" element={<AllInOneBundle />} />
+                  <Route path="/explorations/bundle-add-on" element={<BundleAddOn />} />
                   <Route path="/pages/sale" element={<Sale />} />
                 </Routes>
               </Suspense>

@@ -10,6 +10,7 @@ const routes = [
   ['/pages/bundle-builder-v2', 'Bundle builder v2 (quiz)', 'page.lp-bundle-v2'],
   ['/pages/bundle-quiz', 'Bundle quiz', 'page.lp-bundle-v3'],
   ['/explorations/all-in-1-bundle', 'EXPLORATION: All-in-1 Bundle', 'new concept (not in production)'],
+  ['/explorations/bundle-add-on', 'EXPLORATION: Bundle Add-on (new add-on modal on the kids Behind the Science LP)', 'duplicate of page.lp-BTS-master, exploration only'],
   ['/pages/sale', 'Sale', 'page.bfcm-categories'],
 ];
 export default function PrototypeIndex() {

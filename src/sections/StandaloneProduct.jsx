@@ -253,7 +253,7 @@ function SeeIngredients({ product }) {
 }
 
 /* product_purchase_content + the buy_box_frequency_option blocks + savings_display (PBFCM-PDP-controller.js behaviour) */
-function PurchaseContent({ block, freqBlocks, savings, product, sid }) {
+function PurchaseContent({ block, freqBlocks, savings, product, sid, onBeforeAdd }) {
   const p = block.settings;
   const cart = useCart();
   const [freq, setFreq] = useState(Math.max(0, freqBlocks.findIndex((b) => b.settings.expanded_by_default)));
@@ -271,9 +271,15 @@ function PurchaseContent({ block, freqBlocks, savings, product, sid }) {
 
   const addToCart = () => {
     const line = { handle: product.handle, title: product.title, image: shopImg(product.gallery[1][0]), price: product.price * 100 };
-    cart.addLine(line, monthly);
-    if (qty > 1) cart.changeQty(`${product.handle}:${monthly ? 'sub' : 'otp'}`, qty - 1);
-    cart.openCart();
+    // commit adds the product to the (mock) cart; options.keepCartClosed lets a caller add more lines first and open the cart itself
+    const commit = (options = {}) => {
+      cart.addLine(line, monthly);
+      if (qty > 1) cart.changeQty(`${product.handle}:${monthly ? 'sub' : 'otp'}`, qty - 1);
+      if (!options.keepCartClosed) cart.openCart();
+    };
+    // opt-in (explorations): onBeforeAdd intercepts the click, for example to show an add-on modal before the cart
+    if (onBeforeAdd) onBeforeAdd({ product, qty, monthly, subtotalCents: Math.round(total * 100), commit });
+    else commit();
   };
   const onQtyKey = (e) => {
     const k = e.key;
@@ -400,7 +406,7 @@ function CollapsibleTab({ s, product }) {
   );
 }
 
-export default function StandaloneProduct({ id, settings: s, blocks = [], product, templateSuffix }) {
+export default function StandaloneProduct({ id, settings: s, blocks = [], product, templateSuffix, onBeforeAdd }) {
   const sid = id;
   const active = blocks.filter((b) => !b.disabled);
   const cart = useCart();
@@ -420,7 +426,7 @@ export default function StandaloneProduct({ id, settings: s, blocks = [], produc
       case 'title': return <Title key={b.id} s={b.settings} product={product} hasBuildBox={!!bb} />;
       case 'benefit_accordion_stats': return <BenefitAccordion key={b.id} s={b.settings} product={product} />;
       case 'see_ingredients': return <SeeIngredients key={b.id} product={product} />;
-      case 'product_purchase_content': return <PurchaseContent key={b.id} block={b} freqBlocks={freqBlocks} savings={savings} product={product} sid={sid} />;
+      case 'product_purchase_content': return <PurchaseContent key={b.id} block={b} freqBlocks={freqBlocks} savings={savings} product={product} sid={sid} onBeforeAdd={onBeforeAdd} />;
       case 'custom_liquid': return (
         <div key={b.id} className="product__custom-liquid">
           <div className="usprow">{product.usp.map((u) => <div key={u.alt} className="usp"><img src={`https://cdn.shopify.com/s/files/1/0028/0533/4131/files/${u.src}`} alt={u.alt} /></div>)}</div>

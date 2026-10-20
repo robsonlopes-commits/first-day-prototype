@@ -35,7 +35,8 @@ const RemoveIcon = () => (
 );
 
 /* ---------- gift progress (snippets/PBFCM-minicart-gift-progress, tiered "ab" layout, single tier) ---------- */
-function GiftProgress({ total }) {
+/* v1: the cart keeps this one. The v2 (src/components/GiftProgressV2.jsx) is used by the add-on modal of the Bundle Add-on exploration. */
+export function GiftProgressV1({ total }) {
   const unlocked = total >= GIFT.threshold;
   const [expanded, setExpanded] = useState(false);
   useEffect(() => { if (unlocked) setExpanded(true); }, [unlocked]);
@@ -406,7 +407,7 @@ export default function CartDrawer() {
 
           <div className="firstday-cart__flyout-body">
             <div className={`firstday-cart__flyout-content${empty ? '' : ' has-items'}`}>
-              <GiftProgress key={scenario} total={total} />
+              <GiftProgressV1 key={scenario} total={total} />
 
               {empty && (
                 <div className="firstday-cart__flyout-placeholder-container">
