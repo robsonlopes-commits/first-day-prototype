@@ -16,6 +16,14 @@ const LOCK_SVG = '<svg width="36" height="36" viewBox="0 0 36 36" fill="none" ar
 const CHECK_SVG = '<svg class="fd-build-box__check-icon" width="24" height="24" viewBox="0 0 20 20" fill="none" aria-hidden="true"><circle cx="10" cy="10" r="10" fill="#fff"/><path fill-rule="evenodd" clip-rule="evenodd" d="M10 0C15.5228 0 20 4.47715 20 10C20 15.5228 15.5228 20 10 20C4.47715 20 0 15.5228 0 10C0 4.47715 4.47715 0 10 0ZM14.3652 5.95378C14.1224 5.95214 13.8885 6.04511 13.7126 6.21256C13.7037 6.22126 13.696 6.23061 13.6882 6.24023L9.34733 11.7708L6.73014 9.15527C6.64432 9.06316 6.54078 8.98841 6.42578 8.93717C6.31099 8.88605 6.18684 8.85971 6.0612 8.85742C5.93552 8.8552 5.80994 8.87715 5.69336 8.92415C5.57662 8.9713 5.46988 9.04184 5.38086 9.13086C5.29184 9.21988 5.2213 9.32662 5.17415 9.44336C5.12715 9.55994 5.1052 9.68552 5.10742 9.8112C5.10971 9.93684 5.13605 10.061 5.18717 10.1758C5.23841 10.2908 5.31316 10.3943 5.40527 10.4801L8.71256 13.7874C8.80169 13.8766 8.90818 13.947 9.02506 13.9941C9.14185 14.0412 9.26701 14.0648 9.3929 14.0625C9.5186 14.0602 9.64267 14.0323 9.75749 13.9811C9.8723 13.9298 9.9762 13.8551 10.0618 13.763L15.0505 7.52441C15.2144 7.3453 15.3026 7.1096 15.2962 6.86686C15.2898 6.62399 15.1896 6.39258 15.0163 6.22233C14.8427 6.05205 14.6083 5.95562 14.3652 5.95378Z" fill="#078942"/></svg>';
 export const PLUS_SVG = '<svg class="fd-build-box-popup__add-icon" width="14" height="14" viewBox="0 0 11.4389 11.4389" fill="none" aria-hidden="true"><path d="M5.71973 0.25C6.04805 0.250146 6.31445 0.516373 6.31445 0.844727V5.125H10.5947C10.923 5.12526 11.1885 5.39144 11.1885 5.71973C11.1883 6.04784 10.9229 6.3142 10.5947 6.31445H6.31445V10.5947C6.31418 10.9228 6.04791 11.1883 5.71973 11.1885C5.39142 11.1885 5.12528 10.9229 5.125 10.5947V6.31445H0.844727C0.516351 6.31445 0.250166 6.04799 0.25 5.71973L0.261719 5.59961C0.317136 5.32858 0.557311 5.125 0.844727 5.125H5.125V0.844727C5.125 0.516283 5.39128 0.25 5.71973 0.25Z" fill="currentColor" stroke="currentColor" stroke-width="0.5" stroke-linecap="round"/></svg>';
 export const MINUS_SVG = '<svg class="fd-build-box-popup__step-icon" width="14" height="14" viewBox="0 0 11.4389 1.68933" fill="none" aria-hidden="true"><path d="M10.5947 0.25C10.923 0.250258 11.1885 0.516442 11.1885 0.844727C11.1884 1.17293 10.923 1.4392 10.5947 1.43945H0.844727C0.516282 1.43945 0.250054 1.17309 0.25 0.844727C0.25 0.516283 0.516283 0.25 0.844727 0.25H10.5947Z" fill="currentColor" stroke="currentColor" stroke-width="0.5" stroke-linecap="round"/></svg>';
+// opt-in (explorations): the AI sparkles icon of the info card of a quiz added item
+const AI_SVG = '<svg class="fd-build-box-popup__card-ai-icon" width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M9.5 3l1.6 4.4L15.5 9l-4.4 1.6L9.5 15l-1.6-4.4L3.5 9l4.4-1.6L9.5 3z"/><path d="M18 12l.9 2.4 2.4.9-2.4.9L18 18.6l-.9-2.4-2.4-.9 2.4-.9L18 12z"/><path d="M17 3l.6 1.6 1.6.6-1.6.6L17 7.4l-.6-1.6-1.6-.6 1.6-.6L17 3z"/></svg>';
+const pinFirst = (products, pinned) => { // stable: the pinned ones first in the order given, the rest keep the catalog order
+  if (!pinned || !pinned.length) return products;
+  const rank = (p) => { const i = pinned.indexOf(String(p.variantId)); return i === -1 ? pinned.length : i; };
+  return products.map((p, i) => ({ p, i })).sort((a, b) => rank(a.p) - rank(b.p) || a.i - b.i).map((x) => x.p);
+};
+const noteOf = (notes, id) => (notes && notes[id]) || undefined;
 const INFO_SVG = '<svg class="fd-build-box-popup__card-info-icon" width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><circle cx="8" cy="8" r="8" fill="#2C3D50"/><circle cx="8" cy="5.1" r="1.05" fill="#fff"/><rect x="7.15" y="7.05" width="1.7" height="5.2" rx="0.85" fill="#fff"/></svg>';
 export const Raw = ({ html, as: Tag = 'span', ...rest }) => <Tag {...rest} dangerouslySetInnerHTML={{ __html: html }} />;
 
@@ -39,8 +47,19 @@ const giftPriceText = (g) => { const raw = g.price != null && g.price !== '' ? S
 const giftName = (g) => g.displayName || g.label || 'Gift';
 
 /* ---------- state: the shared group store + popup UI ---------- */
+// opt-in (explorations): start with items already in the box, { qty: { variantId: n }, subscribe }. The pack grows to hold them, like setQty does.
+function initialBuildState(model, initial) {
+  const base = { dealId: null, subscribe: true, qty: {} };
+  if (!initial || !initial.qty || !model) return base;
+  const qty = { ...initial.qty };
+  const total = Object.values(qty).reduce((t, v) => t + (Number(v) || 0), 0);
+  const active = model.deals.filter((d) => d.active);
+  const fit = active.filter((d) => d.count >= total).sort((a, b) => a.count - b.count)[0] || active.slice().sort((a, b) => b.count - a.count)[0];
+  return { ...base, qty, dealId: fit ? fit.id : null, subscribe: initial.subscribe !== false };
+}
+// notes (opt-in, explorations): { variantId: text } shown on the product card, for example why an item was added. topSlot (opt-in): a node at the top of the popup list. pinned (opt-in): variant ids listed first inside their category, in that order. title (opt-in): replaces the popup title.
 // blocks: the section's active blocks; returns null when the section has no build_box_qty block.
-export function useBuildBox({ blocks, product, cart }) {
+export function useBuildBox({ blocks, product, cart, initial, notes, topSlot, pinned, title }) {
   const qtyBlock = blocks.find((b) => b.type === 'build_box_qty');
   const popupBlock = blocks.find((b) => b.type === 'build_box_popup');
   const group = qtyBlock ? (qtyBlock.settings.group_id || qtyBlock.id).trim() : '';
@@ -73,7 +92,7 @@ export function useBuildBox({ blocks, product, cart }) {
     return { deals, dealCounts, maxPack, maxDeal, tiers, defaultDeal, drawer, base, flat, pop };
   }, [blocks, qtyBlock, popupBlock, group, product]);
 
-  const [st, setSt] = useState({ dealId: null, subscribe: true, qty: {} });
+  const [st, setSt] = useState(() => initialBuildState(model, initial));
   const [ui, setUi] = useState({ open: false, drawerOpen: false, sheetOpen: false, packTarget: 0, activeCat: null, info: null, submitting: false });
   if (!model) return null;
 
@@ -85,7 +104,7 @@ export function useBuildBox({ blocks, product, cart }) {
   const filled = Object.values(st.qty).reduce((t, n) => t + (Number(n) || 0), 0);
 
   const api = {
-    model, group, st, ui, deal, dealId, count, gifts, filled, cart, product, qtyBlock, popupBlock,
+    model, group, st, ui, deal, dealId, count, gifts, filled, cart, product, qtyBlock, popupBlock, notes: notes || null, topSlot: topSlot || null, pinned: pinned || null, title: title || '',
     subscribe: st.subscribe !== false,
     selectDeal: (id) => setSt((s) => ({ ...s, dealId: id })),
     setSubscribe: (on) => setSt((s) => ({ ...s, subscribe: !!on })),
@@ -233,7 +252,7 @@ function CountUp({ end, run }) {
   return <strong>{n}</strong>;
 }
 
-function ProductCard({ p, qty, badge, price, compact, mediaInfo, onInfo, onAdd, onDec, onInc }) {
+function ProductCard({ p, qty, badge, price, compact, mediaInfo, note, onInfo, onAdd, onDec, onInc }) {
   const id = String(p.variantId);
   const handle = compact ? '' : p.handle || '';
   const mediaOnly = !!mediaInfo;
@@ -268,6 +287,7 @@ function ProductCard({ p, qty, badge, price, compact, mediaInfo, onInfo, onAdd, 
         <span className="fd-build-box-popup__qty">{qty}</span>
         <button type="button" className="fd-build-box-popup__step" data-inc data-variant-id={id} aria-label="Increase" onClick={onInc}><Raw html={PLUS_SVG} style={{ display: 'contents' }} /></button>
       </div>
+      {note ? <span className="fd-build-box-popup__card-infocard"><Raw html={AI_SVG} style={{ display: 'contents' }} /><span>{note}</span></span> : null}
       {b ? <span className="fd-build-box-popup__card-badge" style={{ '--fd-bb-card-badge-solid': b.bg, '--fd-bb-card-badge-fg': b.fg }}>{b.text}</span> : null}
     </article>
   );
@@ -431,7 +451,7 @@ export function BuildBoxPopup({ bb }) {
             <button type="button" className="fd-build-box-popup__back" data-close-popup aria-label="Back" onClick={() => !ui.submitting && bb.closePopup()}>
               <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M12.5 4.5L7 10L12.5 15.5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" /></svg>
             </button>
-            <h2 className="fd-build-box-popup__title" id="fd-bb-title">{drawerMode && packTarget >= 1 ? `Select At Least ${packTarget} ${packTarget === 1 ? 'Bottle' : 'Bottles'}` : pop.popup_title || 'Build Your Box'}</h2>
+            <h2 className="fd-build-box-popup__title" id="fd-bb-title">{bb.title ? bb.title : drawerMode && packTarget >= 1 ? `Select At Least ${packTarget} ${packTarget === 1 ? 'Bottle' : 'Bottles'}` : pop.popup_title || 'Build Your Box'}</h2>
           </div>
           <div className="fd-build-box-popup__body">
             <aside className="fd-build-box-popup__hero has-image" data-popup-hero>
@@ -443,6 +463,7 @@ export function BuildBoxPopup({ bb }) {
                 {catalog.map((c) => <button key={c.key} type="button" className={`fd-build-box-popup__cat${c.key === catKey ? ' is-active' : ''}`} data-cat-key={c.key} onClick={(e) => { pickCat(c.key); e.currentTarget.blur(); }}>{c.label}</button>)}
               </nav>
               <div className="fd-build-box-popup__scroll" data-scroll ref={scrollRef} onScroll={syncActive}>
+                {bb.topSlot}
                 {(pop.intro_text || pop.social_proof_stat || pop.promo_text) ? (
                   <div className="fd-build-box-popup__intro">
                     {pop.intro_text ? <p className="fd-build-box-popup__intro-text">{pop.intro_text}</p> : null}
@@ -464,9 +485,9 @@ export function BuildBoxPopup({ bb }) {
                   {catalog.map((c) => (
                     <section key={c.key} className="fd-build-box-popup__cat-section" data-cat-section={c.key}>
                       <h3 className="fd-build-box-popup__cat-title"><span className="fd-build-box-popup__cat-label">{c.label}</span>{c.ages ? <span className="fd-build-box-popup__cat-ages">{c.ages}</span> : null}</h3>
-                      {c.products.map((p) => (
+                      {pinFirst(c.products, bb.pinned).map((p) => (
                         <ProductCard key={p.variantId} p={p} qty={Number(st.qty[p.variantId]) || 0} badge={badgeHandles.includes(p.handle) ? 'Best Seller' : ''}
-                          price={nextPct != null && p.price > 0 ? { list: p.price, final: discountedCents(p.price, nextPct) } : null} mediaInfo={drawerMode} {...cardProps(p)} />
+                          price={nextPct != null && p.price > 0 ? { list: p.price, final: discountedCents(p.price, nextPct) } : null} mediaInfo={drawerMode} note={noteOf(bb.notes, String(p.variantId))} {...cardProps(p)} />
                       ))}
                     </section>
                   ))}
@@ -504,7 +525,7 @@ export function BuildBoxPopup({ bb }) {
                     <div className="fd-build-box-popup__drawer-body" id="fd-bb-drawer" data-drawer-body hidden={!open}>
                       <div className="fd-build-box-popup__drawer-items">
                         <div className="fd-build-box-popup__drawer-rows" data-drawer-rows>
-                          {open ? n.rows.map((r) => <ProductCard key={r.product.variantId} p={r.product} qty={r.qty} price={{ list: r.list, final: r.final }} compact {...cardProps(r.product)} />) : null}
+                          {open ? n.rows.map((r) => <ProductCard key={r.product.variantId} p={r.product} qty={r.qty} price={{ list: r.list, final: r.final }} compact note={noteOf(bb.notes, String(r.product.variantId))} {...cardProps(r.product)} />) : null}
                         </div>
                         <div className="fd-build-box-popup__gifts-grid fd-build-box-popup__drawer-gifts" data-drawer-gifts hidden={!n.gifts.length}>
                           {open ? n.gifts.map((g, i) => <GiftCard key={g.label} gift={g} locked={i >= n.earned} unlocked={i < n.earned} hideCheck showBadge captionNameOnly />) : null}

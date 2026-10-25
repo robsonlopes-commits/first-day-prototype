@@ -1,0 +1,18 @@
+/* the friendly notice at the top of the builder list: the quiz recap box (global quiz styles), no section padding or background of its own */
+.fd-qbb.mbq-notice { padding: 0; background: transparent; max-width: none; margin: 0 0 16px; display: block; }
+.fd-qbb.mbq-notice .fd-qbb__recap { margin: 0; }
+.fd-qbb.mbq-notice .fd-qbb__recap-body p + p { margin-top: 10px; } /* the closing sentence sits on its own line, with a little air above */
+
+/* the info card of an item that the quiz added: full width at the bottom of the card, in the list and in the summary of the box. A purple tint, so it stands out
+   on the blue chosen card as well as on the white summary row (same purple as the recap box text). */
+.fd-build-box-popup__card:has(.fd-build-box-popup__card-infocard) { flex-wrap: wrap; row-gap: 12px; }
+.fd-build-box-popup__card-infocard { flex: 0 0 100%; display: flex; align-items: flex-start; gap: 8px; box-sizing: border-box; padding: 8px 10px; border: 1px solid #dfdcf0; border-radius: 8px; background: #f5f4fb; color: var(--color-text-on-light-1); font-size: 12px; line-height: 1.4; text-align: left; }
+.fd-build-box-popup__card-infocard > span { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; min-width: 0; } /* two lines at most, whatever the width */
+.fd-build-box-popup__card-infocard svg { flex: none; position: static; width: 18px; height: 18px; margin-top: 1px; color: #6f62b4; }
+
+/* on a wide screen the summary of the box sits beside the list (from 990 px, like the popup itself): the reason shows there only, not on the list card */
+@media screen and (min-width: 990px) { .fd-build-box-popup__products .fd-build-box-popup__card-infocard { display: none; } }
+
+/* a chosen item (quantity above 0): the same blue border and morning blue fill as the chosen cards of the add-on modal exploration. Only in this builder (the .mbq-marker element in the top slot marks it, with or without the recap box). */
+.fd-build-box-popup:has(.mbq-marker) .fd-build-box-popup__card.is-selected:not(.fd-build-box-popup__card--row) { padding: 15px; border: 2px solid var(--color-brand-noon-blue); background: var(--color-surface-morning-blue); }
+.fd-build-box-popup:has(.mbq-marker) .fd-build-box-popup__card.is-selected:not(.fd-build-box-popup__card--row) .fd-build-box-popup__card-badge { top: -2px; right: -2px; }

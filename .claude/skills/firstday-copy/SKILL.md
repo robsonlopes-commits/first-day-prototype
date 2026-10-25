@@ -27,6 +27,7 @@ Inputs to pull in before writing (do not write from memory):
 - **The CTA continues the story.** The button answers the section it closes ("Meet The Solution" after a section about what is happening), instead of jumping to a product or a mechanic the reader has not asked for yet.
 - **No filler, no duplicates.** Do not repeat a promo or reassurance that appears elsewhere on the page (a guarantee line under every button, a second "order by" note, decorative percent tiles, a generic "note to parents" that repeats the hero). Every line must earn its place.
 - **Consistency across audiences.** When a block exists for several audiences, the structure of the story stays the same and the facts change per audience (use only audiences the owner confirmed).
+- **No widows.** Never let a block end with a last line that holds a single lone word ("Struggles to focus or pay / attention"), on a phone or on a desktop. A widow looks like a mistake and wastes a line. Fix it in this order: rewrite or shorten the copy so the break falls well, then change the font size or the width a little (smaller or larger, whatever makes the lines even), and keep `text-wrap: balance` (titles, labels, short blocks) or `text-wrap: pretty` (paragraphs) as a safety net, never as the only fix. Check every block of new copy at 360, 375, 390, 430 and 1024 px (measure the last two words of each block: they must sit on the same line).
 - **Say it once, plainly.** One idea per sentence, no jargon without translation, no long paragraphs where a short line works. New copy has no hyphens, dashes, semicolons or colons (existing production copy stays as is). Emoji only in chips, badges and bullet leads, one at the start.
 
 ## Way of working
@@ -44,6 +45,7 @@ Inputs to pull in before writing (do not write from memory):
 - Is anything repeated elsewhere on the page, or purely decorative?
 - Does the button or the next line follow naturally from what was just said?
 - Is it short, scannable and mobile first (read it at 375px)?
+- Does any block end with a widow (a last line of one lone word) at 360, 375, 390, 430 or 1024 px?
 - Is it on the angle we want to test, and did you ask which audience?
 
 ## Beyond these guidelines

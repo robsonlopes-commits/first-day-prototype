@@ -1,0 +1,28 @@
+/* the quiz content inside the modal: no section padding, background or max width of the quiz section; title and lede are centered like the add-on modal */
+.mbq-quiz__head { display: flex; flex-direction: column; gap: 4px; }
+.mbq-quiz .aom__title { margin: 0; }
+.fd-qbb.mbq-quiz { padding: 0; background: transparent; max-width: none; margin: 0; display: flex; flex-direction: column; gap: 16px; }
+.mbq-quiz__lede { margin: 0; text-align: center; font-size: 16px; line-height: 1.4; color: var(--color-text-on-light-2); }
+
+/* Phone (full page modal): the options share the height of the screen instead of leaving a white gap, a little taller, with a bigger emoji and text, and a
+   calmer head. The rows grow only up to a cap, so on a tall screen they do not turn into huge bars (the body scrolls on a short one). */
+@media (max-width: 749px) {
+  .aom__body:has(.mbq-quiz) { padding: 24px 16px 16px; }
+  .fd-qbb.mbq-quiz { flex: 1 1 auto; min-height: 0; gap: 20px; }
+  .mbq-quiz__head { gap: 6px; }
+  .aom .mbq-quiz .aom__title { font-size: 26px; line-height: 1.25 !important; }
+  .mbq-quiz__lede { font-size: clamp(12px, 3.5vw, 15px); white-space: nowrap; } /* 12.6 px at 360, 13.7 at 390, 15 from 430: the whole line fits in one line */
+  .mbq-quiz .fd-qbb__concerns { flex: 1 1 auto; gap: 10px; }
+  .mbq-quiz .fd-qbb__concern { display: flex; flex: 1 1 0; min-height: 50px; max-height: 92px; }
+  .mbq-quiz .fd-qbb__concern-label { flex: 1 1 auto; align-items: center; gap: 14px; padding: 0 16px; border-radius: 14px; }
+  .mbq-quiz .fd-qbb__concern-emoji { font-size: 26px; line-height: 1; width: 28px; text-align: center; }
+  .mbq-quiz .fd-qbb__concern-text { font-size: 17px; line-height: 1.3; }
+}
+
+/* no widows (copy rule): a block never ends with one lone word on its last line. The lines are balanced; the sizes above are tuned so that balancing is enough. */
+.mbq-quiz .aom__title, .mbq-quiz .fd-qbb__concern-text { text-wrap: balance; }
+.mbq-quiz__lede { text-wrap: wrap; } /* the line under the title stays on ONE line: its size follows the width of the phone instead of being balanced */
+
+/* the question in title case (the copy of the quiz is a sentence) and a little larger */
+.aom .mbq-quiz .aom__title { text-transform: capitalize; font-size: 22px; }
+@media (max-width: 749px) { .aom .mbq-quiz .aom__title { font-size: 26px; } }
