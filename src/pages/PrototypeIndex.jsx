@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 // right above it, and write its description: one or two lines on what it does and what it was copied from).
 // PAGES: replicas of the live storefront pages, in their usual order.
 const explorations = [
+  ['/explorations/family-box-builder', 'Family Box Builder', 'Add the family (Kid, Toddler, Teen, Mom, Dad), a box with a carousel of products for each person, and a summary with the discount tiers, the gifts and Add To Cart (fixed at the bottom on mobile, a column on the right on desktop). Started as a copy of the All-in-1 Bundle landing, Kids only, without its buy box.'],
   ['/explorations/mixed-bundle-builder-quiz-v2', 'Mixed Bundle Builder v2', 'No quiz. Add To Cart opens the Build Your Family Box with the product of the page already chosen, in the quantity added. Copy of the kids Behind the Science LP.'],
   ['/explorations/mixed-bundle-builder-quiz-v1', 'Mixed Bundle Builder + Quiz v1', 'Add To Cart opens a 1 step quiz. Its answers open the Build Your Family Box with the product of the page plus what the answers add, each with the reason. Copy of the kids Behind the Science LP.'],
   ['/explorations/bundle-add-on', 'Bundle Add-on', 'New add-on modal opened by Add To Cart, with stacks in three layouts (?bundles=a, b or c), items by audience and the free gift progress. Copy of the kids Behind the Science LP.'],

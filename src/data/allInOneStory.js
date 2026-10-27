@@ -91,7 +91,7 @@ export function fourJobsProps(demo) {
 const sciT = QUIZ_T.temp_science_module_wWLDWj;
 const SCI_LABEL = ['Daily Multivitamin', '3-in-1 Pre+ Post+ Probiotic', 'Daily Brain Support', 'Calming Magnesium'];
 const KIDS_TAB = { multi: 0, gut: 3, focus: 1, sleep: 2 }; // index in the bundle quiz science tabs (multi, brain, magnesium, probiotic)
-const TEENS_SCIENCE = {
+export const TEENS_SCIENCE = {
   multi: {
     desc: '<p>During the teen years growth plates are open, creating the areas where new bone is formed, but they do not stay open forever. That makes nutrition during this window especially important.</p>',
     list: '<p>🦴 <strong>Vitamin D3</strong> helps the body absorb calcium for growing bones*</p><p>🧬 <strong>Vitamin K2</strong> works with D3 to support bone development*</p><p>⚡ <strong>B vitamins</strong> help the body turn food into growth-fueling energy*</p><p>🫐 <strong>Organic fruit and veggie blend</strong> plus 12 key nutrients, with no fake sugars, no artificial colors and no fillers</p>',
@@ -109,7 +109,7 @@ const TEENS_SCIENCE = {
     list: '<p>🌙 <strong>Calming ingredients</strong> to wind down before bed*</p><p>🚫 <strong>No melatonin hormones</strong></p>',
   },
 };
-const TODDLERS_SCIENCE = {
+export const TODDLERS_SCIENCE = {
   multi: {
     desc: '<p>During the toddler years the brain, the bones and the immune system are all being built at once, and a picky plate does not always deliver what they need.</p>',
     list: '<p>🧠 <strong>Choline and B vitamins</strong> for brain and nervous system development*</p><p>🦴 <strong>Vitamin D3 and K2</strong> work together to support bone development*</p><p>🧬 <strong>Methylfolate</strong>, the active form of folate</p><p>🍓 <strong>21 organic superfoods</strong> in real strawberry and orange flavor</p>',

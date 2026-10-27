@@ -13,6 +13,7 @@ const AllInOneBundle = lazy(() => import('./pages/explorations/AllInOneBundle.js
 const BundleAddOn = lazy(() => import('./pages/explorations/BundleAddOn.jsx'));
 const MixedBundleBuilderQuizV1 = lazy(() => import('./pages/explorations/MixedBundleBuilderQuizV1.jsx'));
 const MixedBundleBuilderQuizV2 = lazy(() => import('./pages/explorations/MixedBundleBuilderQuizV2.jsx'));
+const FamilyBoxBuilder = lazy(() => import('./pages/explorations/FamilyBoxBuilder.jsx'));
 const ProductRedirect = lazy(() => import('./pages/ProductRedirect.jsx'));
 const Sale = lazy(() => import('./pages/Sale.jsx'));
 const SharedPreview = lazy(() => import('./pages/SharedPreview.jsx'));
@@ -42,6 +43,7 @@ export default function App() {
                   <Route path="/explorations/bundle-add-on" element={<BundleAddOn />} />
                   <Route path="/explorations/mixed-bundle-builder-quiz-v1" element={<MixedBundleBuilderQuizV1 />} />
                   <Route path="/explorations/mixed-bundle-builder-quiz-v2" element={<MixedBundleBuilderQuizV2 />} />
+                  <Route path="/explorations/family-box-builder" element={<FamilyBoxBuilder />} />
                   <Route path="/pages/sale" element={<Sale />} />
                 </Routes>
               </Suspense>

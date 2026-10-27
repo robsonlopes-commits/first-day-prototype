@@ -1,0 +1,279 @@
+/* Family Box Builder (exploration). Every border is 1px. Every card is 12px radius (what sits inside a card, 8px). Mobile first. Brand tokens of src/styles/ui-kit.css (noon blue, morning blue, purple accent, product accents); the stepper and the
+   Add pill are the global ones of the bundle builder (they read --fd-bb-blue, defined here). Rules kept: pill buttons, badges with a 4px radius, no shadows,
+   sofia pro only, 12px at the smallest. Every person has an accent color (data-t), used for the soft tints, never for text. */
+.fbb {
+  --fd-bb-blue: #476ded;
+  --ink: var(--color-text-on-light-1, #2c3d50);
+  --muted: var(--color-text-on-light-2, #737373);
+  --line: #ebebeb; /* a solid grey, so every card border is the same color whatever is behind it (a see-through one took the tint of the box) */
+  position: relative; font-family: 'sofia-pro', sans-serif; color: var(--ink);
+  background: linear-gradient(180deg, var(--color-surface-morning-blue, #f2fbff) 0, #fff 640px);
+}
+/* the color of each person is the band of its packaging (the stripe with KIDS, TODDLERS, TEENS, WOMEN, and the label of the MEN bottle) */
+.fbb [data-t='kid'] { --acc: #feb82b; --acc-t: rgba(254, 184, 43, 0.16); --acc-s: rgba(254, 184, 43, 0.34); }
+.fbb [data-t='toddler'] { --acc: #25b9b5; --acc-t: rgba(37, 185, 181, 0.16); --acc-s: rgba(37, 185, 181, 0.34); }
+.fbb [data-t='teen'] { --acc: #01c1fc; --acc-t: rgba(1, 193, 252, 0.16); --acc-s: rgba(1, 193, 252, 0.34); }
+.fbb [data-t='mom'] { --acc: #fa7d71; --acc-t: rgba(250, 125, 113, 0.16); --acc-s: rgba(250, 125, 113, 0.34); }
+.fbb [data-t='dad'] { --acc: #3f48ca; --acc-t: rgba(63, 72, 202, 0.16); --acc-s: rgba(63, 72, 202, 0.34); }
+.fbb__inner { max-width: 1160px; margin: 0 auto; padding: 28px 16px 40px; display: flex; flex-direction: column; gap: 36px; box-sizing: border-box; }
+.fbb h2, .fbb h3, .fbb h4 { font-family: 'sofia-pro', sans-serif; text-transform: none; letter-spacing: 0; }
+.fbb .nav-family-icon { display: block; width: 100%; height: 100%; line-height: 0; color: inherit; }
+.fbb .nav-family-icon svg { width: 100%; height: 100%; display: block; }
+
+/* the headline panel, with the discount ladder that fills as bottles are added */
+.fbb-hero { position: relative; overflow: hidden; padding: 22px 18px 20px; border-radius: 12px; color: #fff; background: radial-gradient(110% 140% at 100% 0%, rgba(119, 108, 177, 0.55) 0, rgba(119, 108, 177, 0) 55%), radial-gradient(110% 130% at 0% 100%, rgba(71, 109, 237, 0.85) 0, rgba(71, 109, 237, 0) 68%), radial-gradient(80% 90% at 50% 50%, rgba(71, 109, 237, 0.35) 0, rgba(71, 109, 237, 0) 70%), #2a3f78; } /* the brand noon blue (#476ded) is the main color of the glow, on a deep blue base, with a touch of purple at the top right */
+.fbb-hero__text { margin: 0; font-size: 20px; line-height: 1.3; font-weight: 700; text-wrap: balance; text-align: center; }
+.fbb-hero__text mark { background: none; color: #ffb511; }
+.fbb-ladder { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0; margin: 20px 0 0; padding: 0; list-style: none; }
+.fbb-ladder li { position: relative; display: flex; flex-direction: column; align-items: center; gap: 8px; text-align: center; }
+.fbb-ladder li + li::before { content: ''; position: absolute; top: 15px; right: 50%; width: 100%; height: 2px; background: rgba(255, 255, 255, 0.24); }
+.fbb-ladder li.is-on + li.is-on::before { background: #ffb511; }
+.fbb-ladder__dot { position: relative; z-index: 1; display: grid; place-items: center; width: 32px; height: 32px; border-radius: 50%; border: 1px solid rgba(255, 255, 255, 0.4); background: #2f4590; font-size: 14px; font-weight: 700; color: rgba(255, 255, 255, 0.8); transition: background-color 200ms ease, border-color 200ms ease, color 200ms ease; }
+.fbb-ladder li.is-on .fbb-ladder__dot { background: #ffb511; border-color: #ffb511; color: #2c3d50; }
+.fbb-ladder__lab { display: flex; flex-direction: column; gap: 1px; }
+.fbb-ladder__lab b { font-size: 14px; line-height: 1.25; font-weight: 700; }
+.fbb-ladder__lab small { font-size: 12px; line-height: 1.3; color: rgba(255, 255, 255, 0.68); }
+
+/* steps */
+.fbb-step { display: flex; flex-direction: column; gap: 6px; }
+.fbb-eyebrow { margin: 0; font-size: 12px; line-height: 1.4; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--color-accent-purple, #776cb1); }
+.fbb__h { margin: 0; font-size: 26px; line-height: 1.2 !important; font-weight: 700; text-wrap: balance; }
+.fbb__h--sm { font-size: 20px; }
+.fbb__sub { margin: 0; font-size: 15px; line-height: 1.45; color: var(--muted); text-wrap: balance; }
+.fbb__empty { margin: 0; font-size: 15px; color: var(--muted); }
+
+/* add the people of the family */
+.fbb__types { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 8px; margin-top: 14px; }
+.fbb-type { position: relative; display: flex; flex-direction: column; align-items: center; gap: 4px; padding: 14px 4px 12px; border: 1px solid var(--line); border-radius: 12px; background: #fff; color: inherit; font: inherit; cursor: pointer; transition: border-color 160ms ease, background-color 160ms ease, transform 160ms ease; }
+.fbb-type:hover { border-color: var(--acc); background: var(--acc-t); transform: translateY(-2px); }
+.fbb-type:active { transform: none; }
+.fbb-type__disc { display: grid; place-items: center; width: 40px; height: 40px; padding: 8px; box-sizing: border-box; border-radius: 50%; background: var(--acc-t); transition: background-color 160ms ease; }
+.fbb-type:hover .fbb-type__disc { background: var(--acc-s); } /* never white: a stronger tint of the person's color, so the disc stays visible on the tinted tile */
+.fbb-type__avatar { position: relative; display: block; }
+.fbb-type__plus { position: absolute; right: -4px; bottom: -2px; display: grid; place-items: center; width: 20px; height: 20px; border: 1px solid #fff; border-radius: 50%; background: var(--color-brand-noon-blue); color: #fff; line-height: 0; box-sizing: content-box; transition: transform 160ms ease; } /* the plus is an svg (a font glyph sat off center) */
+.fbb-type__plus svg { display: block; width: 12px; height: 12px; }
+.fbb-type:hover .fbb-type__plus { transform: scale(1.12); }
+.fbb-type__label { margin-top: 4px; font-size: 14px; line-height: 1.2; font-weight: 700; }
+.fbb-type__ages { font-size: 12px; line-height: 1.3; color: var(--muted); }
+.fbb-type:focus-visible, .fbb-member__remove:focus-visible, .fbb-sum__head:focus-visible, .fbb-car__arrow:focus-visible, .fbb-car__dot:focus-visible { outline: 2px solid var(--color-brand-noon-blue); outline-offset: 2px; }
+
+/* your family */
+.fbb-family { display: flex; flex-direction: column; gap: 12px; padding: 18px 16px; border: 1px solid var(--line); border-radius: 12px; background: rgba(255, 255, 255, 0.72); }
+.fbb-family__head { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.fbb-count { padding: 1px 8px 2px; border-radius: 4px; background: var(--color-accent-purple-10, rgba(119, 108, 177, 0.1)); color: var(--color-accent-purple, #776cb1); font-size: 12px; line-height: 1.4; font-weight: 700; }
+.fbb__members { display: flex; flex-wrap: wrap; gap: 8px; margin: 0; padding: 0; list-style: none; }
+.fbb-member { display: inline-flex; align-items: center; gap: 8px; height: 48px; padding: 0 6px 0 8px; border: 1px solid var(--line); border-radius: 999px; background: #fff; font-size: 15px; animation: fbb-pop 260ms cubic-bezier(0.2, 0.8, 0.2, 1) both; }
+@keyframes fbb-pop { from { opacity: 0; transform: scale(0.92); } to { opacity: 1; transform: none; } }
+.fbb-member__disc { display: grid; place-items: center; width: 32px; height: 32px; padding: 6px; box-sizing: border-box; border-radius: 50%; background: var(--acc-t); }
+.fbb-member__edit { display: inline-flex; align-items: center; gap: 8px; margin: 0; padding: 0 4px 0 0; border: 0; border-radius: 999px; background: none; color: inherit; font: inherit; cursor: pointer; }
+.fbb-member__edit:hover .fbb-member__name { text-decoration: underline; text-underline-offset: 3px; }
+.fbb-member__edit:focus-visible { outline: 2px solid var(--color-brand-noon-blue); outline-offset: 2px; }
+.fbb-member__name { font-weight: 700; white-space: nowrap; }
+.fbb-member__name small { font-size: 13px; font-weight: 400; color: var(--muted); }
+.fbb-member__remove { width: 28px; height: 28px; border: 0; border-radius: 50%; background: transparent; color: var(--muted); font-size: 20px; line-height: 1; cursor: pointer; transition: background-color 150ms ease, color 150ms ease; }
+.fbb-member__remove:hover { background: rgba(0, 0, 0, 0.07); color: var(--ink); }
+
+/* the boxes */
+.fbb__boxes { display: flex; flex-direction: column; gap: 20px; margin-top: -12px; }
+.fbb-box { border: 1px solid var(--line); border-radius: 12px; background: linear-gradient(0deg, var(--acc-t) 0%, rgba(255, 255, 255, 0) 60%), #fff; overflow: hidden; min-width: 0; } /* the tint of the person is at the bottom and fades to white at the top */
+.fbb-box__head { display: flex; align-items: center; gap: 12px; padding: 16px 16px 12px; }
+.fbb-box__disc { display: grid; place-items: center; flex: none; width: 48px; height: 48px; padding: 10px; box-sizing: border-box; border-radius: 50%; background: none; border: 1px solid var(--color-helper-black-10); } /* a neutral border: the quantity selector is the same everywhere, whatever the person */
+.fbb-box__titles { display: flex; flex-direction: column; gap: 1px; min-width: 0; }
+.fbb-box__title { margin: 0; font-size: 22px; line-height: 1.2 !important; font-weight: 700; }
+.fbb-box__ages { font-size: 14px; line-height: 1.3; color: var(--muted); }
+.fbb-box__count { margin-left: auto; flex: none; padding: 1px 8px 2px; border-radius: 4px; background: color-mix(in srgb, #64daa1 25%, transparent); color: #117c49; font-size: 12px; line-height: 1.4; font-weight: 700; } /* same size as .fbb-count */
+.fbb-box > .fbb-car { padding: 0 0 16px; } /* the track runs to the edges of the card, the cards peek out instead of being cut at the padding */
+.fbb-box--start { position: relative; border-color: transparent; background: #f6f6f6; } /* the boxes that are not open: a solid soft grey, no gradient, with a grey dashed line */
+/* the dashed line is 1px like the other borders, drawn by a mask (dashes with a wide gap, which a CSS dashed border cannot do), in the grey of the other borders */
+.fbb-box--start::before { content: ''; position: absolute; inset: 0; border-radius: inherit; background: rgba(0, 0, 0, 0.18); pointer-events: none;
+  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100%25' height='100%25'%3E%3Crect style='x:0.5px;y:0.5px;width:calc(100%25 - 1px);height:calc(100%25 - 1px)' rx='11.5' fill='none' stroke='black' stroke-width='1' stroke-dasharray='7 8' stroke-linecap='round'/%3E%3C/svg%3E") center / 100% 100% no-repeat;
+  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100%25' height='100%25'%3E%3Crect style='x:0.5px;y:0.5px;width:calc(100%25 - 1px);height:calc(100%25 - 1px)' rx='11.5' fill='none' stroke='black' stroke-width='1' stroke-dasharray='7 8' stroke-linecap='round'/%3E%3C/svg%3E") center / 100% 100% no-repeat; }
+.fbb-box--start .fbb-box__head { background: none; }
+.fbb-box__start { display: flex; width: calc(100% - 32px); margin: 0 16px 16px; }
+
+/* carousel */
+.fbb-car { position: relative; }
+.fbb-car__track { display: flex; gap: 12px; overflow-x: auto; scroll-snap-type: x mandatory; scroll-padding: 0 16px; scrollbar-width: none; padding: 2px 16px; -webkit-overflow-scrolling: touch; }
+.fbb-car__track::-webkit-scrollbar { display: none; }
+/* desktop only (as in the site's product carousel): arrow, page dots, arrow under the track */
+.fbb-car__nav { display: none; }
+@media (min-width: 750px) {
+  .fbb-car__nav { display: flex; align-items: center; justify-content: center; gap: 24px; margin-top: 24px; }
+  .fbb-car__arrow { display: flex; align-items: center; justify-content: center; width: 40px; height: 40px; padding: 0; border: 1px solid rgba(0, 0, 0, 0.1); border-radius: 50%; background: #fff; color: var(--ink); cursor: pointer; transition: opacity 200ms ease, transform 200ms ease; }
+  .fbb-car__arrow svg { width: 20px; height: 20px; }
+  .fbb-car__arrow:hover:not(.disabled) { transform: scale(1.05); }
+  .fbb-car__arrow.disabled { opacity: 0.4; cursor: not-allowed; }
+  .fbb-car__dots { display: flex; align-items: center; gap: 8px; }
+  .fbb-car__dot { width: 8px; height: 8px; padding: 0; border: 0; border-radius: 50%; background: rgba(0, 0, 0, 0.2); cursor: pointer; transition: background 300ms ease; }
+  .fbb-car__dot.active { background: var(--ink); }
+}
+
+/* the vertical product item: bottle on a soft spotlight of the accent of the person */
+.fbb-prod { flex: 0 0 calc((100% - 12px) / 1.5); min-width: 0; scroll-snap-align: start; display: flex; flex-direction: column; padding: 10px; box-sizing: border-box; border: 1px solid var(--line); border-radius: 12px; background: #fff; transition: border-color 160ms ease, background-color 160ms ease; }
+.fbb-prod.is-in { border-color: var(--color-brand-noon-blue); background: var(--color-surface-morning-blue); }
+.fbb-prod__media { position: relative; display: grid; place-items: center; aspect-ratio: 1 / 1; border-radius: 8px; background: color-mix(in srgb, var(--acc) 20%, #fff); /* a solid color: the card behind already has the gradient */ overflow: hidden; }
+.fbb-prod__media img { display: block; width: 84%; height: 84%; object-fit: contain; }
+.fbb-prod__badge { position: absolute; top: 8px; left: 8px; z-index: 1; padding: 1px 8px 2px; border-radius: 4px; background: color-mix(in srgb, #64daa1 30%, #fff); color: #117c49; font-size: 12px; line-height: 1.4; font-weight: 700; }
+.fbb-open { cursor: pointer; }
+.fbb-prod__info { position: absolute; right: 8px; bottom: 8px; z-index: 2; display: grid; place-items: center; width: 32px; height: 32px; padding: 0; border: 1px solid var(--line); border-radius: 50%; background: #fff; cursor: pointer; transition: transform 160ms ease; }
+.fbb-prod__info:hover { transform: scale(1.08); }
+.fbb-prod__info img { display: block; width: 18px; height: 18px; }
+.fbb-prod__name-btn { margin: 0; padding: 0; border: 0; background: none; font: inherit; color: inherit; text-align: left; cursor: pointer; text-wrap: balance; }
+.fbb-prod__info:focus-visible, .fbb-prod__name-btn:focus-visible { outline: 2px solid var(--color-brand-noon-blue); outline-offset: 2px; border-radius: 4px; }
+.fbb-prod__tick { position: absolute; top: 8px; right: 8px; z-index: 1; display: grid; place-items: center; width: 24px; height: 24px; border-radius: 50%; background: var(--color-brand-noon-blue); color: #fff; opacity: 0; transform: scale(0.6); transition: opacity 160ms ease, transform 200ms cubic-bezier(0.2, 0.8, 0.2, 1); }
+.fbb-prod.is-in .fbb-prod__tick { opacity: 1; transform: none; }
+.fbb-prod__body { display: flex; flex-direction: column; gap: 4px; padding: 12px 4px 0; flex: 1 1 auto; }
+.fbb-prod__name { margin: 0; font-size: 16px; line-height: 1.3 !important; font-weight: 700; }
+.fbb-prod__blurb { margin: 0; font-size: 13px; line-height: 1.4; color: var(--muted); }
+.fbb-prod__price { margin: 6px 0 0; display: flex; flex-wrap: wrap; align-items: baseline; gap: 2px 8px; }
+.fbb-prod__price b { font-size: 20px; line-height: 1.2; font-weight: 700; }
+.fbb-prod__price s { font-size: 13px; color: var(--muted); }
+.fbb-prod__price em { padding: 0 6px; border-radius: 4px; background: color-mix(in srgb, #64daa1 25%, transparent); color: #117c49; font-size: 12px; line-height: 1.5; font-style: normal; font-weight: 700; }
+.fbb-prod__action { padding: 12px 4px 4px; }
+.fbb .fbb-add { width: 100%; height: 44px; font-size: 15px; font-weight: 600; }
+.fbb .fbb-qty { display: flex; align-items: center; justify-content: space-between; height: 44px; padding: 0 6px; border-radius: 999px; background: #fff; border: 1px solid var(--color-helper-black-10); } /* a neutral border: the quantity selector is the same everywhere, whatever the person */
+.fbb .fbb-qty .fbb-step--trash { background: none; color: var(--ink); } /* with 1 in the box, the minus is a black trash can with no blue circle, so the plus stands out */
+.fbb .fbb-qty .fbb-step--trash svg { width: 20px; height: 20px; color: inherit; }
+.fbb .fbb-qty .fd-build-box-popup__qty { font-size: 16px; font-weight: 700; }
+@media (min-width: 750px) {
+  .fbb__inner { padding: 48px 32px 56px; gap: 44px; }
+  .fbb-hero { padding: 32px 40px 28px; }
+  .fbb-hero__text { font-size: 28px; }
+  .fbb-ladder { margin-top: 28px; max-width: 760px; margin-left: auto; margin-right: auto; }
+  .fbb-ladder li + li::before { top: 17px; }
+  .fbb-ladder__dot { width: 36px; height: 36px; font-size: 15px; }
+  .fbb-ladder__lab b { font-size: 16px; } .fbb-ladder__lab small { font-size: 13px; }
+  .fbb__h { font-size: 32px; } .fbb__h--sm { font-size: 22px; }
+  .fbb__sub { font-size: 16px; }
+  .fbb__types { gap: 16px; margin-top: 18px; max-width: 880px; }
+  .fbb-type { padding: 22px 8px 18px; gap: 6px; border-radius: 12px; }
+  .fbb-type__disc { width: 64px; height: 64px; padding: 14px; }
+  .fbb-type__label { font-size: 17px; }
+  .fbb-type__ages { font-size: 13px; }
+  .fbb-type__plus { right: -2px; bottom: 0; width: 22px; height: 22px; } .fbb-type__plus svg { width: 13px; height: 13px; }
+  .fbb-family { padding: 22px 24px; }
+  .fbb__boxes { gap: 24px; }
+  .fbb-box__head { padding: 20px 28px 14px; gap: 14px; }
+  .fbb-box__disc { width: 48px; height: 48px; padding: 10px; }
+  .fbb-box__title { font-size: 20px; }
+  .fbb-box > .fbb-car { padding: 0 0 28px; }
+  .fbb-car__track { padding: 2px 28px; scroll-padding: 0 28px; }
+  .fbb-prod { flex-basis: calc((100% - 24px) / 3); }
+  .fbb-prod { flex-basis: calc((100% - 20px) / 2.5); } /* narrow desktop column: two cards and half of the third */
+  .fbb-prod__price { flex-wrap: nowrap; gap: 6px; } /* price, old price and the discount badge always on one line */
+  .fbb-prod__price b { font-size: 18px; } .fbb-prod__price s { font-size: 12px; white-space: nowrap; } .fbb-prod__price em { white-space: nowrap; }
+  .fbb-box--start { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding-right: 28px; }
+  .fbb-box--start .fbb-box__head { padding: 18px 28px; }
+  .fbb-box__start { width: auto; min-width: 240px; margin: 0; }
+}
+@media (min-width: 1024px) { .fbb-car__track { gap: 16px; } }
+@media (min-width: 1280px) { .fbb-prod { flex-basis: calc((100% - 20px) / 3.3); } } /* three cards and a good part of the fourth: it is clear there are more */
+
+/* summary fixed at the bottom of the screen, all the time (the page gets room at its end so nothing is hidden behind it, see body.fbb-has-bar) */
+.fbb-sum { position: fixed; left: 0; right: 0; bottom: 0; z-index: 30; pointer-events: none; }
+.fbb-sum__scrim { position: fixed; inset: 0; background: rgba(44, 61, 80, 0.5); opacity: 0; pointer-events: none; transition: opacity 280ms ease; } /* mobile: with the summary expanded, the rest of the page goes dark (a tap on it closes the summary) */
+.fbb-sum.is-open .fbb-sum__scrim { opacity: 1; pointer-events: auto; }
+@media (max-width: 1023px) { .fbb-sum.is-open { z-index: 200; } } /* open: above the sticky header (z 100), so the scrim darkens it too */
+.fbb-sum__sheet { position: relative; pointer-events: auto; max-width: 780px; margin: 0 auto; padding: 8px 16px calc(14px + env(safe-area-inset-bottom, 0px)); border: 1px solid var(--line); border-bottom: 0; border-radius: 12px 12px 0 0; background: #fff; box-sizing: border-box; }
+.fbb-sum__head { position: relative; display: flex; align-items: center; gap: 12px; width: 100%; padding: 16px 0 12px; border: 0; background: none; color: inherit; font: inherit; text-align: left; cursor: pointer; }
+.fbb-sum__grab { position: absolute; top: 4px; left: 50%; width: 40px; height: 4px; margin-left: -20px; border-radius: 4px; background: rgba(0, 0, 0, 0.14); }
+.fbb-sum__badge { flex: none; display: grid; place-items: center; width: 44px; height: 44px; border-radius: 50%; background: var(--color-accent-purple-10, rgba(119, 108, 177, 0.1)); }
+.fbb-sum__txt { flex: 1 1 auto; display: flex; flex-direction: column; gap: 8px; min-width: 0; }
+.fbb-sum__headline { font-size: 15px; line-height: 1.3; font-weight: 700; text-wrap: balance; }
+.fbb-sum__bar { display: block; height: 6px; border-radius: 6px; background: rgba(0, 0, 0, 0.08); overflow: hidden; }
+.fbb-sum__bar i { display: block; height: 100%; border-radius: 6px; background: var(--color-brand-noon-blue); transition: width 360ms cubic-bezier(0.2, 0.8, 0.2, 1); }
+.fbb-sum__chev { flex: none; display: grid; place-items: center; width: 40px; height: 40px; border: 1px solid var(--line); border-radius: 50%; background: #fff; }
+.fbb-sum__chev i { width: 9px; height: 9px; border-right: 2px solid currentColor; border-bottom: 2px solid currentColor; transform: rotate(225deg) translate(-2px, -2px); transition: transform 220ms ease; }
+.fbb-sum.is-open .fbb-sum__chev i { transform: rotate(45deg) translate(-2px, -2px); }
+.fbb-sum__panel { display: grid; grid-template-rows: 0fr; transition: grid-template-rows 280ms cubic-bezier(0.2, 0.7, 0.2, 1); }
+.fbb-sum.is-open .fbb-sum__panel { grid-template-rows: 1fr; }
+.fbb-sum__scroll { min-height: 0; overflow: hidden; display: flex; flex-direction: column; gap: 14px; }
+.fbb-sum.is-open .fbb-sum__scroll { overflow-y: auto; max-height: min(50vh, 440px); padding: 4px 0 16px; }
+.fbb-sum__empty { margin: 0; font-size: 15px; color: var(--muted); }
+.fbb-sum__group { display: flex; flex-direction: column; gap: 10px; padding: 12px; border-radius: 12px; background: #f6f6f6; } /* a soft grey for every person (the rows on it are white) */
+.fbb-sum__group-title { display: flex; align-items: center; gap: 8px; margin: 0; font-size: 15px; line-height: 1.3 !important; font-weight: 700; }
+.fbb-sum__group-disc { display: grid; place-items: center; width: 28px; height: 28px; padding: 5px; box-sizing: border-box; border-radius: 50%; background: none; border: 1px solid var(--color-helper-black-10); }
+.fbb-sum__row { display: flex; align-items: center; gap: 10px; padding: 8px; border-radius: 8px; background: #fff; }
+.fbb-sum__thumb { flex: none; display: grid; place-items: center; width: 48px; height: 48px; border-radius: 8px; background: var(--acc-t); }
+.fbb-sum__thumb img { width: 82%; height: 82%; object-fit: contain; }
+.fbb-sum__info { display: flex; flex-direction: column; flex: 1 1 auto; min-width: 0; }
+.fbb-sum__name { font-size: 15px; font-weight: 700; line-height: 1.25; text-wrap: balance; }
+.fbb-sum__price { font-size: 14px; } .fbb-sum__price s { color: var(--muted); }
+.fbb-sum .fbb-qty { display: flex; align-items: center; gap: 10px; flex: none; }
+.fbb-sum__gifts { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px; }
+.fbb-gift { display: flex; flex-direction: column; align-items: center; gap: 6px; text-align: center; font-size: 12px; line-height: 1.3; text-wrap: balance; }
+.fbb-gift__tag { padding: 1px 6px; border-radius: 4px; background: var(--ink); color: #fff; font-size: 12px; font-weight: 700; white-space: nowrap; position: relative; z-index: 1; margin-bottom: -12px; } /* sits a little over the top of the photo */
+.fbb-gift__tag s { text-decoration-thickness: 1px; opacity: 0.85; }
+.fbb-gift__img { position: relative; display: grid; place-items: center; width: 100%; aspect-ratio: 1 / 1; border-radius: 12px; background: #e4f6ed; overflow: hidden; }
+.fbb-gift__img img { width: 72%; height: 72%; object-fit: contain; opacity: 0.35; }
+.fbb-gift.is-on .fbb-gift__img { background: #85d9a5; }
+.fbb-gift.is-on .fbb-gift__img img { opacity: 1; }
+.fbb-gift__lock { position: absolute; inset: 0; margin: auto; width: 28px; height: 28px; background: no-repeat center / contain url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%232c3d50'%3E%3Cpath d='M6 10V8a6 6 0 1 1 12 0v2h1a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V11a1 1 0 0 1 1-1h1zm2 0h8V8a4 4 0 1 0-8 0v2zm4 4a1.5 1.5 0 0 0-.75 2.8V19h1.5v-2.2A1.5 1.5 0 0 0 12 14z'/%3E%3C/svg%3E"); }
+.fbb-sum__line { display: flex; align-items: center; justify-content: space-between; gap: 12px; font-size: 16px; }
+.fbb-sum__line > span:last-child { display: inline-flex; align-items: center; gap: 8px; white-space: nowrap; flex: none; }
+.fbb-sum__line s { color: var(--muted); font-size: 14px; }
+.fbb-sum__off { padding: 2px 10px 3px; border-radius: 4px; background: color-mix(in srgb, #64daa1 25%, transparent); color: #117c49; font-size: 14px; font-style: normal; }
+.fbb-sum__off--next { background: var(--color-feedback-success); color: #fff; font-weight: 700; }
+.fbb-sum__line--next { font-weight: 600; }
+.fbb-sum__cta { width: 100%; height: 58px; font-size: 18px; gap: 10px; }
+.fbb-sum__total { margin-left: 4px; padding: 2px 12px 3px; border-radius: 999px; background: rgba(255, 255, 255, 0.22); font-size: 16px; font-weight: 700; }
+.fbb-sum__cta img { display: block; }
+/* nothing chosen yet: the flat grey pill of the bundle builder, "Add Your First Product" */
+.fbb .fbb-sum__cta[aria-disabled='true'] { background: #e8e8e8; color: #8a8a8a; border-color: transparent; opacity: 1; cursor: pointer; }
+.fbb .fbb-step { scroll-margin-top: calc(var(--fbb-header-h, 80px) + 16px); }
+.fbb { scroll-margin-top: calc(var(--fbb-header-h, 80px) + 8px); } /* #family-box, the target of the CTAs: it stops right under the sticky header */
+@media (prefers-reduced-motion: reduce) { .fbb-sum__scrim, .fbb-sum__panel, .fbb-sum__chev i, .fbb-member, .fbb-type { transition: none; animation: none; } }
+
+/* no widows (copy rule): the lines of short texts are balanced, so a block never ends with one lone word */
+.fbb-hero__text, .fbb__h, .fbb__sub, .fbb-box__title, .fbb-prod__name, .fbb-prod__blurb, .fbb-sum__headline, .fbb-sum__name, .fbb__empty { text-wrap: balance; }
+@media (max-width: 1023px) { body.fbb-has-bar { padding-bottom: 168px; } }
+
+/* desktop (1024 and up): no bar at the bottom. The summary and the Add To Cart button are a column on the right that stays in view while the page scrolls.
+   The whole block is as wide as the other sections of the page (1200px of content + 32px at each side). */
+@media (min-width: 1024px) {
+  .fbb__layout { display: grid; grid-template-columns: minmax(0, 1fr) clamp(380px, 32vw, 460px); gap: 32px; align-items: start; max-width: 1264px; margin: 0 auto; padding: 48px 32px 56px; box-sizing: border-box; }
+  .fbb__inner { max-width: none; margin: 0; padding: 0; }
+  .fbb-sum__scrim { display: none; }
+  .fbb-sum { position: sticky; top: 96px; left: auto; right: auto; bottom: auto; z-index: 1; pointer-events: auto; }
+  .fbb-sum__sheet { max-width: none; margin: 0; display: flex; flex-direction: column; max-height: calc(100vh - 120px); padding: 20px; border: 1px solid var(--line); border-radius: 12px; }
+  .fbb-sum__head { cursor: default; padding: 0 0 16px; pointer-events: none; }
+  .fbb-sum__grab, .fbb-sum__chev { display: none; }
+  .fbb-sum__panel { display: flex; flex-direction: column; flex: 1 1 auto; min-height: 0; transition: none; }
+  .fbb-sum__scroll, .fbb-sum.is-open .fbb-sum__scroll { flex: 1 1 auto; min-height: 0; max-height: none; overflow-y: auto; padding: 0 0 16px; }
+  .fbb-sum__cta { flex: none; }
+}
+
+/* the dialog to type the name of a person: a bottom sheet on mobile, a centered card on desktop */
+.fbb-name { position: fixed; inset: 0; z-index: 2000; display: flex; align-items: flex-end; justify-content: center; font-family: 'sofia-pro', sans-serif; color: var(--ink, #2c3d50); }
+.fbb-name__overlay { position: absolute; inset: 0; background: rgba(44, 61, 80, 0.5); animation: fbb-fade 200ms ease both; }
+.fbb-name__panel { position: relative; display: flex; flex-direction: column; align-items: center; gap: 12px; width: 100%; max-width: 420px; padding: 28px 20px calc(20px + env(safe-area-inset-bottom, 0px)); box-sizing: border-box; border-radius: 12px 12px 0 0; background: #fff; animation: fbb-rise 280ms cubic-bezier(0.16, 1, 0.3, 1) both; }
+.fbb-name__close { position: absolute; top: 12px; right: 12px; display: grid; place-items: center; width: 40px; height: 40px; padding: 0; border: 1px solid var(--color-helper-black-10, rgba(0, 0, 0, 0.1)); border-radius: 50%; background: #fff; color: inherit; cursor: pointer; }
+.fbb-name__disc { display: grid; place-items: center; width: 56px; height: 56px; padding: 12px; box-sizing: border-box; border-radius: 50%; background: var(--acc-t); }
+.fbb-name .nav-family-icon { display: block; width: 100%; height: 100%; line-height: 0; }
+.fbb-name .nav-family-icon svg { width: 100%; height: 100%; display: block; }
+.fbb-name__title { margin: 0; font-family: 'sofia-pro', sans-serif; font-size: 22px; line-height: 1.2 !important; font-weight: 700; text-transform: none; letter-spacing: 0; text-align: center; }
+.fbb-name__label { font-size: 14px; line-height: 1.4; color: var(--muted, #737373); text-align: center; text-wrap: balance; }
+.fbb-name__input { width: 100%; height: 52px; padding: 0 20px; box-sizing: border-box; border: 1px solid var(--color-helper-black-10, rgba(0, 0, 0, 0.1)); border-radius: 12px; background: #fff; color: inherit; font: inherit; font-size: 18px; }
+.fbb-name__input:focus { outline: 0; border-color: var(--color-brand-noon-blue); }
+.fbb-name__save { width: 100%; margin-top: 4px; }
+.fbb-confirm__keep { margin-top: 0; }
+@keyframes fbb-fade { from { opacity: 0; } }
+@keyframes fbb-rise { from { transform: translateY(40px); opacity: 0; } }
+@media (min-width: 750px) {
+  .fbb-name { align-items: center; }
+  .fbb-name__panel { border-radius: 12px; padding: 32px 28px 28px; }
+}
+@media (prefers-reduced-motion: reduce) { .fbb-name__overlay, .fbb-name__panel { animation: none; } }
+
+/* no widows on the family copy of the rest of the page (hero, why, science, timeline, closing): balanced titles, pretty paragraphs */
+.family-box-builder #shopify-section-aio_story_hero h1, .family-box-builder #shopify-section-aio_why_four h2, .family-box-builder #shopify-section-aio_closing_hero h2,
+.family-box-builder .science-tabs__heading-line, .family-box-builder .science-tabs__heading-highlight, .family-box-builder #shopify-section-timeline_section_xei4R8 h3 { text-wrap: balance; }
+.family-box-builder #shopify-section-aio_story_hero p, .family-box-builder #shopify-section-aio_why_four p, .family-box-builder #shopify-section-timeline_section_xei4R8 p, .family-box-builder #shopify-section-aio_closing_hero p { text-wrap: pretty; }
+
+/* mobile only (owner): the hero text keeps just its first paragraph, the one about hidden hunger and the offer is for desktop */
+@media (max-width: 749px) { .family-box-builder #shopify-section-aio_story_hero .metafield-rich_text_field p:nth-of-type(2) { display: none; } }
+/* mobile: less space under the hero button (the empty highlights row added a 28px gap on top of the 40px of padding) */
+@media (max-width: 749px) {
+  .family-box-builder #shopify-section-aio_story_hero .v1-hero-highlights { display: none; } /* the family hero has no highlights */
+  .family-box-builder #shopify-section-aio_story_hero .v1-hero-section { padding-bottom: 24px; }
+}

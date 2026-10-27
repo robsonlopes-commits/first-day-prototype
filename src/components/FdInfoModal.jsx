@@ -9,6 +9,7 @@ import './fdInfoModal.css';
 // Pack mode (as the bundle builder quiz pack info): pass tabs = [{ id, label, product, offer }] instead of product/offer to get one tab per product of the pack,
 // and footer = { label, onClick } for the sticky button under the content ("Choose the 2 Pack"). defaultTab = the index the tabs open on.
 // motion="up": the panel always moves in from the bottom (the default drawer comes from the right on desktop), slower and softer.
+// motion="soft": the default places (bottom sheet on mobile, drawer from the right on desktop), with the same slower and softer ease.
 // Rendered in a portal on <body> (#fd-info-modal) like the theme shell; Escape / overlay / X close it.
 const MAX_IMAGES = 6;
 const money = (cents) => `$${((Number(cents) || 0) / 100).toFixed(2)}`;
@@ -36,7 +37,7 @@ export default function FdInfoModal({ open, onClose, product, offer, onAdd, addL
       return () => cancelAnimationFrame(raf);
     }
     setState('closed');
-    const t = setTimeout(() => setMounted(false), motion === 'up' ? 440 : 320);
+    const t = setTimeout(() => setMounted(false), motion ? 440 : 320);
     return () => clearTimeout(t);
   }, [open]);
   useEffect(() => {
@@ -67,7 +68,7 @@ export default function FdInfoModal({ open, onClose, product, offer, onAdd, addL
   const hasCompare = shownOffer && shownOffer.compare && shownOffer.compare > shownOffer.price;
 
   return createPortal(
-    <div id="fd-info-modal" role="dialog" aria-modal="true" aria-hidden={!open} data-state={state} className={`${tabList ? 'has-tabs ' : ''}${shownFooter ? 'has-footer ' : ''}${motion === 'up' ? 'fd-info-modal--up' : ''}`.trim() || undefined} aria-label={`${p.title} information`}>
+    <div id="fd-info-modal" role="dialog" aria-modal="true" aria-hidden={!open} data-state={state} className={`${tabList ? 'has-tabs ' : ''}${shownFooter ? 'has-footer ' : ''}${motion === 'up' ? 'fd-info-modal--up' : motion === 'soft' ? 'fd-info-modal--soft' : ''}`.trim() || undefined} aria-label={`${p.title} information`}>
       <div className="fd-info-modal__overlay" data-fd-info-modal-close tabIndex={-1} onClick={onClose} />
       <div className="fd-info-modal__panel" role="document">
         <span className="fd-info-modal__grabber" aria-hidden="true" />

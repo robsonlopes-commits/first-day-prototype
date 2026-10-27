@@ -171,6 +171,10 @@
     cursor: pointer;
   }
   .fd-info-modal__choose:hover { filter: brightness(0.96); }
+  /* motion="soft" (Family Box Builder): the title is Sofia Pro (never Gelica) and the button stays pinned at the bottom, as in the footer of the other modals */
+  #fd-info-modal.fd-info-modal--soft .fd-info-modal__title { font-family: 'sofia-pro', sans-serif; letter-spacing: 0; text-transform: none; }
+  #fd-info-modal.fd-info-modal--soft .fd-info-modal__choose { height: 56px; font-size: 18px; font-weight: 600; }
+  #fd-info-modal.fd-info-modal--soft .fd-info-modal__footer { padding: 12px 20px calc(16px + env(safe-area-inset-bottom, 0px)); border-top: 1px solid var(--color-helper-black-10, rgba(0, 0, 0, 0.1)); }
 
   /* Mobile sheet: % of the fixed overlay, not vh (iOS vh ignores the toolbar).
      The top gap stays at least 72px so the strip above it is tappable. */
@@ -210,14 +214,14 @@
   }
 
   /* motion="up": the panel moves in from the bottom on desktop too (the default drawer comes from the right), with a longer, softer ease */
-  #fd-info-modal.fd-info-modal--up .fd-info-modal__panel { transition: transform 420ms cubic-bezier(.16, 1, .3, 1); }
-  #fd-info-modal.fd-info-modal--up .fd-info-modal__overlay { transition-duration: 360ms; }
+  #fd-info-modal.fd-info-modal--up .fd-info-modal__panel, #fd-info-modal.fd-info-modal--soft .fd-info-modal__panel { transition: transform 420ms cubic-bezier(.16, 1, .3, 1); }
+  #fd-info-modal.fd-info-modal--up .fd-info-modal__overlay, #fd-info-modal.fd-info-modal--soft .fd-info-modal__overlay { transition-duration: 360ms; }
   @media screen and (min-width: 750px) {
     #fd-info-modal.fd-info-modal--up .fd-info-modal__panel { transform: translateY(100%); }
     #fd-info-modal.fd-info-modal--up[data-state="open"] .fd-info-modal__panel { transform: translateY(0); }
   }
   @media (prefers-reduced-motion: reduce) {
-    #fd-info-modal.fd-info-modal--up .fd-info-modal__panel, #fd-info-modal.fd-info-modal--up .fd-info-modal__overlay { transition: none; }
+    #fd-info-modal.fd-info-modal--up .fd-info-modal__panel, #fd-info-modal.fd-info-modal--up .fd-info-modal__overlay, #fd-info-modal.fd-info-modal--soft .fd-info-modal__panel, #fd-info-modal.fd-info-modal--soft .fd-info-modal__overlay { transition: none; }
   }
 
   /* Product layout */

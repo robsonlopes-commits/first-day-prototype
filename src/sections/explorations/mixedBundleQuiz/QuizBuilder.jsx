@@ -15,16 +15,7 @@ import './quizBuild.css';
 // The data is the one of /pages/bundle-quiz (template and catalog), the popup is the shared BuildBoxPopup, nothing is re-drawn here.
 // the popup of this page without its template intro lines ("You've unlocked big savings...", "789+ bottles bought in past week" and the "Order by ..." promo): the recap box already opens the list
 const BLOCKS = T.standalone_product.blocks.filter((b) => !b.disabled).map((b) => (b.type === 'build_box_popup' ? { ...b, settings: { ...b.settings, intro_text: '', social_proof_stat: '', promo_text: '' } } : b));
-// the one line blurb of each product, short enough for two lines on a phone even on a chosen (bordered) card. Same meaning as the catalog blurbs, no hyphens in new copy.
-const SHORT = {
-  "Kids' Multivitamin": 'For mood, behavior & picky eating.', "Kids' Magnesium": 'Melatonin free relaxation & sleep.', "Kids' Brain Support": 'For focus, learning & behavior.', "Kids' Probiotic+": 'Immunity, digestion & oral health.',
-  "Toddlers' Multivitamin": "Helps fill toddlers' nutrient gaps.", "Toddlers' Probiotic+": 'For softer, easier to pass stools.',
-  "Teens' Multivitamin": 'For motivation, energy & immunity.', "Teens' Magnesium": 'Melatonin free relaxation & sleep.', "Teens' Brain Support": 'For focus, learning & memory.', "Teens' Probiotic+": 'Immunity, digestion & skin health.',
-  "Women's Multivitamin": 'For energy, skin & hair health.', "Women's Magnesium": 'Melatonin free relaxation & sleep.', "Women's Brain Support": 'Focus and calm mental energy.', "Women's Probiotic+": 'Immunity, digestion & bloating.',
-  "Men's Multivitamin": 'Power packed nutrition for men.', "Men's Magnesium": 'Melatonin free relaxation & sleep.', "Men's Brain Support": 'Focus, memory & mental clarity.', "Men's Probiotic+": 'Immunity, digestion & recovery.',
-};
-// the audiences of the adults read as the family: Women is Mom, Men is Dad (tabs and list titles; the product names stay the real ones)
-const AUDIENCE = { Women: 'Mom', Men: 'Dad' };
+import { SHORT_BLURBS as SHORT } from '../../../data/shortBlurbs.js';
 const CATALOG = BUNDLE_CATALOG.map((c) => ({ ...c, label: AUDIENCE[c.label] || c.label, products: c.products.map((p) => ({ ...p, description: SHORT[p.title] || p.description })) }));
 const PRODUCT = { ...BUNDLE_PRODUCT, gifts: GIFTS, catalog: CATALOG, infoProducts: INFO_MODAL_PRODUCTS, mainImage: BUNDLE_PRODUCT.gallery[0][0], allReviewsText: { count: ALL_REVIEWS.count } };
 
