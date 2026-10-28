@@ -10,7 +10,7 @@ import FrontrowBrandBand from '../../sections/FrontrowBrandBand.jsx';
 import AccordionBlock from '../../sections/AccordionBlock.jsx';
 import TempScienceModule from '../../sections/TempScienceModule.jsx';
 import StandaloneProduct from '../../sections/StandaloneProduct.jsx';
-import QuizBuilder from '../../sections/explorations/mixedBundleQuiz/QuizBuilder.jsx';
+import QuizBuilder, { BUILDER_TIERS } from '../../sections/explorations/mixedBundleQuiz/QuizBuilder.jsx';
 import TempSelloutNotice from '../../sections/TempSelloutNotice.jsx';
 import TimelineSection from '../../sections/TimelineSection.jsx';
 import HomepageTrustSection from '../../sections/HomepageTrustSection.jsx';
@@ -22,7 +22,7 @@ import Apps from '../../sections/Apps.jsx';
 // EXPLORATION (not a production page): /explorations/mixed-bundle-builder-quiz-v2  ("Mixed Bundle Builder v2": no quiz)
 // A DUPLICATE of v1 (MixedBundleBuilderQuizV1.jsx), itself a duplicate of the kids "Behind the Science" landing (src/pages/LandingBTS.jsx), so the production
 // replica is never touched. What v2 changes: there is NO quiz. The buy box is the original one, and its button "Add To Cart & View Gift" opens the bundle builder
-// ("Build Your Family Box", src/sections/explorations/mixedBundleQuiz/QuizBuilder.jsx) with the product of the page already chosen, in the quantity that was added,
+// ("Complete Your Family Health Routine", src/sections/explorations/mixedBundleQuiz/QuizBuilder.jsx) with the product of the page already chosen, in the quantity that was added,
 // and none of the "we added this because you told us" messages (no recap box, no notes). Closing the builder adds nothing; the builder adds to the cart.
 const sh = (name) => (name ? `shopify://shop_images/${name}` : '');
 // deep copies: editing them here does not change the production page
@@ -96,7 +96,7 @@ export default function MixedBundleBuilderQuizV2() {
       <FrontrowBrandBand id={T.custom_liquid_rkHyT8.id} />
       <AccordionBlock {...accordionProps(T.accordion_block_driBft, c.accordion1)} />
       <TempScienceModule id={sciSec.id} settings={withCss(sciSec, { heading: c.science.heading })} blocks={sciBlocks} />
-      <StandaloneProduct id={spSec.id} settings={withCss(spSec)} blocks={spSec.blocks} product={P} onBeforeAdd={(p) => setBuilder({ qty: p.qty, monthly: p.monthly })} />
+      <StandaloneProduct id={spSec.id} settings={withCss(spSec)} blocks={spSec.blocks} product={P} incrementalTiers={BUILDER_TIERS} onBeforeAdd={(p) => setBuilder({ qty: p.qty, monthly: p.monthly })} />
       <TempSelloutNotice id={sellSec.id} settings={sellSec.settings} />
       {c.timeline && (
         <TimelineSection id={tlSec.id}

@@ -15,6 +15,9 @@ import './quizBuild.css';
 // The data is the one of /pages/bundle-quiz (template and catalog), the popup is the shared BuildBoxPopup, nothing is re-drawn here.
 // the popup of this page without its template intro lines ("You've unlocked big savings...", "789+ bottles bought in past week" and the "Order by ..." promo): the recap box already opens the list
 const BLOCKS = T.standalone_product.blocks.filter((b) => !b.disabled).map((b) => (b.type === 'build_box_popup' ? { ...b, settings: { ...b.settings, intro_text: '', social_proof_stat: '', promo_text: '' } } : b));
+// the discount of 1, 2, 3 and 4 bottles of the builder ([30, 35, 40, 45], from its build_box_deal blocks): the buy box of the page uses the same ones
+export const BUILDER_TIERS = BLOCKS.filter((b) => b.type === 'build_box_deal' && b.settings.tier_discount_percent !== '' && b.settings.tier_discount_percent != null)
+  .sort((a, b) => (a.settings.count || 1) - (b.settings.count || 1)).map((b) => Number(b.settings.tier_discount_percent));
 import { SHORT_BLURBS as SHORT } from '../../../data/shortBlurbs.js';
 const AUDIENCE = { Women: 'Mom', Men: 'Dad' }; // Women and Men are Mom and Dad in the family box
 const CATALOG = BUNDLE_CATALOG.map((c) => ({ ...c, label: AUDIENCE[c.label] || c.label, products: c.products.map((p) => ({ ...p, description: SHORT[p.title] || p.description })) }));
@@ -25,7 +28,7 @@ export default function QuizBuilder({ answers, onClose }) {
   const withQuiz = !!answers.keys; // v1 comes from the quiz; v2 has no quiz: only the product of the page, no recap box, no notes
   const plan = withQuiz ? buildPlan(answers.keys, answers.qty) : plainPlan(answers.qty);
   const topSlot = withQuiz ? <div className="fd-qbb mbq-notice mbq-marker"><QuizRecap s={{}} html={plan.html} /></div> : <span className="mbq-marker" hidden />; // the marker lets the css style this builder only
-  const bb = useBuildBox({ blocks: BLOCKS, product: PRODUCT, cart, initial: { qty: plan.initialQty, subscribe: answers.monthly }, notes: plan.notes, topSlot, pinned: plan.pinned, title: 'Build Your Family Box' });
+  const bb = useBuildBox({ blocks: BLOCKS, product: PRODUCT, cart, initial: { qty: plan.initialQty, subscribe: answers.monthly }, notes: plan.notes, topSlot, pinned: plan.pinned, title: 'Complete Your Family Health Routine' });
   const opened = useRef(false);
   useEffect(() => { if (bb) bb.openPopup(); }, []); // eslint-disable-line
   const isOpen = !!(bb && bb.ui.open);

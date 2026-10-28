@@ -253,14 +253,17 @@ function SeeIngredients({ product }) {
 }
 
 /* product_purchase_content + the buy_box_frequency_option blocks + savings_display (PBFCM-PDP-controller.js behaviour) */
-function PurchaseContent({ block, freqBlocks, savings, product, sid, onBeforeAdd }) {
+function PurchaseContent({ block, freqBlocks, savings, product, sid, onBeforeAdd, tiers }) {
   const p = block.settings;
   const cart = useCart();
   const [freq, setFreq] = useState(Math.max(0, freqBlocks.findIndex((b) => b.settings.expanded_by_default)));
   const [qty, setQty] = useState(p.default_quantity);
   const monthlyBlock = freqBlocks[0];
   const monthly = freq === 0;
-  const unit = product.price * (1 - product.discountPct / 100);
+  // opt-in (incrementalTiers): the discount grows with the bottles, as in the bundle builder (1 bottle 30%, 2 bottles 35%, 3 bottles 40%, 4 bottles 45%): the quantity
+  // cards say "Save X%" and the Monthly card shows the price per bottle at the tier of the chosen quantity. Without it, a flat discountPct and "Save $X" as always.
+  const pctAt = (n) => (tiers && tiers.length ? tiers[Math.min(Math.max(n, 1), tiers.length) - 1] : product.discountPct);
+  const unit = product.price * (1 - pctAt(qty) / 100);
   const gift = product.gift;
   const total = monthly ? unit * qty : product.price * qty;
   const giftUnlocked = qty * product.price >= gift.threshold;
@@ -343,7 +346,7 @@ function PurchaseContent({ block, freqBlocks, savings, product, sid, onBeforeAdd
                     <p className="PBFCM-PDP-quantity-selector__item-label">{n}&nbsp;{n > 1 ? 'Bottles' : 'Bottle'}</p>
                     {!p.hide_quantity_savings_badge && (
                       <div className={`PBFCM-PDP-quantity-selector__savings-badge ${sel ? 'PBFCM-PDP-quantity-selector__savings-badge--selected' : ''}`} style={sel ? { backgroundColor: 'var(--PBFCM-color-savings-badge)' } : undefined}>
-                        <p className="PBFCM-PDP-quantity-selector__savings-text">Save {money(product.savingsPerBottle * n)}</p>
+                        <p className="PBFCM-PDP-quantity-selector__savings-text">{tiers && tiers.length ? `Save ${pctAt(n)}%` : `Save ${money(product.savingsPerBottle * n)}`}</p>
                       </div>
                     )}
                   </div>
@@ -406,12 +409,18 @@ function CollapsibleTab({ s, product }) {
   );
 }
 
-export default function StandaloneProduct({ id, settings: s, blocks = [], product, templateSuffix, onBeforeAdd }) {
+export default function StandaloneProduct({ id, settings: s, blocks = [], product, templateSuffix, onBeforeAdd, incrementalTiers = false }) {
   const sid = id;
   const active = blocks.filter((b) => !b.disabled);
   const cart = useCart();
   const bb = useBuildBox({ blocks: active, product, cart }); // null unless the template has a build_box_qty block
   const maxTier = Math.max(0, ...active.filter((b) => b.type === 'build_box_deal').map((b) => Number(b.settings.tier_discount_percent) || 0));
+  // incrementalTiers = the discount per bottle count, for example [30, 35, 40, 45] (1 to 4 bottles). true reads it from this template's own build_box_deal blocks.
+  const tiers = Array.isArray(incrementalTiers) ? incrementalTiers
+    : incrementalTiers
+      ? active.filter((b) => b.type === 'build_box_deal' && b.settings.tier_discount_percent !== '' && b.settings.tier_discount_percent != null)
+        .sort((a, b) => (a.settings.count || 1) - (b.settings.count || 1)).map((b) => Number(b.settings.tier_discount_percent))
+      : null;
   const freqBlocks = active.filter((b) => b.type === 'buy_box_frequency_option');
   const savings = active.find((b) => b.type === 'savings_display');
   const bg = s.grid_background_color && !['transparent', 'rgba(0,0,0,0)'].includes(s.grid_background_color) ? s.grid_background_color : undefined;
@@ -426,7 +435,7 @@ export default function StandaloneProduct({ id, settings: s, blocks = [], produc
       case 'title': return <Title key={b.id} s={b.settings} product={product} hasBuildBox={!!bb} />;
       case 'benefit_accordion_stats': return <BenefitAccordion key={b.id} s={b.settings} product={product} />;
       case 'see_ingredients': return <SeeIngredients key={b.id} product={product} />;
-      case 'product_purchase_content': return <PurchaseContent key={b.id} block={b} freqBlocks={freqBlocks} savings={savings} product={product} sid={sid} onBeforeAdd={onBeforeAdd} />;
+      case 'product_purchase_content': return <PurchaseContent key={b.id} block={b} freqBlocks={freqBlocks} savings={savings} product={product} sid={sid} onBeforeAdd={onBeforeAdd} tiers={tiers} />;
       case 'custom_liquid': return (
         <div key={b.id} className="product__custom-liquid">
           <div className="usprow">{product.usp.map((u) => <div key={u.alt} className="usp"><img src={`https://cdn.shopify.com/s/files/1/0028/0533/4131/files/${u.src}`} alt={u.alt} /></div>)}</div>
