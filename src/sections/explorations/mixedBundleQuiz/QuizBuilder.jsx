@@ -16,6 +16,7 @@ import './quizBuild.css';
 // the popup of this page without its template intro lines ("You've unlocked big savings...", "789+ bottles bought in past week" and the "Order by ..." promo): the recap box already opens the list
 const BLOCKS = T.standalone_product.blocks.filter((b) => !b.disabled).map((b) => (b.type === 'build_box_popup' ? { ...b, settings: { ...b.settings, intro_text: '', social_proof_stat: '', promo_text: '' } } : b));
 import { SHORT_BLURBS as SHORT } from '../../../data/shortBlurbs.js';
+const AUDIENCE = { Women: 'Mom', Men: 'Dad' }; // Women and Men are Mom and Dad in the family box
 const CATALOG = BUNDLE_CATALOG.map((c) => ({ ...c, label: AUDIENCE[c.label] || c.label, products: c.products.map((p) => ({ ...p, description: SHORT[p.title] || p.description })) }));
 const PRODUCT = { ...BUNDLE_PRODUCT, gifts: GIFTS, catalog: CATALOG, infoProducts: INFO_MODAL_PRODUCTS, mainImage: BUNDLE_PRODUCT.gallery[0][0], allReviewsText: { count: ALL_REVIEWS.count } };
 
