@@ -296,7 +296,10 @@ body.sesame-street h4.primary-title.mini-cart-upsell-message { font-family: 'sof
 
 /* the product title: no balancing, and the two parts of the title never break inside (the first part, then the highlighted phrase on its own line) */
 .ss-page .pdp-vanity h1, .ss-page .pdp-vanity .vanity-title { text-wrap: wrap; }
-@media (min-width: 990px) { .ss-page .vanity-title > span:last-child { display: block; } .ss-page .vanity-title > span:first-child, .ss-page .vanity-title-highlight { white-space: nowrap; } }
+/* the title flows as in production: one line when it fits; the highlighted phrase never breaks inside, it moves to the next line as a whole */
+@media (min-width: 990px) { .ss-page .vanity-title-highlight { white-space: nowrap; } }
+/* the info column of the buy box is a little wider than the theme's 740px, so the longer Sesame title ("Gentle 3-In-1 Tummy Helper For Softer, Easier-To-Pass Stools") stays on one line at the same font size */
+@media (min-width: 990px) { .ss-page .product__info-wrapper { max-width: 800px !important; } }
 
 /* the new template: the flat wave is a band between two sections (Seam in the page); 'over' and 'up' lay it on the picture of the hero so the hard edges become waves too */
 .ss-page .ss-seam { line-height: 0; position: relative; z-index: 2; }

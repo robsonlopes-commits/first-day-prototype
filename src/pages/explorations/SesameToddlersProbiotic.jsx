@@ -117,7 +117,7 @@ export default function SesameToddlersProbiotic() {
   useEffect(() => { document.body.classList.add('sesame-street'); return () => document.body.classList.remove('sesame-street'); }, []);
   useEffect(() => { fixIframeFonts(); const t = window.setInterval(fixIframeFonts, 1000); return () => window.clearInterval(t); }, []);
   return (
-    <div className="ss-page">
+    <div className="ss-page ss-page--probiotic">
       <ProductLegacy page={PAGE} />
       <SesameFx />
     </div>
