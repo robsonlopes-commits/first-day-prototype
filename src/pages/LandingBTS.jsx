@@ -18,7 +18,7 @@ import FrontrowmdCliniciansReviews from '../sections/FrontrowmdCliniciansReviews
 import Apps from '../sections/Apps.jsx';
 
 // page.lp-BTS-master: "Behind the Science" landing page. One layout (templates/page.lp-BTS-master.json), two audiences:
-//   /pages/kde-behind-the-science-lp (kids)  and  /pages/tdk-behind-the-science-lp (teens)
+//   /pages/kde-behind-the-science-lp (kids), /pages/tdk-behind-the-science-lp (teens) and /pages/trmv-behind-the-science-lp (toddlers)
 // The template reads nearly all its copy from page metafields, so the section settings/blocks come from TEMPLATE (src/data/landingTemplate.js)
 // and the metafield values from LANDING[audience] (src/data/landing.js). Sections the live pages render with zero height for both audiences
 // (temp-marquee, fd-problem-signs, image-with-text, temp-a-plus-cards, faq; "main" is disabled) are not mounted; temp-css renders
@@ -57,7 +57,7 @@ export default function LandingBTS({ audience = 'kde' }) {
   // science tabs
   const sciSec = T.temp_science_module_mqM7QH;
   const tabProto = sciSec.blocks[0].settings;
-  const sciBlocks = c.science.tabs.map((t, i) => ({
+  const sciBlocks = (c.science?.tabs || []).map((t, i) => ({
     id: `tab-${i}`,
     settings: { ...tabProto, tab_label: t.label, content_title: t.title, content_description: t.desc, benefits_list: t.list, panel_video: extImg(t.video), panel_poster: extImg(t.poster) },
   }));
@@ -89,7 +89,7 @@ export default function LandingBTS({ audience = 'kde' }) {
       <TempReploHero id={heroSec.id} settings={hero} blocks={heroBlocks} video={c.hero.video && extImg(c.hero.video)} mobileVideo={c.hero.mobileVideo && extImg(c.hero.mobileVideo)} />
       <FrontrowBrandBand id={T.custom_liquid_rkHyT8.id} />
       <AccordionBlock {...accordionProps(T.accordion_block_driBft, c.accordion1)} />
-      <TempScienceModule id={sciSec.id} settings={withCss(sciSec, { heading: c.science.heading })} blocks={sciBlocks} />
+      {c.science && <TempScienceModule id={sciSec.id} settings={withCss(sciSec, { heading: c.science.heading })} blocks={sciBlocks} />}
       <StandaloneProduct id={spSec.id} settings={withCss(spSec)} blocks={spSec.blocks} product={P} />
       <TempSelloutNotice id={sellSec.id} settings={sellSec.settings} />
       {c.timeline && (

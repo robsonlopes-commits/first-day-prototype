@@ -103,7 +103,7 @@ function Cards({ cards }) {
           {cards.map((c, i) => (
             <article className="pdv-df__card" data-pdv-card key={i}>
               <div className="pdv-df__card-head">
-                {c.image ? <div className="pdv-df__card-thumb"><Img src={settingImg(c.image)} alt={c.name || ''} loading="lazy" width="48" height="48" /></div> : null}
+                {c.image ? <div className="pdv-df__card-thumb"><Img src={settingImg(c.image)} alt={c.name || ''} loading="lazy" width="48" height="48" style={c.focal ? { objectPosition: c.focal } : undefined} /></div> : null}
                 {c.name ? <h3 className="pdv-df__card-title">{c.name}</h3> : null}
               </div>
               {c.body ? <div className="pdv-df__card-body" dangerouslySetInnerHTML={{ __html: c.body }} /> : null}

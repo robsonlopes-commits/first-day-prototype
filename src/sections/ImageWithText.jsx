@@ -29,7 +29,7 @@ function VideoImage({ src, alt, url, children }) {
   );
 }
 
-export default function ImageWithText({ id, settings: raw, blocks = [], customCss = [], imageAspectRatio = 1 }) {
+export default function ImageWithText({ id, settings: raw, blocks = [], customCss = [], imageAspectRatio = 1, overlay }) {
   const [ratio, setRatio] = useState(imageAspectRatio);
   const s = { ...raw, colors_background: colorObj(raw.colors_background || '#ffffff'), colors_text: colorObj(raw.colors_text), colors_button_background: colorObj(raw.colors_button_background), colors_button_label: colorObj(raw.colors_button_label) };
   const imgSrc = settingImg(s.image);
@@ -51,7 +51,7 @@ export default function ImageWithText({ id, settings: raw, blocks = [], customCs
   if (s.enable_border_radius) mwStyle.borderRadius = `${s.border_radius}px`;
 
   const media = imgSrc && (
-    <Img src={imgSrc} alt="" className="image-fit" style={{ objectPosition: undefined }} loading="lazy"
+    <Img src={imgSrc} alt={s.image_alt || ''} className="image-fit" style={{ objectPosition: undefined }} loading="lazy"
       onLoad={(e) => e.target.naturalWidth && setRatio(e.target.naturalWidth / e.target.naturalHeight)} />
   );
 
@@ -88,7 +88,7 @@ export default function ImageWithText({ id, settings: raw, blocks = [], customCs
     <section id={`shopify-section-${id}`} className="shopify-section section">
       <style>{iwtCss(cssSettings, id)}{customCssFor(id, customCss)}</style>
       {s.anchor_id && <div id={s.anchor_id} className="fd-jump-anchor" />}
-      {s.top_waves && <Waves position="top" color={s.background_color} containerBackground={s.wavesTopBackgroundColor} />}
+      {s.top_waves && <Waves position="top" color={s.background_color} containerBackground={s.wavesTopBackgroundColor} modern={s.modern_waves} />}
       <div style={{ ...bg, paddingTop: containerPaddingTop, paddingBottom: containerPaddingBottom, marginTop: -1 }}>
         <div className={`section--padding${s.show_divider ? ' section--divider' : ''}`}>
           <div className={`image-with-text${s.use_custom_colors ? ' image-with-text--colored' : ' image-with-text--alt'}${s.enlarge_content ? ' image-with-text--enlarge' : ''} page-width${s.full_width ? ' page-width--full-width' : ''}`} style={bg}>
@@ -98,6 +98,7 @@ export default function ImageWithText({ id, settings: raw, blocks = [], customCs
                   <div className={`image-animate media--${s.image_ratio} media-mobile--${s.mobile_image_ratio} ${imgSrc ? 'media' : 'media--placeholder'}${s.image_behavior !== 'none' ? ` animate--${s.image_behavior}` : ''}`} style={{ '--image-ratio-percent': `${(1 / ratio) * 100}%` }}>
                     {imgSrc && (s.video_url ? <VideoImage url={s.video_url}>{media}</VideoImage> : <a href={s.image_link || undefined} role={s.image_link ? undefined : 'link'} aria-disabled={s.image_link ? undefined : 'true'}>{media}</a>)}
                   </div>
+                  {overlay /* opt-in (explorations): SVG stickers laid on top of the real image */}
                   {badges.length > 0 && (
                     <div className="iwt-badges-overlay">{badges.map((b) => (
                       <div key={b.id} className="iwt-badge">
@@ -114,7 +115,7 @@ export default function ImageWithText({ id, settings: raw, blocks = [], customCs
           </div>
         </div>
       </div>
-      {s.bottom_waves && <Waves position="bottom" color={s.background_color} containerBackground={s.wavesBottomBackgroundColor} />}
+      {s.bottom_waves && <Waves position="bottom" color={s.background_color} containerBackground={s.wavesBottomBackgroundColor} modern={s.modern_waves} />}
     </section>
   );
 }

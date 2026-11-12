@@ -5,6 +5,10 @@ import { Link } from 'react-router-dom';
 // right above it, and write its description: one or two lines on what it does and what it was copied from).
 // PAGES: replicas of the live storefront pages, in their usual order.
 const explorations = [
+  ['/explorations/sesame-toddlers-bts', 'Sesame Street Toddlers Behind the Science', "The Toddlers' Multi Behind the Science landing (/pages/trmv-behind-the-science-lp) as a Sesame Street edition, made with the sesame-streetize playbook: Sesame bottle in the wheel and the hand picture, stickers on top of files, flat wave seams, The Count Counts It, Meet The Gang and a Sesame closing. Header and footer untouched."],
+  ['/explorations/sesame-toddlers-bundle', 'Sesame Street Toddlers Starter Pack', "The Toddlers' Starter Pack bundle PDP (legacy template: The Multi with Big Bird + the Pre + Post Probiotic with Elmo) as a Sesame Street edition, made with the sesame-streetize playbook: the two Sesame bottles side by side, generated pictures reused from the other two pages, SVG stickers on top of files, flat waves, Real Wholesome as friends, The Count Counts It and Meet The Gang."],
+  ['/explorations/sesame-toddlers-multi', 'Sesame Street Toddlers Multi', 'The Toddlers Multi PDP (new template) as a Sesame Street edition, made with the sesame-streetize playbook: the Sesame bottle with Big Bird, generated pictures with the bottle at its real size, SVG stickers on top of files, new Count and Meet The Gang sections, headings with a play on the show. Header and footer untouched. Copy of /products/the-no-junk-toddlers-multivitamin.'],
+  ['/explorations/sesame-toddlers-probiotic', 'Sesame Street Toddlers Probiotic', 'The Toddlers 3-in-1 Probiotic PDP (legacy template) as a Sesame Street edition: Version B art of the House Style library as stickers on top of generated pictures with the Sesame bottle, new sections (Real Wholesome, The Count, Meet The Gang), flat waves, headings with a play on the show. Header and footer untouched. Copy of /products/toddlers-3-in-1-probiotic.'],
   ['/explorations/family-box-builder', 'Family Box Builder', 'Add the family (Kid, Toddler, Teen, Mom, Dad), a box with a carousel of products for each person, and a summary with the discount tiers, the gifts and Add To Cart (fixed at the bottom on mobile, a column on the right on desktop). Started as a copy of the All-in-1 Bundle landing, Kids only, without its buy box.'],
   ['/explorations/mixed-bundle-builder-quiz-v2', 'Mixed Bundle Builder v2', 'No quiz. Add To Cart opens the Complete Your Family Health Routine with the product of the page already chosen, in the quantity added. Copy of the kids Behind the Science LP.'],
   ['/explorations/mixed-bundle-builder-quiz-v1', 'Mixed Bundle Builder + Quiz v1', 'Add To Cart opens a 1 step quiz. Its answers open the Complete Your Family Health Routine with the product of the page plus what the answers add, each with the reason. Copy of the kids Behind the Science LP.'],
@@ -15,8 +19,12 @@ const pages = [
   ['/', 'Home', 'index.hp01-v2'],
   ['/products/kids-calming-magnesium', 'Legacy PDP', 'product.unified-default'],
   ['/products/kids-enrichment-vitamin', 'New PDP', 'product.uniified-default-v2'],
+  ['/products/the-no-junk-toddlers-multivitamin', 'New PDP (toddlers multi)', 'product.uniified-default-v2'],
+  ['/products/toddlers-3-in-1-probiotic', 'Legacy PDP (toddlers probiotic)', 'product.unified-default'],
+  ['/products/toddler-tlc-starter-pack', 'Legacy PDP (toddlers TLC starter pack)', 'product.unified-default'],
   ['/pages/kde-behind-the-science-lp', 'Behind the Science LP (kids)', 'page.lp-BTS-master'],
   ['/pages/tdk-behind-the-science-lp', 'Behind the Science LP (teens)', 'page.lp-BTS-master'],
+  ['/pages/trmv-behind-the-science-lp', 'Behind the Science LP (toddlers multi)', 'page.lp-BTS-master'],
   ['/pages/bundle-builder-v2', 'Bundle builder v2 (quiz)', 'page.lp-bundle-v2'],
   ['/pages/bundle-quiz', 'Bundle quiz', 'page.lp-bundle-v3'],
   ['/pages/sale', 'Sale', 'page.bfcm-categories'],

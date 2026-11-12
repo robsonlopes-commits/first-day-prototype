@@ -144,7 +144,7 @@ export default function JudgeMeReviewWidget({ data, productTitle }) {
                   </Cluster>
                 </Stack>
               </Cluster>
-              <div className="jm-ai-insights">
+              {data.summary && <div className="jm-ai-insights">
                 <div className="jm-box jm-box--inherit-color" style={{ '--jm-box-padding': 'var(--jm-space-0)', '--jm-box-border-width': 0 }}>
                   <Stack space={400}>
                     <Stack space={200}>
@@ -171,7 +171,7 @@ export default function JudgeMeReviewWidget({ data, productTitle }) {
                     </Stack>
                   </Stack>
                 </div>
-              </div>
+              </div>}
               <Cluster justify="flex-start" align="flex-start" space={100} className="jm-keyword-list" />
             </Stack>
             <div className="jm-loading-overlay jm-review-widget__body">

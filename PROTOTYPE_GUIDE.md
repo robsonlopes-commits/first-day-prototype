@@ -9,7 +9,7 @@ No backend, no Shopify APIs, no real cart. `npm install && npm run dev` → http
 | `/` | `index.hp01-v2` | `src/pages/Home.jsx` |
 | `/products/kids-calming-magnesium` | `product.unified-default` (legacy PDP) | `src/pages/ProductLegacy.jsx` |
 | `/products/kids-enrichment-vitamin` | `product.uniified-default-v2` (new PDP) | `src/pages/ProductNew.jsx` |
-| `/pages/kde-behind-the-science-lp` (kids), `/pages/tdk-behind-the-science-lp` (teens) | `page.lp-BTS-master` | `src/pages/LandingBTS.jsx` |
+| `/pages/kde-behind-the-science-lp` (kids), `/pages/tdk-behind-the-science-lp` (teens), `/pages/trmv-behind-the-science-lp` (toddlers multi) | `page.lp-BTS-master` | `src/pages/LandingBTS.jsx` |
 | `/pages/bundle-builder-v2` | `page.lp-bundle-v2` | `src/pages/BundleBuilderV2.jsx` |
 | `/pages/bundle-quiz` | `page.lp-bundle-v3` / quiz | `src/pages/BundleQuiz.jsx` |
 | `/pages/sale` | `page.bfcm-categories` | `src/pages/Sale.jsx` |
@@ -68,6 +68,12 @@ BUNDLEBUILDER ($27.30). Live now shows 40% / FALLDEALS. Change `DEFAULT_DISCOUNT
 ## Known gaps
 Teens/Toddlers links on PDPs point to routes that do not exist here. Gift tiers use the theme default ($75 / $25 gift).
 Legacy PDP sticky add-to-cart only with `?fd_sticky_atc=v1|v2` (mobile). Section/KDE landing page mobile slices were checked less thoroughly than desktop.
+
+## Exploration: Sesame Street Toddlers' Probiotic (`/explorations/sesame-toddlers-probiotic`)
+A duplicate of `/products/toddlers-3-in-1-probiotic` made fully Sesame Street (header and footer untouched, words kept). Page `src/pages/explorations/SesameToddlersProbiotic.jsx`, components in `src/sections/explorations/sesame/` (`Stickers.jsx` SVG stickers over pictures, `Sections.jsx` new sections and small parts, `Fx.jsx` motion, `sesame.css`). Art: Version B of the Sesame Workshop House Style library, cropped with `tools/svg-crop.py`, in `public/assets/sesame/` plus the owner's Sesame bottle and the official logo. **That art is licensed: do not commit or push `public/assets/sesame/` before the owner confirms the license covers a public repo.** Notes and lessons in `.claude/skills/sesame-street/references/exploration-toddlers-probiotic.md`. Shared sections got opt-in hooks (`SLOT_INFO_TOP`, `SLOT_MEDIA`, `SLOT_AFTER_QTY`, `onAddToCart`, gallery `overlay` stickers, `overlay` on image-with-text, `type: 'custom'` sections, `modern_waves` on image-with-text, multicolumn and rich-text (the flat 99px / 52px wave of the modern pages, `components/ModernWave.jsx`, instead of the tall theme wave)), Kids and the other PDPs are unchanged. **Rule of the owner: in the Shopify theme a picture or video slot is an image field, so every picture slot of an exploration is a file (the live image or one generated with the image API); SVGs only sit on top of it as stickers, or live in new sections and in HTML/CSS changes. Never replace a picture with a montage of SVGs.** No Gelica and no heavy hard shadows on that page.
+
+## Heading font (2026-11-09)
+Global headings (`.heading, h1 to h5, .h0 to .h5` in `src/styles/base.css`) are **sofia-pro**, as the live head CSS now sets them (the prototype had Gelica; owner decision). Sections whose own CSS asks for another font (a few legacy ones still render Gelica or Lora, as on the live site) keep it. The `:root` variable `--font-heading-family` still says gelica, as on live.
 
 ## Differences from production
 Typekit fonts load from adobe's CDN; Home is the `hp01-v2` variant without the Intelligems redirect; popups skipped.

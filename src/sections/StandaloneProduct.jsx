@@ -129,7 +129,9 @@ function Gallery({ images }) {
         <div className="swiper-wrapper" aria-live="polite" style={{ cursor: 'grab', transitionDuration: drag ? '0ms' : '320ms', transform: `translate3d(calc(${-index * 100}% - ${index * 16}px + ${dx}px), 0, 0)` }}>
           {images.map((im, i) => (
             <div key={im.src} className={`swiper-slide PBFCM-PDP-product-gallery__main-slide${i === index ? ' swiper-slide-active' : ''}`} style={{ marginRight: 16 }} role="group" aria-label={`${i + 1} / ${images.length}`}>
-              <Img src={im.src} alt={im.alt} className="PBFCM-PDP-product-gallery__main-image" id={i === 0 ? 'PBFCM-main-image' : undefined} loading={i < 2 ? 'eager' : 'lazy'} draggable="false" />
+              {im.overlay /* opt-in (explorations): SVG stickers laid on top of the real picture */
+                ? <div className="ss-ov-wrap"><Img src={im.src} alt={im.alt} className="PBFCM-PDP-product-gallery__main-image" id={i === 0 ? 'PBFCM-main-image' : undefined} loading={i < 2 ? 'eager' : 'lazy'} draggable="false" />{im.overlay}</div>
+                : <Img src={im.src} alt={im.alt} className="PBFCM-PDP-product-gallery__main-image" id={i === 0 ? 'PBFCM-main-image' : undefined} loading={i < 2 ? 'eager' : 'lazy'} draggable="false" />}
             </div>
           ))}
         </div>
@@ -253,7 +255,7 @@ function SeeIngredients({ product }) {
 }
 
 /* product_purchase_content + the buy_box_frequency_option blocks + savings_display (PBFCM-PDP-controller.js behaviour) */
-function PurchaseContent({ block, freqBlocks, savings, product, sid, onBeforeAdd, tiers }) {
+function PurchaseContent({ block, freqBlocks, savings, product, sid, onBeforeAdd, tiers, ex = {} }) {
   const p = block.settings;
   const cart = useCart();
   const [freq, setFreq] = useState(Math.max(0, freqBlocks.findIndex((b) => b.settings.expanded_by_default)));
@@ -276,6 +278,7 @@ function PurchaseContent({ block, freqBlocks, savings, product, sid, onBeforeAdd
     const line = { handle: product.handle, title: product.title, image: shopImg(product.gallery[1][0]), price: product.price * 100 };
     // commit adds the product to the (mock) cart; options.keepCartClosed lets a caller add more lines first and open the cart itself
     const commit = (options = {}) => {
+      ex.onAddToCart?.(); // opt-in (explorations)
       cart.addLine(line, monthly);
       if (qty > 1) cart.changeQty(`${product.handle}:${monthly ? 'sub' : 'otp'}`, qty - 1);
       if (!options.keepCartClosed) cart.openCart();
@@ -335,6 +338,7 @@ function PurchaseContent({ block, freqBlocks, savings, product, sid, onBeforeAdd
           <style>{`.PBFCM-PDP-quantity-selector__item-label { font-size: ${p.quantity_item_label_size_desktop}px; } @media (max-width: 749px) { .PBFCM-PDP-quantity-selector__item-label { font-size: ${p.quantity_item_label_size_mobile}px; } }`}</style>
           <div className="PBFCM-PDP-quantity-selector__header">
             <h2 className="PBFCM-PDP-quantity-selector__title">{p.quantity_title}</h2>
+            {typeof ex.slotQtyHeader === 'function' ? ex.slotQtyHeader({ qty }) : ex.slotQtyHeader /* opt-in (explorations): a node between the title and the servings badge */}
             <div className="PBFCM-PDP-quantity-selector__servings-badge"><p className="PBFCM-PDP-quantity-selector__servings-text">{p.servings_badge_text}</p></div>
           </div>
           <div className="PBFCM-PDP-quantity-selector__grid" style={{ gridTemplateColumns: `repeat(${p.quantity_grid_columns}, 1fr)` }} role="radiogroup" aria-label="Select quantity">
@@ -409,7 +413,8 @@ function CollapsibleTab({ s, product }) {
   );
 }
 
-export default function StandaloneProduct({ id, settings: s, blocks = [], product, templateSuffix, onBeforeAdd, incrementalTiers = false }) {
+// `ex` = opt-in slots of the explorations: { slotInfoTop, slotQtyHeader({ qty }), onAddToCart }; a gallery entry may be [file, alt, overlay] and a file starting with '/' is used as is
+export default function StandaloneProduct({ id, settings: s, blocks = [], product, templateSuffix, onBeforeAdd, incrementalTiers = false, ex = {} }) {
   const sid = id;
   const active = blocks.filter((b) => !b.disabled);
   const cart = useCart();
@@ -424,7 +429,7 @@ export default function StandaloneProduct({ id, settings: s, blocks = [], produc
   const freqBlocks = active.filter((b) => b.type === 'buy_box_frequency_option');
   const savings = active.find((b) => b.type === 'savings_display');
   const bg = s.grid_background_color && !['transparent', 'rgba(0,0,0,0)'].includes(s.grid_background_color) ? s.grid_background_color : undefined;
-  const images = product.gallery.map(([file, alt]) => ({ src: shopImg(file), alt: alt || product.title }));
+  const images = product.gallery.map(([file, alt, overlay]) => ({ src: file.startsWith('/') ? file : shopImg(file), alt: alt || product.title, overlay }));
   const renderBlock = (b) => {
     switch (b.type) {
       case 'spacing': return <Spacing key={b.id} s={b.settings} />;
@@ -435,7 +440,7 @@ export default function StandaloneProduct({ id, settings: s, blocks = [], produc
       case 'title': return <Title key={b.id} s={b.settings} product={product} hasBuildBox={!!bb} />;
       case 'benefit_accordion_stats': return <BenefitAccordion key={b.id} s={b.settings} product={product} />;
       case 'see_ingredients': return <SeeIngredients key={b.id} product={product} />;
-      case 'product_purchase_content': return <PurchaseContent key={b.id} block={b} freqBlocks={freqBlocks} savings={savings} product={product} sid={sid} onBeforeAdd={onBeforeAdd} tiers={tiers} />;
+      case 'product_purchase_content': return <PurchaseContent key={b.id} block={b} freqBlocks={freqBlocks} savings={savings} product={product} sid={sid} onBeforeAdd={onBeforeAdd} tiers={tiers} ex={ex} />;
       case 'custom_liquid': return (
         <div key={b.id} className="product__custom-liquid">
           <div className="usprow">{product.usp.map((u) => <div key={u.alt} className="usp"><img src={`https://cdn.shopify.com/s/files/1/0028/0533/4131/files/${u.src}`} alt={u.alt} /></div>)}</div>
@@ -480,6 +485,7 @@ export default function StandaloneProduct({ id, settings: s, blocks = [], produc
           <div className="grid__item product__media-wrapper"><Gallery images={images} /></div>
           <div className="product__info-wrapper grid__item">
             <div id={`ProductInfo-${id}`} className={`product__info-container${s.enable_sticky_info ? ' product__info-container--sticky' : ''}${bb ? ' has-fd-build-box' : ''}`}>
+              {ex.slotInfoTop}
               {infoBlocks.map(renderBlock)}
             </div>
           </div>

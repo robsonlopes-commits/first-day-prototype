@@ -1,0 +1,373 @@
+/* Sesame Street Toddlers' Probiotic (exploration). Everything is scoped to .ss-page, so the header and the footer of the site are not touched.
+   Art = Version B of the House Style library (public/assets/sesame). Palette from the House Style cover and the specification chart. */
+.ss-page {
+  --ss-font: 'sofia-pro', sans-serif; /* owner rule: ONLY Sofia Pro on this page */
+  --ss-body: 'sofia-pro', sans-serif;
+  --ss-ink: #1f3a70; --ss-blue: #2f6bdf; --ss-sky: #d6efff; --ss-red: #e8202f; --ss-red-d: #a5121d; --ss-yellow: #ffd400; --ss-green: #00ab4e; --ss-orange: #f7941d; --ss-purple: #8a5cc4; --ss-pink: #f0489c;
+  position: relative; overflow-x: clip;
+}
+.ss-page .ss-char { display: block; max-width: none; }
+.ss-page img { -webkit-user-drag: none; }
+@media (prefers-reduced-motion: reduce) { .ss-page *, .ss-page *::before, .ss-page *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; } }
+
+/* ------------------------------------------------------------------ small parts */
+.ss-bubble { --tail: 13px; --bw: 3px; position: relative; display: inline-block; max-width: 260px; padding: 8px 14px; border: 3px solid var(--ss-ink); border-radius: 20px; background: #fff; color: var(--ss-ink); font: 600 15px/1.25 var(--ss-font); box-shadow: 0 4px 12px rgba(31, 58, 112, 0.14); animation: ss-pop 380ms cubic-bezier(0.2, 1.4, 0.4, 1) both; }
+.ss-bubble::before, .ss-bubble::after { content: ''; position: absolute; top: 100%; clip-path: polygon(0 0, 100% 0, 50% 100%); } /* the tail: an ink triangle and a white one on top of it, which also opens the border of the bubble */
+.ss-bubble::before { width: calc(var(--tail) * 2); height: calc(var(--tail) * 1.15); background: var(--ss-ink); }
+.ss-bubble::after { width: calc(var(--tail) * 2 - var(--bw) * 2.4); height: calc(var(--tail) * 1.15 - var(--bw) * 1.3); margin-top: -1px; background: #fff; }
+.ss-bubble--left::before { left: 18px; } .ss-bubble--left::after { left: calc(18px + var(--bw) * 1.2); } .ss-bubble--right::before { right: 18px; } .ss-bubble--right::after { right: calc(18px + var(--bw) * 1.2); }
+.ss-digits { display: inline-flex; align-items: flex-end; gap: 0.06em; height: var(--h, 1em); }
+.ss-digits img { height: 100%; width: auto; display: block; }
+.ss-digits b { align-self: flex-end; font: 700 0.6em var(--ss-font); }
+.ss-sparkles { position: absolute; inset: 0; pointer-events: none; overflow: hidden; }
+.ss-sparkle { position: absolute; border-radius: 50%; opacity: 0.85; animation: ss-twinkle 3.2s ease-in-out infinite; }
+.ss-sparkle--1 { border-radius: 24%; transform: rotate(var(--rot)); } .ss-sparkle--2 { border-radius: 999px; transform: rotate(var(--rot)); }
+.ss-h2 { margin: 0 0 22px; font: 700 clamp(30px, 4.2vw, 50px)/1.05 var(--ss-font); color: var(--ss-ink); text-align: center; letter-spacing: 0; text-transform: none; }
+.ss-h2--light { color: #fff;  }
+.ss-btn { display: inline-flex; align-items: center; justify-content: center; padding: 14px 34px; border-radius: 999px; background: var(--ss-yellow); color: var(--ss-ink); font: 700 20px/1 var(--ss-font); letter-spacing: 0.04em; text-decoration: none; box-shadow: 0 6px 16px rgba(31, 58, 112, 0.16); transition: transform 120ms ease, box-shadow 120ms ease; }
+.ss-btn:hover { transform: translateY(2px) scale(1.03); box-shadow: 0 4px 12px rgba(31, 58, 112, 0.16); } .ss-btn:active { transform: translateY(6px); box-shadow: 0 2px 6px rgba(31, 58, 112, 0.14); }
+
+/* ------------------------------------------------------------------ stickers laid on top of the real (or generated) pictures. A picture slot of the page is always a file; the SVGs only sit on it. */
+@keyframes ss-bob { 50% { transform: translateY(-1.6cqw); } }
+@keyframes ss-sway { 50% { transform: rotate(3deg) translateY(-0.8cqw); } }
+@keyframes ss-drift { to { transform: translateX(3cqw); } }
+@keyframes ss-twinkle { 50% { transform: scale(0.6) rotate(var(--rot, 0deg)); opacity: 0.45; } }
+@keyframes ss-pop { 0% { transform: scale(0.4); opacity: 0; } 100% { transform: scale(1); opacity: 1; } }
+.ss-page use-animate.media-wrapper { box-shadow: none !important; border: 0 !important; border-radius: 0 !important; overflow: visible !important; } /* the theme's offset frame (a product color that does not exist here); overflow visible so the stickers can stand out of the picture (the picture itself is still clipped and rounded by .media) */
+.ss-ov { position: absolute; inset: 0; container-type: inline-size; pointer-events: none; z-index: 3; font-family: var(--ss-font); }
+.ss-ov-wrap { position: relative; }
+.ss-page use-animate.media-wrapper { position: relative; }
+.ss-st { position: absolute; display: block; padding: 0; border: 0; background: none; transform-origin: 50% 100%; -webkit-tap-highlight-color: transparent; }
+.ss-st .ss-char, .ss-st__art { height: 100%; width: auto; display: block; }
+.ss-st--idle, .ss-st--talk { animation: ss-sway 3.6s ease-in-out infinite; }
+.ss-st--flip { transform: scaleX(-1); }
+.ss-st--talk { pointer-events: auto; cursor: pointer; transition: transform 160ms ease; }
+.ss-st--talk:hover { animation-play-state: paused; transform: rotate(-3deg) scale(1.04); } .ss-st--talk:active { transform: scale(0.96); }
+.ss-st--talk:focus-visible { outline: 0.8cqw dashed var(--ss-ink); outline-offset: 1cqw; }
+.ss-st .ss-bubble, .ss-ov .ss-bubble { position: absolute; max-width: none; z-index: 5; font-size: 3cqw; border-width: 0.4cqw; border-radius: 3cqw; padding: 1cqw 2.2cqw; box-shadow: 0 0.6cqw 1.6cqw rgba(31, 58, 112, 0.14); animation: none; opacity: 0; transform: scale(0.7); transform-origin: 80% 100%; pointer-events: none; transition: opacity 160ms ease, transform 200ms cubic-bezier(0.2, 1.4, 0.4, 1); }
+.ss-st--talk:hover .ss-bubble, .ss-st--talk:focus-visible .ss-bubble, .ss-st--talk.is-on .ss-bubble { opacity: 1; transform: none; }
+.ss-ov .ss-bubble { --tail: 1.8cqw; --bw: 0.4cqw; }
+
+/* ------------------------------------------------------------------ the buy box section */
+/* sky: the blue gradient of the buy box with soft white clouds (own drawing, simple puffs with a flat bottom, some cut by the edges) */
+.ss-page :is(#shopify-section-main, [id$='__main']) > section { position: relative; isolation: isolate; background: linear-gradient(180deg, #d6eeff 0%, #ffffff 560px) !important; }
+.ss-page :is(#shopify-section-main, [id$='__main']) > section::before { content: ''; position: absolute; left: 0; right: 0; top: 0; height: 560px; z-index: -1; pointer-events: none; background-repeat: no-repeat;
+  background-image: var(--ss-cloud), var(--ss-cloud), var(--ss-cloud), var(--ss-cloud);
+  background-position: -4% 14px, 104% -12px, 42% -18px, 76% 6px;
+  background-size: clamp(170px, 24vw, 380px) auto, clamp(190px, 27vw, 430px) auto, clamp(110px, 14vw, 220px) auto, clamp(100px, 12vw, 190px) auto; } /* the first version of the clouds: they may go behind the picture (it has a blue background now) */
+.ss-page { --ss-cloud: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 220 100'%3E%3Cg fill='white'%3E%3Ccircle cx='62' cy='62' r='28'/%3E%3Ccircle cx='104' cy='42' r='38'/%3E%3Ccircle cx='146' cy='58' r='30'/%3E%3Ccircle cx='182' cy='68' r='22'/%3E%3Crect x='34' y='62' width='170' height='32' rx='16'/%3E%3C/g%3E%3C/svg%3E"); }
+.ss-page .PBFCM-PDP-product-gallery__main { border-radius: 16px; overflow: hidden; box-shadow: none; }
+.ss-page .PBFCM-PDP-product-gallery__main-image { border-radius: 16px; }
+.ss-page .image-with-text .media, .ss-page .image-with-text .media img { border-radius: 16px; overflow: hidden; } /* every picture of the page has 16px corners */
+.ss-page .PBFCM-PDP-cart-summary__button { min-height: 66px; background: var(--ss-red) !important; border: 0 !important; font-family: var(--ss-font); transition: transform 120ms ease; }
+.ss-page .PBFCM-PDP-cart-summary__button-text { font-size: 21px; font-weight: 700; letter-spacing: 0.01em; }
+/* the cart icon is Big Bird: his head only (bigbird-head.svg: the head of the library figure cropped with tools/svg-crop.py, then the neck and body paths removed from the file, nothing is faded), half outside the top edge of the button, on the left of the text */
+.ss-page .PBFCM-PDP-cart-summary__button { position: relative; overflow: visible !important; margin-top: 30px; }
+.ss-page .PBFCM-PDP-cart-summary__button-icon { display: none; }
+.ss-page .PBFCM-PDP-cart-summary__button::before { content: ''; position: absolute; left: calc(50% - 210px); top: -12px; width: 75px; height: 72px; background: url('/assets/sesame/characters/bigbird-head.svg') center / 100% 100% no-repeat; pointer-events: none; transform-origin: 50% 100%; animation: ss-bird-bob 2.8s ease-in-out infinite; }
+.ss-page .PBFCM-PDP-cart-summary__button:hover::before { animation: ss-bird-pop 0.55s ease-in-out infinite; }
+@keyframes ss-bird-bob { 50% { transform: translateY(-3px) rotate(-3deg); } }
+@keyframes ss-bird-pop { 40% { transform: translateY(-8px) rotate(6deg); } 70% { transform: translateY(0) scale(1.04, 0.95); } }
+@media (max-width: 749px) { .ss-page .PBFCM-PDP-cart-summary__button { min-height: 60px; } .ss-page .PBFCM-PDP-cart-summary__button-text { font-size: 19px; } .ss-page .PBFCM-PDP-cart-summary__button::before { left: calc(50% - 164px); width: 56px; height: 54px; top: -10px; } }
+.ss-page .PBFCM-PDP-cart-summary__button:hover { transform: translateY(2px); } .ss-page .PBFCM-PDP-cart-summary__button:active { transform: translateY(5px); }
+.ss-page .PBFCM-PDP-frequency-selector__title, .ss-page .PBFCM-PDP-quantity-selector__title { font-family: var(--ss-font); }
+
+.ss-sign { display: flex; width: 100%; align-items: center; gap: 22px; margin: 0 0 22px; padding: 14px 24px 14px 16px; border: 0; border-radius: 8px; background: #fff7c2; cursor: pointer; transition: transform 140ms ease; font-family: var(--ss-font); text-align: left; }
+.ss-sign:hover { transform: scale(1.01); } .ss-sign img { width: 112px; height: auto; display: block; flex: none; }
+.ss-sign span { display: grid; gap: 4px; color: var(--ss-ink); } .ss-sign b { font: 700 19px/1.15 var(--ss-font); } .ss-sign small { font: 500 14px/1.2 var(--ss-font); opacity: 0.75; }
+.ss-page .PBFCM-PDP-quantity-selector__header { container-type: inline-size; flex-wrap: wrap; }
+.ss-count-q { flex: 1; min-width: 0; display: flex; align-items: flex-end; justify-content: flex-start; gap: 10px; margin: -14px 8px 0 20px; height: 66px; }
+.ss-count-q__count { position: static; height: 66px; width: auto; flex: none; }
+.ss-count-q__say { display: flex; align-items: flex-end; gap: 8px; animation: ss-pop 300ms cubic-bezier(0.2, 1.4, 0.4, 1) both; margin-bottom: 8px; }
+.ss-count-q__say .ss-digits { --h: 38px; } .ss-count-q__say .ss-bubble { animation: none; --tail: 9px; --bw: 2px; max-width: none; padding: 5px 13px; border-width: 2px; border-radius: 12px; font-size: 15px; white-space: nowrap; margin-bottom: 12px; }
+@container (max-width: 480px) { .ss-count-q__say .ss-bubble { display: none; } }
+
+/* ------------------------------------------------------------------ sections under the buy box */
+.ss-page .image-with-text__heading { font-family: var(--ss-font) !important; font-weight: 700; letter-spacing: 0; text-transform: none; line-height: 1.05; }
+.ss-page .image-with-text__text { font-size: 17px; }
+.ss-page #shopify-section-c321e181-639c-4980-9b70-3f399c6c3e96 h2 { font-family: var(--ss-font) !important; font-weight: 700; text-transform: none; }
+
+.ss-wholesome { position: relative; padding: 56px 20px 64px; background-color: #fff; background-image: radial-gradient(#ffd40033 2.5px, transparent 3px), radial-gradient(#2f8fe022 2.5px, transparent 3px); background-size: 46px 46px; background-position: 0 0, 23px 23px; }
+.ss-wholesome__inner { max-width: 1180px; margin: 0 auto; }
+.ss-wholesome__grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; margin: 0; padding: 0; list-style: none; }
+.ss-tone-0 { --tone: #ffd9d6; --edge: #f3a8a3; } .ss-tone-1 { --tone: #dbe9ff; --edge: #a9c5f2; } .ss-tone-2 { --tone: #fff0b0; --edge: #ecd36a; } .ss-tone-3 { --tone: #d4f5df; --edge: #8fd6a8; } .ss-tone-4 { --tone: #e8dcfa; --edge: #bda4ec; }
+.ss-wholesome__card { position: relative; display: flex; flex-direction: column; align-items: center; gap: 12px; padding: 18px 16px 22px; border-radius: 28px; background: var(--tone); box-shadow: 0 6px 18px rgba(31, 58, 112, 0.10); text-align: center; transition: transform 160ms ease; }
+.ss-wholesome__card:hover { transform: translateY(-4px) rotate(-1deg); }
+.ss-wholesome__pic { display: grid; place-items: end center; width: 100%; height: 150px; margin-top: 18px; } /* no inner panel: the character stands straight on the card */
+.ss-wholesome__icon { position: absolute; left: 14px; top: 12px; width: 60px; height: 60px; display: flex; align-items: center; justify-content: center; overflow: visible; }
+.ss-wholesome__icon svg { flex: none; height: 60px; width: auto; }
+.ss-wholesome__pic .ss-char { height: 140px; width: auto; transform-origin: 50% 100%; transition: transform 240ms cubic-bezier(0.2, 1.6, 0.4, 1); } .ss-wholesome__card:hover .ss-wholesome__pic .ss-char { transform: scale(1.1) rotate(4deg); }
+.ss-wholesome__card p { margin: 0; font: 500 16px/1.3 var(--ss-body); color: var(--ss-ink); text-wrap: balance; }
+
+.ss-count-wrap { background: #f2fbff; padding: 40px 20px var(--ss-pad); } /* the section continues the blue of the text above; the box inside is contained */
+.ss-count { position: relative; max-width: 1280px; margin: 0 auto; padding: 48px 28px 18px; background: var(--ss-yellow); background-image: radial-gradient(rgba(255, 255, 255, 0.4) 2px, transparent 2.5px); background-size: 28px 28px; overflow: hidden; border-radius: 28px; }
+.ss-count::after { content: ''; position: absolute; left: 0; right: 0; bottom: 0; height: 18px; background: repeating-linear-gradient(90deg, #00ab4e 0 40px, #f7941d 40px 80px, #e8202f 80px 120px, #2f6bdf 120px 160px); }
+.ss-count__flash { position: absolute; inset: 0; background: #fff; opacity: 0; pointer-events: none; z-index: 3; } .ss-count__flash.is-on { animation: ss-flash 700ms ease-out; }
+.ss-count__inner { position: relative; z-index: 1; display: grid; grid-template-columns: 230px 1fr 230px; align-items: end; gap: 16px; }
+.ss-count__main { align-self: center; padding-bottom: 30px; }
+.ss-count__count { position: static; width: 100%; height: auto; max-height: 300px; object-fit: contain; object-position: bottom; animation: ss-bob 3s ease-in-out infinite; }
+.ss-count__count--r { animation-delay: 0.6s; }
+.ss-count__sub { margin: -8px 0 24px; text-align: center; font: 500 20px/1.25 var(--ss-font); color: var(--ss-ink); }
+.ss-count__grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin: 0; padding: 0; list-style: none; }
+.ss-count__grid li { position: relative; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px; min-height: 140px; padding: 16px 10px 16px; border-radius: 20px; background: #fff; text-align: center; }
+.ss-count__tag { font: 700 14px/1.2 var(--ss-body); letter-spacing: 0.08em; text-transform: uppercase; color: var(--ss-orange); } /* in the flow, the same 6px gap as the label under the number; the other cards keep an empty line so the numbers stay on one baseline */
+.ss-count__tag.is-empty { visibility: hidden; }
+.ss-count__num { font: 700 clamp(30px, 3.6vw, 48px)/1 var(--ss-font); white-space: nowrap; }
+.ss-count__grid li:last-child .ss-count__num { font-size: clamp(22px, 2.1vw, 32px); }
+.ss-count__grid li:nth-child(1) .ss-count__num { color: var(--ss-red); } .ss-count__grid li:nth-child(2) .ss-count__num { color: var(--ss-blue); } .ss-count__grid li:nth-child(3) .ss-count__num { color: var(--ss-orange); } .ss-count__grid li:nth-child(4) .ss-count__num { color: var(--ss-purple); }
+.ss-count__grid li > span { font: 500 15px/1.2 var(--ss-body); color: var(--ss-ink); }
+@keyframes ss-flash { 0% { opacity: 0; } 12% { opacity: 0.95; } 24% { opacity: 0.1; } 36% { opacity: 0.75; } 100% { opacity: 0; } }
+
+.ss-gang { position: relative; padding: 0 0 48px; background: linear-gradient(180deg, #bfe6ff 0, #bfe6ff var(--ss-wave-h), #e9f7ff 100%); overflow: hidden; } /* solid under the wave so the wave and the section are the same blue */
+.ss-gang__inner { max-width: 1240px; margin: 0 auto; padding: 36px 20px 0; }
+.ss-gang__sub { margin: -8px 0 8px; text-align: center; font: 500 19px/1.2 var(--ss-font); color: var(--ss-ink); }
+.ss-gang__street { position: relative; padding: 24px 0 0; }
+.ss-gang::after { content: ''; position: absolute; left: 0; right: 0; bottom: 0; height: 112px; background: #86cf84; border-top: 10px solid #9bdc98; z-index: 0; }
+.ss-gang__lamp { position: absolute; left: 10px; bottom: 0; height: 270px; width: auto; z-index: 0; } /* under the grass (it is painted before ::after), so the cut base of the art is hidden */ /* one post, in front of the grass so its base shows */
+.ss-gang__row { position: relative; z-index: 1; display: flex; align-items: flex-end; justify-content: center; flex-wrap: wrap; gap: 6px 22px; margin: 0; padding: 0 0 6px; list-style: none; }
+.ss-gang__row li { position: relative; display: flex; flex-direction: column; align-items: center; }
+.ss-gang__row button { padding: 0; border: 0; background: none; cursor: pointer; transform-origin: 50% 100%; transition: transform 200ms cubic-bezier(0.2, 1.6, 0.4, 1); }
+.ss-gang__row button:hover { transform: scale(1.06) rotate(-2deg); } .ss-gang__row li.is-open button { animation: ss-hop 520ms ease; }
+.ss-gang__row .ss-char { position: static; height: 190px; width: auto; }
+.ss-gang__row li:nth-child(1) .ss-char { height: 190px; } .ss-gang__row li:nth-child(2) .ss-char { height: 250px; } .ss-gang__row li:nth-child(3) .ss-char { height: 200px; } .ss-gang__row li:nth-child(4) .ss-char { height: 210px; } .ss-gang__row li:nth-child(5) .ss-char { height: 150px; } .ss-gang__row li:nth-child(6) .ss-char { height: 215px; } .ss-gang__row li:nth-child(7) .ss-char { height: 170px; }
+.ss-gang__name { margin-top: 6px; padding: 3px 14px; border-radius: 999px; background: #fff; font: 600 15px/1.2 var(--ss-font); color: var(--ss-ink); box-shadow: 0 3px 10px rgba(31, 58, 112, 0.10); }
+.ss-gang__bubble { position: absolute; bottom: calc(100% + 18px); left: 50%; z-index: 4; width: max-content; max-width: 220px; margin-left: -40px; }
+@keyframes ss-hop { 30% { transform: translateY(-26px) scale(1.04); } 60% { transform: translateY(0) scale(0.97, 1.03); } }
+
+
+/* reveal: characters pop in when their section scrolls into view */
+.ss-reveal { opacity: 0; transform: translateY(24px) scale(0.9); transition: opacity 420ms ease, transform 520ms cubic-bezier(0.2, 1.4, 0.4, 1); }
+.ss-reveal--left { transform: translateX(-60px); } .ss-reveal--right { transform: translateX(60px); }
+.ss-reveal.is-in { opacity: 1; transform: none; }
+
+/* decoration of the sections that are the live ones */
+.ss-page #shopify-section-cbd9ad2b-f52f-4a45-9c26-7fd50e23bd41 { position: relative; }
+.ss-page #shopify-section-cbd9ad2b-f52f-4a45-9c26-7fd50e23bd41::after { content: ''; position: absolute; right: 6%; top: -66px; width: 150px; height: 120px; background: url('/assets/sesame/characters/oscar-1.svg') no-repeat center bottom / contain; pointer-events: none; }
+.ss-page #shopify-section-cbd9ad2b-f52f-4a45-9c26-7fd50e23bd41 h2 { font-family: var(--ss-font) !important; font-weight: 700; text-transform: none; }
+.ss-page #shopify-section-f2ccb107-33fa-4ce5-9679-3345884e6e32 h2 { font-family: var(--ss-font) !important; font-weight: 700; text-transform: none; }
+.ss-page #shopify-section-1686676858452369a6 { position: relative; }
+.ss-page #shopify-section-1686676858452369a6::before { content: ''; position: absolute; right: 4%; top: 8px; width: 150px; height: 120px; background: url('/assets/sesame/characters/elmo-sit.svg') no-repeat center bottom / contain; pointer-events: none; }
+
+
+/* the FAQ: every question is a colored card */
+.ss-page [id$='cbd9ad2b-f52f-4a45-9c26-7fd50e23bd41'] { background: #fff; }
+.ss-page [id$='cbd9ad2b-f52f-4a45-9c26-7fd50e23bd41'] accordion-tab { display: block; margin: 0 0 14px; border: 3px solid var(--edge, #cfe3f7); border-radius: 22px; background: #f2fbff; box-shadow: 0 6px 18px rgba(31, 58, 112, 0.10); overflow: hidden; transition: transform 140ms ease; }
+.ss-page [id$='cbd9ad2b-f52f-4a45-9c26-7fd50e23bd41'] accordion-tab:hover { transform: translateY(-2px); }
+.ss-page [id$='cbd9ad2b-f52f-4a45-9c26-7fd50e23bd41'] accordion-tab:nth-of-type(5n + 1) { --edge: #f3a8a3; } .ss-page [id$='cbd9ad2b-f52f-4a45-9c26-7fd50e23bd41'] accordion-tab:nth-of-type(5n + 2) { --edge: #a9c5f2; }
+.ss-page [id$='cbd9ad2b-f52f-4a45-9c26-7fd50e23bd41'] accordion-tab:nth-of-type(5n + 3) { --edge: #ecd36a; } .ss-page [id$='cbd9ad2b-f52f-4a45-9c26-7fd50e23bd41'] accordion-tab:nth-of-type(5n + 4) { --edge: #8fd6a8; } .ss-page [id$='cbd9ad2b-f52f-4a45-9c26-7fd50e23bd41'] accordion-tab:nth-of-type(5n + 5) { --edge: #bda4ec; }
+.ss-page [id$='cbd9ad2b-f52f-4a45-9c26-7fd50e23bd41'] accordion-tab summary { padding: 18px 24px; font: 600 18px/1.25 var(--ss-font); color: var(--ss-ink); }
+.ss-page [id$='cbd9ad2b-f52f-4a45-9c26-7fd50e23bd41'] .accordion__content { padding: 0 24px 20px; }
+
+/* the advisors: a ring around each photo */
+.ss-page [id$='f2ccb107-33fa-4ce5-9679-3345884e6e32'] img { border: 6px solid var(--ss-yellow); border-radius: 50%; }
+.ss-page [id$='f2ccb107-33fa-4ce5-9679-3345884e6e32'] .multicolumn-list__item:nth-child(even) img, .ss-page [id$='f2ccb107-33fa-4ce5-9679-3345884e6e32'] .grid__item:nth-child(even) img { border-color: var(--ss-blue); }
+
+/* ------------------------------------------------------------------ the things that move */
+.ss-mascot { position: fixed; left: 10px; bottom: 6px; z-index: 40; display: flex; flex-direction: column; align-items: flex-start; pointer-events: none; }
+.ss-mascot__btn { pointer-events: auto; padding: 0; border: 0; background: none; cursor: pointer; height: 150px; -webkit-tap-highlight-color: transparent; }
+.ss-mascot__hop { display: block; height: 100%; animation: ss-hop 560ms ease; transform-origin: 50% 100%; }
+.ss-mascot__img { position: static; height: 150px; width: auto; animation: ss-idle 3.6s ease-in-out infinite; }
+.ss-mascot__bubble { margin: 0 0 10px 38px; pointer-events: none; }
+@keyframes ss-idle { 50% { transform: translateY(-5px) rotate(1.5deg); } }
+.ss-tango { position: fixed; left: 0; bottom: 4px; z-index: 39; width: 120px; pointer-events: none; animation: ss-run 6.5s linear forwards; }
+.ss-tango__img { position: static; width: 100%; height: auto; animation: ss-trot 0.42s ease-in-out infinite; }
+@keyframes ss-run { from { transform: translateX(-160px); } to { transform: translateX(calc(100vw + 40px)); } }
+@keyframes ss-trot { 50% { transform: translateY(-9px) rotate(-2deg); } }
+.ss-confetti { position: fixed; inset: 0; z-index: 2147483000; pointer-events: none; overflow: hidden; }
+.ss-confetti__p { position: absolute; top: -20px; border-radius: 3px; animation: ss-fall linear forwards; } .ss-confetti__p--0 { border-radius: 50%; } .ss-confetti__p--2 { border-radius: 99px; }
+@keyframes ss-fall { 0% { transform: translate3d(0, -20px, 0) rotate(0); opacity: 1; } 100% { transform: translate3d(var(--drift), 108vh, 0) rotate(var(--rot)); opacity: 1; } }
+.ss-ducks { position: fixed; inset: 0; z-index: 2147483000; pointer-events: none; overflow: hidden; }
+.ss-ducks img { position: absolute; top: -120px; height: auto; animation: ss-duck linear forwards; }
+@keyframes ss-duck { 0% { transform: translate3d(0, 0, 0) rotate(-12deg); } 50% { transform: translate3d(var(--sway), 55vh, 0) rotate(14deg); } 100% { transform: translate3d(calc(var(--sway) * -1), 118vh, 0) rotate(-10deg); } }
+
+/* ------------------------------------------------------------------ mobile */
+@media (max-width: 989px) {
+  .ss-wholesome__grid { grid-template-columns: repeat(2, 1fr); gap: 14px; }
+  .ss-count__inner { grid-template-columns: 1fr; } .ss-page .ss-count__count { display: none; }
+  .ss-count__grid { grid-template-columns: repeat(2, 1fr); } .ss-count__main { padding-bottom: 18px; } .ss-count-wrap { padding: 24px 12px 32px; } .ss-count { padding: 36px 16px 18px; }
+  .ss-gang__row .ss-char { height: 130px !important; } .ss-gang__row li:nth-child(2) .ss-char { height: 170px !important; }
+  .ss-mascot__btn, .ss-mascot__img { height: 96px; } .ss-mascot__bubble { margin-left: 18px; max-width: 200px; font-size: 13px; }
+  .ss-tango { width: 84px; }
+  .ss-page .ss-gang__lamp { display: none; }
+}
+
+/* only Sofia Pro: the buy box line that asks for "Sofia Sans" (a font that is not loaded) */
+.ss-page [class*='PBFCM-PDP-quantity-selector__s'] { font-family: var(--ss-body) !important; }
+/* the cart drawer and the cart count of the header ask for Arial, Helvetica or "sofia pro" (not the loaded font): same rule, only Sofia Pro (scoped by the class this page puts on the body) */
+body.sesame-street #mini_cart_form *, body.sesame-street #mini_cart_upsell *, body.sesame-street .cart-count-number, body.sesame-street .primary-title, body.sesame-street .visually-hidden { font-family: 'sofia-pro', sans-serif !important; }
+body.sesame-street h4.primary-title.mini-cart-upsell-message { font-family: 'sofia-pro', sans-serif !important; }
+
+/* titles: Sofia Pro Bold (700) everywhere on the page */
+.ss-page :is(h1, h2, h3, h4, h5, h6, .h0, .h1, .h2, .h3, .h4, .h5, .h6, .ss-h2, .image-with-text__heading, .multicolumn-card__title, .accordion__title, .summary__title, .jm-review-widget-minimal-header__title, [class*='PBFCM-PDP-'][class*='__title'], .ss-sign b) { font-weight: 700 !important; }
+.ss-page .PBFCM-PDP-product-gallery, .ss-page .PBFCM-PDP-product-gallery__main { background: transparent !important; } /* no white card or border around the main picture */
+.ss-count-q__say, .ss-count-q__say .ss-digits, .ss-count-q__say .ss-digits img { flex: none; }
+
+/* no box-shadow anywhere on the page (owner rule) */
+.ss-page *, .ss-page *::before, .ss-page *::after { box-shadow: none !important; }
+
+/* the bubble of the counter sits next to the Count; its tail points left at him: a small SVG tail (white fill that opens the border, ink sides with a rounded tip) centered on the straight part of the left edge */
+.ss-count-q__say .ss-bubble { margin-left: 14px; border-radius: 10px; }
+.ss-count-q__say .ss-bubble::after { display: none; }
+.ss-count-q__say .ss-bubble::before { top: 50%; left: -10px; right: auto; width: 13px; height: 15px; transform: translateY(-50%); clip-path: none; background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 13 15'%3E%3Cpath d='M9 .5 1.6 7.5 9 14.5H13V.5Z' fill='%23fff'/%3E%3Cpath d='M9 .5 1.6 7.5 9 14.5' fill='none' stroke='%231f3a70' stroke-width='2' stroke-linejoin='round' stroke-linecap='butt'/%3E%3C/svg%3E") no-repeat center / 100% 100%; }
+
+/* narrow buy box (phones): the title and the servings badge fill the row, so the counter gets its own row below them (and has room for the bubble again) */
+@container (max-width: 400px) {
+  .ss-count-q { order: 3; flex: 0 0 100%; margin: 6px 0 0; height: 62px; }
+  .ss-count-q__say .ss-bubble { display: inline-block; }
+}
+
+/* desktop only: the title stays next to the sign and "Tap the sign for a surprise" goes to the right end of the strip */
+@media (min-width: 990px) {
+  .ss-sign > span { flex: 1; display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+}
+
+/* the wave under the kitchen section lets the dotted background of Real Wholesome show: the wholesome section goes up under the wave (the wave is 15px + 22/277 of the width tall) */
+.ss-page #shopify-section-image_with_text_6Q3NK6 { position: relative; z-index: 1; }
+.ss-page .ss-wholesome { margin-top: calc(-15px - 7.942vw); padding-top: calc(56px + 15px + 7.942vw); padding-bottom: calc(64px + 15px + 7.942vw); }
+/* the wave between Real Wholesome (dots) and the blue text section: the dots go on under its transparent part */
+.ss-page .ss-wave-join { position: relative; z-index: 1; margin-top: calc(-15px - 7.942vw); }
+@media (max-width: 989px) { .ss-wholesome__pic { margin-top: 44px; height: 128px; } .ss-wholesome__pic .ss-char { height: 122px; } }
+
+/* the flat modern waves (99px tall, 52px on phones) replace the tall theme waves on this page */
+.ss-page { --ss-wave-h: 99px; }
+@media (max-width: 749px) { .ss-page { --ss-wave-h: 52px; } }
+.ss-page .fd-modern-wave svg { display: block; width: 100%; height: var(--ss-wave-h); }
+.ss-page .fd-modern-wave--top svg { transform: scaleY(-1); }
+.ss-page .ss-wave-join { margin-top: calc(-1 * var(--ss-wave-h)); }
+
+/* one vertical rhythm for every section of the page: the same space (--ss-pad) between a wave strip and the content, on top and at the bottom (75px, 48px on phones) */
+.ss-page { --ss-pad: 75px; }
+@media (max-width: 749px) { .ss-page { --ss-pad: 48px; } }
+.ss-page .shopify-section:has(.fd-modern-wave) .section--padding { padding-top: var(--ss-pad) !important; padding-bottom: var(--ss-pad) !important; }
+.ss-page .shopify-section:has(.fd-modern-wave) > div[style*='margin-top'] { padding-top: 0 !important; padding-bottom: 0 !important; }
+.ss-page .ss-wholesome { margin-top: calc(-1 * var(--ss-wave-h)); padding-top: calc(var(--ss-pad) + var(--ss-wave-h)); padding-bottom: calc(var(--ss-pad) + var(--ss-wave-h)); }
+.ss-page #shopify-section-c321e181-639c-4980-9b70-3f399c6c3e96 { padding-top: calc(var(--ss-pad) - 32px); padding-bottom: 0; }
+.ss-page [id$='f2ccb107-33fa-4ce5-9679-3345884e6e32'] { padding-top: calc(var(--ss-pad) - 32px) !important; padding-bottom: 0 !important; } /* the section has 32px of its own inside */
+.ss-page [id$='cbd9ad2b-f52f-4a45-9c26-7fd50e23bd41'] { padding-top: calc(var(--ss-pad) - 36px) !important; padding-bottom: var(--ss-pad) !important; }
+
+/* Meet The Gang: all eight friends in one row on desktop (they used to wrap, with Cookie Monster alone below), the lamp posts at the left edge, the flat wave on top */
+@media (min-width: 990px) {
+  .ss-gang__row { flex-wrap: nowrap; gap: 0 8px; align-items: flex-end; }
+  .ss-gang__row li { flex: 1 1 0; min-width: 0; }
+  .ss-page .ss-gang__row .ss-char { width: 100%; height: auto; max-height: 250px; object-fit: contain; object-position: bottom; }
+  .ss-page .ss-gang__row li:nth-child(n) .ss-char { height: auto; }
+}
+@media (min-width: 990px) { .ss-gang__name { white-space: nowrap; font-size: 14px; padding: 3px 11px; } }
+/* the wave path is 98 of 99 units tall: a 1px line of the neighbor color showed where the wave meets its section; the top wave is 1px taller and tucked under the section */
+.ss-page .fd-modern-wave--top svg { height: calc(var(--ss-wave-h) + 1px); margin-bottom: -1px; }
+.ss-page .fd-modern-wave--bottom svg { height: calc(var(--ss-wave-h) + 1px); margin-top: -1px; }
+/* narrower than a laptop the four cards do not fit between the two Counts: drop the Counts and make a 2 by 2 grid */
+@media (max-width: 1180px) {
+  .ss-count__inner { grid-template-columns: 1fr; } .ss-page .ss-count__count { display: none; }
+  .ss-count__grid { grid-template-columns: repeat(2, 1fr); } .ss-count__main { padding-bottom: 18px; }
+}
+.ss-count__grid li { opacity: 0; transform: translateY(14px); transition: opacity 420ms ease, transform 420ms ease; transition-delay: calc(var(--i, 0) * 110ms); }
+.ss-count-wrap.is-in .ss-count__grid li { opacity: 1; transform: none; }
+@media (min-width: 990px) { .ss-page .ss-gang__row .ss-char { max-height: 185px; } .ss-gang__row { padding: 0 60px 6px 120px; } }
+
+/* closing CTA: the Home hero and benefits marquee as they are, with the Sesame Street logo above the heading */
+.ss-cta { position: relative; }
+.ss-cta__logo { position: absolute; z-index: 2; left: 64px; top: 64px; width: 130px; height: auto; }
+@media (max-width: 749px) { .ss-cta__logo { left: 16px; top: 16px; width: 96px; } }
+
+/* CTAs are title case (copy skill): the Judge.me widget writes "Write a review" and "Show more" in sentence case, a third party text we cannot edit */
+.ss-page .jm-button, .ss-page .jm-button * { text-transform: capitalize !important; }
+/* longer lines wrap inside the picture */
+.ss-st .ss-bubble, .ss-ov .ss-bubble { max-width: 42cqw; width: max-content; }
+
+/* no widows in headings: the lines are balanced */
+.ss-page h1, .ss-page h2, .ss-page .image-with-text__heading { text-wrap: balance; }
+
+/* phones: the six friends stand in ONE row on the grass that you swipe (they used to wrap in two rows floating over the sky); the top padding leaves room for the bubbles */
+@media (max-width: 989px) {
+  .ss-gang__row { flex-wrap: nowrap; justify-content: flex-start; overflow-x: auto; gap: 0 30px; padding: 92px 32px 6px; scroll-snap-type: x mandatory; scrollbar-width: none; -webkit-overflow-scrolling: touch; }
+  .ss-gang__row::-webkit-scrollbar { display: none; }
+  .ss-gang__row li { flex: 0 0 auto; scroll-snap-align: center; }
+  .ss-gang__street { padding-top: 0; }
+  .ss-gang__inner { padding-bottom: 0; }
+  .ss-page .ss-gang__row .ss-char { max-height: none; width: auto; }
+  .ss-gang__bubble { margin-left: -60px; }
+}
+/* phones: the Oscar of the FAQ stays inside the wave strip, under the heading */
+@media (max-width: 749px) {
+  .ss-page #shopify-section-cbd9ad2b-f52f-4a45-9c26-7fd50e23bd41::after { top: -46px; right: 4%; width: 84px; height: 66px; }
+}
+@media (max-width: 749px) { .ss-page #shopify-section-ss-closing .temp-hero__rating, .ss-page .ss-cta .temp-hero__rating { display: none !important; } .ss-gang__row { padding-top: 92px; } }
+
+/* the product title: no balancing, and the two parts of the title never break inside (the first part, then the highlighted phrase on its own line) */
+.ss-page .pdp-vanity h1, .ss-page .pdp-vanity .vanity-title { text-wrap: wrap; }
+@media (min-width: 990px) { .ss-page .vanity-title > span:last-child { display: block; } .ss-page .vanity-title > span:first-child, .ss-page .vanity-title-highlight { white-space: nowrap; } }
+
+/* the new template: the flat wave is a band between two sections (Seam in the page); 'over' and 'up' lay it on the picture of the hero so the hard edges become waves too */
+.ss-page .ss-seam { line-height: 0; position: relative; z-index: 2; }
+.ss-page .ss-seam--over { margin-bottom: calc(-1 * var(--ss-wave-h)); }
+.ss-page .ss-seam--up { margin-top: calc(-1 * var(--ss-wave-h)); }
+.ss-page .ss-seam .fd-modern-wave { margin: 0; }
+
+/* the ingredients band (new template): mint from the middle of the dose cards down, flat wave on top, same mint as the quality section below it (no wave at the bottom); --ss-band is measured in the page */
+.ss-page--multi .pdv-df::before { content: ''; position: absolute; left: 0; right: 0; bottom: 0; height: var(--ss-band, 260px); z-index: 0; pointer-events: none;
+  background: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1512 99' preserveAspectRatio='none'><path transform='translate(0 99) scale(1 -1)' d='M402.114 82.2445C323.643 72.3612 261.786 68.6667 209.353 68.6667C134.549 68.6667 78.8789 76.1765 21.338 83.9477C18.2594 84.362 15.1623 84.7854 12.0488 85.211C8.05809 85.7565 4.0404 86.3057 0 86.8443V43.3857V30.5345V0.000160217H1512V43.3857V86.5C1413.65 99.0118 1351.75 106.705 1157.53 82.2445C1079.05 72.3612 1017.2 68.6667 964.765 68.6667C889.962 68.6667 834.291 76.1765 776.753 83.9477C773.675 84.362 770.574 84.7853 767.463 85.2108C763.473 85.7564 759.455 86.3057 755.416 86.8443V86.8376C657.065 99.3494 596.339 106.705 402.114 82.2445Z' fill='%23d4f5df'/></svg>") top left / 100% var(--ss-wave-h) no-repeat, linear-gradient(#d4f5df, #d4f5df) 0 calc(var(--ss-wave-h) - 1px) / 100% calc(100% - var(--ss-wave-h) + 1px) no-repeat; }
+.ss-page--multi .pdv-df .pdv-df__inner { background: transparent !important; z-index: 1; }
+.ss-page--multi .pdv-df .pdv-df__wave-zone { z-index: 1; }
+
+/* Real Wholesome as the first section under the buy box (the bundle page): no section above to tuck under */
+.ss-page .ss-wholesome--first { margin-top: 0; padding-top: var(--ss-pad); }
+
+/* ===== Behind the Science landing (/explorations/sesame-toddlers-bts): sections keep their own layout, the colors are set here and the seams between them are <Seam> ===== */
+.ss-page--bts #shopify-section-timeline_section_N69qEe .kids-timeline { background: #d6efff; }
+.ss-page--bts { background: #fff; } /* the transparent sections (sell-out notice, the second accordion, the reviews) show the page color: white, like the seams expect */
+
+.ss-page--bts #shopify-section-accordion_block_QpghhN { background: #e8dcfa; }
+/* only Sofia Pro: the Clinicians' Choice band (Lora, Open Sans), the sell-out notice (system font) and the comparison title (Gelica) */
+.ss-page--bts .general-frontrow-brand-badge, .ss-page--bts .general-frontrow-brand-badge *, .ss-page--bts .sellout-alert-section, .ss-page--bts .sellout-alert-section * { font-family: 'sofia-pro', sans-serif !important; }
+.ss-page--bts [class*='pbfcm-comparison-title'] { font-family: 'sofia-pro', sans-serif !important; font-weight: 700 !important; }
+
+/* the 6 symptoms: white section, the icon of each symptom is a friend of the library (a head framed inside a round badge in the tone of the card) */
+.ss-page--bts #shopify-section-accordion_block_driBft .accordion-block__accordion { border-radius: 22px !important; }
+.ss-page--bts #shopify-section-accordion_block_driBft .accordion-block__icon-badge { position: relative; overflow: hidden; border-radius: 50%; }
+.ss-page--bts #shopify-section-accordion_block_driBft .accordion-block__icon-badge img { position: absolute !important; max-width: none !important; height: auto !important; object-fit: fill !important; }
+.ss-page--bts #shopify-section-accordion_block_driBft .accordion-block__accordion:nth-child(1) .accordion-block__icon-badge { background: #efe6fb; }
+.ss-page--bts #shopify-section-accordion_block_driBft .accordion-block__accordion:nth-child(2) .accordion-block__icon-badge { background: #fff1a8; }
+.ss-page--bts #shopify-section-accordion_block_driBft .accordion-block__accordion:nth-child(3) .accordion-block__icon-badge { background: #d4f5df; }
+.ss-page--bts #shopify-section-accordion_block_driBft .accordion-block__accordion:nth-child(4) .accordion-block__icon-badge { background: #ffe0ec; }
+.ss-page--bts #shopify-section-accordion_block_driBft .accordion-block__accordion:nth-child(5) .accordion-block__icon-badge { background: #d6efff; }
+.ss-page--bts #shopify-section-accordion_block_driBft .accordion-block__accordion:nth-child(6) .accordion-block__icon-badge { background: #ffe2bf; }
+/* head framing (percent of the badge): Elmo, Cookie Monster, Grover, Big Bird, Ernie, Oscar */
+.ss-page--bts #shopify-section-accordion_block_driBft .accordion-block__accordion:nth-child(1) .accordion-block__icon-badge img { width: 151%; left: -33%; top: 21%; }
+.ss-page--bts #shopify-section-accordion_block_driBft .accordion-block__accordion:nth-child(2) .accordion-block__icon-badge img { width: 253%; left: -99%; top: 8%; }
+.ss-page--bts #shopify-section-accordion_block_driBft .accordion-block__accordion:nth-child(3) .accordion-block__icon-badge img { width: 185%; left: -61%; top: 11%; }
+.ss-page--bts #shopify-section-accordion_block_driBft .accordion-block__accordion:nth-child(4) .accordion-block__icon-badge img { width: 208%; left: -29%; top: 6%; }
+.ss-page--bts #shopify-section-accordion_block_driBft .accordion-block__accordion:nth-child(5) .accordion-block__icon-badge img { width: 167%; left: -33%; top: 12.5%; }
+.ss-page--bts #shopify-section-accordion_block_driBft .accordion-block__accordion:nth-child(6) .accordion-block__icon-badge img { width: 139%; left: -12.5%; top: -4%; }
+
+/* the timeline: a sky section, white round cards, the only color is the yellow of the day badges; the Count at the title */
+.ss-page--bts #shopify-section-timeline_section_N69qEe .kids-timeline__card { border-radius: 28px; background: #fff; }
+.ss-page--bts #shopify-section-timeline_section_N69qEe .kids-timeline__badge { background: #ffd400; color: #1f3a70; }
+.ss-page--bts #shopify-section-timeline_section_N69qEe .kids-timeline__badge * { color: #1f3a70; }
+.ss-page--bts #shopify-section-timeline_section_N69qEe .kids-timeline__heading-wrap > .ss-ov { z-index: 2; }
+@media (max-width: 749px) { .ss-page--bts #shopify-section-timeline_section_N69qEe .kids-timeline__heading-wrap > .ss-ov { display: none; } }
+
+/* hero of the Behind the Science landing: the CTA with Big Bird's head, a character badge on the review photo */
+.ss-page--bts .v1-hero-cta, .ss-page--bts .v1-hero-cta-mobile { position: relative; }
+.ss-page--bts .v1-hero-cta::before, .ss-page--bts .v1-hero-cta-mobile::before { content: ''; position: absolute; left: 16px; top: -20px; width: 62px; height: 60px; background: url('/assets/sesame/characters/bigbird-head.svg') center / 100% 100% no-repeat; pointer-events: none; transform-origin: 50% 100%; animation: ss-bird-bob 2.8s ease-in-out infinite; }
+.ss-page--bts .tc-card__avatar-wrap { position: relative; }
+.ss-page--bts .tc-card__avatar-wrap::after { content: ''; position: absolute; right: -10px; bottom: -6px; width: 40px; height: 40px; border-radius: 50%; border: 3px solid #fff; background: #ffd400 url('/assets/sesame/characters/bigbird-head.svg') center 55% / 78% no-repeat; }
+
+/* the Clinicians' Choice band between two waves: the navy of the wave under it adds to its bottom, so the padding is moved to the top to center the text between the two wave edges */
+.ss-page--bts .general-frontrow-brand-badge { padding: 86px 0 14px !important; }
+@media (max-width: 749px) { .ss-page--bts .general-frontrow-brand-badge { padding: 56px 0 10px !important; } }
+@media (max-width: 749px) { .ss-page--bts .v1-hero-cta::before, .ss-page--bts .v1-hero-cta-mobile::before { left: 14px; top: -34px; width: 52px; height: 50px; } }
+/* the badge on the review photo: Cookie Monster (blue) on yellow, the head centered inside the 40px circle (the figure is 86px wide here, his head is the top third: offset -30px 9px) */
+.ss-page--bts .tc-card__avatar-wrap::after { background: #ffe27a url('/assets/sesame/characters/cookie-wave.svg') -30px 9px / 86px auto no-repeat; }
+/* the Sesame Street logo above the stars of the hero (a button: the ducks fall) */
+.ss-page--bts .ss-hero-logo { margin: 0 0 14px; line-height: 0; }
+.ss-page--bts .ss-hero-logo__btn { padding: 0; border: 0; background: none; cursor: pointer; transition: transform 140ms ease; }
+.ss-page--bts .ss-hero-logo__btn:hover { transform: scale(1.04); }
+.ss-page--bts .ss-hero-logo__btn img { width: 124px; height: auto; display: block; }
+@media (max-width: 749px) { .ss-page--bts .ss-hero-logo__btn img { width: 104px; } }
+
+/* the hero picture is a placeholder for now: a square that holds the video script (HeroScript in the page) */
+.ss-page--bts .v1-hero-image-placeholder { width: 100%; max-width: 600px; aspect-ratio: 1 / 1; height: auto; min-height: 0; margin: 0 auto; display: block; padding: 18px 20px; box-sizing: border-box; overflow-y: auto; border: 3px dashed #9ccdf5; border-radius: 16px; background: #eaf5ff; color: #1f3a70; text-align: left; }
+.ss-page--bts .ss-script h3 { margin: 0 0 8px; font: 700 15px/1.2 var(--ss-font); }
+.ss-page--bts .ss-script p { margin: 0 0 7px; font: 500 12.5px/1.4 var(--ss-font); }
+.ss-page--bts .ss-script b { font-weight: 700; }

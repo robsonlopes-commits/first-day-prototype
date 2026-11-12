@@ -7,9 +7,8 @@ import { openIngredients } from '../components/IngredientsPopup.jsx';
 import { JudgeMePreviewBadge } from './JudgeMeReviewWidget.jsx';
 import { ACCORDION_ICONS } from './mainProductLegacyIcons.js';
 import quantWidgetHtml from '../data/frontrowQuant4202.html?raw';
-import {
-  PDP_PRODUCT, DEMOGRAPHIC_TABS, BENEFIT_INTRO_HTML, BENEFIT_ACCORDION_STYLE, BUY_BOX, TRUST_BADGES, MAIN_ACCORDIONS, money, priceSummary,
-} from '../data/pdpLegacy.js';
+import { money } from '../data/pdpLegacy.js';
+import { usePdpLegacy } from '../lib/pdpData.jsx'; // the data of the product (Kids' Magnesium by default, see src/lib/pdpData.jsx)
 import '../styles/theme/fd-button.css';
 import '../styles/theme/fd-tabs-v3.css';
 import '../styles/theme/fd-price.css';
@@ -34,7 +33,7 @@ const ArrowIcon = ({ dir }) => (
   </svg>
 );
 
-function Gallery({ media }) {
+function Gallery({ media, extra }) {
   const [active, setActive] = useState(0);
   const [distributed, setDistributed] = useState(false);
   const rowRef = useRef(null);
@@ -84,8 +83,11 @@ function Gallery({ media }) {
         onPointerDown={onPointerDown} onPointerUp={onPointerUp} onPointerCancel={() => { drag.current = null; }}>
         <div className="swiper-wrapper" aria-live="polite" style={{ cursor: 'grab', transform: `translate3d(calc(${-active} * (100% + 16px)), 0px, 0px)`, transitionDuration: '320ms' }}>
           {media.map((m, i) => (
-            <div key={m.src} className={`swiper-slide PBFCM-PDP-product-gallery__main-slide${i === active ? ' swiper-slide-active' : ''}`} style={{ marginRight: 16 }} role="group" aria-label={`${i + 1} / ${media.length}`}>
-              <img src={m.src} alt={m.alt} className="PBFCM-PDP-product-gallery__main-image" id={i === 0 ? 'PBFCM-main-image' : undefined} width={m.width} height={m.height} draggable="false" loading={i < 2 ? 'eager' : 'lazy'} />
+            <div key={m.key || m.src} className={`swiper-slide PBFCM-PDP-product-gallery__main-slide${i === active ? ' swiper-slide-active' : ''}`} style={{ marginRight: 16 }} role="group" aria-label={`${i + 1} / ${media.length}`}>
+              {/* opt-in (explorations): m.overlay is a node (SVG stickers) laid on top of the real image; the image itself is always a file */}
+              {m.overlay
+                ? <div className="ss-ov-wrap"><img src={m.src} alt={m.alt} className="PBFCM-PDP-product-gallery__main-image" id={i === 0 ? 'PBFCM-main-image' : undefined} width={m.width} height={m.height} draggable="false" loading={i < 2 ? 'eager' : 'lazy'} />{m.overlay}</div>
+                : <img src={m.src} alt={m.alt} className="PBFCM-PDP-product-gallery__main-image" id={i === 0 ? 'PBFCM-main-image' : undefined} width={m.width} height={m.height} draggable="false" loading={i < 2 ? 'eager' : 'lazy'} />}
             </div>
           ))}
         </div>
@@ -95,7 +97,7 @@ function Gallery({ media }) {
         <div className={`PBFCM-PDP-product-gallery__thumbnail-container${distributed ? '' : ' is-scrollable'}`} ref={containerRef}>
           <div className="PBFCM-PDP-product-gallery__thumbnail-track" id="PBFCM-thumb-track" ref={trackRef}>
             {media.map((m, i) => (
-              <button key={m.src} type="button" className={`PBFCM-PDP-product-gallery__thumbnail${i === active ? ' PBFCM-PDP-product-gallery__thumbnail--active' : ' '}`} data-image-index={i} aria-label={`View image ${i + 1}`} onClick={() => go(i)}>
+              <button key={m.key || m.src} type="button" className={`PBFCM-PDP-product-gallery__thumbnail${i === active ? ' PBFCM-PDP-product-gallery__thumbnail--active' : ' '}`} data-image-index={i} aria-label={`View image ${i + 1}`} onClick={() => go(i)}>
                 <img src={m.src} alt={m.alt} className="PBFCM-PDP-product-gallery__thumbnail-image" width="88" height="88" loading="lazy" />
               </button>
             ))}
@@ -103,19 +105,21 @@ function Gallery({ media }) {
         </div>
         <button type="button" className={`PBFCM-PDP-product-gallery__arrow PBFCM-PDP-product-gallery__arrow--next${active === last ? ' is-disabled' : ''}`} id="PBFCM-thumb-next" aria-label="Next image" disabled={active === last} aria-disabled={active === last} onClick={() => go(active + 1)}><ArrowIcon dir="next" /></button>
       </div>
+      {extra /* opt-in (explorations): a node under the thumbnails */}
     </div>
   );
 }
 
 /* ------------------------------------------------------------------ FrontRowMD "Clinicians' Choice" (iframe in production; same document here) */
 function FrontrowQuantWidget() {
+  const { QUANT_WIDGET_HTML } = usePdpLegacy(); // FrontRowMD quant iframe document of the product (Kids' Magnesium = product 4202 by default)
   const [height, setHeight] = useState(92);
   const measure = (e) => {
     const body = e.target.contentDocument?.body;
     if (body) setHeight(Math.min(Math.max(body.scrollHeight, 0), 200));
   };
   return (
-    <iframe className="iframe-frontrow" id="iframe-frontrow-quant" frameBorder="0" scrolling="no" srcDoc={quantWidgetHtml} title="Clinicians' Choice on FrontrowMD"
+    <iframe className="iframe-frontrow" id="iframe-frontrow-quant" frameBorder="0" scrolling="no" srcDoc={QUANT_WIDGET_HTML || quantWidgetHtml} title="Clinicians' Choice on FrontrowMD"
       style={{ height, display: 'block' }} onLoad={(e) => { measure(e); const t = e.target; setTimeout(() => measure({ target: t }), 800); }} />
   );
 }
@@ -148,12 +152,14 @@ function FrequencyOption({ opt, selected, onSelect }) {
           <ul>{opt.benefits.map((b) => <li key={b}>{b}</li>)}</ul>
         </div>
         {opt.badge && <div className="PBFCM-PDP-frequency-selector__badge PBFCM-PDP-frequency-selector__badge--negative" style={{ backgroundColor: '#2c3e50' }}><p className="PBFCM-PDP-frequency-selector__badge-text">{opt.badge}</p></div>}
+        {opt.badgeHtml && <div className="PBFCM-PDP-frequency-selector__badge" style={{ backgroundColor: opt.badgeColor }}><p className="PBFCM-PDP-frequency-selector__badge-text" dangerouslySetInnerHTML={{ __html: opt.badgeHtml }} /></div>}
       </div>
     </div>
   );
 }
 
 function FrequencySelector({ kind, setKind }) {
+  const { BUY_BOX } = usePdpLegacy();
   return (
     <div className="PBFCM-PDP-frequency-selector PBFCM-PDP-frequency-selector--configurable" data-component="PBFCM-PDP-frequency-selector" data-configurable="true">
       <div className="PBFCM-PDP-quantity-selector__header PBFCM-PDP-frequency-selector__header">
@@ -166,7 +172,11 @@ function FrequencySelector({ kind, setKind }) {
   );
 }
 
-function QuantitySelector({ kind, qty, setQty }) {
+// Unit of the quantity cards: Bottle(s) by default, "Pack(s)" on the starter pack (BUY_BOX.unit = { one, many })
+const unitLabel = (BUY_BOX, q, sep = ' ') => `${q}${sep}${q === 1 ? BUY_BOX.unit?.one || 'Bottle' : BUY_BOX.unit?.many || 'Bottles'}`;
+
+function QuantitySelector({ kind, qty, setQty, headerSlot }) {
+  const { PDP_PRODUCT, BUY_BOX, priceSummary } = usePdpLegacy();
   const opt = BUY_BOX.options.find((o) => o.kind === kind);
   const sum = priceSummary(kind, qty);
   const onKeyDown = (e) => {
@@ -177,16 +187,17 @@ function QuantitySelector({ kind, qty, setQty }) {
     <div className="PBFCM-PDP-quantity-selector" data-component="PBFCM-PDP-quantity-selector">
       <div className="PBFCM-PDP-quantity-selector__header">
         <h2 className="PBFCM-PDP-quantity-selector__title">{BUY_BOX.quantityTitle}</h2>
-        <div className="PBFCM-PDP-quantity-selector__servings-badge"><p className="PBFCM-PDP-quantity-selector__servings-text">{PDP_PRODUCT.servingsPerBottle}</p></div>
+        {typeof headerSlot === 'function' ? headerSlot({ qty, kind }) : headerSlot /* opt-in (explorations): a node between the title and the servings badge (a function gets { qty, kind }) */}
+        {PDP_PRODUCT.servingsPerBottle && <div className="PBFCM-PDP-quantity-selector__servings-badge"><p className="PBFCM-PDP-quantity-selector__servings-text">{PDP_PRODUCT.servingsPerBottle}</p></div>}
       </div>
       <div className="PBFCM-PDP-quantity-selector__grid" style={{ gridTemplateColumns: 'repeat(2, 1fr)' }} role="radiogroup" aria-label="Select quantity">
         {Array.from({ length: BUY_BOX.maxQuantity }, (_, i) => i + 1).map((q) => {
           const selected = q === qty;
           return (
             <div key={q} className={`PBFCM-PDP-quantity-selector__item ${selected ? 'PBFCM-PDP-quantity-selector__item--selected' : ''}`} id={`PBFCM-quantity-${q}`} data-quantity={q}
-              onClick={() => setQty(q)} onKeyDown={onKeyDown} role="radio" aria-checked={selected} aria-label={`${q} ${q === 1 ? 'Bottle' : 'Bottles'}`} tabIndex={selected ? 0 : -1}>
+              onClick={() => setQty(q)} onKeyDown={onKeyDown} role="radio" aria-checked={selected} aria-label={unitLabel(BUY_BOX, q)} tabIndex={selected ? 0 : -1}>
               <div className="PBFCM-PDP-quantity-selector__item-content">
-                <p className="PBFCM-PDP-quantity-selector__item-label">{q}{' '}{q === 1 ? 'Bottle' : 'Bottles'}</p>
+                <p className="PBFCM-PDP-quantity-selector__item-label">{unitLabel(BUY_BOX, q, '\u00a0')}</p>
                 <div className={`PBFCM-PDP-quantity-selector__savings-badge ${selected ? 'PBFCM-PDP-quantity-selector__savings-badge--selected' : ''}`} style={selected ? { backgroundColor: 'var(--PBFCM-color-savings-badge)' } : undefined}>
                   <p className="PBFCM-PDP-quantity-selector__savings-text">Save {sum.tileSave(q)}</p>
                 </div>
@@ -208,6 +219,7 @@ const CartIcon = () => (
 
 /* ------------------------------------------------------------------ sticky ATC (snippets/fd-pdp-sticky-atc.liquid + assets/fd-pdp-sticky-atc.js; mobile A/B, off unless ?fd_sticky_atc=v1|v2) */
 function StickyAtc({ variant, selection, now, was, save, added, onAdd, getTargets }) {
+  const { PDP_PRODUCT } = usePdpLegacy();
   const [hidden, setHidden] = useState(true);
   const barRef = useRef(null);
   useEffect(() => {
@@ -265,6 +277,8 @@ function StickyAtc({ variant, selection, now, was, save, added, onAdd, getTarget
 
 /* ------------------------------------------------------------------ main product */
 export default function MainProductLegacy() {
+  const main = usePdpLegacy();
+  const { PDP_PRODUCT, DEMOGRAPHIC_TABS, BENEFIT_INTRO_HTML, BENEFIT_ACCORDION_STYLE, BENEFIT_ITEMS, BUY_BOX, TRUST_BADGES, MAIN_ACCORDIONS, QUANT_WIDGET_HTML, priceSummary } = main;
   const cart = useCart();
   const [params] = useSearchParams();
   const stickyVariant = ['v1', 'v2'].includes((params.get('fd_sticky_atc') || '').toLowerCase()) ? params.get('fd_sticky_atc').toLowerCase() : '';
@@ -276,8 +290,9 @@ export default function MainProductLegacy() {
   const opt = BUY_BOX.options.find((o) => o.kind === kind);
 
   const addToCart = () => {
-    const item = { handle: PDP_PRODUCT.handle, title: PDP_PRODUCT.title, image: PDP_PRODUCT.media[1].src, price: 3900 };
+    const item = { handle: PDP_PRODUCT.handle, title: PDP_PRODUCT.title, image: PDP_PRODUCT.media[1].src, price: PDP_PRODUCT.variants[0].price };
     for (let i = 0; i < qty; i += 1) cart?.addLine?.(item, kind === 'subscription');
+    main.onAddToCart?.({ qty, kind }); // opt-in (explorations): a page can react to the click (for example a celebration)
     cart?.openCart?.();
     setAdded(true);
     clearTimeout(addedTimer.current);
@@ -291,9 +306,10 @@ export default function MainProductLegacy() {
     <section id="shopify-section-main" className="shopify-section section">
       <section className="section--padding" style={{ backgroundColor: '#ffffff' }}>
         <div className="page-width product grid grid--1-col grid--2-col-tablet">
-          <div className="grid__item product__media-wrapper"><Gallery media={PDP_PRODUCT.media} /></div>
+          <div className="grid__item product__media-wrapper"><Gallery media={PDP_PRODUCT.media} extra={main.SLOT_MEDIA} /></div>
           <div className="product__info-wrapper grid__item">
             <div id="ProductInfo-main" className="product__info-container product__info-container--sticky">
+              {main.SLOT_INFO_TOP /* opt-in (explorations): a node above the title */}
               {/* pdp_vanity */}
               <div className="pdp-vanity">
                 <h1>
@@ -312,8 +328,8 @@ export default function MainProductLegacy() {
                     onClick={(e) => { e.preventDefault(); openIngredients({ title: PDP_PRODUCT.ingredients.title, image: PDP_PRODUCT.ingredients.image, html: PDP_PRODUCT.ingredients.html }); }}> See Ingredients </a>
                 </div>
               </div>
-              {/* pdp_demographic_tabs */}
-              <div className="pdp-demo-tabs">
+              {/* pdp_demographic_tabs (none on the starter packs: DEMOGRAPHIC_TABS = null) */}
+              {DEMOGRAPHIC_TABS && <div className="pdp-demo-tabs">
                 <div className="pdp-demo-tabs__list fd-tabs-v3 fd-tabs-v3--medium" role="tablist" aria-label="Shop by family member">
                   <span className="pdp-demo-tabs__item fd-tabs-v3__item fd-tabs-v3__item--active is-active" role="tab" aria-selected="true" aria-current="page"><span className="pdp-demo-tabs__title">{DEMOGRAPHIC_TABS.current.label}</span></span>
                   {DEMOGRAPHIC_TABS.others.map((t) => (
@@ -321,20 +337,23 @@ export default function MainProductLegacy() {
                   ))}
                 </div>
                 <div className="pdp-demo-tabs__banner"><span className="pdp-demo-tabs__banner-age" dangerouslySetInnerHTML={{ __html: DEMOGRAPHIC_TABS.current.ageLine }} /></div>
-              </div>
-              {/* custom_liquid: fd-frontrow-badge */}
-              <div className="product__custom-liquid">
-                <div className="fd-frontrow-badge" id="frontrow-badge"><FrontrowQuantWidget /></div>
-              </div>
+              </div>}
+              {/* custom_liquid: fd-frontrow-badge (not rendered when the product has no FrontRowMD widget: QUANT_WIDGET_HTML = false) */}
+              {QUANT_WIDGET_HTML !== false && (
+                <div className="product__custom-liquid">
+                  <div className="fd-frontrow-badge" id="frontrow-badge"><FrontrowQuantWidget /></div>
+                </div>
+              )}
               {/* benefit_accordion_stats */}
               <div className="pdp-benefit-accordion-stats" style={BENEFIT_ACCORDION_STYLE}>
                 <div className="pdp-benefit-accordion-stats__intro rte" dangerouslySetInnerHTML={{ __html: BENEFIT_INTRO_HTML }} />
-                <div className="pdp-benefit-accordion-stats__items" />
+                {BENEFIT_ITEMS !== false && <div className="pdp-benefit-accordion-stats__items" />}
               </div>
               {/* product_purchase_content */}
               <div id="product-purchase-content" className="product-purchase-content">
                 <FrequencySelector kind={kind} setKind={setKind} />
-                <QuantitySelector kind={kind} qty={qty} setQty={setQty} />
+                <QuantitySelector kind={kind} qty={qty} setQty={setQty} headerSlot={main.SLOT_QTY_HEADER} />
+                {typeof main.SLOT_AFTER_QTY === 'function' ? main.SLOT_AFTER_QTY({ qty, kind }) : main.SLOT_AFTER_QTY /* opt-in (explorations): a node under the quantity cards (a function gets { qty, kind }) */}
                 <div className="PBFCM-PDP-cart-summary" data-component="PBFCM-PDP-cart-summary" role="region" aria-label="Cart summary and checkout">
                   <div className="PBFCM-PDP-cart-summary__breakdown PBFCM-PDP-cart-summary__breakdown--hide-rows PBFCM-PDP-cart-summary__breakdown--relocated" aria-label="Price breakdown" />
                 </div>
@@ -391,7 +410,7 @@ export default function MainProductLegacy() {
                   contentHtml={a.html || `<img src="${a.image.src}" alt="${a.image.alt}" width="${a.image.width}" height="${a.image.height}">`} />
               ))}
               {/* product_crosslinks */}
-              <div className="crosslinks-container">
+              {DEMOGRAPHIC_TABS && <div className="crosslinks-container">
                 <div className="crosslinks-header"><span className="crosslinks-header__age" dangerouslySetInnerHTML={{ __html: DEMOGRAPHIC_TABS.crosslinkAge }} /></div>
                 <div className="crosslinks-cards">
                   {DEMOGRAPHIC_TABS.others.map((t) => (
@@ -401,13 +420,13 @@ export default function MainProductLegacy() {
                     </SiteLink>
                   ))}
                 </div>
-              </div>
+              </div>}
             </div>
           </div>
         </div>
       </section>
       {stickyVariant && (
-        <StickyAtc variant={stickyVariant} selection={`${qty} ${qty === 1 ? 'Bottle' : 'Bottles'} · ${opt.label}`} now={money(sum.final)} was={sum.saving > 0 ? money(sum.compare) : ''} save={sum.saving > 0 ? `Save ${money(sum.saving)}` : ''}
+        <StickyAtc variant={stickyVariant} selection={`${unitLabel(BUY_BOX, qty)} · ${opt.label}`} now={money(sum.final)} was={sum.saving > 0 ? money(sum.compare) : ''} save={sum.saving > 0 ? `Save ${money(sum.saving)}` : ''}
           added={added} onAdd={addToCart} getTargets={() => ['product-purchase-content', 'PBFCM-add-to-cart-btn'].map((id) => document.getElementById(id)).filter(Boolean)} />
       )}
     </section>

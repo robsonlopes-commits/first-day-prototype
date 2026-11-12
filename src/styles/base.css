@@ -594,7 +594,7 @@
   .h3,
   .h4,
   .h5 {
-    font-family: 'Gelica', serif;
+    font-family: 'sofia-pro', arial, sans-serif; /* the live head CSS sets the headings to sofia-pro (it was Gelica before, owner decision 2026-11-09) */
     font-style: var(--font-heading-style);
     font-weight: 400;
     letter-spacing: calc(var(--font-heading-scale) * 0.0rem);

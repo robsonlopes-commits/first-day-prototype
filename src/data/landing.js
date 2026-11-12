@@ -3,6 +3,7 @@
 // Captured from https://firstday.com/pages/kde-behind-the-science-lp and /pages/TDK-behind-the-science-lp. Images are file names in
 // shopify://shop_images/ (shopImg); rich-text values are the inner HTML of .metafield-rich_text_field.
 import { TRUST_LP, COMPARISON_LP } from './sharedSections.js';
+import { getIngredients } from './ingredients.js';
 
 const HERO_VIDEO = 'firstday.com/cdn/shop/videos/c/vp/3f1b449e8ba645119e42b631b2d9a50b/3f1b449e8ba645119e42b631b2d9a50b.HD-720p-4.5Mbps-97240623.mp4';
 const AVATAR = 'DoctorAdamSmith.png';
@@ -219,7 +220,87 @@ tdk.reviews = {
 kde.clinicianReviews = true;
 tdk.clinicianReviews = false;
 
+
+// ---- trmv: Toddlers' Multi (captured from https://firstday.com/pages/trmv-behind-the-science-lp, 2026-11-11). Same template; the science tabs, the benefits split and the clinician reviews render nothing here ----
+const trmv = {
+  hero: {
+    starsText: heroCommon.starsText,
+    cta: 'Start Healthy Habits Today',
+    // the review card under the button (block temp-testimonial)
+    creator: { avatar: 'father-toddler.png', name: 'Sam P.', quote: '<p>The best vitamin we have tried. My kids are so picky and hate the chalky tablets. Very thankful I found this amazing gummy! Never a meltdown over taking their daily vitamins!</p>' },
+    headline: "The [Science–Driven Gummy Vitamin] That's Redefining Toddler Nutrition",
+    description: '<p>Packed with a blend of 21 organic superfoods and 10 essential vitamins critical to toddler development,&nbsp;<strong>our toddler multivitamin supports brain development, physical growth, strong immunity, and healthy eating habits.*</strong></p>',
+    image: 'science.png',
+    mobileImage: 'science.png',
+    mobileImageFullWidth: true,
+  },
+  accordion1: {
+    heading: 'Target 6 Symptoms of Nutrient Deficiencies with Just 2 Daily Gummies',
+    image: 'wheel-trmv.png', imgPos: '50% 50%', imgW: 431, imgH: 431,
+    items: [
+      { icon: '21_8ab59279-6d4b-4557-bf6d-2c53f134a4b3.png', pos: '49.121% 50%', title: 'Delayed Development', body: '<p>Choline and B vitamins support brain and nervous system development –&nbsp;key for language and learning. Yet over 50% of toddlers don’t get enough choline.*</p>' },
+      { icon: 'icon-broccoli.avif', pos: '49.121% 56.445%', title: 'Poor Appetite', body: '<p>Low levels of B vitamins, especially B1 and B6, can affect appetite and energy. Our blend helps fuel your toddler’s natural hunger and supports better eating patterns.*</p>' },
+      { icon: 'icon-immunity.avif', pos: '50.098% 47.656%', title: 'Weakened Immunity', body: '<p>With immune-supporting Vitamin C and D3, plus key B vitamins that help keep their systems running smoothly. Our formula helps build a strong foundation to tackle whatever the day throws at them.</p>' },
+      { icon: '5_ff67ff98-ed7a-4682-b249-303fa10d0235.png', title: 'Stunted Growth', body: '<p>Vitamin D3 and Vitamin K2 work together to support bone development, while essential nutrients like B vitamins help the body turn food into growth-fueling energy.</p>' },
+      { icon: 'icon-moon.avif', pos: '37.012% 18.164%', title: 'Trouble Sleeping', body: '<p>Vitamin D3 helps regulate melatonin, the hormone that controls sleep cycles. Combined with B6, it supports calmer bedtimes and better rest for growing toddlers.*</p>' },
+      { icon: 'icon-crying.avif', pos: '50% 49.121%', title: 'Frequent Outbursts', body: '<p>Moodiness and outbursts can be linked to nutrient deficiencies. B vitamins like B6, B12, and folate support emotional regulation and help toddlers navigate big feelings with more ease.*</p>' },
+    ],
+  },
+  accordion2: {
+    heading: 'Raising the Bar on Toddler Nutrition',
+    image: 'toddler-raising-bottle-lp-border.avif', imgPos: '0.879% 0.879%', imgW: 1200, imgH: 1200,
+    items: [
+      { icon: 'icon-jenga-blocks.avif', pos: '48.535% 50%', title: 'Designed Just For Toddlers', body: '<p>This multi was designed&nbsp;<strong>just for 2 and 3 year olds.</strong>&nbsp;<strong>Other brands don’t differentiate between 2 year olds &amp; 12 year olds, even though their bodies and needs are so different!&nbsp;</strong>Our formula contains essential nutrients and doses specific to a toddler stage, diet, and size.</p><p>For example, because choline is essential in the first 3 years of life and deficient in 50% of toddlers, our Toddler Daily Supercharge contains 10mcg of choline in just 2 gummies. It’s nutrition designed for toddlers&nbsp;because their needs aren’t just smaller, they’re different.</p>' },
+      { icon: 'icon-pencil.png', pos: '2.93% 95.605%', title: 'Safety Tested for Toddler Eating', body: '<p>Our toddler gummy is designed with little ones in mind. Which means we’ve gone above and beyond to address something all parents worry about – choking.</p><p>Unlike other brands, our gummies have been rigorously tested by a 3rd Party Quality Assurance Provider that evaluated potential airway obstructions and oral motor patterns of toddler eating habits.</p>' },
+      { icon: 'icon-broccoli.avif', pos: '49.121% 56.445%', title: 'Fights Hidden Hunger', body: "<p>80% of children don't eat enough fruits and veggies, contributing to a nutrient deficiency known as hidden hunger. Our gummies fight hidden hunger with essential nutrients critical to development.</p>" },
+      { icon: 'old-icon-stethoscope.avif', pos: '49.121% 49.121%', title: 'Pediatrician-Approved', body: '<p>Recommended by pediatricians, our multivitamin is designed to meet the unique needs of your family ensuring they get the support they need from a trusted source.</p>' },
+      { icon: 'old-icon-atom-chemistry.avif', pos: '50.684% 51.66%', title: 'Backed by Modern Science', body: '<p>Vitamin B6 supports natural energy regulation, promoting healthier sleep patterns and making it easier for kids to get restful sleep.*</p>' },
+      { icon: 'Rivo-Icon-Checkmark.svg', alt: 'A blue circle with a white check mark in the center, surrounded by a scalloped edge, resembling a verification badge.', title: 'Clean Label Project® Purity Award', body: '<p>Our products were independently tested by Clean Label Project® for harmful chemicals like heavy metals, pesticides, and plasticizers, exceeding typical industry practices.</p>' },
+    ],
+  },
+  founder: { headline: 'From our Founder', description: FOUNDER_DESC, cta: 'Try Now', image: 'founder-alice.png' },
+  timeline: {
+    heading_line_1: 'What To Expect', heading_line_2: "From The Toddlers' Daily Multi",
+    items: [
+      { image: 'toddlers-multi-flat.png', badge: '30 Days', title: 'Stronger Daily Nutrition', body: '<p><span class="metafield-multi_line_text_field">Supports essential nutrients for growth, energy, and everyday wellness—helping kids feel their best from the start.</span></p>' },
+      { image: 'Untitled_design_1_1f56124f-d343-4ac3-bfa7-bc7fc58e2f89.png', badge: '60 Days', title: 'Steadier Mood', body: '<p><span class="metafield-multi_line_text_field">With added nutrients such as B12 and B6, kids have their energy levels balanced, making them more comfortable and on track every day.</span></p>' },
+      { image: 'ugc-trmv-reaching.avif', pos: '51.66% 57.324%', badge: '90 Days', title: 'Healthier Eating Habits', body: '<p><span class="metafield-multi_line_text_field">When your child feels better after having their nutrition gaps filled, they start to make healthier eating choices.</span></p>' },
+    ],
+  },
+};
+trmv.product = {
+  ...productCommon, handle: 'the-no-junk-toddlers-multivitamin', title: 'The "No Junk"™ Toddlers\' Multi', activeTab: 0, reviewsBadge: '5180 reviews', reviewsAllText: '11775 reviews', rating: 4.72,
+  vanity: 'Yummy Gummies For [Supported Growth & Development]',
+  intro: '<p>Worried about your toddler’s eating habits? Meet the toddler multivitamin that’s giving little ones a nutrition boost! Made with 10 nutrients and a blend of 21 organic superfoods in a formula designed just for 2 &amp; 3 year olds.<br>\n<br>\n<strong>Flavor: Strawberry &amp; Orange</strong></p><p></p>',
+  benefits: [
+    { icon: 'Untitled_design_6_c5d8fdab-5f5c-4e08-80e0-45b7de988e78.png', heading: 'Enhanced Nutrition & Immunity', percent: '95%', text: "<p>of parents say First Day vitamins support their child's overall health &amp; immunity.† </p>" },
+    { icon: 'Vector_6.png', heading: 'Improved Behavior', percent: '83%', text: "<p>of customers say First Day vitamins support their child's overall mood &amp; behavior.† </p>" },
+    { icon: 'Group_1_2_c9058c0e-c38b-4b19-b4b5-60cb21c06b06.png', heading: 'Better Sleep Routines', percent: '82%', text: "<p>said these vitamins are improving their child's overall bedtime routines &amp; sleep quality.† </p>" },
+  ],
+  gallery: [
+    ['toddler-clean-label-badge.jpg', 'The "No Junk"™ Toddlers\' Multi'], ['trmv_3_-_Gummies_Nutrients_-_Toddlers_Multi_result.webp'], ['trmv_4_-_Ingredients_-_Toddlers_Multi_result.webp'], ['ingredients-trmv.webp'], ['trmv_6_-_Benefits_-_Toddlers_Multi_result.webp'],
+    ['trmv_7_-_Why_First_Day_-_Toddlers_Multi_result.webp'], ['trmv_8_-_Social_Proof_-_Toddlers_Multi_result.webp'], ['trmv_9_-_Nutrition_-_Toddlers_Multi_result.webp'], ['trmv_2_-_Lifestyle_Image_-_Toddlers_Multi_result.webp'], ['trmv_10_-_Back_Panel_-_Toddlers_Multi_result.webp'],
+  ],
+  ingredientsHtml: getIngredients('the-no-junk-toddlers-multivitamin').html,
+  factsImage: 'ingredients-trmv.webp', factsPos: '50% 50%', subscriptionHtml: SUBSCRIPTION_HTML,
+  crossAge: 'This Product is For Toddlers Ages <b>2 - 3</b>',
+  cross: [{ title: 'Kids', subtitle: 'Ages 4 - 12', href: '/pages/kde-behind-the-science-lp' }, { title: 'Teens', subtitle: 'Ages 13 - 17', href: '/pages/tdk-behind-the-science-lp' }],
+};
+trmv.reviews = {
+  rating: '4.7', count: '5,180 reviews',
+  summary: 'Toddler multivitamin gummies with clean ingredients and organic superfoods. Customers said "my kids love them" and praised the taste and nutrition. Most children eagerly take them daily. Some concerns: price ($38+ monthly), taste rejection by few kids, non-child-resistant lid, subscription cancellation issues, and shipping delays.',
+  highlights: ['“My 3 year old loves this and I think she grew 2 inches since starting to take them!”', '“packed with tons of supplements and vitamins that help them feel their best!”', '“This vitamin has truly been life changing for us and helped our sweet girl”'],
+  items: [
+    star5({ name: 'Erica DiVario', date: '11/10/2026', title: 'Love the clean ingredients, minimal sugar,', body: 'Love the clean ingredients, minimal sugar, superfoods and amount of vitamins in them. My kids ask for them every morning' }),
+    star5({ name: 'Maggie C', date: '11/09/2026', title: 'Our family swears by these! My kids love them,', body: 'Our family swears by these! My kids love them, and its nice to have them take their vitamins without a fight.' }),
+    star5({ name: 'Sara', date: '11/09/2026', title: 'Never miss a day', body: 'My 9 year old boy asks for them, I appreciate that they have many B vitamins.' }),
+    star5({ name: 'Maegan Winegar', date: '11/09/2026', title: 'Great taste!', body: 'my daughter said the taste is great! She is excited to take them each morning.' }),
+    star5({ name: 'Brittany Hall', date: '11/09/2026', title: 'Great vitamins! My child loves', body: 'Great vitamins! My child loves them!!' }),
+  ],
+};
+trmv.clinicianReviews = false;
+
 //@@MORE@@
 
-export const LANDING = { kde, tdk };
+export const LANDING = { kde, tdk, trmv };
 export { TRUST_LP, COMPARISON_LP };

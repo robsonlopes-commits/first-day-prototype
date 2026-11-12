@@ -41,6 +41,11 @@
     margin: 0 0 24px;
   }
 
+  /* live theme: 18px when the block has no accordion items (its items div is not rendered then), 24px above the items */
+  .pdp-benefit-accordion-stats__intro:not(:has(+ .pdp-benefit-accordion-stats__items)) {
+    margin: 0 0 18px;
+  }
+
   .pdp-benefit-accordion-stats__intro p {
     margin: 0;
   }
@@ -3901,6 +3906,11 @@ Bottom:150px;
     display: block;
     width: 100%;
     margin-top: 2px;
+  }
+
+  /* live PBFCM-PDP-styles.css (newer than the Oct 14 theme export): the note under the One-Time price is 12px */
+  .PBFCM-PDP-frequency-selector__price-note {
+    font-size: 12px;
   }
 
   .PBFCM-PDP-frequency-selector--configurable .PBFCM-PDP-frequency-selector__alternate-details-row {

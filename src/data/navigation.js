@@ -23,7 +23,8 @@ export const navFamilies = [
     image: shopImg('image_3_a1e577a2-5d72-419b-b421-e5963d23f2ba.png'),
     products: [
       p("Toddlers' Multivitamin", 'Helps fill missing nutrients in young children.', 'toddlers-multi.png', 'the-no-junk-toddlers-multivitamin'),
-      p("Toddlers' Probiotic+", 'For softer, easier to pass stools.', 'toddlers-prob.png', 'toddlers-3-in-1-probiotic'),
+      p("Toddlers' Probiotic+", 'To support immunity, digestion, and oral health.', 'toddlers-prob.png', 'toddlers-3-in-1-probiotic'),
+      p("Toddlers' Starter Pack", 'Daily nutrition plus support for softer, easier-to-pass stools', 'First_Day_Toddlers_Supplement_Duo.png', 'toddler-tlc-starter-pack'),
     ],
   },
   {

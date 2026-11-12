@@ -15,37 +15,33 @@ import FrontrowmdCliniciansReviews from '../sections/FrontrowmdCliniciansReviews
 import Apps from '../sections/Apps.jsx';
 import TempHero from '../sections/TempHero.jsx';
 import CustomLiquid from '../sections/CustomLiquid.jsx';
-import { TRUST_PDP_NEW, TEMP_HERO_PDP_NEW } from '../data/sharedSections.js';
-import { JUMP_NAV_PDP_NEW, BRAND_NARRATIVE_PDP_NEW, PROBLEM_SIGNS_PDP_NEW } from '../data/pdpNewNarrative.js';
-import { TWO_UP_DOSAGE, TWO_UP_ROOT_CAUSES, TWO_UP_FORMULA, QUALITY_CRITERIAS_PDP_NEW, PDP_V2_HERO_PDP_NEW } from '../data/pdpNewTwoUp.js';
-import { DOSED_FORMULA_PDP_NEW } from '../data/pdpNewDosed.js';
-import { COLLAPSIBLE_PDP_NEW, RICH_TEXT_PDP_NEW_FAQ, RICH_TEXT_PDP_NEW_LEGAL, FRONTROWMD_PDP_NEW, APPS_PDP_NEW } from '../data/pdpNewBottom.js';
-import { CUSTOM_LIQUID_PDP_NEW } from '../data/pdpNew.js';
+import { PdpNewContext } from '../lib/pdpData.jsx';
+import { KIDS_NEW_PAGE } from '../data/pdp/defaults.js';
 
 // templates/product.uniified-default-v2.json (production body class has the "uniified" typo). Sections in template order.
-export default function ProductNew() {
+export default function ProductNew({ page = KIDS_NEW_PAGE }) {
   usePageClass('template-product uniified-default-v2');
   return (
-    <>
+    <PdpNewContext.Provider value={page.main}>
       <MainProductV2 />
-      <FdPdpJumpNav {...JUMP_NAV_PDP_NEW} />
-      <FdBrandNarrative {...BRAND_NARRATIVE_PDP_NEW} />
-      <FdProblemSigns {...PROBLEM_SIGNS_PDP_NEW} />
-      <PdpV2TwoUp {...TWO_UP_DOSAGE} />
-      <PdpV2TwoUp {...TWO_UP_ROOT_CAUSES} />
-      <PdpV2TwoUp {...TWO_UP_FORMULA} />
-      <PdpV2DosedFormula {...DOSED_FORMULA_PDP_NEW} />
-      <PdpV2QualityCriterias {...QUALITY_CRITERIAS_PDP_NEW} />
-      <HomepageTrustSection {...TRUST_PDP_NEW} />
-      <PdpV2Hero {...PDP_V2_HERO_PDP_NEW} />
-      <CollapsibleContent {...COLLAPSIBLE_PDP_NEW} />
-      <RichText {...RICH_TEXT_PDP_NEW_FAQ} />
-      <FrontrowmdCliniciansReviews {...FRONTROWMD_PDP_NEW} />
-      <Apps {...APPS_PDP_NEW} />
-      <TempHero {...TEMP_HERO_PDP_NEW} />
-      <CustomLiquid {...CUSTOM_LIQUID_PDP_NEW} />
-      <RichText {...RICH_TEXT_PDP_NEW_LEGAL} />
+      <FdPdpJumpNav {...page.JUMP_NAV} />
+      <FdBrandNarrative {...page.BRAND_NARRATIVE} />
+      <FdProblemSigns {...page.PROBLEM_SIGNS} />
+      <PdpV2TwoUp {...page.TWO_UP_DOSAGE} />
+      <PdpV2TwoUp {...page.TWO_UP_ROOT_CAUSES} />
+      <PdpV2TwoUp {...page.TWO_UP_FORMULA} />
+      <PdpV2DosedFormula {...page.DOSED_FORMULA} />
+      <PdpV2QualityCriterias {...page.QUALITY_CRITERIAS} />
+      <HomepageTrustSection {...page.TRUST} />
+      <PdpV2Hero {...page.PDP_V2_HERO} />
+      <CollapsibleContent {...page.COLLAPSIBLE} />
+      <RichText {...page.RICH_TEXT_FAQ} />
+      {page.FRONTROWMD && <FrontrowmdCliniciansReviews {...page.FRONTROWMD} />}
+      <Apps {...page.APPS} />
+      <TempHero {...page.TEMP_HERO} />
+      <CustomLiquid {...page.CUSTOM_LIQUID} />
+      <RichText {...page.RICH_TEXT_LEGAL} />
       <IngredientsPopup />
-    </>
+    </PdpNewContext.Provider>
   );
 }

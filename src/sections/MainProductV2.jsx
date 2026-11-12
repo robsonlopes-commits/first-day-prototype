@@ -6,9 +6,7 @@ import { getIngredients } from '../data/ingredients.js';
 import { useCart } from '../layout/CartContext.jsx';
 import FrontrowBadge from './FrontrowBadge.jsx';
 import { JudgeMePreviewBadge } from './JudgeMeReviewWidget.jsx';
-import {
-  SECTION_ID, PRODUCT, DEMOGRAPHIC_TABS, BENEFIT_ACCORDION, PURCHASE, SAVINGS_DISPLAY, USP_IMAGES, COLLAPSIBLE_TABS, CROSSLINKS,
-} from '../data/pdpNew.js';
+import { usePdpNew } from '../lib/pdpData.jsx'; // the data of the product (Kids' Multi by default, see src/lib/pdpData.jsx)
 import '../styles/theme/fd-tabs-v3.css';
 import '../styles/theme/fd-button.css';
 import '../styles/theme/PBFCM-PDP-styles.css';
@@ -18,7 +16,6 @@ import './mainProductV2.css';
 // Separate implementation from the legacy PDP on purpose. Behaviour re-implemented from PBFCM-PDP-controller.js (frequency/quantity/
 // breakdown), PBFCM-PDP-product-gallery.liquid (Swiper gallery) and savings-display.liquid.
 const money = (n) => `$${n.toFixed(2)}`;
-const PRODUCT_TITLE = PRODUCT.title;
 
 /* ---------- icons ---------- */
 const ICONS = {
@@ -112,7 +109,9 @@ export function Gallery({ images }) {
             <div key={im.key || im.src} className={`swiper-slide PBFCM-PDP-product-gallery__main-slide${i === index ? ' swiper-slide-active' : ''}`} style={{ marginRight: 16 }} role="group" aria-label={`${i + 1} / ${images.length}`}>
               {im.group
                 ? <div className="PBFCM-PDP-product-gallery__main-image PBFCM-PDP-product-gallery__group">{im.group.map((g) => <Img key={g.src} src={g.src} alt={g.alt} loading="eager" draggable="false" />)}</div>
-                : <Img src={im.src} alt={im.alt} className="PBFCM-PDP-product-gallery__main-image" id={i === 0 ? 'PBFCM-main-image' : undefined} loading={i < 2 ? 'eager' : 'lazy'} draggable="false" />}
+                : im.overlay /* opt-in (explorations): SVG stickers laid on top of the real picture */
+                  ? <div className="ss-ov-wrap"><Img src={im.src} alt={im.alt} className="PBFCM-PDP-product-gallery__main-image" id={i === 0 ? 'PBFCM-main-image' : undefined} loading={i < 2 ? 'eager' : 'lazy'} draggable="false" />{im.overlay}</div>
+                  : <Img src={im.src} alt={im.alt} className="PBFCM-PDP-product-gallery__main-image" id={i === 0 ? 'PBFCM-main-image' : undefined} loading={i < 2 ? 'eager' : 'lazy'} draggable="false" />}
             </div>
           ))}
         </div>
@@ -142,6 +141,8 @@ export function Gallery({ images }) {
 
 /* ---------- blocks ---------- */
 function Vanity() {
+  const { PRODUCT } = usePdpNew();
+  const PRODUCT_TITLE = PRODUCT.title;
   const parts = PRODUCT.vanityTitle.split('[');
   return (
     <div className="pdp-vanity">
@@ -158,6 +159,8 @@ function Vanity() {
 }
 
 function SeeIngredients() {
+  const { PRODUCT } = usePdpNew();
+  const PRODUCT_TITLE = PRODUCT.title;
   const ing = getIngredients(PRODUCT.handle);
   const open = (e) => {
     e.preventDefault();
@@ -173,6 +176,7 @@ function SeeIngredients() {
 }
 
 function DemographicTabs() {
+  const { DEMOGRAPHIC_TABS } = usePdpNew();
   const t = DEMOGRAPHIC_TABS;
   return (
     <div className="pdp-demo-tabs">
@@ -187,6 +191,7 @@ function DemographicTabs() {
 }
 
 function BenefitAccordion() {
+  const { BENEFIT_ACCORDION } = usePdpNew();
   const s = BENEFIT_ACCORDION.settings;
   const vars = {
     '--bas-bg': s.background_color, '--bas-text': s.text_color, '--bas-muted': s.body_text_color, '--bas-border': s.border_color, '--bas-card-bg': s.card_background_color,
@@ -221,6 +226,9 @@ function BenefitAccordion() {
 
 /* ---------- product_purchase_content + savings_display ---------- */
 function PurchaseContent() {
+  const ex = usePdpNew(); // the opt-in slots of the explorations (SLOT_QTY_HEADER, onAddToCart)
+  const { PRODUCT, PURCHASE, SAVINGS_DISPLAY } = ex;
+  const PRODUCT_TITLE = PRODUCT.title;
   const P = PURCHASE;
   const cart = useCart();
   const [freq, setFreq] = useState('monthly');
@@ -237,10 +245,11 @@ function PurchaseContent() {
   const sd = SAVINGS_DISPLAY;
 
   const addToCart = () => {
-    const line = { handle: PRODUCT.handle, title: PRODUCT_TITLE, image: PRODUCT.images[1].src, price: PRODUCT.price * 100 };
+    const line = { handle: PRODUCT.handle, title: PRODUCT_TITLE, image: PRODUCT.cartImage || PRODUCT.images[1].src, price: PRODUCT.price * 100 }; // cartImage: opt-in (explorations)
     cart.addLine(line, monthly);
     if (qty > 1) cart.changeQty(`${PRODUCT.handle}:${monthly ? 'sub' : 'otp'}`, qty - 1);
     cart.openCart();
+    ex.onAddToCart?.(); // opt-in (explorations)
   };
   const onQtyKey = (e) => {
     const k = e.key;
@@ -302,6 +311,7 @@ function PurchaseContent() {
         <div className="PBFCM-PDP-quantity-selector">
           <div className="PBFCM-PDP-quantity-selector__header">
             <h2 className="PBFCM-PDP-quantity-selector__title">{P.quantityTitle}</h2>
+            {typeof ex.SLOT_QTY_HEADER === 'function' ? ex.SLOT_QTY_HEADER({ qty }) : ex.SLOT_QTY_HEADER /* opt-in (explorations): a node between the title and the servings badge */}
             <div className="PBFCM-PDP-quantity-selector__servings-badge"><p className="PBFCM-PDP-quantity-selector__servings-text">{P.servingsBadge}</p></div>
           </div>
           <div className="PBFCM-PDP-quantity-selector__grid" style={{ gridTemplateColumns: 'repeat(2, 1fr)' }} role="radiogroup" aria-label="Select quantity">
@@ -387,7 +397,9 @@ const ArrowRight = () => (
   </svg>
 );
 
-export default function MainProductV2({ id = SECTION_ID, onReadClinicianReviews }) {
+export default function MainProductV2({ id: idProp, onReadClinicianReviews }) {
+  const { SECTION_ID, PRODUCT, USP_IMAGES, COLLAPSIBLE_TABS, CROSSLINKS, FRONTROW_BADGE, SLOT_INFO_TOP } = usePdpNew(); // FRONTROW_BADGE (optional): { html } = widget document of the product
+  const id = idProp || SECTION_ID;
   const jumpToReviews = (e) => {
     e?.preventDefault();
     document.getElementById('frontrow-md-reviews')?.scrollIntoView({ behavior: 'smooth' });
@@ -402,11 +414,12 @@ export default function MainProductV2({ id = SECTION_ID, onReadClinicianReviews 
           </div>
           <div className="product__info-wrapper grid__item">
             <div id={`ProductInfo-${id}`} className="product__info-container product__info-container--sticky">
+              {SLOT_INFO_TOP /* opt-in (explorations): a node above the title */}
               <Vanity />
               <JudgeMePreviewBadge rating={PRODUCT.rating} count={PRODUCT.reviewCount} href="#reviews" />
               <SeeIngredients />
               <DemographicTabs />
-              <div className="product__custom-liquid"><FrontrowBadge onReadReviews={jumpToReviews} /></div>
+              <div className="product__custom-liquid"><FrontrowBadge onReadReviews={jumpToReviews} html={FRONTROW_BADGE?.html} /></div>
               <BenefitAccordion />
               <PurchaseContent />
               <div className="product__custom-liquid">

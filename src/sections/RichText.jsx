@@ -106,7 +106,7 @@ export default function RichText({ id, settings: s, blocks = [], custom_css: cus
   const body = (
     <>
       {s.anchor_id ? <div id={s.anchor_id} className="fd-jump-anchor" /> : null}
-      {s.top_waves ? <Waves position="top" color={s.background_color} containerBackground={s.wavesTopBackgroundColor} /> : null}
+      {s.top_waves ? <Waves position="top" color={s.background_color} containerBackground={s.wavesTopBackgroundColor} modern={s.modern_waves} /> : null}
       <div style={{ backgroundColor: bg, paddingTop: s.top_waves ? '40px' : '0', paddingBottom: s.bottom_waves ? '40px' : '0' }}>
         <div className={`page-width${s.narrow ? ' page-width--inner' : ''}`}>
           <div className={`rich-text section--padding${custom}`} style={{ backgroundColor: bg, paddingLeft: 'var(--section-padding-left)', paddingRight: 'var(--section-padding-right)' }}>
@@ -116,7 +116,7 @@ export default function RichText({ id, settings: s, blocks = [], custom_css: cus
           </div>
         </div>
       </div>
-      {s.bottom_waves ? <Waves position="bottom" color={s.background_color} containerBackground={s.wavesBottomBackgroundColor} /> : null}
+      {s.bottom_waves ? <Waves position="bottom" color={s.background_color} containerBackground={s.wavesBottomBackgroundColor} modern={s.modern_waves} /> : null}
     </>
   );
   return (

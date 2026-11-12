@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import './frontrowBadge.css';
 
 // snippets/fd-frontrow-badge.liquid: the "Clinicians' Choice" card in the buy box. Live it is an iframe to
@@ -38,7 +39,23 @@ const AVATARS = [
   ['https://assets.app.thefrontrowhealth.com/jgsl01mi7a7e9lg1x6m43i59je9i', 'Dr. Jonathan Jassey'],
 ];
 
-export default function FrontrowBadge({ clinicians = 531, onReadReviews }) {
+// Optional `html` = the iframe document of another product's widget (e.g. src/data/pdp/frontrowQuant4198.html?raw): rendered like production, as an iframe.
+function FrontrowQuantIframe({ html }) {
+  const [height, setHeight] = useState(114);
+  const measure = (e) => {
+    const body = e.target.contentDocument?.body;
+    if (body) setHeight(Math.min(Math.max(body.scrollHeight, 0), 200));
+  };
+  return (
+    <div className="fd-frontrow-badge" id="frontrow-badge">
+      <iframe className="iframe-frontrow" id="iframe-frontrow-quant" frameBorder="0" scrolling="no" srcDoc={html} title="Clinicians' Choice on FrontrowMD"
+        style={{ height, display: 'block' }} onLoad={(e) => { measure(e); const t = e.target; setTimeout(() => measure({ target: t }), 800); }} />
+    </div>
+  );
+}
+
+export default function FrontrowBadge({ clinicians = 531, onReadReviews, html }) {
+  if (html) return <FrontrowQuantIframe html={html} />;
   return (
     <div className="fd-frontrow-badge" id="frontrow-badge">
       <div className="iframe-frontrow frontrow-embedded" id="iframe-frontrow-quant" title="Clinicians' Choice on FrontrowMD">

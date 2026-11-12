@@ -107,8 +107,8 @@ export const JUDGEME = {
 
 export const money = (n) => `$${n.toFixed(2)}`;
 
-// Buy-box math (mirrors PBFCM-PDP-controller.js for this product): returns everything the summary rows display.
-export function priceSummary(option, qty) {
+// Buy-box math (mirrors PBFCM-PDP-controller.js): returns everything the summary rows display. A factory, so each product binds its own BUY_BOX and PDP_PRODUCT.
+export const makePriceSummary = (BUY_BOX, PDP_PRODUCT) => function priceSummary(option, qty) {
   const o = BUY_BOX.options.find((x) => x.kind === option) || BUY_BOX.options[0];
   const list = Math.round(PDP_PRODUCT.variants[0].price) / 100; // 39
   const retail = list * qty;
@@ -121,4 +121,5 @@ export function priceSummary(option, qty) {
     compare, final, saving: Math.round((compare - final) * 100) / 100, giftUnlocked, retail,
     shippingFree: option === 'subscription' || final >= 50,
   };
-}
+};
+export const priceSummary = makePriceSummary(BUY_BOX, PDP_PRODUCT);

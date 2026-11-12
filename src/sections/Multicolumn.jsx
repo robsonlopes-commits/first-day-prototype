@@ -18,7 +18,7 @@ export default function Multicolumn({ id, settings: s, blocks = [], customCss = 
     <section id={`shopify-section-${id}`} className="shopify-section section">
       <style>{multicolumnCss(s, id)}{customCssFor(id, customCss)}</style>
       {s.anchor_id && <div id={s.anchor_id} className="fd-jump-anchor" />}
-      {s.top_waves && <Waves position="top" color={s.background_color} containerBackground={s.wavesTopBackgroundColor} />}
+      {s.top_waves && <Waves position="top" color={s.background_color} containerBackground={s.wavesTopBackgroundColor} modern={s.modern_waves} />}
       <div style={{ ...(s.enable_bacground_color ? { backgroundColor: s.colors_background } : {}), paddingTop: s.top_waves ? 40 : 0, paddingBottom: s.bottom_waves ? 40 : 0 }}>
         <div className={`section--padding${s.show_divider ? ' section--divider' : ''}`}>
           <div className="multicolumn page-width">
@@ -59,7 +59,7 @@ export default function Multicolumn({ id, settings: s, blocks = [], customCss = 
           </div>
         </div>
       </div>
-      {s.bottom_waves && <Waves position="bottom" color={s.background_color} containerBackground={s.wavesBottomBackgroundColor} />}
+      {s.bottom_waves && <Waves position="bottom" color={s.background_color} containerBackground={s.wavesBottomBackgroundColor} modern={s.modern_waves} />}
     </section>
   );
 }

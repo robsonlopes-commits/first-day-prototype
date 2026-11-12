@@ -24,7 +24,7 @@ The Shopify theme **is** the design system, so the prototype does not reinvent a
 | `/` | `index.hp01-v2` | Home |
 | `/products/kids-calming-magnesium` | `unified-default` | Legacy PDP |
 | `/products/kids-enrichment-vitamin` | `uniified-default-v2` | New PDP (separate implementation) |
-| `/pages/tdk-behind-the-science-lp` and `/pages/kde-behind-the-science-lp` | `lp-BTS-master` | "Behind the Science" landing page (teens and kids) |
+| `/pages/tdk-`, `/pages/kde-` and `/pages/trmv-behind-the-science-lp` | `lp-BTS-master` | "Behind the Science" landing page (teens, kids, toddlers) |
 | `/pages/sale` | `bfcm-categories` | Sale page |
 | `/pages/bundle-builder-v2` | `lp-bundle-v2` | Bundle builder with quiz, all states |
 | `/pages/bundle-quiz` | `lp-bundle-v3` | Bundle buy box with popup and summary drawer |

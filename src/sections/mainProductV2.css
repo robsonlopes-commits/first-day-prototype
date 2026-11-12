@@ -2119,6 +2119,11 @@ fieldset.product-form__input .form__label {
   margin: 0 0 0;
 }
 
+/* production loads fd-ingredients-popup.css after this rule, so its `.product__see-ingredients { margin: 0 0 24px }` wins there */
+.product__info-container > .product__see-ingredients {
+  margin: 0 0 24px;
+}
+
 .product__info-container .product__description {
   line-height: 1.4;
 }
