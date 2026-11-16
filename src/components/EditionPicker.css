@@ -1,0 +1,20 @@
+/* Choose The Edition (buy box) */
+.fd-edition { margin: 22px 0 20px; }
+.fd-edition__title { margin: 0 0 14px; }
+.fd-edition__grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.fd-edition__card { display: flex; flex-direction: column; padding: 0; overflow: hidden; border: 1px solid #e3e3ee; border-radius: 16px; background: #fff; cursor: pointer; font-family: inherit; text-align: center; -webkit-tap-highlight-color: transparent; }
+.fd-edition__card.is-selected { border: 2px solid #776cb1; }
+.fd-edition__media { display: block; position: relative; aspect-ratio: 1.45 / 1; overflow: hidden; background: #fff; }
+.fd-edition__media img { position: absolute; left: 50%; top: 50%; width: 150%; height: auto; max-width: none; transform: translate(-50%, var(--y, -31%)); pointer-events: none; } /* zoomed on the label: from the logo to the 60 gummies line */
+.fd-edition__card[data-id='sesame'] .fd-edition__media img { width: 128%; --y: -27%; }
+.fd-edition__label { display: block; padding: 10px 8px; background: #eeedf6; color: #2c3d50; font-size: 20px; font-weight: 500; line-height: 1.25; }
+.fd-edition__card.is-selected .fd-edition__label { background: #776cb1; color: #fff; }
+@media (max-width: 749px) { .fd-edition__grid { gap: 12px; } .fd-edition__label { font-size: 17px; padding: 9px 6px; } }
+
+/* desktop: low cards, the bottle shown with less crop (smaller in the picture so the logo, the label and the 60 gummies line fit) */
+@media (min-width: 990px) {
+  .fd-edition__media { aspect-ratio: 2.7 / 1; }
+  .fd-edition__media img { width: 72%; --y: -35%; }
+  .fd-edition__card[data-id='sesame'] .fd-edition__media img { width: 50%; --y: -33%; }
+  .fd-edition__label { padding: 7px 8px; font-size: 17px; }
+}

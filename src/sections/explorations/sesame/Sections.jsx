@@ -18,8 +18,9 @@ export function SignBadge() {
 
 /* ---------- under the quantity cards: the Count counts the bottles ---------- */
 const NUM = ['', 'One', 'Two', 'Three', 'Four'];
-export function CountBubble({ qty, unit = 'bottle' }) {
-  const word = `${NUM[qty] || qty} ${unit}${qty === 1 ? '' : 's'}!`;
+// the Count only counts ("One!", "Two!"): no word about the product or the purchase (a character may not take part in a call to action)
+export function CountBubble({ qty, unit = '' }) {
+  const word = unit ? `${NUM[qty] || qty} ${unit}${qty === 1 ? '' : 's'}!` : `${NUM[qty] || qty}!`;
   return (
     <div className="ss-count-q" aria-live="polite">
       <Char n="count-1" className="ss-count-q__count" />
@@ -52,16 +53,17 @@ const iconSvg = (key) => {
   return svg.replace(/ width="\d+"/, '').replace(/ height="\d+"/, '').replace('<svg', `<svg width="${Math.round((60 * vw) / vh)}" height="60"`);
 };
 // `first`: the section is the first one under the buy box (nothing above it to tuck under), so it keeps its own top padding
-export function Wholesome({ first = false }) {
+// `friends={false}`: no character under the claims (the guidelines say a character may not promote benefits: the icon and the live claim stand alone)
+export function Wholesome({ first = false, friends = true }) {
   return (
-    <section className={`ss-wholesome${first ? ' ss-wholesome--first' : ''}`} id="shopify-section-ss-wholesome">
+    <section className={`ss-wholesome${first ? ' ss-wholesome--first' : ''}${friends ? '' : ' ss-wholesome--plain'}`} id="shopify-section-ss-wholesome">
       <div className="ss-wholesome__inner">
         <h2 className="ss-h2">Real Wholesome<sup>®</sup></h2>
         <ul className="ss-wholesome__grid">
           {WHOLESOME.map(([icon, ch, text, tone]) => (
             <li key={icon} className={`ss-wholesome__card ss-tone-${tone}`}>
-              <span className="ss-wholesome__icon" aria-hidden="true" dangerouslySetInnerHTML={{ __html: iconSvg(icon) }} />
-              <span className="ss-wholesome__pic"><Char n={ch} pop="pop" /></span>
+              <span className="ss-wholesome__icon" aria-hidden="true" dangerouslySetInnerHTML={{ __html: friends ? iconSvg(icon) : (ESSENTIAL_EIGHT_ICONS[`${icon}_variant_two`] || '') }} />
+              {friends && <span className="ss-wholesome__pic"><Char n={ch} pop="pop" /></span>}
               <p dangerouslySetInnerHTML={{ __html: text }} />
             </li>
           ))}
@@ -83,7 +85,8 @@ const STATS = [
 function CountUp({ to, fmt }) {
   return <>{fmt ? to.toLocaleString('en-US') : to}</>;
 }
-export function CountSection({ bg, stats = STATS, title = 'The Count Counts It', sub = 'Some numbers are worth counting. Ah ah ah!' }) {
+// `friends={false}`: the numbers are First Day's, so the Count does not stand next to them (a character may not promote a product's benefits)
+export function CountSection({ bg, stats = STATS, title = 'The Count Counts It', sub = 'Some numbers are worth counting. Ah ah ah!', friends = true }) {
   const ref = useRef(null);
   const [run, setRun] = useState(false);
   useEffect(() => {
@@ -93,10 +96,10 @@ export function CountSection({ bg, stats = STATS, title = 'The Count Counts It',
     return () => io.disconnect();
   }, []);
   return (
-    <section className={`ss-count-wrap${run ? ' is-in' : ''}`} id="shopify-section-ss-count" ref={ref} style={bg ? { background: bg } : undefined}>
+    <section className={`ss-count-wrap${run ? ' is-in' : ''}${friends ? '' : ' ss-count-wrap--plain'}`} id="shopify-section-ss-count" ref={ref} style={bg ? { background: bg } : undefined}>
       <div className="ss-count">
         <div className="ss-count__inner">
-          <Char n="count-1" className="ss-count__count" pop="left" />
+          {friends && <Char n="count-1" className="ss-count__count" pop="left" />}
           <div className="ss-count__main">
             <h2 className="ss-h2">{title}</h2>
             <p className="ss-count__sub">{sub}</p>
@@ -110,7 +113,7 @@ export function CountSection({ bg, stats = STATS, title = 'The Count Counts It',
               ))}
             </ul>
           </div>
-          <Char n="count-2" className="ss-count__count ss-count__count--r" pop="right" />
+          {friends && <Char n="count-2" className="ss-count__count ss-count__count--r" pop="right" />}
         </div>
       </div>
     </section>
@@ -126,10 +129,13 @@ const GANG = [
   ['count-1', 'The Count', 'Two gummies a day! One, two! Ah ah ah!'],
   ['cookie-eat', 'Cookie Monster', 'Me love cookies! Cookies are a sometimes food. Me try new food too!'],
 ];
-export function MeetTheGang({ waveFrom = '#f2fbff', gang = GANG, title = 'Meet The Gang', sub = 'Tap a friend to say hello.' }) {
+// height of each friend relative to Big Bird, from the scale chart of the guidelines (characters must keep their scale: pupils of the same size)
+const SCALE = { bigbird: 1, 'cookie-eat': 0.75, 'grover-3': 0.62, 'count-1': 0.53, 'elmo-wave': 0.41, abby: 0.38 };
+// `scaled`: use the chart above; the lines of `gang` must be catchphrases or generic phrases
+export function MeetTheGang({ waveFrom = '#f2fbff', gang = GANG, title = 'Meet The Gang', sub = 'Tap a friend to say hello.', scaled = false }) {
   const [open, setOpen] = useState(null);
   return (
-    <section className="ss-gang" id="shopify-section-ss-gang">
+    <section className={`ss-gang${scaled ? ' ss-gang--scaled' : ''}`} id="shopify-section-ss-gang">
       <ModernWave position="top" color="#bfe6ff" containerBackground={waveFrom} />
       <div className="ss-gang__inner">
         <h2 className="ss-h2">{title}</h2>
@@ -138,7 +144,7 @@ export function MeetTheGang({ waveFrom = '#f2fbff', gang = GANG, title = 'Meet T
           <Char n="lamp-post" prop className="ss-gang__lamp" />
           <ul className="ss-gang__row">
             {gang.map(([ch, name, line], i) => (
-              <li key={name} className={open === i ? 'is-open' : ''}>
+              <li key={name} className={open === i ? 'is-open' : ''} style={scaled ? { '--s': SCALE[ch] || 0.5 } : undefined}>
                 {open === i && <Bubble tail="left" className="ss-gang__bubble">{line}</Bubble>}
                 <button type="button" onClick={() => setOpen(open === i ? null : i)} aria-label={`${name} says hello`} aria-expanded={open === i}><Char n={ch} /></button>
                 <span className="ss-gang__name">{name}</span>

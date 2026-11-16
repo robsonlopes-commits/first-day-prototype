@@ -5,6 +5,8 @@ description: Knowledge and storytelling guide for the First Day x Sesame Street 
 
 # Sesame Street (ss)
 
+> **READ FIRST (2026-11-13): `references/license-guidelines.md` is the partner's own rulebook and overrides everything below and in the other references.** The short version: characters never do business (no endorsing, holding or touching the product, no product or brand name, no benefit claims, no CTA, nothing "in their voice" about the product; only catchphrases and generic true-to-character phrases), never flip Cookie Monster, the Count or Rosita, keep colors and scale, never crop pupils, one art style per project, clean uncluttered compositions, the 2D logo unaltered with clear space, no recreated Sesame Street set (no 123 street sign), no songs or voices, the legal notice "TM and © 2026 Sesame Workshop." on every marketing material, and **everything is vetted by Sesame Workshop before it is made and before it is posted**.
+
 First Day has a partnership with Sesame Workshop (told by the owner on 2026-11-09). **No public announcement was found** on 2026-11-09 (two searches), so treat the partnership as confidential until the owner says otherwise: never write "official partner" or "approved by Sesame Workshop" in copy unless the owner confirms the exact wording and approval. The pages that use it will be explained by the owner case by case.
 
 This skill is **material, not a template**: it teaches the world, the voices and the rules so that stories can be invented, not filled in. Read the references you need, they are short and indexed below.
@@ -23,6 +25,7 @@ This skill is **material, not a template**: it teaches the world, the voices and
 | How the show writes: sentence mechanics, repetition, humor for kids and parents, tone dos and don'ts | `references/voice-and-humor.md` |
 | Sesame's own food and health work (Eating Well, sometimes food, Foodie Truck), and how it fits First Day gummies, with guardrails | `references/healthy-eating-and-first-day.md` |
 | Story ideas and formats mapped to First Day products and pages (a brainstorm bank) | `references/story-bank.md` |
+| **The partner's license guidelines (what characters may and may not do, art, logo, copyright, approval): READ FIRST** | `references/license-guidelines.md` |
 | Licensing, art rules (House Style, Versions A/B/C, owner prefers B), the SVG library and how to crop a piece out of an artboard, public repo warning, what needs approval | `references/brand-rules.md` |
 | **How to turn a page into a Sesame edition** (rules of the owner, recipe, assets, copy, code, QA, open points), from the first page built | the skill **`sesame-streetize`** |
 | A few facts about the first page (Cookie Monster poses, Big Bird head, lamp post) | `references/exploration-toddlers-probiotic.md` |

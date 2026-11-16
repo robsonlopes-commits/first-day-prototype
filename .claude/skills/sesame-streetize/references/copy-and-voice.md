@@ -1,5 +1,7 @@
 # Copy and voice decisions
 
+> **Superseded in part by the Sesame Workshop guidelines (2026-11-13, `sesame-street/references/license-guidelines.md`).** The character lines, stats and headings below were written before them and many break the rule that characters never talk about the product, name the brand, claim a benefit or give a CTA. Keep from this file the headings that play on the show and the voice of each character; rewrite every line a character says into a catchphrase or a generic true-to-character phrase.
+
 All copy is subject to `firstday-copy` (and its owner feedback log, items 10 to 13 were added by this page). All new copy here is **invented and pending the owner's review**; the live words of every section stay as they are.
 
 ## Rules decided on this page

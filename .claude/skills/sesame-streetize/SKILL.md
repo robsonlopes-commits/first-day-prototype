@@ -10,6 +10,17 @@ Written 2026-11-11 after the owner approved the first page ("a pagina ta otima")
 ## The idea in one paragraph
 A Sesame Street edition is the **same page** (same sections, same live words, same product facts) with a new layer on top: a pastel sky palette with flat modern waves, round friendly shapes, Version B art of the Sesame House Style library as **stickers on top of real or generated pictures** and as **new sections**, characters that talk in short lines tied to the product, a few playful motions, and headings with a small play on the show. The header and the footer are never touched. Nothing that is a picture, photo or video slot in the Shopify theme is ever drawn with HTML or SVG: it stays a file.
 
+## Sesame Workshop license guidelines: they override the rules below when they conflict (received 2026-11-13)
+Full text in `sesame-street/references/license-guidelines.md`. The four pages built before the guidelines (probiotic, multi, bundle, Behind the Science) break several of these rules; **the next page must follow them from the start, and the old ones should be fixed (list in `references/guidelines-audit.md`).**
+1. **Characters do not do business.** No character line, bubble, heading, button or picture may endorse the product, name First Day or the product, claim or promote a benefit, hold, wear or touch the product, or ask the reader to buy (CTA). Allowed in a bubble: catchphrases and generic, true-to-character phrases only ("Elmo loves you!", the Count counting "One, two, three! Ah ah ah!", Cookie "Me love cookies!", "Hello!", "Thank you!"). Headlines with a play on the show are fine as long as the CHARACTER is not the speaker of a product claim or CTA.
+2. **Never flip** Cookie Monster, the Count or Rosita; never change colors; keep the **scale** between characters that share a scene (pupils the same size); never crop a pupil; crop at the widest part of the body; characters stand on a surface, right side up, not floating.
+3. **One art style**: do not mix the House Style illustrations with Photography in the same project (the packaging photo of the bottle is a given, so keep the rest of the page photographic or keep stickers few and flat, and ask Sesame).
+4. **Clean and modern**: fewer characters per section (one lead), no crowded groupings, no confetti or clutter.
+5. **Logo**: the 2D logo only, unaltered, clear space of half its height on all sides, at least 50px wide, never beside a character line that sounds like an endorsement, never recreate the 123 sign as a set piece (video, photo).
+6. **Legal notice** on every page: "TM and © 2026 Sesame Workshop." (short) or the medium or long form in the footer legal block.
+7. **No songs, no voices, no original audio**; no Sesame Street set; models diverse, dressed, no other brand logos.
+8. **Approval first**: concepts before execution, finished materials before posting (3 to 5 business days). A public Vercel link is a posting: protect it or `noindex` it, and share only internally until approved.
+
 ## The non-negotiable rules (all from the owner, details in `references/owner-rules.md`)
 1. **Picture and video slots are files** (the live image, or one generated with the image API from the live image plus the Sesame bottle). SVGs go ON TOP as stickers, or live in new sections and in HTML and CSS changes. Never replace a photo with a montage of SVGs.
 2. **Only Sofia Pro**, everywhere, including third party iframes and widgets. Never Gelica, never Fredoka or any other font. **Titles are Sofia Pro Bold (700).** The product title keeps its original colors and sizes.
@@ -54,4 +65,5 @@ A Sesame Street edition is the **same page** (same sections, same live words, sa
 | A PDP on the NEW template (`ProductNew`): Stick host, MainProductV2 hooks, keyout, second page notes | `references/new-template-pdp.md` |
 | The Behind the Science landing (hero wheel with a bottle, hand picture, StandaloneProduct hooks, capturing a live LP) | `references/landing-bts.md` |
 | A bundle PDP on the legacy template (Toddlers' Starter Pack): reuse of pictures, the duo of bottles, section map | `references/bundle-starter-pack.md` |
+| Audit of the four built pages against the Sesame license guidelines (what to change) | `references/guidelines-audit.md` |
 | Open points, risks, what is not done | `references/open-points.md` |

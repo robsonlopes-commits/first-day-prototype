@@ -3,8 +3,10 @@ import { Char, Bubble, PALETTE, PR } from './ss.jsx';
 
 // The things that move on the Sesame Street edition: Elmo (bottom left, tap him), Tango who runs across the page, confetti when something is added to the cart,
 // a rain of rubber duckies (tap the Sesame Street sign) and the characters that pop in when a section scrolls into view.
-const POSES = ['elmo-wave', 'elmo-hello', 'elmo-cheer', 'elmo-dance', 'elmo-point', 'elmo-think', 'elmo-jump'];
-const LINES = ['Hi! Elmo is so happy you are here!', 'Elmo says a happy gut makes a happy tummy!', 'Elmo learned pre, pro and post. Three in one!', 'Two gummies a day. Grown-ups give them!', 'Elmo loves you!', 'Tap the Sesame Street sign. Elmo has a surprise!'];
+// only poses with both feet on the ground (the guidelines: characters stay right side up and connected to a surface, never floating or hovering)
+const POSES = ['elmo-wave', 'elmo-hello', 'elmo-cheer', 'elmo-point', 'elmo-think'];
+// only catchphrases and generic phrases true to the character (Sesame Workshop guidelines): never a word about the product
+const LINES = ['Hi! Elmo is so happy you are here!', 'Elmo loves you!', 'Elmo loves to play with friends!', 'Hello, neighbor!', 'Elmo loves you!', 'Rubber duckies! Splish splash!'];
 const reduced = () => typeof window !== 'undefined' && window.matchMedia?.('(prefers-reduced-motion: reduce)').matches;
 
 function useReveal() {
@@ -37,10 +39,10 @@ export default function SesameFx({ lines = LINES }) {
 
   useEffect(() => {
     const onCelebrate = () => {
-      setPose(POSES.indexOf('elmo-jump')); setHop((h) => h + 1); say('Yay! Elmo is so happy!', 3600); setTango((k) => k + 1);
+      setPose(POSES.indexOf('elmo-cheer')); setHop((h) => h + 1); say('Yay! Elmo is so happy!', 3600); setTango((k) => k + 1);
       if (!reduced()) setBursts((b) => [...b, Date.now()]);
     };
-    const onDucks = () => { setRain((k) => k + 1); say('Rubber duckies! Splish splash!', 3600); setPose(POSES.indexOf('elmo-dance')); };
+    const onDucks = () => { setRain((k) => k + 1); say('Rubber duckies! Splish splash!', 3600); setPose(POSES.indexOf('elmo-cheer')); };
     window.addEventListener('ss:celebrate', onCelebrate);
     window.addEventListener('ss:ducks', onDucks);
     const t = setTimeout(() => { setTango(1); say('Hi! Tap Elmo to play!', 4200); }, 2200);
@@ -76,7 +78,7 @@ function DuckRain() {
   const [gone, setGone] = useState(false);
   useEffect(() => { const t = setTimeout(() => setGone(true), 5200); return () => clearTimeout(t); }, []);
   if (gone) return null;
-  const ducks = Array.from({ length: 22 }, (_, i) => {
+  const ducks = Array.from({ length: 12 }, (_, i) => {
     const r = (n) => { const x = Math.sin((i + 1) * 53.3 + n * 9.7) * 10000; return x - Math.floor(x); };
     return { left: `${Math.round(r(1) * 96)}%`, size: 46 + Math.round(r(2) * 46), dur: (2.6 + r(3) * 2).toFixed(2), delay: (r(4) * 1.6).toFixed(2), side: i % 2, sway: Math.round(r(5) * 80 - 40) };
   });

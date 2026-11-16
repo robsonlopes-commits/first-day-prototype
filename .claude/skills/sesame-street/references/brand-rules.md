@@ -1,5 +1,7 @@
 # Brand, art and licensing rules
 
+> **Superseded where it conflicts with `license-guidelines.md` (the partner's own guidelines, 2026-11-13).** The open questions at the end are now answered there (characters do not speak copy about the product, the logo may be used as the 2D logo with clear space, a legal notice is required, every campaign and material needs Sesame Workshop review first, parody and product claims in a character's voice are not allowed).
+
 What this file knows comes from the owner's art library (the "House Art Style" files received on 2026-11-09) and public sources. **The partnership agreement itself was not seen.** Where this file says "ask", the owner or Sesame Workshop decides.
 
 ## What the owner's art library says about itself

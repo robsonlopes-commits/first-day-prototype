@@ -28,8 +28,8 @@
 .ss-btn:hover { transform: translateY(2px) scale(1.03); box-shadow: 0 4px 12px rgba(31, 58, 112, 0.16); } .ss-btn:active { transform: translateY(6px); box-shadow: 0 2px 6px rgba(31, 58, 112, 0.14); }
 
 /* ------------------------------------------------------------------ stickers laid on top of the real (or generated) pictures. A picture slot of the page is always a file; the SVGs only sit on it. */
-@keyframes ss-bob { 50% { transform: translateY(-1.6cqw); } }
-@keyframes ss-sway { 50% { transform: rotate(3deg) translateY(-0.8cqw); } }
+@keyframes ss-bob { 50% { transform: rotate(1.5deg); } }
+@keyframes ss-sway { 50% { transform: rotate(2deg); } } /* pivots at the feet: the figure stays on its surface */
 @keyframes ss-drift { to { transform: translateX(3cqw); } }
 @keyframes ss-twinkle { 50% { transform: scale(0.6) rotate(var(--rot, 0deg)); opacity: 0.45; } }
 @keyframes ss-pop { 0% { transform: scale(0.4); opacity: 0; } 100% { transform: scale(1); opacity: 1; } }
@@ -39,7 +39,7 @@
 .ss-page use-animate.media-wrapper { position: relative; }
 .ss-st { position: absolute; display: block; padding: 0; border: 0; background: none; transform-origin: 50% 100%; -webkit-tap-highlight-color: transparent; }
 .ss-st .ss-char, .ss-st__art { height: 100%; width: auto; display: block; }
-.ss-st--idle, .ss-st--talk { animation: ss-sway 3.6s ease-in-out infinite; }
+.ss-st--idle, .ss-st--talk { animation: ss-sway 3.6s ease-in-out infinite; transform-origin: 50% 100%; }
 .ss-st--flip { transform: scaleX(-1); }
 .ss-st--talk { pointer-events: auto; cursor: pointer; transition: transform 160ms ease; }
 .ss-st--talk:hover { animation-play-state: paused; transform: rotate(-3deg) scale(1.04); } .ss-st--talk:active { transform: scale(0.96); }
@@ -59,11 +59,10 @@
 .ss-page .PBFCM-PDP-product-gallery__main { border-radius: 16px; overflow: hidden; box-shadow: none; }
 .ss-page .PBFCM-PDP-product-gallery__main-image { border-radius: 16px; }
 .ss-page .image-with-text .media, .ss-page .image-with-text .media img { border-radius: 16px; overflow: hidden; } /* every picture of the page has 16px corners */
-.ss-page .PBFCM-PDP-cart-summary__button { min-height: 66px; background: var(--ss-red) !important; border: 0 !important; font-family: var(--ss-font); transition: transform 120ms ease; }
+.ss-page .PBFCM-PDP-cart-summary__button { min-height: 66px; background: #476ded !important; border: 0 !important; font-family: var(--ss-font); transition: transform 120ms ease; }
 .ss-page .PBFCM-PDP-cart-summary__button-text { font-size: 21px; font-weight: 700; letter-spacing: 0.01em; }
-/* the cart icon is Big Bird: his head only (bigbird-head.svg: the head of the library figure cropped with tools/svg-crop.py, then the neck and body paths removed from the file, nothing is faded), half outside the top edge of the button, on the left of the text */
-.ss-page .PBFCM-PDP-cart-summary__button { position: relative; overflow: visible !important; margin-top: 30px; }
-.ss-page .PBFCM-PDP-cart-summary__button-icon { display: none; }
+/* Add To Cart: the brand blue, the original cart icon, big (66px). No character on the button (the guidelines: a character may not give a call to action); the confetti and Elmo's cheer after adding stay */
+.ss-page .PBFCM-PDP-cart-summary__button { position: relative; overflow: visible !important; }
 .ss-page .PBFCM-PDP-cart-summary__button::before { content: ''; position: absolute; left: calc(50% - 210px); top: -12px; width: 75px; height: 72px; background: url('/assets/sesame/characters/bigbird-head.svg') center / 100% 100% no-repeat; pointer-events: none; transform-origin: 50% 100%; animation: ss-bird-bob 2.8s ease-in-out infinite; }
 .ss-page .PBFCM-PDP-cart-summary__button:hover::before { animation: ss-bird-pop 0.55s ease-in-out infinite; }
 @keyframes ss-bird-bob { 50% { transform: translateY(-3px) rotate(-3deg); } }
@@ -132,11 +131,11 @@
 .ss-gang__row li:nth-child(1) .ss-char { height: 190px; } .ss-gang__row li:nth-child(2) .ss-char { height: 250px; } .ss-gang__row li:nth-child(3) .ss-char { height: 200px; } .ss-gang__row li:nth-child(4) .ss-char { height: 210px; } .ss-gang__row li:nth-child(5) .ss-char { height: 150px; } .ss-gang__row li:nth-child(6) .ss-char { height: 215px; } .ss-gang__row li:nth-child(7) .ss-char { height: 170px; }
 .ss-gang__name { margin-top: 6px; padding: 3px 14px; border-radius: 999px; background: #fff; font: 600 15px/1.2 var(--ss-font); color: var(--ss-ink); box-shadow: 0 3px 10px rgba(31, 58, 112, 0.10); }
 .ss-gang__bubble { position: absolute; bottom: calc(100% + 18px); left: 50%; z-index: 4; width: max-content; max-width: 220px; margin-left: -40px; }
-@keyframes ss-hop { 30% { transform: translateY(-26px) scale(1.04); } 60% { transform: translateY(0) scale(0.97, 1.03); } }
+@keyframes ss-hop { 30% { transform: scale(1.04, 0.97); } 60% { transform: scale(0.98, 1.03); } } /* a squash on the spot, no jump: the figure never leaves its surface */
 
 
 /* reveal: characters pop in when their section scrolls into view */
-.ss-reveal { opacity: 0; transform: translateY(24px) scale(0.9); transition: opacity 420ms ease, transform 520ms cubic-bezier(0.2, 1.4, 0.4, 1); }
+.ss-reveal { transform-origin: 50% 100%; opacity: 0; transform: translateY(24px) scale(0.9); transition: opacity 420ms ease, transform 520ms cubic-bezier(0.2, 1.4, 0.4, 1); }
 .ss-reveal--left { transform: translateX(-60px); } .ss-reveal--right { transform: translateX(60px); }
 .ss-reveal.is-in { opacity: 1; transform: none; }
 
@@ -163,13 +162,13 @@
 .ss-page [id$='f2ccb107-33fa-4ce5-9679-3345884e6e32'] .multicolumn-list__item:nth-child(even) img, .ss-page [id$='f2ccb107-33fa-4ce5-9679-3345884e6e32'] .grid__item:nth-child(even) img { border-color: var(--ss-blue); }
 
 /* ------------------------------------------------------------------ the things that move */
-.ss-mascot { position: fixed; left: 10px; bottom: 6px; z-index: 40; display: flex; flex-direction: column; align-items: flex-start; pointer-events: none; }
+.ss-mascot { position: fixed; left: 10px; bottom: 0; z-index: 40; display: flex; flex-direction: column; align-items: flex-start; pointer-events: none; }
 .ss-mascot__btn { pointer-events: auto; padding: 0; border: 0; background: none; cursor: pointer; height: 150px; -webkit-tap-highlight-color: transparent; }
 .ss-mascot__hop { display: block; height: 100%; animation: ss-hop 560ms ease; transform-origin: 50% 100%; }
-.ss-mascot__img { position: static; height: 150px; width: auto; animation: ss-idle 3.6s ease-in-out infinite; }
+.ss-mascot__img { position: static; height: 150px; width: auto; animation: ss-idle 3.6s ease-in-out infinite; transform-origin: 50% 100%; }
 .ss-mascot__bubble { margin: 0 0 10px 38px; pointer-events: none; }
-@keyframes ss-idle { 50% { transform: translateY(-5px) rotate(1.5deg); } }
-.ss-tango { position: fixed; left: 0; bottom: 4px; z-index: 39; width: 120px; pointer-events: none; animation: ss-run 6.5s linear forwards; }
+@keyframes ss-idle { 50% { transform: rotate(1.5deg); } }
+.ss-tango { position: fixed; left: 0; bottom: 0; z-index: 39; width: 120px; pointer-events: none; animation: ss-run 6.5s linear forwards; }
 .ss-tango__img { position: static; width: 100%; height: auto; animation: ss-trot 0.42s ease-in-out infinite; }
 @keyframes ss-run { from { transform: translateX(-160px); } to { transform: translateX(calc(100vw + 40px)); } }
 @keyframes ss-trot { 50% { transform: translateY(-9px) rotate(-2deg); } }
@@ -374,3 +373,31 @@ body.sesame-street h4.primary-title.mini-cart-upsell-message { font-family: 'sof
 .ss-page--bts .ss-script h3 { margin: 0 0 8px; font: 700 15px/1.2 var(--ss-font); }
 .ss-page--bts .ss-script p { margin: 0 0 7px; font: 500 12.5px/1.4 var(--ss-font); }
 .ss-page--bts .ss-script b { font-weight: 700; }
+
+/* ===== Sesame Workshop guidelines (2026-11-13), applied to the Toddlers' Probiotic page ===== */
+/* the Add To Cart button has no character on it (a character may not give a call to action) */
+.ss-page .PBFCM-PDP-cart-summary__button::before { content: none !important; display: none !important; }
+/* the strip with the logo: white on the sky, so it does not compete with the yellow of the logo */
+.ss-page .ss-sign { background: #ffffff; border: 2px solid #bfe0fa; }
+/* Meet The Gang to scale: Big Bird is the tallest (270px, 190px on phones), the others by the ratio of the chart; one height formula for all */
+.ss-gang--scaled { --ss-gh: 270px; }
+.ss-gang--scaled .ss-gang__row .ss-char { height: calc(var(--ss-gh) * var(--s)) !important; }
+@media (max-width: 749px) { .ss-gang--scaled { --ss-gh: 190px; } }
+/* Real Wholesome and the numbers without characters next to the claims */
+.ss-wholesome--plain .ss-wholesome__card { padding-top: 22px; }
+.ss-wholesome--plain .ss-wholesome__icon { position: static; width: auto; height: 64px; margin: 0 auto 2px; }
+.ss-wholesome--plain .ss-wholesome__icon svg { height: 100%; width: auto; max-width: 100%; overflow: visible; }
+.ss-count-wrap--plain .ss-count__inner { grid-template-columns: 1fr; }
+.ss-count-wrap--plain .ss-count__main { padding-bottom: 30px; }
+/* legal notice required on every Sesame Street material */
+.ss-legal { margin: 0; padding: 18px 20px 28px; background: #fff; color: #5b6b82; font: 400 12px/1.5 var(--ss-font); text-align: center; }
+.ss-gang--scaled .ss-gang__lamp { display: none; } /* no street sign set piece (the guidelines: partners may not recreate the 123 street sign) */
+
+/* a very faint ground line under the Count of the quantity header (he stands on it) */
+.ss-count-q { position: relative; }
+.ss-count-q::before { content: ''; position: absolute; left: -8px; bottom: -1px; width: 64px; height: 2px; border-radius: 2px; background: #e8eaf0; }
+
+/* "What Is Going On In That Little Tummy": the content sits in the middle of its pale band (the wave above eats the space over the heading, the wave below starts close to the text) */
+.ss-page #shopify-section-c321e181-639c-4980-9b70-3f399c6c3e96 { padding-top: 14px; }
+.ss-page #shopify-section-c321e181-639c-4980-9b70-3f399c6c3e96 .rich-text { padding-bottom: 118px; }
+@media (max-width: 749px) { .ss-page #shopify-section-c321e181-639c-4980-9b70-3f399c6c3e96 .rich-text { padding-bottom: 72px; } }
