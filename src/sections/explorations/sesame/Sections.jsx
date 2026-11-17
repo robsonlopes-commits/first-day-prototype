@@ -7,11 +7,12 @@ export const celebrate = () => window.dispatchEvent(new CustomEvent('ss:celebrat
 export const duckRain = () => window.dispatchEvent(new CustomEvent('ss:ducks'));
 
 /* ---------- the strip above the title of the buy box: the Sesame Street sign (tap it for a surprise) ---------- */
-export function SignBadge() {
+// `limited`: the title reads "Limited Edition" (the logo next to it already says Sesame Street)
+export function SignBadge({ limited = false }) {
   return (
-    <button type="button" className="ss-sign" onClick={duckRain} aria-label="Sesame Street edition. Tap for a surprise.">
+    <button type="button" className="ss-sign" onClick={duckRain} aria-label={`${limited ? 'Limited edition, ' : ''}Sesame Street edition. Tap for a surprise.`}>
       <img src={LOGO} alt="" draggable="false" />
-      <span><b>Sesame Street Edition</b><small>Tap the sign for a surprise</small></span>
+      <span><b>{limited ? 'Limited Edition' : 'Sesame Street Edition'}</b><small>Tap the sign for a surprise</small></span>
     </button>
   );
 }

@@ -26,53 +26,53 @@ export const Layer = ({ children }) => <div className="ss-ov">{children}</div>;
 /* ---- gallery slides ---- */
 export const OvWhy = () => (
   <Layer>
-    <Sticker n="count-2" say="One, two, three! Ah ah ah!" tail="right" style={{ right: '1cqw', bottom: '0', height: '27cqw' }} bubbleStyle={{ right: '70%', bottom: '88%', width: 'max-content' }} />
+    <Sticker n="count-2" say="Vitamins are good! One, two, three! Ah ah ah!" tail="right" style={{ right: '1cqw', bottom: '0', height: '27cqw' }} bubbleStyle={{ right: '70%', bottom: '88%', width: 'max-content' }} />
   </Layer>
 );
 export const OvLifestyle = () => (
   <Layer>
-    <Sticker n="elmo-peek" say="Elmo loves you!" style={{ right: '1cqw', bottom: '0', height: '25cqw' }} bubbleStyle={{ right: '60%', bottom: '90%', width: 'max-content' }} tail="right" />
+    <Sticker n="elmo-peek" say="Elmo wants to grow big and strong!" style={{ right: '1cqw', bottom: '0', height: '25cqw' }} bubbleStyle={{ right: '60%', bottom: '90%', width: 'max-content' }} tail="right" />
   </Layer>
 );
 
 /* ---- sections (image with text) ---- */
 export const OvKitchen = () => (
   <Layer>
-    <Sticker n="cookie-wave" say="Me love cookies! Om nom nom!" style={{ right: '1cqw', bottom: '0', height: '38cqw' }} bubbleStyle={{ right: '55%', bottom: '88%', width: 'max-content' }} tail="right" />
+    <Sticker n="cookie-wave" say="Me love snack time! Om nom nom!" style={{ right: '1cqw', bottom: '0', height: '38cqw' }} bubbleStyle={{ right: '55%', bottom: '88%', width: 'max-content' }} tail="right" />
   </Layer>
 );
 export const OvBath = () => (
   <Layer>
-    <Sticker n="ernie" say="Hello, Rubber Duckie!" style={{ right: '1cqw', bottom: '0', height: '27cqw' }} bubbleStyle={{ right: '58%', bottom: '86%', width: 'max-content' }} tail="right" />
+    <Sticker n="ernie" say="Splish, splash! Bath time is fun!" style={{ right: '1cqw', bottom: '0', height: '27cqw' }} bubbleStyle={{ right: '58%', bottom: '86%', width: 'max-content' }} tail="right" />
   </Layer>
 );
 export const OvEssentials = () => (
   <Layer>
-    <Sticker n="grover-wave" say="Hello! It is I, Grover!" tail="left" style={{ left: '2cqw', bottom: '0', height: '27cqw' }} bubbleStyle={{ left: '60%', bottom: '88%', width: 'max-content' }} />
+    <Sticker n="grover-wave" say="Hello! It is I, Grover! Vitamins are super!" tail="left" style={{ left: '2cqw', bottom: '0', height: '27cqw' }} bubbleStyle={{ left: '60%', bottom: '88%', width: 'max-content' }} />
   </Layer>
 );
 export const OvBerries = () => (
   <Layer>
-    <Sticker n="count-2" say="One, two, three! Ah ah ah!" style={{ left: '1cqw', bottom: '0', height: '32cqw' }} bubbleStyle={{ left: '70%', bottom: '80%', width: 'max-content' }} />
+    <Sticker n="count-2" say="One sunny day, two sunny days! Ah ah ah!" style={{ left: '1cqw', bottom: '0', height: '32cqw' }} bubbleStyle={{ left: '70%', bottom: '80%', width: 'max-content' }} />
   </Layer>
 );
 export const OvBoy = () => (
   <Layer>
-    <Sticker n="abby" say="Hello! I am Abby Cadabby!" tail="left" style={{ left: '1cqw', bottom: '0', height: '27cqw' }} bubbleStyle={{ left: '65%', bottom: '85%', width: 'max-content' }} />
+    <Sticker n="abby" say="Wow! Being healthy and happy is magical!" tail="left" style={{ left: '1cqw', bottom: '0', height: '27cqw' }} bubbleStyle={{ left: '65%', bottom: '85%', width: 'max-content' }} />
   </Layer>
 );
 export const OvCompare = () => (
   <Layer>
-    <Sticker n="oscar-1" say="Hmph!" style={{ right: '1cqw', bottom: '0', height: '25cqw' }} bubbleStyle={{ right: '68%', bottom: '80%', width: 'max-content' }} tail="right" />
+    <Sticker n="oscar-1" say="Hmph! Today is not so bad, I guess." style={{ right: '1cqw', bottom: '0', height: '25cqw' }} bubbleStyle={{ right: '68%', bottom: '80%', width: 'max-content' }} tail="right" />
   </Layer>
 );
 export const OvStrains = () => (
   <Layer>
-    <Sticker n="count-2" say="One, two, three! Ah ah ah!" tail="right" style={{ right: '1cqw', bottom: '0', height: '24cqw' }} bubbleStyle={{ right: '70%', bottom: '86%', width: 'max-content' }} />
+    <Sticker n="count-2" say="Count with me! One, two, three! Ah ah ah!" tail="right" style={{ right: '1cqw', bottom: '0', height: '24cqw' }} bubbleStyle={{ right: '70%', bottom: '86%', width: 'max-content' }} />
   </Layer>
 );
 export const OvFruity = () => (
   <Layer>
-    <Sticker n="zoe-1" say="Zoe loves to play!" tail="right" style={{ right: '2cqw', bottom: '0', height: '22cqw' }} bubbleStyle={{ right: '65%', bottom: '86%', width: 'max-content' }} />
+    <Sticker n="zoe-1" say="Zoe loves to play and grow strong!" tail="right" style={{ right: '2cqw', bottom: '0', height: '22cqw' }} bubbleStyle={{ right: '65%', bottom: '86%', width: 'max-content' }} />
   </Layer>
 );

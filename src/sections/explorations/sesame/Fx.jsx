@@ -6,7 +6,7 @@ import { Char, Bubble, PALETTE, PR } from './ss.jsx';
 // only poses with both feet on the ground (the guidelines: characters stay right side up and connected to a surface, never floating or hovering)
 const POSES = ['elmo-wave', 'elmo-hello', 'elmo-cheer', 'elmo-point', 'elmo-think'];
 // only catchphrases and generic phrases true to the character (Sesame Workshop guidelines): never a word about the product
-const LINES = ['Hi! Elmo is so happy you are here!', 'Elmo loves you!', 'Elmo loves to play with friends!', 'Hello, neighbor!', 'Elmo loves you!', 'Rubber duckies! Splish splash!'];
+const LINES = ['Hi! Elmo is so happy you are here!', 'Elmo loves you!', 'Elmo wants to grow big and strong!', 'Hello, neighbor!', 'Elmo loves to play with friends!', 'Rubber duckies! Splish splash!'];
 const reduced = () => typeof window !== 'undefined' && window.matchMedia?.('(prefers-reduced-motion: reduce)').matches;
 
 function useReveal() {

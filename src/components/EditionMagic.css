@@ -11,10 +11,11 @@
   32% { transform: translate(0, -1vh) rotate(-8deg); }
   38% { transform: translate(0, 0) rotate(5deg); }
   44% { transform: translate(0, 0) rotate(0deg); }
-  72% { transform: translate(0, -1.5vh) rotate(0deg); opacity: 1; }
-  100% { transform: translate(60vw, -50vh) scale(0.6) rotate(-10deg); opacity: 0; }
+  54% { transform: translate(0, -1vh) scale(1) rotate(0deg); opacity: 1; }
+  66% { transform: translate(0, 0) scale(0.04) rotate(-8deg); opacity: 0; }
+  100% { transform: translate(0, 0) scale(0.04); opacity: 0; }
 }
-/* the spell: a ring and stars from the wand tip, then the burst that covers the screen */
+/* the spell: a ring and stars from the wand tip, then the burst that covers the screen; Abby shrinks into the wand tip and disappears (no flying off) */
 .fd-magic__tip { position: absolute; left: var(--tipx); top: var(--tipy); width: 0; height: 0; }
 .fd-magic__ring { position: absolute; left: -10px; top: -10px; width: 20px; height: 20px; border-radius: 50%; border: 5px solid #fff; opacity: 0; animation: fd-magic-ring 0.9s ease-out 1s both; }
 @keyframes fd-magic-ring { 0% { transform: scale(0.2); opacity: 0.95; } 100% { transform: scale(14); opacity: 0; } }

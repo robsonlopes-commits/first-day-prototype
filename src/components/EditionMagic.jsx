@@ -1,7 +1,7 @@
 import './EditionMagic.css';
 
 // The spell that turns the page into the Sesame Street edition: Abby Cadabby flies in, flicks her wand in the middle of the screen, fairy dust sparkles (✨) burst from the wand and twinkle
-// around her, a soft light sweeps over the page (the page is swapped while it covers the screen, and scrolled back to the top) and she flies off. The timing (ms) is shared with the page
+// around her, a soft light sweeps over the page (the page is swapped while it covers the screen, and scrolled back to the top) and she vanishes into the wand tip. The timing (ms) is shared with the page
 // that owns the swap: SWAP_AT is the moment the screen is covered, END_AT the moment the overlay can go. Characters are the library art (abby-2, Version B), never generated.
 export const SWAP_AT = 1950;
 export const END_AT = 3150;

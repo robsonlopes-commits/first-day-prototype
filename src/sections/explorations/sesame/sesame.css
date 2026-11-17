@@ -379,6 +379,7 @@ body.sesame-street h4.primary-title.mini-cart-upsell-message { font-family: 'sof
 .ss-page .PBFCM-PDP-cart-summary__button::before { content: none !important; display: none !important; }
 /* the strip with the logo: white on the sky, so it does not compete with the yellow of the logo */
 .ss-page .ss-sign { background: #ffffff; border: 2px solid #bfe0fa; }
+.ss-page--probiotic .ss-sign b { white-space: nowrap; } /* "Limited Edition" stays on one line */
 /* Meet The Gang to scale: Big Bird is the tallest (270px, 190px on phones), the others by the ratio of the chart; one height formula for all */
 .ss-gang--scaled { --ss-gh: 270px; }
 .ss-gang--scaled .ss-gang__row .ss-char { height: calc(var(--ss-gh) * var(--s)) !important; }

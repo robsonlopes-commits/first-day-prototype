@@ -21,11 +21,11 @@ const SKY = '#d6efff'; const SUN = '#fff1a8'; const MINT = '#d4f5df'; const LILA
 const INK = '#1f3a70';
 // Sesame Workshop guidelines: a character only says his catchphrases or generic phrases true to him, never a word about the product
 const GANG = [
-  ['elmo-wave', 'Elmo', 'Elmo loves you!'],
-  ['bigbird', 'Big Bird', 'Hello, neighbor!'],
-  ['grover-3', 'Grover', 'Hello! It is I, Grover!'],
-  ['abby', 'Abby', 'Hello! I am Abby Cadabby!'],
-  ['count-1', 'The Count', 'One, two, three! Ah ah ah!'],
+  ['elmo-wave', 'Elmo', 'Elmo loves hugs and sunny days!'],
+  ['bigbird', 'Big Bird', 'Hello, neighbor! Let’s grow big and strong together!'],
+  ['grover-3', 'Grover', 'Hello! It is I, Grover! Be brave, be super!'],
+  ['abby', 'Abby', 'Wow! Every day is a little bit magical!'],
+  ['count-1', 'The Count', 'Count the days! One, two, three! Ah ah ah!'],
   ['cookie-eat', 'Cookie Monster', 'Me love cookies! Om nom nom!'],
 ];
 
@@ -98,7 +98,7 @@ const CLOSING = {
 const main = {
   ...BASE.main,
   PDP_PRODUCT: { ...BASE.main.PDP_PRODUCT, media: MEDIA, vanityTitle: 'Gentle 3-In-1 Tummy Helper For [Softer, Easier-To-Pass Stools]' },
-  SLOT_INFO_TOP: <SignBadge />,
+  SLOT_INFO_TOP: <SignBadge limited />,
   SLOT_QTY_HEADER: ({ qty }) => <CountBubble qty={qty} />,
   onAddToCart: celebrate,
 };
