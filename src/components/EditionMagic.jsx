@@ -1,3 +1,4 @@
+import { useLayoutEffect, useRef } from 'react';
 import './EditionMagic.css';
 
 // The spell that turns the page into the Sesame Street edition: Abby Cadabby flies in, flicks her wand in the middle of the screen, fairy dust sparkles (✨) burst from the wand and twinkle
@@ -16,12 +17,28 @@ const AROUND = Array.from({ length: 16 }, (_, i) => ({ x: (0.05 + r(i, 5) * 1.05
 const SCREEN = Array.from({ length: 24 }, (_, i) => ({ x: Math.round(r(i, 9) * 100), y: Math.round(r(i, 10) * 100), s: 18 + Math.round(r(i, 11) * 32), c: DUST[(i + 4) % DUST.length], t: (1.35 + r(i, 12) * 1.0).toFixed(2) }));
 
 export default function EditionMagic() {
+  const abby = useRef(null);
+  // Abby takes off from the card of the picker (the same picture, abby-2, facing left): the overlay Abby starts exactly where the one in the card is, which hides while the spell runs. She flies facing left (forward, not backwards) and stays facing left, the wand toward the middle of the screen
+  useLayoutEffect(() => {
+    const el = abby.current; const src = document.querySelector('.fd-edition__abby');
+    if (!el || !src) return undefined;
+    const b = src.getBoundingClientRect();
+    if (!b.width) return undefined;
+    const left = el.offsetLeft, top = el.offsetTop, w = el.offsetWidth, h = el.offsetHeight;
+    const k = b.height / h; // scale: the card picture is smaller
+    const ox = left + w * 0.04, oy = top + h * 0.28; // transform-origin (the wand tip)
+    const cx = left + w / 2, cy = top + h / 2;
+    const tx = b.left + b.width / 2 - ox - k * (cx - ox), ty = b.top + b.height / 2 - oy - k * (cy - oy);
+    el.style.setProperty('--sx', `${tx}px`); el.style.setProperty('--sy', `${ty}px`); el.style.setProperty('--ss', String(k)); el.style.setProperty('--o0', '1');
+    const prev = src.style.visibility; src.style.visibility = 'hidden';
+    return () => { src.style.visibility = prev; };
+  }, []);
   return (
     <div className="fd-magic" role="presentation" aria-hidden="true">
       <div className="fd-magic__veil" />
       <div className="fd-magic__stage">
-        <img className="fd-magic__abby" src="/assets/sesame/characters/abby-2.svg" alt="" draggable="false" />
-        {AROUND.map((s, i) => <i key={`a${i}`} className="fd-magic__spark fd-magic__spark--twinkle" style={{ left: `calc(var(--tipx) - var(--h) * ${s.x} * 1.122)`, top: `calc(var(--tipy) - var(--h) * ${s.y})`, '--s': `${s.s}px`, background: s.c, animationDelay: `${s.t}s` }} />)}
+        <div ref={abby} className="fd-magic__abby"><img className="fd-magic__abby-img" src="/assets/sesame/characters/abby-2.svg" alt="" draggable="false" /></div>
+        {AROUND.map((s, i) => <i key={`a${i}`} className="fd-magic__spark fd-magic__spark--twinkle" style={{ left: `calc(var(--tipx) + var(--h) * ${s.x} * 1.122)`, top: `calc(var(--tipy) - var(--h) * ${s.y})`, '--s': `${s.s}px`, background: s.c, animationDelay: `${s.t}s` }} />)}
       </div>
       <div className="fd-magic__burst" />
       <div className="fd-magic__stage">

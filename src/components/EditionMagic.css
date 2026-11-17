@@ -2,11 +2,14 @@
 .fd-magic { position: fixed; inset: 0; z-index: 100000; overflow: hidden; cursor: progress; --h: min(34vh, 72vw); --tipx: 50vw; --tipy: 46vh; }
 .fd-magic__veil { position: absolute; inset: 0; background: rgba(255, 255, 255, 0.5); opacity: 0; animation: fd-magic-veil 3.1s ease both; }
 @keyframes fd-magic-veil { 0% { opacity: 0; } 10% { opacity: 1; } 78% { opacity: 1; } 100% { opacity: 0; } }
-/* Abby: the wand tip (96% across, 28% down her picture) lands on the middle of the screen */
+/* Abby: the wand tip (4% across, 28% down her flipped picture) lands on the middle of the screen, she stands to the right of it */
 .fd-magic__stage { position: absolute; inset: 0; }
-.fd-magic__abby { position: absolute; height: var(--h); width: auto; aspect-ratio: 275 / 245; left: calc(var(--tipx) - var(--h) * 1.122 * 0.96); top: calc(var(--tipy) - var(--h) * 0.28); animation: fd-magic-fly 3.1s cubic-bezier(0.22, 0.9, 0.3, 1) both; transform-origin: 96% 28%; }
+.fd-magic__abby { position: absolute; height: var(--h); width: auto; aspect-ratio: 275 / 245; left: calc(var(--tipx) - var(--h) * 1.122 * 0.04); top: calc(var(--tipy) - var(--h) * 0.28); animation: fd-magic-fly 3.1s cubic-bezier(0.22, 0.9, 0.3, 1) both; transform-origin: 4% 28%; }
+/* the picture is flipped all the time: she faces left (toward the middle of the screen), the wand tip is on the LEFT of the picture (4% across, 28% down) */
+.fd-magic__abby-img { display: block; width: 100%; height: 100%; transform: scaleX(-1); }
 @keyframes fd-magic-fly {
-  0% { transform: translate(55vw, 45vh) scale(0.5) rotate(10deg); opacity: 0; }
+  0% { transform: translate(var(--sx, 55vw), var(--sy, 45vh)) scale(var(--ss, 0.5)) rotate(0deg); opacity: var(--o0, 0); }
+  4% { opacity: 1; }
   26% { transform: translate(0, 0) scale(1) rotate(0deg); opacity: 1; }
   32% { transform: translate(0, -1vh) rotate(-8deg); }
   38% { transform: translate(0, 0) rotate(5deg); }
@@ -37,4 +40,5 @@
   70% { transform: scale(1); opacity: 1; }
   100% { transform: scale(1); opacity: 0; }
 }
+@media (max-width: 749px) { .fd-magic { --h: min(30vh, 56vw); --tipx: 36vw; } } /* phones: she stands to the right of the tip, so the tip moves left to keep her on screen */
 @media (prefers-reduced-motion: reduce) { .fd-magic { display: none; } }

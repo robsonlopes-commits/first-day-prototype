@@ -47,6 +47,10 @@
 .ss-st .ss-bubble, .ss-ov .ss-bubble { position: absolute; max-width: none; z-index: 5; font-size: 3cqw; border-width: 0.4cqw; border-radius: 3cqw; padding: 1cqw 2.2cqw; box-shadow: 0 0.6cqw 1.6cqw rgba(31, 58, 112, 0.14); animation: none; opacity: 0; transform: scale(0.7); transform-origin: 80% 100%; pointer-events: none; transition: opacity 160ms ease, transform 200ms cubic-bezier(0.2, 1.4, 0.4, 1); }
 .ss-st--talk:hover .ss-bubble, .ss-st--talk:focus-visible .ss-bubble, .ss-st--talk.is-on .ss-bubble { opacity: 1; transform: none; }
 .ss-ov .ss-bubble { --tail: 1.8cqw; --bw: 0.4cqw; }
+@media (max-width: 749px) {
+  .ss-page--probiotic .ss-st .ss-bubble, .ss-page--probiotic .ss-ov .ss-bubble { font-size: 4.6cqw; line-height: 1.2; padding: 1.4cqw 3cqw; } /* phones: the picture is small, so the words in the bubbles were about 10px; now about 16px */
+  .ss-page--probiotic .ss-ov .ss-st { height: calc(var(--ss-h) * 1.2) !important; } /* and the friends are a bit bigger (they stay on their spot: the bottom and the side do not move) */
+}
 
 /* ------------------------------------------------------------------ the buy box section */
 /* sky: the blue gradient of the buy box with soft white clouds (own drawing, simple puffs with a flat bottom, some cut by the edges) */
@@ -279,13 +283,15 @@ body.sesame-street h4.primary-title.mini-cart-upsell-message { font-family: 'sof
 
 /* phones: the six friends stand in ONE row on the grass that you swipe (they used to wrap in two rows floating over the sky); the top padding leaves room for the bubbles */
 @media (max-width: 989px) {
-  .ss-gang__row { flex-wrap: nowrap; justify-content: flex-start; overflow-x: auto; gap: 0 30px; padding: 92px 32px 6px; scroll-snap-type: x mandatory; scrollbar-width: none; -webkit-overflow-scrolling: touch; }
+  .ss-gang__row { flex-wrap: nowrap; justify-content: flex-start; overflow-x: auto; gap: 0 14px; padding: 92px 20px 6px; scroll-snap-type: x mandatory; scrollbar-width: none; -webkit-overflow-scrolling: touch; }
   .ss-gang__row::-webkit-scrollbar { display: none; }
   .ss-gang__row li { flex: 0 0 auto; scroll-snap-align: center; }
-  .ss-gang__street { padding-top: 0; }
+  .ss-gang__row { cursor: grab; } .ss-gang__row.is-dragging { cursor: grabbing; scroll-snap-type: none; user-select: none; } /* mouse drag to scroll (Sections.jsx) */
+  .ss-gang__street { padding-top: 0; margin: 0 -20px; } /* the swipe row runs edge to edge (it used to stop 20px short of the screen edge, which cut a friend in the middle of the picture); a friend peeks in from the right edge so it is clear the row scrolls */
   .ss-gang__inner { padding-bottom: 0; }
   .ss-page .ss-gang__row .ss-char { max-height: none; width: auto; }
   .ss-gang__bubble { margin-left: -60px; }
+  .ss-gang__row li:last-child .ss-gang__bubble { margin-left: -78px; } /* the last friend: the bubble keeps 18px from the screen edge */
 }
 /* phones: the Oscar of the FAQ stays inside the wave strip, under the heading */
 @media (max-width: 749px) {
@@ -383,7 +389,7 @@ body.sesame-street h4.primary-title.mini-cart-upsell-message { font-family: 'sof
 /* Meet The Gang to scale: Big Bird is the tallest (270px, 190px on phones), the others by the ratio of the chart; one height formula for all */
 .ss-gang--scaled { --ss-gh: 270px; }
 .ss-gang--scaled .ss-gang__row .ss-char { height: calc(var(--ss-gh) * var(--s)) !important; }
-@media (max-width: 749px) { .ss-gang--scaled { --ss-gh: 190px; } }
+@media (max-width: 749px) { .ss-gang--scaled { --ss-gh: 190px; } .ss-page .ss-gang--scaled .ss-gang__row { padding-top: 120px; } } /* the row scrolls sideways, so it clips upward: room for the tallest bubble (three lines, 78px) above Big Bird */
 /* Real Wholesome and the numbers without characters next to the claims */
 .ss-wholesome--plain .ss-wholesome__card { padding-top: 22px; }
 .ss-wholesome--plain .ss-wholesome__icon { position: static; width: auto; height: 64px; margin: 0 auto 2px; }

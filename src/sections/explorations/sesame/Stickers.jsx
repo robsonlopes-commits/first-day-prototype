@@ -12,9 +12,9 @@ export function Sticker({ n, say, tail = 'left', style, bubbleStyle, hop, flip, 
     setOn(true); window.clearTimeout(t.current); t.current = window.setTimeout(() => setOn(false), 3200);
   };
   const img = <Char n={n} />;
-  if (!say) return <span className={`ss-st ss-st--idle${flip ? ' ss-st--flip' : ''}`} style={{ ...style, animationDelay: `${delay}s` }} aria-hidden="true">{img}</span>;
+  if (!say) return <span className={`ss-st ss-st--idle${flip ? ' ss-st--flip' : ''}`} style={{ ...style, '--ss-h': style?.height, animationDelay: `${delay}s` }} aria-hidden="true">{img}</span>;
   return (
-    <button type="button" className={`ss-st ss-st--talk${on ? ' is-on' : ''}${flip ? ' ss-st--flip' : ''}`} style={{ ...style, animationDelay: `${delay}s` }} onClick={talk} onBlur={() => setOn(false)} aria-label={`${say} (tap the character)`}>
+    <button type="button" className={`ss-st ss-st--talk${on ? ' is-on' : ''}${flip ? ' ss-st--flip' : ''}`} style={{ ...style, '--ss-h': style?.height, animationDelay: `${delay}s` }} onClick={talk} onBlur={() => setOn(false)} aria-label={`${say} (tap the character)`}>
       <span className="ss-st__art">{img}</span>
       <Bubble tail={tail} className="ss-st__bubble" style={bubbleStyle}>{say}</Bubble>
     </button>
@@ -58,7 +58,7 @@ export const OvBerries = () => (
 );
 export const OvBoy = () => (
   <Layer>
-    <Sticker n="abby" say="Wow! Being healthy and happy is magical!" tail="left" style={{ left: '1cqw', bottom: '0', height: '27cqw' }} bubbleStyle={{ left: '65%', bottom: '85%', width: 'max-content' }} />
+    <Sticker n="abby" say="Wow! Being healthy and happy is magical!" tail="left" style={{ left: '1cqw', bottom: '0', height: '35cqw' }} bubbleStyle={{ left: '65%', bottom: '85%', width: 'max-content' }} />
   </Layer>
 );
 export const OvCompare = () => (

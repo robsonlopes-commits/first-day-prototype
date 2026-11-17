@@ -5,8 +5,8 @@
 .fd-edition__card { display: flex; flex-direction: column; padding: 0; overflow: hidden; border: 1px solid #e3e3ee; border-radius: 16px; background: #fff; cursor: pointer; font-family: inherit; text-align: center; -webkit-tap-highlight-color: transparent; }
 .fd-edition__card.is-selected { border: 2px solid #776cb1; }
 .fd-edition__media { display: block; position: relative; aspect-ratio: 1.45 / 1; overflow: hidden; background: #fff; }
-.fd-edition__media img { position: absolute; left: 50%; top: 50%; width: 150%; height: auto; max-width: none; transform: translate(-50%, var(--y, -31%)); pointer-events: none; } /* zoomed on the label: from the logo to the 60 gummies line */
-.fd-edition__card[data-id='sesame'] .fd-edition__media img { width: 128%; --y: -27%; }
+.fd-edition__media .fd-edition__bottle { position: absolute; left: 50%; top: 50%; width: 150%; height: auto; max-width: none; transform: translate(-50%, var(--y, -31%)); pointer-events: none; } /* zoomed on the label: from the logo to the 60 gummies line */
+.fd-edition__card[data-id='sesame'] .fd-edition__media .fd-edition__bottle { width: 60%; left: 33%; --y: -33%; } /* phones: the bottle sits to the left, the sky shows and Abby stands on the right */
 .fd-edition__label { display: block; padding: 10px 8px; background: #eeedf6; color: #2c3d50; font-size: 20px; font-weight: 500; line-height: 1.25; }
 .fd-edition__card.is-selected .fd-edition__label { background: #776cb1; color: #fff; }
 @media (max-width: 749px) { .fd-edition__grid { gap: 12px; } .fd-edition__label { font-size: 17px; padding: 9px 6px; } }
@@ -14,7 +14,14 @@
 /* desktop: low cards, the bottle shown with less crop (smaller in the picture so the logo, the label and the 60 gummies line fit) */
 @media (min-width: 990px) {
   .fd-edition__media { aspect-ratio: 2.7 / 1; }
-  .fd-edition__media img { width: 72%; --y: -35%; }
-  .fd-edition__card[data-id='sesame'] .fd-edition__media img { width: 50%; --y: -33%; }
+  .fd-edition__media .fd-edition__bottle { width: 72%; --y: -35%; }
+  .fd-edition__card[data-id='sesame'] .fd-edition__media .fd-edition__bottle { width: 50%; left: 50%; --y: -33%; }
   .fd-edition__label { padding: 7px 8px; font-size: 17px; }
 }
+
+/* the Sesame Street card: the sky of the Sesame page (blue gradient and white clouds with a flat bottom) behind the bottle, and Abby (the flying one of the spell) in the sky */
+.fd-edition__card[data-id='sesame'] .fd-edition__media { background: linear-gradient(180deg, #bfe3ff 0%, #e6f5ff 100%); }
+.fd-edition__card[data-id='sesame'] .fd-edition__media::before { content: ''; position: absolute; inset: 0; pointer-events: none; background-repeat: no-repeat;
+  background-image: var(--fd-cloud), var(--fd-cloud), var(--fd-cloud); background-position: -6% 8%, 104% -4%, 52% -14%; background-size: 46% auto, 40% auto, 26% auto;
+  --fd-cloud: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 220 100'%3E%3Cg fill='white'%3E%3Ccircle cx='62' cy='62' r='28'/%3E%3Ccircle cx='104' cy='42' r='38'/%3E%3Ccircle cx='146' cy='58' r='30'/%3E%3Ccircle cx='182' cy='68' r='22'/%3E%3Crect x='34' y='62' width='170' height='32' rx='16'/%3E%3C/g%3E%3C/svg%3E"); }
+.fd-edition__abby { position: absolute; right: 4%; bottom: 14%; height: 54%; width: auto; aspect-ratio: 275 / 245; max-width: none; pointer-events: none; transform: scaleX(-1); } /* facing left, toward the bottle: she flies off to the left, forward */

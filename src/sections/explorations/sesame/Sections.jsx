@@ -135,6 +135,37 @@ const SCALE = { bigbird: 1, 'cookie-eat': 0.75, 'grover-3': 0.62, 'count-1': 0.5
 // `scaled`: use the chart above; the lines of `gang` must be catchphrases or generic phrases
 export function MeetTheGang({ waveFrom = '#f2fbff', gang = GANG, title = 'Meet The Gang', sub = 'Tap a friend to say hello.', scaled = false }) {
   const [open, setOpen] = useState(null);
+  // drag to scroll with a mouse (on phones the row scrolls by touch, but a mouse cannot drag an overflow row by itself); a drag does not count as a tap on a friend
+  const rowRef = useRef(null);
+  const drag = useRef(null);
+  const dragged = useRef(false);
+  const onDown = (e) => {
+    const el = rowRef.current;
+    if (e.pointerType !== 'mouse' || e.button !== 0 || !el || el.scrollWidth <= el.clientWidth) return;
+    drag.current = { x: e.clientX, left: el.scrollLeft, id: e.pointerId };
+  };
+  const onMove = (e) => {
+    const d = drag.current; const el = rowRef.current;
+    if (!d || !el) return;
+    const dx = e.clientX - d.x;
+    if (!dragged.current && Math.abs(dx) < 6) return;
+    if (!dragged.current) { dragged.current = true; el.classList.add('is-dragging'); el.setPointerCapture?.(d.id); setOpen(null); }
+    el.scrollLeft = d.left - dx;
+  };
+  const onUp = () => {
+    const el = rowRef.current;
+    el?.classList.remove('is-dragging');
+    drag.current = null;
+    if (dragged.current) setTimeout(() => { dragged.current = false; }, 0); // the click that ends the drag is ignored
+  };
+  // a bubble closes when you press anywhere outside it (a friend's own button still toggles it)
+  useEffect(() => {
+    if (open === null) return undefined;
+    const close = (e) => { if (!e.target.closest?.('.ss-gang__bubble, .ss-gang__row button')) setOpen(null); };
+    document.addEventListener('pointerdown', close);
+    return () => document.removeEventListener('pointerdown', close);
+  }, [open]);
+  const onClickCapture = (e) => { if (dragged.current) { e.preventDefault(); e.stopPropagation(); } };
   return (
     <section className={`ss-gang${scaled ? ' ss-gang--scaled' : ''}`} id="shopify-section-ss-gang">
       <ModernWave position="top" color="#bfe6ff" containerBackground={waveFrom} />
@@ -143,7 +174,7 @@ export function MeetTheGang({ waveFrom = '#f2fbff', gang = GANG, title = 'Meet T
         <p className="ss-gang__sub">{sub}</p>
         <div className="ss-gang__street">
           <Char n="lamp-post" prop className="ss-gang__lamp" />
-          <ul className="ss-gang__row">
+          <ul className="ss-gang__row" ref={rowRef} onPointerDown={onDown} onPointerMove={onMove} onPointerUp={onUp} onPointerCancel={onUp} onClickCapture={onClickCapture}>
             {gang.map(([ch, name, line], i) => (
               <li key={name} className={open === i ? 'is-open' : ''} style={scaled ? { '--s': SCALE[ch] || 0.5 } : undefined}>
                 {open === i && <Bubble tail="left" className="ss-gang__bubble">{line}</Bubble>}
