@@ -15,6 +15,14 @@ import './quizModal.css';
 //   onContinue()  "No, Thanks. Continue": adds only the product and opens the cart
 //   onClose()     Escape or a click on the overlay: closes without adding anything
 //   onSee(keys)   "See My Recommendation": the ticked concern handles, the page moves to the bundle builder step
+// The copy of THIS exploration (the live quiz settings in bundleBuilder.js are not touched). The modal opens right after "Add To Cart & View Gift", so it first acknowledges
+// the pick, then asks the question, and its button hands over to the next screen ("Make It A Family Routine"): the same word, "routine", runs through the steps, and the next screen widens it from the kid to the family.
+const COPY = {
+  title: 'Nice Pick! What Else Do You Notice At Home?',
+  lede: "Let's make sure this is the right product for you.",
+  primary: 'Complete My Routine',
+  secondary: 'No Thanks, Continue To Cart',
+};
 const px = (v) => `${v}px`;
 const VARS = {
   '--fd-qbb-question-font-family': s.question_font_family, '--fd-qbb-question-font-size-desktop': px(s.question_font_size_desktop), '--fd-qbb-question-font-size-mobile': px(s.question_font_size_mobile),
@@ -52,8 +60,8 @@ export default function QuizModal({ open, onSee, onContinue, onClose }) {
         <div className="aom__body" ref={bodyRef}>
           <div className="fd-qbb mbq-quiz" style={VARS}>
             <div className="mbq-quiz__head">
-              <h2 className="aom__title" id="mbq-title">{s.question}</h2>
-              {s.question_lede && <p className="mbq-quiz__lede">{s.question_lede}</p>}
+              <h2 className="aom__title" id="mbq-title">{COPY.title}</h2>
+              <p className="mbq-quiz__lede">{COPY.lede}</p>
             </div>
             <ul className="fd-qbb__concerns">
               {concernsInDisplayOrder.map((c) => {
@@ -76,10 +84,10 @@ export default function QuizModal({ open, onSee, onContinue, onClose }) {
 
         <footer className="aom__cta">
           <button type="button" className="fd-btn fd-btn--large fd-btn--primary fd-btn-shape--pill aom__primary" disabled={!canContinue} aria-disabled={!canContinue} onClick={() => onSee(keys)}>
-            <span className="fd-btn-text">{s.continue_label}</span><img src={customImg('addon/icon-arrow.svg')} alt="" width="24" height="24" />
+            <span className="fd-btn-text">{COPY.primary}</span><img src={customImg('addon/icon-arrow.svg')} alt="" width="24" height="24" />
           </button>
           <button type="button" className="fd-btn fd-btn--medium fd-btn--ghost fd-btn-shape--pill aom__secondary" onClick={onContinue}>
-            <span className="fd-btn-text">No, Thanks. Continue</span>
+            <span className="fd-btn-text">{COPY.secondary}</span>
           </button>
         </footer>
       </section>

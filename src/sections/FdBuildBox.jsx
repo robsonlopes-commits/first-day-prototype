@@ -59,7 +59,7 @@ function initialBuildState(model, initial) {
 }
 // notes (opt-in, explorations): { variantId: text } shown on the product card, for example why an item was added. topSlot (opt-in): a node at the top of the popup list. pinned (opt-in): variant ids listed first inside their category, in that order. title (opt-in): replaces the popup title.
 // blocks: the section's active blocks; returns null when the section has no build_box_qty block.
-export function useBuildBox({ blocks, product, cart, initial, notes, topSlot, pinned, title }) {
+export function useBuildBox({ blocks, product, cart, initial, notes, topSlot, pinned, title, renderHead }) {
   const qtyBlock = blocks.find((b) => b.type === 'build_box_qty');
   const popupBlock = blocks.find((b) => b.type === 'build_box_popup');
   const group = qtyBlock ? (qtyBlock.settings.group_id || qtyBlock.id).trim() : '';
@@ -104,7 +104,7 @@ export function useBuildBox({ blocks, product, cart, initial, notes, topSlot, pi
   const filled = Object.values(st.qty).reduce((t, n) => t + (Number(n) || 0), 0);
 
   const api = {
-    model, group, st, ui, deal, dealId, count, gifts, filled, cart, product, qtyBlock, popupBlock, notes: notes || null, topSlot: topSlot || null, pinned: pinned || null, title: title || '',
+    model, group, st, ui, deal, dealId, count, gifts, filled, cart, product, qtyBlock, popupBlock, notes: notes || null, topSlot: topSlot || null, pinned: pinned || null, title: title || '', renderHead: renderHead || null,
     subscribe: st.subscribe !== false,
     selectDeal: (id) => setSt((s) => ({ ...s, dealId: id })),
     setSubscribe: (on) => setSt((s) => ({ ...s, subscribe: !!on })),
@@ -515,8 +515,12 @@ export function BuildBoxPopup({ bb }) {
                   <>
                     <div className="fd-build-box-popup__drawer-head" data-drawer-head onClick={() => !pinned && bb.setUi({ drawerOpen: !ui.drawerOpen })}>
                       <div className="fd-build-box-popup__drawer-lead">
-                        <img className="fd-build-box-popup__drawer-icon" src={themeAsset('fd-build-box-discount-fill.svg')} width="32" height="32" alt="" aria-hidden="true" />
-                        <Raw as="p" className="fd-build-box-popup__drawer-text" data-drawer-text aria-live="polite" html={headHtml} />
+                        {bb.renderHead ? bb.renderHead({ n, tiers, subscribe, filled, gifts: bb.gifts }) : (
+                          <>
+                            <img className="fd-build-box-popup__drawer-icon" src={themeAsset('fd-build-box-discount-fill.svg')} width="32" height="32" alt="" aria-hidden="true" />
+                            <Raw as="p" className="fd-build-box-popup__drawer-text" data-drawer-text aria-live="polite" html={headHtml} />
+                          </>
+                        )}
                       </div>
                       <button type="button" className="fd-build-box-popup__back fd-build-box-popup__drawer-toggle" data-drawer-toggle aria-expanded={open} aria-label={open ? 'Hide box summary' : 'Show box summary'}>
                         <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path fillRule="evenodd" clipRule="evenodd" d="M9.55904 6.25C9.70481 6.25 9.85059 6.29982 9.94778 6.44927L15.2929 12.9257C15.4873 13.125 15.4387 13.4737 15.2443 13.6231C15.05 13.8224 14.7098 13.7726 14.564 13.5733L9.55904 7.49546L4.60262 13.5235C4.40825 13.7228 4.1167 13.7726 3.92233 13.5733C3.72796 13.3741 3.67937 13.0751 3.87373 12.8759L9.21889 6.39946C9.26748 6.29982 9.41326 6.25 9.55904 6.25Z" fill="currentColor" /></svg>

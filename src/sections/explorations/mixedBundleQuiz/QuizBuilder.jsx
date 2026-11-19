@@ -4,6 +4,7 @@ import { BUNDLE_PRODUCT, GIFTS, BUNDLE_CATALOG, INFO_MODAL_PRODUCTS, ALL_REVIEWS
 import { useCart } from '../../../layout/CartContext.jsx';
 import { useBuildBox, BuildBoxPopup } from '../../FdBuildBox.jsx';
 import { QuizRecap } from '../../fdQuizBuyBox/QuizStepResults.jsx';
+import GiftRail from './GiftRail.jsx';
 import { buildPlan, plainPlan } from './quizPlan.js';
 import '../../../styles/theme/fd-quiz-buy-box.css';
 import './quizBuild.css';
@@ -25,10 +26,10 @@ const PRODUCT = { ...BUNDLE_PRODUCT, gifts: GIFTS, catalog: CATALOG, infoProduct
 
 export default function QuizBuilder({ answers, onClose }) {
   const cart = useCart();
-  const withQuiz = !!answers.keys; // v1 comes from the quiz; v2 has no quiz: only the product of the page, no recap box, no notes
+  const withQuiz = !!answers.keys; // v1 comes from the quiz; v2 has no quiz: only the product of the page, no notes on the items, and a green notice (plainPlan.html) at the top
   const plan = withQuiz ? buildPlan(answers.keys, answers.qty) : plainPlan(answers.qty);
-  const topSlot = withQuiz ? <div className="fd-qbb mbq-notice mbq-marker"><QuizRecap s={{}} html={plan.html} /></div> : <span className="mbq-marker" hidden />; // the marker lets the css style this builder only
-  const bb = useBuildBox({ blocks: BLOCKS, product: PRODUCT, cart, initial: { qty: plan.initialQty, subscribe: answers.monthly }, notes: plan.notes, topSlot, pinned: plan.pinned, title: 'Complete Your Family Health Routine' });
+  const topSlot = plan.html ? <div className={`fd-qbb mbq-notice mbq-marker${withQuiz ? '' : ' mbq-notice--base'}`}><QuizRecap s={{}} html={plan.html} /></div> : <span className="mbq-marker" hidden />; // the marker lets the css style this builder only
+  const bb = useBuildBox({ blocks: BLOCKS, product: PRODUCT, cart, initial: { qty: plan.initialQty, subscribe: answers.monthly }, notes: plan.notes, topSlot, pinned: plan.pinned, renderHead: (ctx) => <GiftRail {...ctx} />, title: withQuiz ? 'Make It A Family Routine' : 'Round Out Your Routine' }); // short enough for phones (22 characters at most). v1 opens the family (the quiz modal button is "Complete My Routine"); v2 has no quiz, so its title says the product of the page is the base and the rest of the list rounds it out
   const opened = useRef(false);
   useEffect(() => { if (bb) bb.openPopup(); }, []); // eslint-disable-line
   const isOpen = !!(bb && bb.ui.open);

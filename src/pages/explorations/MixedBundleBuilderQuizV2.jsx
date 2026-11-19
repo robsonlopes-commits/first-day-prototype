@@ -22,8 +22,8 @@ import Apps from '../../sections/Apps.jsx';
 // EXPLORATION (not a production page): /explorations/mixed-bundle-builder-quiz-v2  ("Mixed Bundle Builder v2": no quiz)
 // A DUPLICATE of v1 (MixedBundleBuilderQuizV1.jsx), itself a duplicate of the kids "Behind the Science" landing (src/pages/LandingBTS.jsx), so the production
 // replica is never touched. What v2 changes: there is NO quiz. The buy box is the original one, and its button "Add To Cart & View Gift" opens the bundle builder
-// ("Complete Your Family Health Routine", src/sections/explorations/mixedBundleQuiz/QuizBuilder.jsx) with the product of the page already chosen, in the quantity that was added,
-// and none of the "we added this because you told us" messages (no recap box, no notes). Closing the builder adds nothing; the builder adds to the cart.
+// ("Round Out Your Routine", src/sections/explorations/mixedBundleQuiz/QuizBuilder.jsx) with the product of the page already chosen, in the quantity that was added,
+// and none of the "we added this because you told us" notes on the items; a green notice at the top of the list says the product is the perfect base and sells the add-ons. Closing the builder adds nothing; the builder adds to the cart.
 const sh = (name) => (name ? `shopify://shop_images/${name}` : '');
 // deep copies: editing them here does not change the production page
 const T = structuredClone(TEMPLATE);

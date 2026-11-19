@@ -53,7 +53,7 @@ Theme CSS is global, so like Shopify every page change is a full load (see the c
 ## How to add another Shopify template
 1. Find the template in `reference/theme/templates/` (JSON lists sections + settings). 2. Build any missing section from `reference/theme/sections/<name>.liquid`
 (keep class names; convert `{% style %}` with `tools/liquid-style-to-js.mjs`, css snippets with `tools/liquid-css.mjs`). 3. Put the template's settings in `src/data/`.
-4. Add a page in `src/pages/` that calls `usePageClass('template-… <suffix>')` and add its route in `src/App.jsx` and `PrototypeIndex.jsx`. The index has two groups: **Explorations** (put a new exploration as the FIRST item of the `explorations` list, so the newest is always on top, and a new version of one right above it; each one has a short title and a one or two line description of what it does and what it was copied from) and **Pages** (replicas of live pages).
+4. Add a page in `src/pages/` that calls `usePageClass('template-… <suffix>')` and add its route in `src/App.jsx` and `PrototypeIndex.jsx`. The index lists only **explorations** (replicas of live pages are reachable by route but not listed). Add a new one as the FIRST item of the `explorations` list with `{ to, name, desc, date }`: `desc` is 8 words or fewer and `date` is the day it started (it drives the default "Most recent" sort). Variations of the same idea go in a group: set `group` to a key of `GROUPS` (create the key when a second variation appears) instead of adding a new top level item. The page has a search box and a sort (Most recent, Oldest, A to Z).
 
 ## Converting more Liquid CSS
 `node tools/liquid-css.mjs <in.css.liquid> <out.css>` resolves `{{ settings.x }}` and strips Liquid.

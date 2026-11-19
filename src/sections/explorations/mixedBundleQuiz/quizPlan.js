@@ -60,17 +60,19 @@ export function buildPlan(keys, qty) {
     added.push({ title: p.title, phrases, partner: !phrases.length });
   });
 
-  // the friendly notice at the top of the page
+  // the friendly notice at the top of the page: it answers the quiz ("you told us...") and moves on to what to do next (add more, save more)
   const told = bold(picked.map((c) => c.phrase));
-  const parts = [];
-  if (told.length) parts.push(`You told us about ${joinList(told)}.`);
-  if (added.length) parts.push(`So along with the ${bold([titleOf(MAIN_HANDLE)])[0]} you picked, we added ${joinList(bold(added.map((a) => a.title)))} to your box.`);
+  const mainTitle = bold([titleOf(MAIN_HANDLE)])[0];
+  const lead = told.length ? `Great start. You told us about ${joinList(told)}` : 'Great start.';
+  const first = added.length ? `${lead}, so alongside your ${mainTitle} we added ${joinList(bold(added.map((a) => a.title)))} to your box.` : told.length ? `${lead}, and your ${mainTitle} is a great place to begin.` : `Your ${mainTitle} is a great place to begin.`;
   const pinned = Object.keys(initialQty).map(String); // the product of the page first, then what the answers added (insertion order = catalog order)
-  return { initialQty, notes, added, pinned, html: `<p>${parts.join(' ')}</p><p>You can change anything below.</p>` } // the last sentence is its own paragraph;
+  return { initialQty, notes, added, pinned, html: `<p>${first}</p><p>Swap anything below, or add the rest of the family. The more you add, the more you save.</p>` } // the second sentence is its own paragraph;
 }
 
-// no quiz (v2): the box starts with the product of the page, in the quantity that was added, and nothing else, with no notes and no recap
+// no quiz (v2): the box starts with the product of the page, in the quantity that was added, and nothing else, with no per item notes. The green notice at the top of the list
+// does what the recap of the quiz does for v1, without answers to quote: it praises the pick, calls it the base and sells the add-ons (and the savings of every extra product).
 export function plainPlan(qty) {
   const main = builderProduct(MAIN_HANDLE);
-  return { initialQty: { [main.variantId]: Math.max(1, qty || 1) }, notes: {}, added: [], pinned: [String(main.variantId)], html: '' };
+  const html = `<p>Great pick! Your ${bold([titleOf(MAIN_HANDLE)])[0]} is the perfect base. Round out the routine with these add-ons and save more with every one.</p>`;
+  return { initialQty: { [main.variantId]: Math.max(1, qty || 1) }, notes: {}, added: [], pinned: [String(main.variantId)], html };
 }

@@ -1,0 +1,41 @@
+import { useEffect, useRef } from 'react';
+import { TEMPLATE as T } from '../../../data/bundleQuizTemplate.js';
+import { BUNDLE_PRODUCT, GIFTS, BUNDLE_CATALOG, INFO_MODAL_PRODUCTS, ALL_REVIEWS } from '../../../data/bundleQuiz.js';
+import { useCart } from '../../../layout/CartContext.jsx';
+import { useBuildBox, BuildBoxPopup } from '../../FdBuildBox.jsx';
+import { QuizRecap } from '../../fdQuizBuyBox/QuizStepResults.jsx';
+import GiftRail from './GiftRail.jsx';
+import { buildPlan, plainPlan } from './quizPlan.js';
+import '../../../styles/theme/fd-quiz-buy-box.css';
+import './quizBuild.css';
+
+// EXPLORATION Mixed Bundle Builder + Quiz: the bundle builder of /pages/bundle-quiz (the full screen "Select At Least N Bottles" popup of the build box),
+// opened on top of the landing right after the quiz modal. It starts with the product of the landing buy box (same quantity) plus what the answers add
+// (quizPlan.js), every added item has a note that says why, and the list starts with the friendly recap box of the quiz explaining why items were added.
+//   answers = { keys?, qty, monthly }   (no keys = no quiz, v2)   onClose()  the shopper closed the builder (the back arrow)
+// The data is the one of /pages/bundle-quiz (template and catalog), the popup is the shared BuildBoxPopup, nothing is re-drawn here.
+// the popup of this page without its template intro lines ("You've unlocked big savings...", "789+ bottles bought in past week" and the "Order by ..." promo): the recap box already opens the list
+const BLOCKS = T.standalone_product.blocks.filter((b) => !b.disabled).map((b) => (b.type === 'build_box_popup' ? { ...b, settings: { ...b.settings, intro_text: '', social_proof_stat: '', promo_text: '' } } : b));
+// the discount of 1, 2, 3 and 4 bottles of the builder ([30, 35, 40, 45], from its build_box_deal blocks): the buy box of the page uses the same ones
+export const BUILDER_TIERS = BLOCKS.filter((b) => b.type === 'build_box_deal' && b.settings.tier_discount_percent !== '' && b.settings.tier_discount_percent != null)
+  .sort((a, b) => (a.settings.count || 1) - (b.settings.count || 1)).map((b) => Number(b.settings.tier_discount_percent));
+import { SHORT_BLURBS as SHORT } from '../../../data/shortBlurbs.js';
+const AUDIENCE = { Women: 'Mom', Men: 'Dad' }; // Women and Men are Mom and Dad in the family box
+const CATALOG = BUNDLE_CATALOG.map((c) => ({ ...c, label: AUDIENCE[c.label] || c.label, products: c.products.map((p) => ({ ...p, description: SHORT[p.title] || p.description })) }));
+const PRODUCT = { ...BUNDLE_PRODUCT, gifts: GIFTS, catalog: CATALOG, infoProducts: INFO_MODAL_PRODUCTS, mainImage: BUNDLE_PRODUCT.gallery[0][0], allReviewsText: { count: ALL_REVIEWS.count } };
+
+export default function QuizBuilder({ answers, onClose }) {
+  const cart = useCart();
+  const withQuiz = !!answers.keys; // v1 comes from the quiz; v2 has no quiz: only the product of the page, no recap box, no notes
+  const plan = withQuiz ? buildPlan(answers.keys, answers.qty) : plainPlan(answers.qty);
+  const topSlot = withQuiz ? <div className="fd-qbb mbq3-notice mbq3-marker"><QuizRecap s={{}} html={plan.html} /></div> : <span className="mbq3-marker" hidden />; // the marker lets the css style this builder only
+  const bb = useBuildBox({ blocks: BLOCKS, product: PRODUCT, cart, initial: { qty: plan.initialQty, subscribe: answers.monthly }, notes: plan.notes, topSlot, pinned: plan.pinned, renderHead: (ctx) => <GiftRail {...ctx} />, title: withQuiz ? 'Make It A Family Routine' : 'Complete Your Family Health Routine' }); // v1: short enough for phones and it opens the family (the quiz modal button is "Complete My Routine"); v2 keeps its title
+  const opened = useRef(false);
+  useEffect(() => { if (bb) bb.openPopup(); }, []); // eslint-disable-line
+  const isOpen = !!(bb && bb.ui.open);
+  useEffect(() => { // back to the landing when the shopper closes the builder
+    if (isOpen) opened.current = true;
+    else if (opened.current) onClose();
+  }, [isOpen]); // eslint-disable-line
+  return bb ? <BuildBoxPopup bb={bb} /> : null;
+}

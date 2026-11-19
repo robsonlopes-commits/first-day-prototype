@@ -1,6 +1,7 @@
 /* the friendly notice at the top of the builder list: the quiz recap box (global quiz styles), no section padding or background of its own */
 .fd-qbb.mbq-notice { padding: 0; background: transparent; max-width: none; margin: 0 0 16px; display: block; }
 .fd-qbb.mbq-notice .fd-qbb__recap { margin: 0; }
+.fd-qbb.mbq-notice--base .fd-qbb__recap-body p { text-wrap: pretty; } /* v2 notice (no quiz): never end on a lone word */
 .fd-qbb.mbq-notice .fd-qbb__recap-body p + p { margin-top: 10px; } /* the closing sentence sits on its own line, with a little air above */
 
 /* the info card of an item that the quiz added: full width at the bottom of the card, in the list and in the summary of the box. A purple tint, so it stands out
@@ -16,3 +17,29 @@
 /* a chosen item (quantity above 0): the same blue border and morning blue fill as the chosen cards of the add-on modal exploration. Only in this builder (the .mbq-marker element in the top slot marks it, with or without the recap box). */
 .fd-build-box-popup:has(.mbq-marker) .fd-build-box-popup__card.is-selected:not(.fd-build-box-popup__card--row) { padding: 15px; border: 2px solid var(--color-brand-noon-blue); background: var(--color-surface-morning-blue); }
 .fd-build-box-popup:has(.mbq-marker) .fd-build-box-popup__card.is-selected:not(.fd-build-box-popup__card--row) .fd-build-box-popup__card-badge { top: -2px; right: -2px; }
+
+/* the head of the footer: one line of stops (the discount of 1, 2, 3 and 4 products, each with its free gift as a round picture) and one line about the NEXT step (GiftRail.jsx) */
+.mbq-rail { --stop: 44px; flex: 1; min-width: 0; padding: 26px 16px 0 0; }
+.mbq-rail__track { position: relative; display: flex; justify-content: space-between; align-items: center; height: var(--stop); }
+.mbq-rail__line, .mbq-rail__fill { position: absolute; top: 50%; height: 4px; margin-top: -2px; border-radius: 2px; left: calc(var(--stop) / 2); }
+.mbq-rail__line { right: calc(var(--stop) / 2); background: #e1e4ea; }
+.mbq-rail__fill { width: calc((100% - var(--stop)) * var(--f, 0)); background: var(--fd-bb-success, #2f7d3d); transition: width 350ms ease; }
+.mbq-rail__stop { position: relative; z-index: 1; width: var(--stop); height: var(--stop); box-sizing: border-box; display: flex; align-items: center; justify-content: center; border: 2px solid #c9ced8; border-radius: 50%; background: #fff; color: #7b8494; font: 700 12px/1 'sofia-pro', sans-serif; transition: background 250ms ease, border-color 250ms ease, color 250ms ease, transform 250ms cubic-bezier(0.2, 1.6, 0.4, 1); }
+.mbq-rail__stop.is-on { border-color: var(--fd-bb-success, #2f7d3d); background: var(--fd-bb-success, #2f7d3d); color: #fff; }
+.mbq-rail__stop.is-next { border-color: var(--color-brand-noon-blue, #4a6be0); color: var(--color-brand-noon-blue, #4a6be0); }
+.mbq-rail__gift { position: absolute; right: -16px; top: -24px; width: 38px; height: 38px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; overflow: hidden; border: 1.5px solid #c9ced8; border-radius: 50%; background: #fff; }
+.mbq-rail__gift img { width: 100%; height: 100%; object-fit: contain; transform: scale(1.12); filter: grayscale(1); opacity: 0.45; transition: filter 250ms ease, opacity 250ms ease; }
+.mbq-rail__gift.is-on { border-color: var(--fd-bb-success, #2f7d3d); }
+.mbq-rail__gift.is-on img { filter: none; opacity: 1; }
+.mbq-rail__gift.is-next { border-color: var(--color-brand-noon-blue, #4a6be0); }
+.mbq-rail__gift.is-next img { filter: none; opacity: 0.85; }
+.mbq-rail__text { margin: 10px 0 0; font: 400 14px/1.3 'sofia-pro', sans-serif; color: var(--fd-bb-text, #2c3d50); text-wrap: balance; }
+.mbq-rail__text strong { font-weight: 700; }
+.mbq-rail__text.is-done strong:first-of-type { color: var(--fd-bb-success, #2f7d3d); }
+.mbq-rail__pct { display: flex; flex-direction: column; align-items: center; gap: 1px; }
+.mbq-rail__pct b { font: 700 13px/1 'sofia-pro', sans-serif; }
+.mbq-rail__pct small { font: 700 9px/1 'sofia-pro', sans-serif; text-transform: uppercase; letter-spacing: 0.04em; }
+@media (prefers-reduced-motion: reduce) { .mbq-rail__fill, .mbq-rail__stop, .mbq-rail__gift img { transition: none; } }
+
+/* the global h2 { line-height: 1 !important } clipped the descenders of the one line title (overflow hidden), so give it its own line height back */
+.fd-build-box-popup:has(.mbq-marker) .fd-build-box-popup__title { line-height: 1.4 !important; }

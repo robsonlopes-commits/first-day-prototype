@@ -1,55 +1,102 @@
+import { useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 
-// Private index. Intentionally NOT styled with the storefront theme.
-// Two groups. EXPLORATIONS: [route, short title, description], the newest on TOP (add a new exploration as the FIRST item of the list, a new version of one goes
-// right above it, and write its description: one or two lines on what it does and what it was copied from).
-// PAGES: replicas of the live storefront pages, in their usual order.
+// Private index of the EXPLORATIONS only (the replicas of the live pages are still reachable by their routes, they are just not listed here).
+// Intentionally NOT styled with the storefront theme.
+// To add one: put it as the FIRST item of `explorations` (the list order breaks ties between items of the same day), with the day it was started and a description of
+// 8 words or fewer. `group` (a key of GROUPS) puts variations of the same idea together: new versions of a group go in it, not as a new top level item.
+const GROUPS = {
+  sesame: 'Sesame Street',
+  mbb: 'Mixed Bundle Builder',
+};
+// { to: route, name, desc: 8 words or fewer, date: 'YYYY-MM-DD' (day it was started), group?: key of GROUPS }
 const explorations = [
-  ['/explorations/sesame-toddlers-bts', 'Sesame Street Toddlers Behind the Science', "The Toddlers' Multi Behind the Science landing (/pages/trmv-behind-the-science-lp) as a Sesame Street edition, made with the sesame-streetize playbook: Sesame bottle in the wheel and the hand picture, stickers on top of files, flat wave seams, The Count Counts It, Meet The Gang and a Sesame closing. Header and footer untouched."],
-  ['/explorations/sesame-toddlers-bundle', 'Sesame Street Toddlers Starter Pack', "The Toddlers' Starter Pack bundle PDP (legacy template: The Multi with Big Bird + the Pre + Post Probiotic with Elmo) as a Sesame Street edition, made with the sesame-streetize playbook: the two Sesame bottles side by side, generated pictures reused from the other two pages, SVG stickers on top of files, flat waves, Real Wholesome as friends, The Count Counts It and Meet The Gang."],
-  ['/explorations/sesame-toddlers-multi', 'Sesame Street Toddlers Multi', 'The Toddlers Multi PDP (new template) as a Sesame Street edition, made with the sesame-streetize playbook: the Sesame bottle with Big Bird, generated pictures with the bottle at its real size, SVG stickers on top of files, new Count and Meet The Gang sections, headings with a play on the show. Header and footer untouched. Copy of /products/the-no-junk-toddlers-multivitamin.'],
-  ['/explorations/sesame-toddlers-probiotic', 'Sesame Street Toddlers Probiotic', 'The Toddlers 3-in-1 Probiotic PDP (legacy template) as a Sesame Street edition: Version B art of the House Style library as stickers on top of generated pictures with the Sesame bottle, new sections (Real Wholesome, The Count, Meet The Gang), flat waves, headings with a play on the show. Header and footer untouched. Copy of /products/toddlers-3-in-1-probiotic.'],
-  ['/explorations/family-box-builder', 'Family Box Builder', 'Add the family (Kid, Toddler, Teen, Mom, Dad), a box with a carousel of products for each person, and a summary with the discount tiers, the gifts and Add To Cart (fixed at the bottom on mobile, a column on the right on desktop). Started as a copy of the All-in-1 Bundle landing, Kids only, without its buy box.'],
-  ['/explorations/mixed-bundle-builder-quiz-v2', 'Mixed Bundle Builder v2', 'No quiz. Add To Cart opens the Complete Your Family Health Routine with the product of the page already chosen, in the quantity added. Copy of the kids Behind the Science LP.'],
-  ['/explorations/mixed-bundle-builder-quiz-v1', 'Mixed Bundle Builder + Quiz v1', 'Add To Cart opens a 1 step quiz. Its answers open the Complete Your Family Health Routine with the product of the page plus what the answers add, each with the reason. Copy of the kids Behind the Science LP.'],
-  ['/explorations/bundle-add-on', 'Bundle Add-on', 'New add-on modal opened by Add To Cart, with stacks in three layouts (?bundles=a, b or c), items by audience and the free gift progress. Copy of the kids Behind the Science LP.'],
-  ['/explorations/all-in-1-bundle', 'All-in-1 Bundle', 'Landing for the four hero products as one bundle, with demo tabs (Kids, Teens, Toddlers) and the option to add each item on its own.'],
-];
-const pages = [
-  ['/', 'Home', 'index.hp01-v2'],
-  ['/products/kids-calming-magnesium', 'Legacy PDP', 'product.unified-default'],
-  ['/products/kids-enrichment-vitamin', 'New PDP', 'product.uniified-default-v2'],
-  ['/products/the-no-junk-toddlers-multivitamin', 'New PDP (toddlers multi)', 'product.uniified-default-v2'],
-  ['/products/toddlers-3-in-1-probiotic', 'Legacy PDP (toddlers probiotic)', 'product.unified-default'],
-  ['/products/toddler-tlc-starter-pack', 'Legacy PDP (toddlers TLC starter pack)', 'product.unified-default'],
-  ['/pages/kde-behind-the-science-lp', 'Behind the Science LP (kids)', 'page.lp-BTS-master'],
-  ['/pages/tdk-behind-the-science-lp', 'Behind the Science LP (teens)', 'page.lp-BTS-master'],
-  ['/pages/trmv-behind-the-science-lp', 'Behind the Science LP (toddlers multi)', 'page.lp-BTS-master'],
-  ['/pages/bundle-builder-v2', 'Bundle builder v2 (quiz)', 'page.lp-bundle-v2'],
-  ['/pages/bundle-quiz', 'Bundle quiz', 'page.lp-bundle-v3'],
-  ['/pages/sale', 'Sale', 'page.bfcm-categories'],
-];
-const Group = ({ title, note, items, describe }) => (
-  <section style={{ marginTop: 28 }}>
-    <h2 style={{ fontSize: 15, letterSpacing: '0.04em', textTransform: 'uppercase', margin: 0, paddingBottom: 6, borderBottom: '2px solid #222' }}>{title}</h2>
-    {note ? <p style={{ color: '#888', fontSize: 12, margin: '6px 0 0' }}>{note}</p> : null}
-    <ul style={{ padding: 0, margin: 0, listStyle: 'none' }}>
-      {items.map(([to, name, info]) => (
-        <li key={to} style={{ padding: '10px 0', borderBottom: '1px solid #eee' }}>
-          <Link to={to}>{name}</Link> <code style={{ color: '#888' }}>{to}</code>
-          <div style={{ color: describe ? '#666' : '#999', fontSize: describe ? 13 : 12, marginTop: describe ? 2 : 0 }}>{describe ? info : `Shopify template: ${info}`}</div>
-        </li>
-      ))}
-    </ul>
-  </section>
+  { to: '/explorations/mixed-bundle-builder-quiz-v1-3', name: 'Quiz v1-3', desc: 'Text only footer, no pictures.', date: '2026-11-18', group: 'mbb' },
+  { to: '/explorations/mixed-bundle-builder-quiz-v1-2', name: 'Quiz v1-2', desc: 'Footer with a small next gift picture.', date: '2026-11-18', group: 'mbb' },
+  { to: '/explorations/sesame-toddlers-bts', name: 'Toddlers Behind the Science', desc: 'Sesame edition of the Toddlers Multi landing.', date: '2026-11-12', group: 'sesame' },
+  { to: '/explorations/sesame-toddlers-bundle', name: 'Toddlers Starter Pack', desc: 'Sesame edition of the Starter Pack PDP.', date: '2026-11-12', group: 'sesame' },
+  { to: '/explorations/sesame-toddlers-multi', name: 'Toddlers Multi', desc: 'Sesame edition of the Toddlers Multi PDP.', date: '2026-11-12', group: 'sesame' },
+  { to: '/explorations/sesame-toddlers-probiotic', name: 'Toddlers Probiotic', desc: 'Sesame edition of the Probiotic PDP.', date: '2026-11-12', group: 'sesame' },
+  { to: '/explorations/family-box-builder', name: 'Family Box Builder', desc: 'One box per family member, with tiers and gifts.', date: '2026-10-27' },
+  { to: '/explorations/mixed-bundle-builder-quiz-v2', name: 'No quiz v2', desc: 'No quiz, the builder opens with a green note.', date: '2026-10-25', group: 'mbb' },
+  { to: '/explorations/mixed-bundle-builder-quiz-v1', name: 'Quiz v1', desc: 'One step quiz, then the builder.', date: '2026-10-25', group: 'mbb' },
+  { to: '/explorations/bundle-add-on', name: 'Bundle Add-on', desc: 'Add-on modal with stacks and gift progress.', date: '2026-10-20' },
+  { to: '/explorations/all-in-1-bundle', name: 'All-in-1 Bundle', desc: 'The four hero products as one bundle.', date: '2026-10-14' },
+].map((e, i) => ({ ...e, i }));
+
+const SORTS = [['recent', 'Most recent'], ['oldest', 'Oldest'], ['az', 'A to Z']];
+const day = (d) => new Date(`${d}T00:00:00`).toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+const label = (e) => (e.group ? `${GROUPS[e.group]} ${e.name}` : e.name);
+
+const byRecent = (a, b) => (a.date === b.date ? a.i - b.i : a.date < b.date ? 1 : -1);
+const compare = (sort) => (sort === 'az' ? (a, b) => label(a).localeCompare(label(b)) : sort === 'oldest' ? (a, b) => -byRecent(a, b) : byRecent);
+
+const Row = ({ e }) => (
+  <li style={{ padding: '10px 0', borderBottom: '1px solid #eee' }}>
+    <div style={{ display: 'flex', alignItems: 'baseline', gap: 8 }}>
+      <Link to={e.to} style={{ fontWeight: 500 }}>{e.name}</Link>
+      <span style={{ marginLeft: 'auto', color: '#999', fontSize: 12, whiteSpace: 'nowrap' }}>{day(e.date)}</span>
+    </div>
+    <div style={{ color: '#666', fontSize: 13 }}>{e.desc}</div>
+  </li>
 );
+
 export default function PrototypeIndex() {
+  const [q, setQ] = useState('');
+  const [sort, setSort] = useState('recent');
+  const [open, setOpen] = useState({});
+  const term = q.trim().toLowerCase();
+  const searching = term.length > 0;
+
+  // the items that match, put into groups (a group is one entry of the list, ranked by its best item for the chosen sort)
+  const entries = useMemo(() => {
+    const match = explorations.filter((e) => !term || `${e.name} ${e.desc} ${e.to} ${e.group ? GROUPS[e.group] : ''}`.toLowerCase().includes(term));
+    const cmp = compare(sort);
+    const out = []; const seen = {};
+    [...match].sort(cmp).forEach((e) => {
+      if (!e.group) { out.push({ single: e }); return; }
+      if (!seen[e.group]) { seen[e.group] = { key: e.group, items: [] }; out.push(seen[e.group]); }
+      seen[e.group].items.push(e);
+    });
+    if (sort === 'az') out.sort((a, b) => (a.single ? label(a.single) : GROUPS[a.key]).localeCompare(b.single ? label(b.single) : GROUPS[b.key]));
+    return out;
+  }, [term, sort]);
+
+  const field = { font: 'inherit', fontSize: 15, padding: '9px 12px', border: '1px solid #ccc', borderRadius: 8, background: '#fff', color: '#222' };
   return (
     <div style={{ font: '15px/1.5 system-ui, sans-serif', maxWidth: 640, margin: '48px auto', padding: '0 20px', color: '#222' }}>
-      <h1 style={{ fontSize: 22 }}>First Day prototype</h1>
-      <p style={{ color: '#666' }}>Local design sandbox. The cart opens from the header cart icon on any page.</p>
-      <Group title="Explorations" note="The newest first. Ideas and concepts, not in production." items={explorations} describe />
-      <Group title="Pages" note="Replicas of the live storefront pages." items={pages} />
+      <h1 style={{ fontSize: 22, margin: 0 }}>First Day explorations</h1>
+      <p style={{ color: '#888', fontSize: 13, margin: '4px 0 16px' }}>Ideas and concepts, not in production.</p>
+      <div style={{ display: 'flex', gap: 8 }}>
+        <input type="search" value={q} onChange={(ev) => setQ(ev.target.value)} placeholder="Search explorations" aria-label="Search explorations" style={{ ...field, flex: 1, minWidth: 0 }} />
+        <select value={sort} onChange={(ev) => setSort(ev.target.value)} aria-label="Sort explorations" style={field}>
+          {SORTS.map(([v, l]) => <option key={v} value={v}>{l}</option>)}
+        </select>
+      </div>
+      <ul style={{ padding: 0, margin: '8px 0 0', listStyle: 'none' }}>
+        {entries.map((en) => {
+          if (en.single) return <Row key={en.single.to} e={en.single} />;
+          const isOpen = searching || open[en.key];
+          const newest = [...en.items].sort(byRecent)[0];
+          return (
+            <li key={en.key} style={{ borderBottom: '1px solid #eee' }}>
+              <button type="button" aria-expanded={!!isOpen} onClick={() => setOpen((o) => ({ ...o, [en.key]: !o[en.key] }))}
+                style={{ all: 'unset', boxSizing: 'border-box', display: 'flex', alignItems: 'baseline', gap: 8, width: '100%', padding: '10px 0', cursor: 'pointer' }}>
+                <span aria-hidden="true" style={{ width: 12, color: '#888', fontSize: 11, transform: isOpen ? 'rotate(90deg)' : 'none', transition: 'transform 150ms' }}>▶</span>
+                <span style={{ fontWeight: 500 }}>{GROUPS[en.key]}</span>
+                <span style={{ color: '#888', fontSize: 12 }}>{en.items.length} variations</span>
+                <span style={{ marginLeft: 'auto', color: '#999', fontSize: 12, whiteSpace: 'nowrap' }}>{day(newest.date)}</span>
+              </button>
+              {isOpen ? (
+                <ul style={{ padding: '0 0 6px 20px', margin: 0, listStyle: 'none', borderLeft: '2px solid #eee' }}>
+                  {en.items.map((e) => <Row key={e.to} e={e} />)}
+                </ul>
+              ) : null}
+            </li>
+          );
+        })}
+      </ul>
+      {entries.length === 0 ? <p style={{ color: '#888', fontSize: 14 }}>Nothing matches "{q.trim()}".</p> : null}
     </div>
   );
 }
