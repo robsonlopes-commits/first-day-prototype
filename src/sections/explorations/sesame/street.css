@@ -1,0 +1,80 @@
+/* The street scene section (StreetScroll.jsx): a tall runway with a sticky one screen stage. No shadows, only Sofia Pro, as everywhere on the Sesame pages. */
+.ss-street { position: relative; height: calc(var(--ss-street-runway, 5) * 100vh); height: calc(var(--ss-street-runway, 5) * 100svh); background: #7fd0f7; }
+.ss-street__stage { position: sticky; top: 0; height: 100vh; height: 100svh; overflow: hidden; background: #7fd0f7; contain: layout paint; }
+.ss-street__layer { position: absolute; left: 0; top: 0; pointer-events: none; } /* sized and placed in px by the script, no will-change on purpose */
+.ss-street__layer img { display: block; width: 100%; height: 100%; max-width: none; user-select: none; -webkit-user-drag: none; }
+/* the inside of the house: clipped to the glass of the window by the script, cover fit, a placeholder picture for now */
+.ss-street__inside { position: absolute; inset: 0; opacity: 0; pointer-events: none; will-change: clip-path, opacity; }
+.ss-street__inside img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: 50% 50%; transform-origin: 50% 50%; will-change: transform; }
+.ss-street__hint { position: absolute; left: 50%; bottom: 28px; transform: translateX(-50%); display: flex; align-items: center; gap: 8px; padding: 8px 20px 10px; border-radius: 999px; background: rgba(255, 255, 255, 0.5); -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px); color: var(--ss-ink, #1f3a70); font: 700 15px/1 'sofia-pro', sans-serif; pointer-events: none; } /* always on, always see through; the padding is uneven on purpose, Sofia Pro sits low in its line box */
+.ss-street__hint span { position: relative; top: 1px; font-size: 17px; line-height: 1; animation: ss-street-nudge 1.4s ease-in-out infinite; }
+@keyframes ss-street-nudge { 50% { transform: translateY(3px); } }
+/* reduced motion: the scene is still, one screen tall, and the picture of the inside follows it */
+.ss-street.is-still { height: auto; }
+.ss-street.is-still .ss-street__stage { position: relative; }
+.ss-street__still { display: block; width: 100%; max-height: 80vh; object-fit: cover; }
+
+/* the Elmo mascot and the Tango that runs by are hidden while the street scene is on screen (the scene has its own characters) */
+body.ss-in-street .ss-mascot, body.ss-in-street .ss-tango { opacity: 0; visibility: hidden; transition: opacity 200ms ease, visibility 0s linear 200ms; }
+
+/* the wave on top of the scene: white band with the flat modern wave as its lower edge (99px tall, 52px on phones, like the other seams of the Sesame pages) */
+.ss-street__wave { position: absolute; left: 0; right: 0; top: 0; z-index: 5; line-height: 0; pointer-events: none; }
+.ss-street__wave .fd-modern-wave { margin: 0; }
+.ss-street__wave svg { display: block; width: 100%; height: var(--ss-wave-h, 99px); }
+
+/* the picture is 21:9 with the family at about 67% of its width: on a phone only a thin slice shows, so centre it on the family (the plain wall for text is on the left, seen on wide screens) */
+@media (max-width: 749px) { .ss-street__inside img, .ss-street__still { object-position: 78% 50%; } }
+
+/* the sparkles of the fairy: they twinkle all the time (CSS only, not tied to the scroll). Stars grow, turn and fade; the dots only fade. Reduced motion: the rule at the top of sesame.css stops it. */
+.ss-street__tw img { animation: ss-street-glint var(--tw-dur, 2s) ease-in-out var(--tw-delay, 0s) infinite; }
+.ss-street__tw.is-star img { animation-name: ss-street-twinkle; transform-origin: 50% 50%; }
+@keyframes ss-street-glint { 0%, 100% { opacity: 0.1; } 50% { opacity: 1; } }
+@keyframes ss-street-twinkle { 0%, 100% { opacity: 0.15; transform: scale(0.45) rotate(-10deg); } 50% { opacity: 1; transform: scale(1.25) rotate(12deg); } }
+@media (prefers-reduced-motion: reduce) { .ss-street__tw img { animation: none !important; opacity: 1 !important; transform: none !important; } }
+
+/* clouds and the butterfly move on their own (CSS only, not tied to the scroll). Each cloud has its own distance, speed and start, the butterfly only floats a little (no flapping: squeezing a flat picture reads as a fake 3D turn). */
+.ss-street__cloud img { animation: ss-street-cloud var(--cl-dur, 50s) ease-in-out var(--cl-delay, 0s) infinite alternate; }
+@keyframes ss-street-cloud { from { transform: translateX(calc(var(--cl-amp, 50%) * -1)); } to { transform: translateX(var(--cl-amp, 50%)); } }
+.ss-street__fly { display: block; width: 100%; height: 100%; animation: ss-street-fly 8s ease-in-out infinite; }
+@keyframes ss-street-fly { 0%, 100% { transform: translate(0, 0) rotate(-2deg); } 25% { transform: translate(7%, -9%) rotate(2deg); } 50% { transform: translate(13%, -2%) rotate(-1deg); } 75% { transform: translate(5%, 8%) rotate(3deg); } }
+@media (prefers-reduced-motion: reduce) { .ss-street__cloud img, .ss-street__fly { animation: none !important; transform: none !important; } }
+
+/* the content on the plain wall of the inside picture: Sesame Street logo, title, description, text and one button. No shadows. */
+.ss-street__copy { position: absolute; z-index: 4; left: max(40px, 5vw); top: 50%; width: min(440px, 34vw); color: #000; text-align: left; opacity: 0; visibility: hidden; pointer-events: none; transform: translateY(calc(-50% + var(--ty, 0px))); font-family: 'sofia-pro', sans-serif; }
+.ss-street__logo { display: block; width: 150px; height: auto; margin: 0 0 26px; }
+.ss-street .ss-street__title { margin: 0 0 14px; font: 400 clamp(30px, 3.2vw, 46px) / 1.1 'sofia-pro', sans-serif !important; line-height: 1.1 !important; color: inherit; text-wrap: balance; }
+.ss-street__desc { margin: 0 0 14px; font: 700 clamp(17px, 1.5vw, 21px) / 1.35 'sofia-pro', sans-serif; text-wrap: balance; }
+.ss-street__text { margin: 0 0 26px; font: 400 clamp(15px, 1.2vw, 17px) / 1.55 'sofia-pro', sans-serif; text-wrap: pretty; }
+.ss-street__cta { display: inline-block; padding: 15px 32px; border-radius: 999px; background: var(--color-brand-noon-blue, #476ded); color: #fff; font: 700 17px / 1 'sofia-pro', sans-serif; text-decoration: none; transition: background 160ms ease; }
+.ss-street__cta:hover, .ss-street__cta:focus-visible { background: #3558d6; }
+/* reduced motion: the text sits on the picture, always there */
+.ss-street__still-wrap { position: relative; }
+.ss-street__copy.is-still { opacity: 1; visibility: visible; pointer-events: auto; transform: translateY(-50%); }
+/* phone: only a slice of the picture shows (the family), so the words sit over its top on a soft beige veil, short version (no long text) */
+@media (max-width: 749px) {
+  .ss-street__copy { left: 22px; right: 22px; width: auto; top: 92px; transform: translateY(var(--ty, 0px)); }
+  .ss-street__copy::before { content: ''; position: absolute; z-index: -1; inset: -100px -22px -46px; background: linear-gradient(180deg, rgba(246, 236, 222, 0.96) 0%, rgba(246, 236, 222, 0.92) 68%, rgba(246, 236, 222, 0) 100%); }
+  .ss-street__logo { width: 104px; margin-bottom: 14px; }
+  .ss-street .ss-street__title { font-size: 28px !important; margin-bottom: 8px; }
+  .ss-street__desc { font-size: 16px; margin-bottom: 14px; }
+  .ss-street__text { display: none; }
+  .ss-street__cta { padding: 13px 26px; font-size: 16px; }
+  .ss-street__copy.is-still { top: 24px; transform: none; }
+}
+
+
+.ss-street__inside picture, .ss-street__still-wrap picture { display: contents; }
+/* phone: bigger logo, title, description and button */
+@media (max-width: 749px) {
+  .ss-street__copy { left: 24px; right: 24px; top: 96px; }
+  .ss-street__logo { width: 156px; margin-bottom: 22px; }
+  .ss-street .ss-street__title { font-size: 40px !important; margin-bottom: 14px; }
+  .ss-street__desc { font-size: 21px; margin-bottom: 22px; }
+  .ss-street__cta { padding: 17px 34px; font-size: 20px; }
+  .ss-street__copy::before { inset: -110px -24px -70px; }
+}
+
+.ss-street .ss-street__title .ss-street__hl { color: inherit; font-weight: 700 !important; } /* the title is regular, only "Start At Home" is bold, all black */
+
+.ss-page .ss-street h2.ss-street__title { font-weight: 400 !important; } /* beats the page rule that makes every heading bold */
+.ss-page .ss-street h2.ss-street__title .ss-street__hl { font-weight: 700 !important; }

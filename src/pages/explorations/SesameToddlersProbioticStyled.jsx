@@ -9,6 +9,8 @@ import TempHero from '../../sections/TempHero.jsx';
 import Benefits from '../../sections/Benefits.jsx';
 import { TEMP_HERO_HOME, BENEFITS_HOME } from '../../data/sharedSections.js';
 import SesameFx from '../../sections/explorations/sesame/Fx.jsx';
+import StreetScroll from '../../sections/explorations/sesame/StreetScroll.jsx';
+import Seam from '../../sections/explorations/sesame/Seam.jsx';
 import '../../sections/explorations/sesame/sesame.css';
 
 // EXPLORATION (not a production page): /explorations/sesame-toddlers-probiotic  ("Sesame Street Toddlers' Probiotic")
@@ -52,7 +54,9 @@ const head = (sec, heading) => ({
 const custom = (id, render) => ({ id, type: 'custom', render });
 
 const SECTIONS = [
-  head(tint('image_with_text_6Q3NK6', SKY, '#ffffff', 'transparent', <OvKitchen />, '/assets/custom/ss-kitchen.jpg'), 'Potty Time Feeling Stuck? We Can Help, Neighbor!'),
+  custom('ss-street', () => <StreetScroll />), // right under the buy box: the street scene that moves with the scroll and zooms into a window (StreetScroll.jsx)
+  custom('ss-street-seam', () => <Seam from={SKY} to="transparent" flip className="ss-seam--up" />), // the sky blue wave of the next section lies over the end of the picture of the inside, whatever that picture is (before, the wave was a flat color that clashed with it)
+  head(tint('image_with_text_6Q3NK6', SKY, SKY, 'transparent', <OvKitchen />, '/assets/custom/ss-kitchen.jpg'), 'Potty Time Feeling Stuck? We Can Help, Neighbor!'),
   custom('ss-wholesome', () => <Wholesome friends={false} />),
   custom('ss-wave-join', () => <div className="ss-wave-join"><Waves position="top" color="#f2fbff" containerBackground="transparent" modern /></div>),
   head({ ...byId('c321e181-639c-4980-9b70-3f399c6c3e96'), settings: { ...byId('c321e181-639c-4980-9b70-3f399c6c3e96').settings, background_color: '#ffffff', colors_text: '#00ab4e' } }, 'What Is Going On In That Little Tummy, Neighbor?'),
@@ -99,7 +103,7 @@ const main = {
   ...BASE.main,
   PDP_PRODUCT: { ...BASE.main.PDP_PRODUCT, media: MEDIA, vanityTitle: 'Gentle 3-In-1 Tummy Helper For [Softer, Easier-To-Pass Stools]' },
   SLOT_INFO_TOP: <SignBadge limited />,
-  SLOT_QTY_HEADER: ({ qty }) => <CountBubble qty={qty} />,
+  SLOT_QTY_HEADER: ({ qty }) => <CountBubble qty={qty} unit="bottle" />, // "Four bottles! Ah ah ah!" (the owner asked for the word back; the license guidelines would rather have only "Four!", check with Sesame at approval)
   onAddToCart: celebrate,
 };
 const PAGE = { ...BASE, main, SECTIONS };

@@ -14,6 +14,7 @@ const BundleAddOn = lazy(() => import('./pages/explorations/BundleAddOn.jsx'));
 const MixedBundleBuilderQuizV1 = lazy(() => import('./pages/explorations/MixedBundleBuilderQuizV1.jsx'));
 const MixedBundleBuilderQuizV2 = lazy(() => import('./pages/explorations/MixedBundleBuilderQuizV2.jsx'));
 const SesameToddlersProbiotic = lazy(() => import('./pages/explorations/SesameToddlersProbiotic.jsx'));
+const SesameToddlersProbioticV2 = lazy(() => import('./pages/explorations/SesameToddlersProbioticV2.jsx'));
 const SesameToddlersMulti = lazy(() => import('./pages/explorations/SesameToddlersMulti.jsx'));
 const SesameToddlersBundle = lazy(() => import('./pages/explorations/SesameToddlersBundle.jsx'));
 const SesameToddlersBts = lazy(() => import('./pages/explorations/SesameToddlersBts.jsx'));
@@ -55,6 +56,7 @@ export default function App() {
                   <Route path="/explorations/mixed-bundle-builder-quiz-v1" element={<MixedBundleBuilderQuizV1 />} />
                   <Route path="/explorations/mixed-bundle-builder-quiz-v2" element={<MixedBundleBuilderQuizV2 />} />
                   <Route path="/explorations/sesame-toddlers-probiotic" element={<SesameToddlersProbiotic />} />
+                  <Route path="/explorations/sesame-toddlers-probiotic-v2" element={<SesameToddlersProbioticV2 />} />
                   <Route path="/explorations/sesame-toddlers-multi" element={<SesameToddlersMulti />} />
                   <Route path="/explorations/sesame-toddlers-bts" element={<SesameToddlersBts />} />
                   <Route path="/explorations/sesame-toddlers-bundle" element={<SesameToddlersBundle />} />
