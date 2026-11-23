@@ -226,7 +226,7 @@ function BenefitAccordion() {
 
 /* ---------- product_purchase_content + savings_display ---------- */
 function PurchaseContent() {
-  const ex = usePdpNew(); // the opt-in slots of the explorations (SLOT_QTY_HEADER, onAddToCart)
+  const ex = usePdpNew(); // the opt-in slots of the explorations (SLOT_QTY_HEADER, SLOT_AFTER_QTY, onAddToCart)
   const { PRODUCT, PURCHASE, SAVINGS_DISPLAY } = ex;
   const PRODUCT_TITLE = PRODUCT.title;
   const P = PURCHASE;
@@ -330,6 +330,7 @@ function PurchaseContent() {
             })}
           </div>
         </div>
+        {ex.SLOT_AFTER_QTY /* opt-in (explorations): a node under the quantity cards, right above Add To Cart (the "Choose The Edition" picker) */}
       </div>
 
       {/* savings_display (move_cart_summary): [cta mount] ATC button, [wrapper] Subtotal row, [rows mount] gift line */}

@@ -5,6 +5,8 @@
 - `src/sections/explorations/sesame/`: `sesame.css` (all styles, scoped by `.ss-page`, and `body.sesame-street` for the cart drawer), `Sections.jsx` (SignBadge, CountBubble, Wholesome, CountSection, MeetTheGang, `celebrate`, `duckRain`), `Stickers.jsx` (Ov* overlays, Sticker), `Fx.jsx` (SesameFx: mascot, Tango, confetti, ducks, `useReveal`), `ss.jsx` (CH, PR, BOTTLE, BOTTLE_SQ, LOGO, Char, Bubble, Digits, PALETTE, Sparkles).
 - Shared, opt-in and backward compatible: `components/ModernWave.jsx` + `Waves` prop `modern`; `ImageWithText`, `Multicolumn`, `RichText` read `settings.modern_waves`; `MainProductLegacy.jsx`: `SLOT_INFO_TOP`, `SLOT_MEDIA`, `SLOT_AFTER_QTY`, `SLOT_QTY_HEADER`, `onAddToCart`, gallery `media[i].overlay`; `ImageWithText` prop `overlay`; `ProductLegacy` section `type: 'custom'` with `render` and `overlay`.
 
+- `StreetScroll.jsx` + `street.css` (2026-11-19): the full screen street scene section under the buy box (sticky stage in a 5.2 screen runway, camera pan with parallax, characters hop, zoom into the window, inside picture clipped to the glass of the window; placeholder `house-inside-placeholder.webp`). Layers are cut from `street.svg` with `tools/street-split/`.
+
 ## Page building blocks (in the page file)
 - `byId(id)` finds a base section. `tint(id, color, above, below, overlay, image, extra)` colors an image-with-text section, sets its waves (`modern_waves: true`), replaces the picture by a file path and adds the sticker overlay; `extra = { bottom_waves: false }` for a section followed by another wave section.
 - `head(section, text)` replaces the heading (block `heading` or `settings.heading`).
