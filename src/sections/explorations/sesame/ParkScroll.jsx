@@ -14,12 +14,14 @@ import './parkV2.css';
 // Sesame Workshop guidelines: no character speaks or touches the product here, characters keep their size ratio, are not flipped and stay right side up.
 const BASE = '/assets/sesame/park/';
 const PHOTO = { src: '/assets/custom/ss-park-inside.webp', sky: '#74abd7', zoom: 2.4, pos: '100% 50%' };
-const PHOTO_M = { src: '/assets/custom/ss-park-inside-mobile.webp', sky: '#5c9fd2', zoom: 2.6 };
+const PHOTO_M = { src: '/assets/custom/ss-park-inside-mobile-v2.webp', sky: '#5c9fd2', zoom: 2.6 };
 const isPhone = () => window.matchMedia('(max-width: 749px)').matches;
 const SCENE = { w: 958, h: 327 };
 const RUNWAY = 6.4; // screen heights of scroll
 const A_END = 0.3; const B_END = 0.5; const C_END = 0.58; const D_END = 0.82; // the phases (see above)
-const CX_START = 150; const CX_PAN_END = 360; // where the camera looks at the start and at the end of the pan (clamped to the scene)
+const CX_START = 150; // phone: where the camera looks at the start of the pan (clamped to the scene)
+const CX_START_D = 560; const CX_PAN_END_D = 330; // on desktop the camera starts further right (Elmo, the bridge and the lamp) and 'walks' left to the rest of the gang
+const CX_PAN_END_M = 410; // on a phone the pan goes a little further right, so that all of Elmo is on screen before the camera tilts up to the sky
 const TILT_ZOOM = 1.4; // how much closer the camera gets while it tilts up into the sky
 
 // the layers back to front. x y w h: where the picture sits in the scene (units). f: how fast it moves against the camera (1 = like the background, more = closer)
@@ -33,12 +35,17 @@ const LAYERS = [
   { key: 'cloud4', x: 482.16, y: 48.011, w: 73.54, h: 24.71, f: 0.9, cloud: { amp: 50, dur: 58, delay: -8 } },
   { key: 'cloud5', x: 785.2, y: 18.721, w: 68.9, h: 25.34, f: 0.9, cloud: { amp: 60, dur: 66, delay: -22 } },
   { key: 'cloud6', x: 898.991, y: 35.691, w: 29.08, h: 11.41, f: 0.9, cloud: { amp: 90, dur: 60, delay: -40 } },
-  { key: 'xc1', file: 'p-cloud4.webp', x: 250, y: -70, w: 73.54, h: 24.71, f: 0.9, cloud: { amp: 40, dur: 48, delay: -10 } },
-  { key: 'xc2', file: 'p-cloud5.webp', x: 420, y: -150, w: 75.79, h: 27.87, f: 0.9, cloud: { amp: 48, dur: 55, delay: -19 } },
-  { key: 'xc3', file: 'p-cloud3.webp', x: 330, y: -215, w: 67.68, h: 24.74, f: 0.9, cloud: { amp: 56, dur: 62, delay: -28 } },
-  { key: 'xc4', file: 'p-cloud1.webp', x: 470, y: -105, w: 59.56, h: 22.01, f: 0.9, cloud: { amp: 64, dur: 69, delay: -37 } },
-  { key: 'xc5', file: 'p-cloud6.webp', x: 210, y: -175, w: 46.53, h: 18.26, f: 0.9, cloud: { amp: 72, dur: 76, delay: -46 } },
-  { key: 'xc6', file: 'p-cloud2.webp', x: 520, y: -190, w: 59.15, h: 19.22, f: 0.9, cloud: { amp: 80, dur: 83, delay: -55 } },
+  { key: 'xc1', desk: true, file: 'p-cloud4.webp', x: 250, y: -70, w: 73.54, h: 24.71, f: 0.9, cloud: { amp: 40, dur: 48, delay: -10 } },
+  { key: 'xc2', desk: true, file: 'p-cloud5.webp', x: 420, y: -150, w: 75.79, h: 27.87, f: 0.9, cloud: { amp: 48, dur: 55, delay: -19 } },
+  { key: 'xc3', desk: true, file: 'p-cloud3.webp', x: 330, y: -215, w: 67.68, h: 24.74, f: 0.9, cloud: { amp: 56, dur: 62, delay: -28 } },
+  { key: 'xc4', desk: true, file: 'p-cloud1.webp', x: 470, y: -105, w: 59.56, h: 22.01, f: 0.9, cloud: { amp: 64, dur: 69, delay: -37 } },
+  { key: 'xc5', desk: true, file: 'p-cloud6.webp', x: 210, y: -175, w: 46.53, h: 18.26, f: 0.9, cloud: { amp: 72, dur: 76, delay: -46 } },
+  { key: 'xc6', desk: true, file: 'p-cloud2.webp', x: 520, y: -190, w: 59.15, h: 19.22, f: 0.9, cloud: { amp: 80, dur: 83, delay: -55 } },
+  // the clouds of the phone (xc1 to xc6 are for wide screens): the camera is zoomed in, so the strip of sky it looks at is narrow (x 356 to 464). Four clouds, one per band of height, spread from left to right. Their x is 26 units left of where they show: at f 0.9 the pan pushes them right by (1 - f) times the distance the camera moved
+  { key: 'pc1', file: 'p-cloud3.webp', phone: true, x: 335, y: -205, w: 50.8, h: 18.6, f: 0.9, cloud: { amp: 25, dur: 58, delay: -27 } },
+  { key: 'pc2', file: 'p-cloud5.webp', phone: true, x: 386, y: -150, w: 53, h: 19.5, f: 0.9, cloud: { amp: 25, dur: 66, delay: -12 } },
+  { key: 'pc3', file: 'p-cloud1.webp', phone: true, x: 343, y: -92, w: 53.6, h: 19.8, f: 0.9, cloud: { amp: 25, dur: 54, delay: -6 } },
+  { key: 'pc4', file: 'p-cloud4.webp', phone: true, x: 365, y: -40, w: 51.5, h: 17.3, f: 0.9, cloud: { amp: 25, dur: 62, delay: -33 } },
   { key: 'bg', x: 0, y: 8.36, w: 958, h: 318.64, f: 1 },
   { key: 'grover', x: 181.43, y: 138.92, w: 67.531, h: 57.931, move: { dx: 12, hop: 3, n: 3 } },
   { key: 'cookie', x: 81.07, y: 102.52, w: 128.389, h: 121.02, move: { dx: 14, hop: 2.5, n: 2 } },
@@ -124,8 +131,10 @@ export default function ParkScroll() {
       const z0 = Math.max(vw / SCENE.w, vh / SCENE.h);
       const z = z0 * (1 + (TILT_ZOOM - 1) * tB);
       const half0 = vw / (2 * z0);
-      const cxStart = clamp(CX_START, half0, SCENE.w - half0);
-      const cx = clamp(lerp(CX_START, CX_PAN_END, ease(pa)), half0, SCENE.w - half0);
+      const phone = vw < 750;
+      const camA = phone ? CX_START : CX_START_D; const camB = phone ? CX_PAN_END_M : CX_PAN_END_D;
+      const cxStart = clamp(camA, half0, SCENE.w - half0);
+      const cx = clamp(lerp(camA, camB, ease(pa)), half0, SCENE.w - half0);
       const zEnd = z0 * TILT_ZOOM;
       const cy0 = vh / (2 * z0); const cyEnd = -vh / (2 * zEnd) - 14; // at the end the bottom edge of the screen is just above the top of the scene: only sky
       const cy = lerp(cy0, cyEnd, tB);
@@ -145,7 +154,7 @@ export default function ParkScroll() {
         const k = l.mScale && vw < 750 ? l.mScale : 1; // on a phone only a slice of the park shows: Elmo is a little smaller (anchored at his feet) so that his arm is not cut
         const pw0 = l.w * z; const ph0 = l.h * z; const pw = pw0 * k; const ph = ph0 * k;
         const px = tx + (l.x + dx) * z + (pw0 - pw) / 2; const py = ty + (l.y + dy) * z + (ph0 - ph);
-        const seen = px < vw + 40 && px + pw > -40 && py < vh + 40 && py + ph > -40; // off screen layers are not drawn
+        const seen = !(l.phone && vw >= 750) && !(l.desk && vw < 750) && px < vw + 40 && px + pw > -40 && py < vh + 40 && py + ph > -40; // off screen layers are not drawn
         el.style.visibility = seen ? 'visible' : 'hidden';
         if (!seen) return;
         el.style.width = `${pw}px`; el.style.height = `${ph}px`;

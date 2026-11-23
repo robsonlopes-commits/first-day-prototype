@@ -9,12 +9,14 @@ export const EDITIONS = [
   { id: 'sesame', label: 'Sesame Street', image: '/assets/sesame/bottle-sesame-toddlers-probiotic.png', alt: 'First Day Toddlers Pre + Post Probiotic bottle, Sesame Street edition' },
 ];
 
-export default function EditionPicker({ value, onChange }) {
+// `editions`: the two cards of another product (the Multi page passes its own bottles); the default is the Toddlers' Probiotic
+// `sameSize`: the Sesame bottle is shown at the same size and place as the original one (for products whose two bottles have the same shape)
+export default function EditionPicker({ value, onChange, editions = EDITIONS, sameSize = false }) {
   return (
-    <div className="fd-edition" data-component="edition-picker">
+    <div className={`fd-edition${sameSize ? ' fd-edition--same' : ''}`} data-component="edition-picker">
       <h2 className="PBFCM-PDP-frequency-selector__title fd-edition__title">Choose The Edition</h2>
       <div className="fd-edition__grid" role="radiogroup" aria-label="Choose the edition">
-        {EDITIONS.map((f) => {
+        {editions.map((f) => {
           const on = value === f.id;
           return (
             <button key={f.id} data-id={f.id} type="button" role="radio" aria-checked={on} className={`fd-edition__card${on ? ' is-selected' : ''}`} onClick={() => onChange(f.id)}>

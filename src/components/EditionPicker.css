@@ -25,3 +25,11 @@
   background-image: var(--fd-cloud), var(--fd-cloud), var(--fd-cloud); background-position: -6% 8%, 104% -4%, 52% -14%; background-size: 46% auto, 40% auto, 26% auto;
   --fd-cloud: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 220 100'%3E%3Cg fill='white'%3E%3Ccircle cx='62' cy='62' r='28'/%3E%3Ccircle cx='104' cy='42' r='38'/%3E%3Ccircle cx='146' cy='58' r='30'/%3E%3Ccircle cx='182' cy='68' r='22'/%3E%3Crect x='34' y='62' width='170' height='32' rx='16'/%3E%3C/g%3E%3C/svg%3E"); }
 .fd-edition__abby { position: absolute; right: 4%; bottom: 14%; height: 54%; width: auto; aspect-ratio: 275 / 245; max-width: none; pointer-events: none; transform: scaleX(-1); } /* facing left, toward the bottle: she flies off to the left, forward */
+
+/* sameSize (the Multi page): the Sesame bottle has the size and the place of the original one in its card, so the two cards compare like for like; Abby stays in the sky beside it (on phones, smaller and in the top right corner) */
+.fd-edition--same .fd-edition__card[data-id='sesame'] .fd-edition__media .fd-edition__bottle { width: 150%; left: 50%; --y: -31%; }
+.fd-edition--same .fd-edition__abby { right: 1%; top: 3%; bottom: auto; height: 27%; }
+@media (min-width: 990px) {
+  .fd-edition--same .fd-edition__card[data-id='sesame'] .fd-edition__media .fd-edition__bottle { width: 72%; left: 50%; --y: -35%; }
+  .fd-edition--same .fd-edition__abby { right: 4%; top: auto; bottom: 14%; height: 54%; }
+}

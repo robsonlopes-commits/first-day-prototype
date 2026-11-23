@@ -48,8 +48,8 @@
 .ss-st--talk:hover .ss-bubble, .ss-st--talk:focus-visible .ss-bubble, .ss-st--talk.is-on .ss-bubble { opacity: 1; transform: none; }
 .ss-ov .ss-bubble { --tail: 1.8cqw; --bw: 0.4cqw; }
 @media (max-width: 749px) {
-  .ss-page--probiotic .ss-st .ss-bubble, .ss-page--probiotic .ss-ov .ss-bubble { font-size: 4.6cqw; line-height: 1.2; padding: 1.4cqw 3cqw; } /* phones: the picture is small, so the words in the bubbles were about 10px; now about 16px */
-  .ss-page--probiotic .ss-ov .ss-st { height: calc(var(--ss-h) * 1.2) !important; } /* and the friends are a bit bigger (they stay on their spot: the bottom and the side do not move) */
+  .ss-page--probiotic .ss-st .ss-bubble, .ss-page--probiotic .ss-ov .ss-bubble, .ss-page--multi .ss-st .ss-bubble, .ss-page--multi .ss-ov .ss-bubble { font-size: 4.6cqw; line-height: 1.2; padding: 1.4cqw 3cqw; } /* phones: the picture is small, so the words in the bubbles were about 10px; now about 16px */
+  .ss-page--probiotic .ss-ov .ss-st, .ss-page--multi .ss-ov .ss-st { height: calc(var(--ss-h) * 1.2) !important; } /* and the friends are a bit bigger (they stay on their spot: the bottom and the side do not move) */
 }
 
 /* ------------------------------------------------------------------ the buy box section */
@@ -293,6 +293,8 @@ body.sesame-street h4.primary-title.mini-cart-upsell-message { font-family: 'sof
   .ss-gang__bubble { margin-left: -60px; }
   .ss-gang__row li:last-child .ss-gang__bubble { margin-left: -78px; } /* the last friend: the bubble keeps 18px from the screen edge */
 }
+/* the Multi page has no Oscar above the FAQ: its hero wave covers him and only the trash can was left loose */
+.ss-page--multi #shopify-section-cbd9ad2b-f52f-4a45-9c26-7fd50e23bd41::after { display: none; }
 /* phones: the Oscar of the FAQ stays inside the wave strip, under the heading */
 @media (max-width: 749px) {
   .ss-page #shopify-section-cbd9ad2b-f52f-4a45-9c26-7fd50e23bd41::after { top: -46px; right: 4%; width: 84px; height: 66px; }
@@ -385,7 +387,7 @@ body.sesame-street h4.primary-title.mini-cart-upsell-message { font-family: 'sof
 .ss-page .PBFCM-PDP-cart-summary__button::before { content: none !important; display: none !important; }
 /* the strip with the logo: white on the sky, so it does not compete with the yellow of the logo */
 .ss-page .ss-sign { background: #ffffff; border: 2px solid #bfe0fa; }
-.ss-page--probiotic .ss-sign b { white-space: nowrap; } /* "Limited Edition" stays on one line */
+.ss-page--probiotic .ss-sign b, .ss-page--multi .ss-sign b { white-space: nowrap; } /* "Limited Edition" stays on one line */
 /* Meet The Gang to scale: Big Bird is the tallest (270px, 190px on phones), the others by the ratio of the chart; one height formula for all */
 .ss-gang--scaled { --ss-gh: 270px; }
 .ss-gang--scaled .ss-gang__row .ss-char { height: calc(var(--ss-gh) * var(--s)) !important; }

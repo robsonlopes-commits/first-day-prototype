@@ -55,6 +55,15 @@ const LAYERS = [
   { key: 'butterfly', x: 91.189, y: 224.15, w: 38.87, h: 36.36, f: 1.25, fly: true }, // floats a little on its own (no wing flap, squeezing the flat picture looked like a fake 3D turn)
 ];
 
+// the wide street (street3.svg, 744 x 314: 103 units more on the right) for wide screens of the pages that ask for it (`wide` prop): the camera starts at the far right and has about three times more street to walk
+// to the left. Only the sky, the far city, the street and the back foreground are wider; every other layer is the same art at the same place. On a phone the normal street is used.
+const WIDE = {
+  scene: { w: 744, h: 314 }, cxStart: 600,
+  over: {
+    sky: { file: 's4-sky.webp', w: 744 }, far: { file: 's4-far.webp', w: 744 }, street: { file: 's4-street.webp', w: 744 }, fgback: { file: 's4-fgback.webp', w: 595.851 },
+  },
+};
+const LAYERS_WIDE = LAYERS.map((l) => (WIDE.over[l.key] ? { ...l, ...WIDE.over[l.key] } : l));
 const src = (l) => `${BASE}${l.file || `s2-${l.key}.webp`}`;
 const clamp = (v, a, b) => Math.min(b, Math.max(a, v));
 const lerp = (a, b, t) => a + (b - a) * t;
@@ -65,17 +74,35 @@ const hop = (amp, n, p) => -amp * Math.abs(Math.sin(Math.PI * n * p)); // n whol
 // the content on the plain wall of the inside picture (left on wide screens, over the top of the picture on a phone). Words of the owner's brief (2026-11-19), invented, pending owner review.
 // No character speaks here and the logo sits alone above the words (Sesame Workshop guidelines: the logo never goes next to a character line that sounds like an endorsement).
 const goTop = (e) => { e.preventDefault(); (document.getElementById('top') || document.body).scrollIntoView({ behavior: 'smooth' }); };
-const Copy = ({ innerRef, still }) => (
+// the words of the Toddlers' Probiotic page; another page passes its own `copy`
+const COPY = {
+  title: 'Happy Tummies ', hl: 'Start At Home', desc: 'Gentle gut support for toddlers, in one yummy daily gummy.',
+  text: 'Our 3 in 1 pre, post and probiotic helps support softer, easier to pass stools,* with no junk and nothing fake. Because potty time should feel a little more like a good day.', cta: 'Start The Adventure',
+};
+const Copy = ({ innerRef, still, c }) => (
   <div ref={innerRef} className={`ss-street__copy${still ? ' is-still' : ''}`}>
     <img className="ss-street__logo" src={LOGO} alt="Sesame Street" draggable="false" />
-    <h2 className="ss-street__title">Happy Tummies <span className="ss-street__hl">Start At Home</span></h2>
-    <p className="ss-street__desc">Gentle gut support for toddlers, in one yummy daily gummy.</p>
-    <p className="ss-street__text">Our 3 in 1 pre, post and probiotic helps support softer, easier to pass stools,* with no junk and nothing fake. Because potty time should feel a little more like a good day.</p>
-    <a className="ss-street__cta" href="#top" onClick={goTop}>Start The Adventure</a>
+    <h2 className="ss-street__title">{c.title}<span className="ss-street__hl">{c.hl}</span></h2>
+    <p className="ss-street__desc">{c.desc}</p>
+    <p className="ss-street__text">{c.text}</p>
+    <a className="ss-street__cta" href="#top" onClick={goTop}>{c.cta}</a>
   </div>
 );
 
-export default function StreetScroll() {
+// `copy`: the words on the wall; `pictures`: { inside, insideM, alt } the wide and the tall picture of the inside and the alt text (default: the Probiotic page)
+export default function StreetScroll({ copy: c = COPY, pictures = {}, wide: wideProp = false }) {
+  const [wide, setWide] = useState(() => wideProp && !isPhone()); // the wide street is for wide screens only
+  useEffect(() => {
+    if (!wideProp) return undefined;
+    const mq = window.matchMedia('(max-width: 749px)');
+    const on = () => setWide(!mq.matches);
+    on(); mq.addEventListener('change', on);
+    return () => mq.removeEventListener('change', on);
+  }, [wideProp]);
+  const LY = wide ? LAYERS_WIDE : LAYERS; const SC = wide ? WIDE.scene : SCENE; const CXS = wide ? WIDE.cxStart : CX_START;
+  const INSIDE_P = pictures.inside ? { src: pictures.inside } : INSIDE;
+  const INSIDE_PM = pictures.insideM ? { src: pictures.insideM } : INSIDE_M;
+  const insideAlt = pictures.alt || 'A family on a sofa at home, the toddler holds the probiotic bottle';
   const section = useRef(null);
   const stage = useRef(null);
   const inside = useRef(null);
@@ -97,9 +124,9 @@ export default function StreetScroll() {
 
   // warm the pictures (decoded) before the shopper gets here, so the scene never pops in while scrolling
   useEffect(() => {
-    LAYERS.forEach((l) => { const im = new Image(); im.src = src(l); if (im.decode) im.decode().catch(() => {}); });
-    const inner = new Image(); inner.src = (isPhone() ? INSIDE_M : INSIDE).src; if (inner.decode) inner.decode().catch(() => {});
-  }, []);
+    LY.forEach((l) => { const im = new Image(); im.src = src(l); if (im.decode) im.decode().catch(() => {}); });
+    const inner = new Image(); inner.src = (isPhone() ? INSIDE_PM : INSIDE_P).src; if (inner.decode) inner.decode().catch(() => {});
+  }, [LY]);
 
   useEffect(() => {
     const sec = section.current; const st = stage.current;
@@ -116,23 +143,23 @@ export default function StreetScroll() {
       const tb = ease(clamp((P - A_END) / (TB_END - A_END), 0, 1)); // zoom progress
 
       // the camera: "cover" zoom at rest (the scene fills the screen in both directions), then the zoom into the window
-      const z0 = Math.max(vw / SCENE.w, vh / SCENE.h);
+      const z0 = Math.max(vw / SC.w, vh / SC.h);
       const zEnd = Math.max(vh / PANE.h, vw / PANE.w) * 1.03;
       const z = z0 * (zEnd / z0) ** tb;
       const halfW = vw / (2 * z); const halfH = vh / (2 * z);
       const half0 = vw / (2 * z0);
-      const cxA = clamp(lerp(CX_START, CX_PAN_END, pa), half0, SCENE.w - half0); // pan at the rest zoom
+      const cxA = clamp(lerp(CXS, CX_PAN_END, pa), half0, SC.w - half0); // pan at the rest zoom
       const cxEnd = PANE.x + PANE.w / 2;
       const tp = 1 - (1 - tb) ** 2.6; // the camera moves to the window faster than it zooms, so the window is never off screen while we dive
-      const cx = clamp(lerp(cxA, cxEnd, tp), halfW, SCENE.w - halfW);
+      const cx = clamp(lerp(cxA, cxEnd, tp), halfW, SC.w - halfW);
       const cyStart = vh / (2 * z0); // on a screen wider than the scene the picture is cropped top and bottom: keep the TOP (more sky, the top of the building, Abby lower on the screen) and crop the bottom instead. On a tall phone this is the middle, the whole height fits.
-      const cy = clamp(lerp(cyStart, PANE.y + PANE.h / 2, tp), halfH, SCENE.h - halfH);
-      const cxStart = clamp(CX_START, half0, SCENE.w - half0);
+      const cy = clamp(lerp(cyStart, PANE.y + PANE.h / 2, tp), halfH, SC.h - halfH);
+      const cxStart = clamp(CXS, half0, SC.w - half0);
       const shift = cxStart - cx; // how far the camera has moved to the left: parallax layers use it
       const tx = vw / 2 - cx * z; const ty = vh / 2 - cy * z;
 
       // the layers: depth (f) and the little motions of the characters
-      LAYERS.forEach((l) => {
+      LY.forEach((l) => {
         const el = layerEls.current[l.key]; if (!el) return;
         let dx = 0; let dy = 0;
         if (l.f && l.f !== 1) dx = (l.f - 1) * shift;
@@ -176,27 +203,27 @@ export default function StreetScroll() {
     window.addEventListener('scroll', schedule, { passive: true });
     window.addEventListener('resize', schedule);
     return () => { ro.disconnect(); window.removeEventListener('scroll', schedule); window.removeEventListener('resize', schedule); if (raf) window.cancelAnimationFrame(raf); };
-  }, [still]);
+  }, [still, LY]);
 
   return (
     <section ref={section} className={`ss-street${still ? ' is-still' : ''}`} style={still ? undefined : { '--ss-street-runway': RUNWAY }} aria-label="A Sesame Street scene. Keep scrolling to look through a window into the house.">
       {/* the flat wave of the Sesame pages where the buy box (white) meets the scene, instead of a straight line. It belongs to the top of the runway, so it scrolls away once the stage sticks */}
       {still ? null : <div className="ss-street__wave" aria-hidden="true"><ModernWave position="bottom" color="#ffffff" containerBackground="transparent" /></div>}
       <div ref={stage} className="ss-street__stage">
-        {LAYERS.map((l) => (
+        {LY.map((l) => (
           <div key={l.key} ref={(el) => { layerEls.current[l.key] = el; }} className={`ss-street__layer${l.tw ? ` ss-street__tw${l.tw.spin ? ' is-star' : ''}` : ''}${l.cloud ? ' ss-street__cloud' : ''}`} style={{ visibility: 'hidden', ...(l.tw ? { '--tw-dur': `${l.tw.dur}s`, '--tw-delay': `${l.tw.delay}s` } : {}), ...(l.cloud ? { '--cl-amp': `${l.cloud.amp}%`, '--cl-dur': `${l.cloud.dur}s`, '--cl-delay': `${l.cloud.delay}s` } : {}) }}>
             {l.fly ? <span className="ss-street__fly"><img src={src(l)} alt="" draggable="false" decoding="async" /></span> : <img src={src(l)} alt="" draggable="false" decoding="async" />}
           </div>
         ))}
         {still ? null : (
           <div ref={inside} className="ss-street__inside">
-            <picture><source media="(max-width: 749px)" srcSet={INSIDE_M.src} /><img ref={insideImg} src={INSIDE.src} alt="" draggable="false" decoding="async" /></picture>
+            <picture><source media="(max-width: 749px)" srcSet={INSIDE_PM.src} /><img ref={insideImg} src={INSIDE_P.src} alt="" draggable="false" decoding="async" /></picture>
           </div>
         )}
-        {still ? null : <Copy innerRef={copy} />}
+        {still ? null : <Copy innerRef={copy} c={c} />}
         {still ? null : <div ref={hint} className="ss-street__hint" aria-hidden="true">Scroll<span aria-hidden="true">↓</span></div>}
       </div>
-      {still ? <div className="ss-street__still-wrap"><picture><source media="(max-width: 749px)" srcSet={INSIDE_M.src} /><img className="ss-street__still" src={INSIDE.src} alt="A family on a sofa at home, the toddler holds the probiotic bottle" draggable="false" /></picture><Copy still /></div> : null}
+      {still ? <div className="ss-street__still-wrap"><picture><source media="(max-width: 749px)" srcSet={INSIDE_PM.src} /><img className="ss-street__still" src={INSIDE_P.src} alt={insideAlt} draggable="false" /></picture><Copy still c={c} /></div> : null}
     </section>
   );
 }

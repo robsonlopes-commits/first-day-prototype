@@ -5,7 +5,7 @@
 .ss-park__layer img { display: block; width: 100%; height: 100%; max-width: none; user-select: none; -webkit-user-drag: none; }
 /* the photo of the family in the park: a fixed cover fit of the screen that fades in zoomed into its own sky and zooms out (the script sets opacity and the scale) */
 .ss-park__photo { position: absolute; inset: 0; opacity: 0; visibility: hidden; pointer-events: none; }
-.ss-park__photo img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: 100% 50%; transform-origin: 25% 0%; will-change: transform; }
+.ss-park__photo img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: 100% 50%; transform-origin: 10% 0%; will-change: transform; }
 .ss-park__hint { position: absolute; left: 50%; bottom: 28px; transform: translateX(-50%); display: flex; align-items: center; gap: 8px; padding: 8px 20px 10px; border-radius: 999px; background: rgba(255, 255, 255, 0.5); -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px); color: var(--ss-ink, #1f3a70); font: 700 15px/1 'sofia-pro', sans-serif; pointer-events: none; } /* always on, always see through; the padding is uneven on purpose, Sofia Pro sits low in its line box */
 .ss-park__hint span { position: relative; top: 1px; font-size: 17px; line-height: 1; animation: ss-park-nudge 1.4s ease-in-out infinite; }
 @keyframes ss-park-nudge { 50% { transform: translateY(3px); } }
@@ -53,7 +53,7 @@ body.ss-in-park .ss-mascot, body.ss-in-park .ss-tango { opacity: 0; visibility: 
 /* phone: only a slice of the picture shows (the family), so the words sit over its top on a soft sky veil, short version (no long text) */
 @media (max-width: 749px) {
   .ss-park__copy { left: 22px; right: 22px; width: auto; top: 92px; transform: translateY(var(--ty, 0px)); }
-  .ss-park__copy::before { content: ''; position: absolute; z-index: -1; inset: -100px -22px -46px; background: linear-gradient(180deg, rgba(232, 245, 255, 0.94) 0%, rgba(232, 245, 255, 0.9) 68%, rgba(232, 245, 255, 0) 100%); }
+  .ss-park__copy::before { content: ''; position: absolute; z-index: -1; inset: -130px -90px -120px; background: radial-gradient(closest-side ellipse at 50% 50%, rgba(232, 245, 255, 0.9) 0%, rgba(232, 245, 255, 0.8) 55%, rgba(232, 245, 255, 0) 100%); } /* the same soft white cloud behind the words as on desktop */
   .ss-park__logo { width: 104px; margin-bottom: 14px; }
   .ss-park .ss-park__title { font-size: 28px !important; margin-bottom: 8px; }
   .ss-park__desc { font-size: 16px; margin-bottom: 14px; }
@@ -71,7 +71,7 @@ body.ss-in-park .ss-mascot, body.ss-in-park .ss-tango { opacity: 0; visibility: 
   .ss-park .ss-park__title { font-size: 40px !important; margin-bottom: 14px; }
   .ss-park__desc { font-size: 21px; margin-bottom: 22px; }
   .ss-park__cta { padding: 17px 34px; font-size: 20px; }
-  .ss-park__copy::before { inset: -110px -24px -70px; }
+  .ss-park__copy::before { inset: -150px -100px -130px; }
 }
 
 .ss-park .ss-park__title .ss-park__hl { color: inherit; font-weight: 700 !important; } /* the title is regular, only "Start At Home" is bold, all black */
