@@ -4,7 +4,7 @@ import EditionPicker from '../../components/EditionPicker.jsx';
 import EditionMagic, { SWAP_AT, END_AT } from '../../components/EditionMagic.jsx';
 import { TODDLERS_PROBIOTIC_PAGE } from '../../data/pdp/toddlersProbiotic.js';
 
-// EXPLORATION: /explorations/sesame-toddlers-probiotic
+// EXPLORATION: /explorations/sesame-toddlers-probiotic (the first street version was removed on 2026-11-23: this one, with the park parallax, is the one we keep)
 // The page starts as the ORIGINAL (the production replica of /products/toddlers-3-in-1-probiotic: white, original assets and copy). The Sesame Street edition lives in
 // SesameToddlersProbioticStyled.jsx (colors, waves, characters, new copy; its CSS and code are loaded only when it is picked, so the original stays untouched). The "Choose The Edition"
 // picker of the buy box (Original / Sesame Street) switches between the two; it is in both versions, in the same place. ?sesame=1 opens the Sesame version directly.

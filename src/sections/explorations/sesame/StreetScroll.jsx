@@ -13,10 +13,8 @@ import './street.css';
 // compositor layers: a 6410 px wide world with will-change left white, unrasterized tiles at the bottom on the first scroll).
 // Sesame Workshop guidelines: no character speaks or touches the product here, characters keep their size ratio, are not flipped and stay right side up.
 const BASE = '/assets/sesame/street/';
-// the picture of the inside: a wide one (the owner's adaptation of an AI generated mockup, plain wall on the left for text, family on the right) and a tall one for phones (empty wall and ceiling on top for the text, family at the bottom).
-// It is a fixed cover fit of the screen (css object-position in street.css) seen through the glass of the window: the glass starts on the plain wall and a bit of the sofa and shows the people as it grows. The picture does not slide.
-const INSIDE = { src: '/assets/custom/ss-house-inside-v2.webp' };
-const INSIDE_M = { src: '/assets/custom/ss-house-inside-mobile-v2.webp' };
+// the pictures of the inside (a wide one and a tall one for phones, plain wall for the text, family at the bottom) come from the page (`pictures`). Each is a fixed cover fit of the screen (css object-position in street.css)
+// seen through the glass of the window: the glass starts on the plain wall and a bit of the sofa and shows the people as it grows. The picture does not slide.
 const isPhone = () => window.matchMedia('(max-width: 749px)').matches;
 const SCENE = { w: 641, h: 314 };
 const PANE = { x: 103, y: 97, w: 19, h: 30 }; // the glass of the highlighted window (second floor, the one above the little plant)
@@ -74,11 +72,6 @@ const hop = (amp, n, p) => -amp * Math.abs(Math.sin(Math.PI * n * p)); // n whol
 // the content on the plain wall of the inside picture (left on wide screens, over the top of the picture on a phone). Words of the owner's brief (2026-11-19), invented, pending owner review.
 // No character speaks here and the logo sits alone above the words (Sesame Workshop guidelines: the logo never goes next to a character line that sounds like an endorsement).
 const goTop = (e) => { e.preventDefault(); (document.getElementById('top') || document.body).scrollIntoView({ behavior: 'smooth' }); };
-// the words of the Toddlers' Probiotic page; another page passes its own `copy`
-const COPY = {
-  title: 'Happy Tummies ', hl: 'Start At Home', desc: 'Gentle gut support for toddlers, in one yummy daily gummy.',
-  text: 'Our 3 in 1 pre, post and probiotic helps support softer, easier to pass stools,* with no junk and nothing fake. Because potty time should feel a little more like a good day.', cta: 'Start The Adventure',
-};
 const Copy = ({ innerRef, still, c }) => (
   <div ref={innerRef} className={`ss-street__copy${still ? ' is-still' : ''}`}>
     <img className="ss-street__logo" src={LOGO} alt="Sesame Street" draggable="false" />
@@ -89,8 +82,8 @@ const Copy = ({ innerRef, still, c }) => (
   </div>
 );
 
-// `copy`: the words on the wall; `pictures`: { inside, insideM, alt } the wide and the tall picture of the inside and the alt text (default: the Probiotic page)
-export default function StreetScroll({ copy: c = COPY, pictures = {}, wide: wideProp = false }) {
+// `copy`: the words on the wall { title, hl, desc, text, cta }; `pictures`: { inside, insideM, alt } the wide and the tall picture of the inside and the alt text. Both come from the page.
+export default function StreetScroll({ copy: c, pictures, wide: wideProp = false }) {
   const [wide, setWide] = useState(() => wideProp && !isPhone()); // the wide street is for wide screens only
   useEffect(() => {
     if (!wideProp) return undefined;
@@ -100,9 +93,9 @@ export default function StreetScroll({ copy: c = COPY, pictures = {}, wide: wide
     return () => mq.removeEventListener('change', on);
   }, [wideProp]);
   const LY = wide ? LAYERS_WIDE : LAYERS; const SC = wide ? WIDE.scene : SCENE; const CXS = wide ? WIDE.cxStart : CX_START;
-  const INSIDE_P = pictures.inside ? { src: pictures.inside } : INSIDE;
-  const INSIDE_PM = pictures.insideM ? { src: pictures.insideM } : INSIDE_M;
-  const insideAlt = pictures.alt || 'A family on a sofa at home, the toddler holds the probiotic bottle';
+  const INSIDE_P = { src: pictures.inside };
+  const INSIDE_PM = { src: pictures.insideM };
+  const insideAlt = pictures.alt;
   const section = useRef(null);
   const stage = useRef(null);
   const inside = useRef(null);

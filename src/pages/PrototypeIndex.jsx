@@ -13,11 +13,10 @@ const GROUPS = {
 const explorations = [
   { to: '/explorations/mixed-bundle-builder-quiz-v1-3', name: 'Quiz v1-3', desc: 'Text only footer, no pictures.', date: '2026-11-18', group: 'mbb' },
   { to: '/explorations/mixed-bundle-builder-quiz-v1-2', name: 'Quiz v1-2', desc: 'Footer with a small next gift picture.', date: '2026-11-18', group: 'mbb' },
-  { to: '/explorations/sesame-toddlers-probiotic-v2', name: 'Toddlers Probiotic v2', desc: 'Park parallax, a family on a bench.', date: '2026-11-19', group: 'sesame' },
   { to: '/explorations/sesame-toddlers-bts', name: 'Toddlers Behind the Science', desc: 'Sesame edition of the Toddlers Multi landing.', date: '2026-11-12', group: 'sesame' },
-  { to: '/explorations/sesame-toddlers-bundle', name: 'Toddlers Starter Pack', desc: 'Sesame edition of the Starter Pack PDP.', date: '2026-11-12', group: 'sesame' },
+  { to: '/explorations/sesame-toddlers-bundle', name: 'Toddlers Starter Pack', desc: 'Original first, Sesame edition, street scene.', date: '2026-11-12', group: 'sesame' },
   { to: '/explorations/sesame-toddlers-multi', name: 'Toddlers Multi', desc: 'Original first, Sesame edition, street scene.', date: '2026-11-12', group: 'sesame' },
-  { to: '/explorations/sesame-toddlers-probiotic', name: 'Toddlers Probiotic', desc: 'Sesame edition of the Probiotic PDP.', date: '2026-11-12', group: 'sesame' },
+  { to: '/explorations/sesame-toddlers-probiotic', name: 'Toddlers Probiotic', desc: 'Park parallax, a family on a bench.', date: '2026-11-12', group: 'sesame' },
   { to: '/explorations/family-box-builder', name: 'Family Box Builder', desc: 'One box per family member, with tiers and gifts.', date: '2026-10-27' },
   { to: '/explorations/mixed-bundle-builder-quiz-v2', name: 'No quiz v2', desc: 'No quiz, the builder opens with a green note.', date: '2026-10-25', group: 'mbb' },
   { to: '/explorations/mixed-bundle-builder-quiz-v1', name: 'Quiz v1', desc: 'One step quiz, then the builder.', date: '2026-10-25', group: 'mbb' },

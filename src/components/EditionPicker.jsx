@@ -11,9 +11,10 @@ export const EDITIONS = [
 
 // `editions`: the two cards of another product (the Multi page passes its own bottles); the default is the Toddlers' Probiotic
 // `sameSize`: the Sesame bottle is shown at the same size and place as the original one (for products whose two bottles have the same shape)
-export default function EditionPicker({ value, onChange, editions = EDITIONS, sameSize = false }) {
+// `duo`: the cards show a pair of bottles (the Starter Pack): both bottles whole and at the same size in the two cards
+export default function EditionPicker({ value, onChange, editions = EDITIONS, sameSize = false, duo = false }) {
   return (
-    <div className={`fd-edition${sameSize ? ' fd-edition--same' : ''}`} data-component="edition-picker">
+    <div className={`fd-edition${sameSize ? ' fd-edition--same' : ''}${duo ? ' fd-edition--duo' : ''}`} data-component="edition-picker">
       <h2 className="PBFCM-PDP-frequency-selector__title fd-edition__title">Choose The Edition</h2>
       <div className="fd-edition__grid" role="radiogroup" aria-label="Choose the edition">
         {editions.map((f) => {

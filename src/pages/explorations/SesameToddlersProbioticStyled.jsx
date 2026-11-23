@@ -9,7 +9,7 @@ import TempHero from '../../sections/TempHero.jsx';
 import Benefits from '../../sections/Benefits.jsx';
 import { TEMP_HERO_HOME, BENEFITS_HOME } from '../../data/sharedSections.js';
 import SesameFx from '../../sections/explorations/sesame/Fx.jsx';
-import StreetScroll from '../../sections/explorations/sesame/StreetScroll.jsx';
+import ParkScroll from '../../sections/explorations/sesame/ParkScroll.jsx';
 import Seam from '../../sections/explorations/sesame/Seam.jsx';
 import '../../sections/explorations/sesame/sesame.css';
 
@@ -54,8 +54,8 @@ const head = (sec, heading) => ({
 const custom = (id, render) => ({ id, type: 'custom', render });
 
 const SECTIONS = [
-  custom('ss-street', () => <StreetScroll />), // right under the buy box: the street scene that moves with the scroll and zooms into a window (StreetScroll.jsx)
-  custom('ss-street-seam', () => <Seam from={SKY} to="transparent" flip className="ss-seam--up" />), // the sky blue wave of the next section lies over the end of the picture of the inside, whatever that picture is (before, the wave was a flat color that clashed with it)
+  custom('ss-street2', () => <ParkScroll />), // right under the buy box: the street scene that moves with the scroll and zooms into a window (ParkScroll.jsx)
+  custom('ss-street2-seam', () => <Seam from={SKY} to="transparent" flip className="ss-seam--up" />), // the sky blue wave of the next section lies over the end of the picture of the inside, whatever that picture is (before, the wave was a flat color that clashed with it)
   head(tint('image_with_text_6Q3NK6', SKY, SKY, 'transparent', <OvKitchen />, '/assets/custom/ss-kitchen.jpg'), 'Potty Time Feeling Stuck? We Can Help, Neighbor!'),
   custom('ss-wholesome', () => <Wholesome friends={false} />),
   custom('ss-wave-join', () => <div className="ss-wave-join"><Waves position="top" color="#f2fbff" containerBackground="transparent" modern /></div>),

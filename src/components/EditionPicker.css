@@ -28,8 +28,14 @@
 
 /* sameSize (the Multi page): the Sesame bottle has the size and the place of the original one in its card, so the two cards compare like for like; Abby stays in the sky beside it (on phones, smaller and in the top right corner) */
 .fd-edition--same .fd-edition__card[data-id='sesame'] .fd-edition__media .fd-edition__bottle { width: 150%; left: 50%; --y: -31%; }
-.fd-edition--same .fd-edition__abby { right: 1%; top: 3%; bottom: auto; height: 27%; }
+.fd-edition--same .fd-edition__abby, .fd-edition--duo .fd-edition__abby { right: 1%; top: 3%; bottom: auto; height: 27%; }
 @media (min-width: 990px) {
   .fd-edition--same .fd-edition__card[data-id='sesame'] .fd-edition__media .fd-edition__bottle { width: 72%; left: 50%; --y: -35%; }
-  .fd-edition--same .fd-edition__abby { right: 4%; top: auto; bottom: 14%; height: 54%; }
+  .fd-edition--same .fd-edition__abby, .fd-edition--duo .fd-edition__abby { right: 4%; top: auto; bottom: 14%; height: 54%; }
 }
+
+/* duo (the Starter Pack): both bottles whole and at the same size and place in the two cards. The original picture is a square with a margin (the pair covers 90% x 80% of it, a bit left of the center), the Sesame one is cut tight to the pair:
+   so the original is drawn 110% of the card high and the Sesame one 88%, which makes the pair 88% of the card high in both */
+.fd-edition--duo .fd-edition__card .fd-edition__media .fd-edition__bottle { width: auto; left: 50%; top: 50%; }
+.fd-edition--duo .fd-edition__card[data-id='original'] .fd-edition__media .fd-edition__bottle { height: 110%; transform: translate(-45%, -53.1%); }
+.fd-edition--duo .fd-edition__card[data-id='sesame'] .fd-edition__media .fd-edition__bottle { height: 88%; transform: translate(-50%, -50%); }
