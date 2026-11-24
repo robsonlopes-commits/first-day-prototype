@@ -1,6 +1,6 @@
 /* The street scene section (StreetScroll.jsx): a tall runway with a sticky one screen stage. No shadows, only Sofia Pro, as everywhere on the Sesame pages. */
-.ss-street { position: relative; height: calc(var(--ss-street-runway, 5) * 100vh); height: calc(var(--ss-street-runway, 5) * 100svh); background: #7fd0f7; }
-.ss-street__stage { position: sticky; top: 0; height: 100vh; height: 100svh; overflow: hidden; background: #7fd0f7; contain: layout paint; }
+.ss-street { position: relative; height: calc(var(--ss-street-runway, 5) * 100vh); height: calc(var(--ss-street-runway, 5) * 100lvh); background: #7fd0f7; }
+.ss-street__stage { position: sticky; top: 0; height: 100vh; height: 100lvh; overflow: hidden; background: #7fd0f7; contain: layout paint; }
 .ss-street__layer { position: absolute; left: 0; top: 0; pointer-events: none; } /* sized and placed in px by the script, no will-change on purpose */
 .ss-street__layer img { display: block; width: 100%; height: 100%; max-width: none; user-select: none; -webkit-user-drag: none; }
 /* the inside of the house: clipped to the glass of the window by the script, cover fit, a placeholder picture for now */
@@ -78,3 +78,6 @@ body.ss-in-street .ss-mascot, body.ss-in-street .ss-tango { opacity: 0; visibili
 
 .ss-page .ss-street h2.ss-street__title { font-weight: 400 !important; } /* beats the page rule that makes every heading bold */
 .ss-page .ss-street h2.ss-street__title .ss-street__hl { font-weight: 700 !important; }
+
+/* the stage is as tall as the LARGEST viewport (lvh), so it never changes size when the browser bar of a phone shows or hides. The hint is lifted by the height of that bar so it is never under it. */
+.ss-street__hint { bottom: calc(28px + 100lvh - 100svh); }
